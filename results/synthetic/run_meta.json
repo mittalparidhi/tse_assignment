@@ -1,0 +1,13 @@
+{
+  "snapshot_sha256": "297bef114df2b08e51615b7fa18a6c44a7120f91b03e1c2ffda64ea644f0a313",
+  "synthetic": true,
+  "canonical_rows": 4800,
+  "base_inputs": 36,
+  "seeds": [
+    11,
+    23,
+    47
+  ],
+  "total_runs": 1080,
+  "elapsed_seconds": 91.85
+}

@@ -1,0 +1,26 @@
+{
+  "snapshot_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+  "synthetic": false,
+  "canonical_rows": 4578,
+  "base_inputs": 36,
+  "seeds": [
+    11,
+    23,
+    47
+  ],
+  "total_runs": 1188,
+  "elapsed_seconds": 2340.04,
+  "agent_mode": "LLM",
+  "llm": {
+    "model": "qwen2.5:3b-instruct-q4_K_M",
+    "backend": "ollama",
+    "model_tag_sha256": "d7f5d340f8953384",
+    "llm_calls": 14209,
+    "llm_cache_hits": 12329,
+    "llm_parse_retries": 1249,
+    "llm_fallbacks": 1242,
+    "llm_errors": 0,
+    "llm_fallback_rate": 0.0874,
+    "llm_seconds": 1641.74
+  }
+}

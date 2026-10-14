@@ -1,0 +1,12 @@
+mr_id,family,inputs_tested,selection_prompts_differ,criteria,review,critique,narrative
+I1,invariance,6,0,0,0,0,0
+I2,invariance,6,0,0,0,0,0
+I3,invariance,6,0,0,0,0,6
+I4,invariance,6,0,0,0,0,0
+I5,invariance,6,0,0,0,0,0
+M1,monotonic,6,6,0,6,12,0
+M2,monotonic,6,6,0,12,12,6
+M3,monotonic,6,0,0,0,0,0
+M1raw,monotonic,6,6,0,1,12,3
+D1,directional,6,6,0,15,12,6
+D2,directional,6,6,0,18,12,0
