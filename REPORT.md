@@ -460,7 +460,7 @@ relations that were most violated *before* those fixes — I4, I3 and M1 — are
 diagnosed too (§§8.5–8.6): their faults are real, were found by the relations,
 and their repair is what produced the current numbers.
 
-### 8.1 One measurement explains every LLM-mode violation
+### 8.1 One measurement bounds what the model can break
 
 The determinism probe returned **20/20 identical replies** at temperature 0
 with a fixed seed. So for a model agent, *identical prompt ⟹ identical
@@ -468,26 +468,44 @@ judgment*. Whether a relation can survive the LLM therefore reduces to a
 question with a yes/no answer: **does the transformation change any prompt that
 influences which listings are selected?**
 
-Measured directly, with no inference (`scripts/prompt_sensitivity.py`,
-6 base inputs):
+Measured directly, with no inference, over the whole catalogue
+(`scripts/prompt_sensitivity.py`, all 36 base inputs):
 
 | MR | selection prompts differ | review | critique | LLM post-fix rate |
 |----|--------------------------|--------|----------|-------------------|
-| I1 reorder | **0 / 6** | 0 | 0 | **0.000** |
-| I2 units | **0 / 6** | 0 | 0 | **0.000** |
-| I4 relabel | **0 / 6** | 0 | 0 | **0.000** |
-| I5 crore | **0 / 6** | 0 | 0 | **0.000** |
-| M3 subset | **0 / 6** | 0 | 0 | **0.000** |
-| M2 widen band | 6 / 6 | 12 | 12 | 0.111 |
-| M1 add ₹X | 6 / 6 | 6 | 12 | 0.333 |
-| D2 scale prices | 6 / 6 | 18 | 12 | 0.593 |
-| D1 window shift | 6 / 6 | 15 | 12 | 0.667 |
-| M1raw | 6 / 6 | 1 | 12 | 0.806 |
+| I1 reorder | **0 / 36** | 0 | 0 | **0.000** |
+| I4 relabel | **0 / 36** | 0 | 0 | **0.000** |
+| M3 subset | **0 / 36** | 0 | 0 | **0.000** |
+| I2 units | 2 / 36 | 0 | 4 | **0.000** |
+| I5 crore | 4 / 36 | 0 | 4 | **0.000** |
+| I3 duplicate | 19 / 36 | 27 | 0 | 0.176 |
+| M2 widen band | 36 / 36 | 88 | 72 | 0.111 |
+| M1 add ₹X | 36 / 36 | 37 | 72 | 0.333 |
+| D2 scale prices | 36 / 36 | 107 | 72 | 0.593 |
+| D1 window shift | 36 / 36 | 76 | 72 | 0.667 |
+| M1raw | 36 / 36 | 29 | 72 | 0.806 |
 
-**The correlation is exact.** Every relation whose selection prompts are
-invariant holds at 0.000; every relation whose prompts differ is violated. This
-is a deductive result, not a statistical one: given the determinism probe, the
-left-hand column *predicts* the right-hand one.
+**The implication runs one way, and only the deductive direction is sound.**
+Prompt invariance is *sufficient* for the relation to hold: I1, I4 and M3
+perturb no selection prompt on any of the 36 inputs, and all three sit at
+0.000. That is not a statistical finding but a proof — given the determinism
+probe, an identical prompt cannot yield a different judgment, so the relation
+*cannot* break through the model.
+
+**The converse is false**, and reading it as a biconditional is the error an
+earlier draft of this report made (AI_USE.md §3.12). I2 and I5 perturb a
+selection prompt on 2 and 4 inputs respectively and still hold at 0.000: a
+perturbed prompt only *enables* a violation, it does not cause one, because the
+perturbation still has to change a judgment that changes which listings are
+counted. The same asymmetry holds within a single relation — §8.5 reports it
+per-cell for I3, where 0 of 51 identical-prompt cells violated but only 19 of
+57 differing-prompt cells did. Nor is the relationship monotone: M2 perturbs
+every input yet scores 0.111, below I3's 0.176 on 19.
+
+The measurement is therefore a **bound**, not an explanation. It partitions the
+catalogue into relations the model provably cannot break and relations it
+*might*, and the rest of §8 does the work of finding out which of the latter it
+actually did.
 
 It also splits the violations into two kinds, which is what the rest of §8 is
 about:
@@ -612,11 +630,24 @@ displayed fields, so listings tied on (psf, price, area) kept their input order
 and reordering the rows *did* change the prompt. No tie happened to flip in
 those 108 runs. **108 passing runs is not the same as the property holding.**
 
-**I3's residual 0.176 is localised, not isolated.** The prompts still differ
-under duplication on exactly 6 of 36 base inputs, and the correlation with the
-failures is exact: base11/17/22/23/30/31 differ and failed; base00 and base05
-are identical and passed. The review batch comes out with fewer listings on the
-doubled frame for those inputs. Recorded as an open defect with a pinned
+**I3's residual 0.176 is localised, and prompt perturbation is necessary but
+not sufficient.** Comparing the selection prompts across all 36 base inputs
+under all three seeds (108 cells, no inference required) gives:
+
+| | not violated | violated |
+|-------------------|-------------:|---------:|
+| prompt identical  | 51 | **0** |
+| prompt differs    | 38 | 19 |
+
+The implication runs one way only. An identical prompt provably *cannot* break
+the relation — identical prompt plus temperature-0 decoding implies an
+identical judgment, per the 20/20 determinism probe of §4.4 — and indeed none
+of those 51 cells violated. A differing prompt breaks it in 19 of 57 cases
+(33%), so the perturbation is a necessary condition, not the whole mechanism.
+11 of 36 base inputs violated at least once: four on all three seeds
+(base22/23/30/31) and seven on one of three (base11/17/24/27/32/33/35). The
+review batch comes out with fewer listings on the doubled frame, but *which*
+perturbations bite is not isolated. Recorded as an open defect with a pinned
 failing test rather than papered over.
 
 ### 8.6 The deterministic faults, and M1's data artifact
@@ -792,7 +823,7 @@ projection, I5's lakh projection, M2/M3's relaxation-stable subdomain). "M1
 holds" means "M1 holds where no price band is in play"; excluded-case
 frequencies are reported, not hidden.
 
-**One open defect:** I3's residual 0.176, localised to 6 of 36 inputs, pinned
+**One open defect:** I3's residual 0.176, localised to 11 of 36 inputs, pinned
 by a deliberately failing test.
 
 **The synthetic snapshot is our own construction** — it validates the

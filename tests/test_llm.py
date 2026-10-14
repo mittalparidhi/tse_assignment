@@ -469,12 +469,16 @@ def test_critique_prompt_withholds_listing_counts(frame):
 
 @pytest.mark.xfail(
     reason="Known, localised, not fully isolated. The duplication relation fell "
-           "from 0.417 to 0.176 after the content-addressing fix; the residual "
-           "correlates perfectly with the review prompt still varying under "
-           "duplication on 6 of 36 base inputs (base11/17/22/23/30/31 differ "
-           "and failed on Kaggle; base00/base05 are identical and passed). The "
-           "review batch comes out with fewer listings on the doubled frame for "
-           "those inputs. Recorded as an open defect rather than papered over.",
+           "from 0.417 to 0.176 after the content-addressing fix. Over all 36 "
+           "base inputs x 3 seeds, a differing review prompt is NECESSARY but "
+           "not sufficient: 0 of the 51 identical-prompt cells violated, while "
+           "19 of the 57 differing-prompt cells did. 11 of 36 base inputs "
+           "violated on the shipped Kaggle sweep -- base22/23/30/31 on all "
+           "three seeds, base11/17/24/27/32/33/35 on one of three. The review "
+           "batch comes out with fewer listings on the doubled frame; which "
+           "perturbations bite is not isolated. The three inputs asserted below "
+           "are drawn from the always-failing group. Open defect, not papered "
+           "over. Evidence: results/diagnosis/i3_prompt_vs_violation.csv",
     strict=True,
 )
 def test_duplication_invariance_residual_on_specific_inputs(frame):
@@ -484,7 +488,7 @@ def test_duplication_invariance_residual_on_specific_inputs(frame):
     import numpy as np
     inputs = {c.label: c for c in generate_base_inputs(frame)}
     mr = BY_ID["I3"]
-    for label in ("base11", "base22", "base30"):
+    for label in ("base22", "base23", "base30"):
         prepared = mr.prepare(inputs[label])
         follow_frame, follow_criteria = mr.transform(
             frame, prepared, np.random.default_rng(11)

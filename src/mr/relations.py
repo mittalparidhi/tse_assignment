@@ -1,4 +1,4 @@
-"""The metamorphic relation catalogue. Nine relations, three families.
+"""The metamorphic relation catalogue. Eleven relations, three families.
 
 Each relation is a statement about ``TrendReport`` fields and nothing else
 (see ``src/contract.py``). A relation declares:

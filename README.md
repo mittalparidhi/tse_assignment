@@ -25,7 +25,7 @@ python scripts/run_harness.py --tag check      # deterministic, ~6 min
 ```
 
 That verifies the snapshot checksum, rebuilds the canonical frame, runs
-**10 relations × 36 base inputs × 3 seeds = 1,080 runs**, and writes the
+**11 relations × 36 base inputs × 3 seeds = 1,188 runs**, and writes the
 results table to `results/check/headline.txt`.
 
 Three configurations were swept, 1,188 checks each:

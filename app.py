@@ -265,7 +265,7 @@ with data_tab:
     st.markdown(
         "**The threat this snapshot carries.** It is a single-point scrape, "
         "so older months hold only listings still live on the scrape date. "
-        "97% of the window's listings fall in its last six months, and the "
+        "96.5% of the window's listings fall in its last six months, and the "
         "thin months' medians swing on 21-34 listings. That is why the report "
         "carries a per-month `adequate_depth` flag and why month-comparing "
         "relations are declared only over the sufficient subdomain."

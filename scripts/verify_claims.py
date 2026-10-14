@@ -26,11 +26,20 @@ import pandas as pd
 DOCS = ["DESIGN.md", "REPORT.md", "README.md", "NOTEBOOK.md", "AI_USE.md",
         "docs/DIAGNOSIS.md"]
 
+#: Quoted figures also appear in source files that the prose checks above do
+#: not read. A stale copy in the UI contradicts the report just as loudly as a
+#: stale copy in the report, so these are scanned too. (app.py carried "97%"
+#: against the derived 96.5%, and relations.py said "Nine relations" against
+#: the eleven it defines, both for several days.)
+SOURCES = ["app.py", "src/mr/relations.py", "src/contract.py",
+           "src/agents/nodes.py", "tests/test_llm.py", "README.md"]
+
 
 def main() -> int:
     from src.contract import MIN_SUFFICIENT_N
     from src.loading import load_canonical, verify_snapshot
     from src.mr.base_inputs import generate_base_inputs
+    from src.mr.relations import ALL_RELATIONS
     from src.mr.harness import SEEDS
     from src.mr.relations import ALL_RELATIONS
 
@@ -92,6 +101,33 @@ def main() -> int:
         checks.append((f"{mr} LLM pre-fix",  round(pre.loc[mr,"violation_rate"],3), p))
         checks.append((f"{mr} LLM post-fix", round(summary.loc[mr,"violation_rate"],3), q))
 
+    # I3's residual: the 2x2 of prompt difference against actual violation,
+    # quoted in REPORT §8.5 and DIAGNOSIS. An earlier draft claimed the
+    # correlation was "exact"; this asserts the real, one-directional shape so
+    # the claim cannot drift from the evidence again.
+    i3 = Path("results/diagnosis/i3_prompt_vs_violation.csv")
+    checks.append(("I3 prompt/violation evidence retained", i3.exists(), True))
+    if i3.exists():
+        c = pd.read_csv(i3)
+        same = c[~c.prompt_differs]
+        diff = c[c.prompt_differs]
+        checks.append(("I3 cells compared", len(c), 108))
+        checks.append(("I3 identical-prompt cells", len(same), 51))
+        checks.append(("I3 violations when prompt identical",
+                       int(same.violated.sum()), 0))
+        checks.append(("I3 differing-prompt cells", len(diff), 57))
+        checks.append(("I3 violations when prompt differs",
+                       int(diff.violated.sum()), 19))
+        per = c.groupby("base_input").violated.sum()
+        checks.append(("I3 base inputs violating", int(per.gt(0).sum()), 11))
+        checks.append(("I3 base inputs failing on all 3 seeds",
+                       sorted(per[per == 3].index.tolist()),
+                       ["base22", "base23", "base30", "base31"]))
+        checks.append(("I3 base inputs failing on 1 of 3 seeds",
+                       sorted(per[per == 1].index.tolist()),
+                       ["base11", "base17", "base24", "base27",
+                        "base32", "base33", "base35"]))
+
     # Threshold sensitivity, the headline caveat.
     at50 = sens[sens.min_sufficient_n == 50].headline_pct.iloc[0]
     checks.append(("headline at n>=50 %", round(at50, 2), -6.41))
@@ -135,6 +171,31 @@ def main() -> int:
     print("Mumbai/Kolkata, CDLA-Sharing-1.0). The slug is misleading; the")
     print("dataset the brief recommends covers Gurgaon only. Not re-checked")
     print("here because it needs network access -- see data/raw/Readme.md.")
+
+    # Figures quoted inside source files, which the prose scan does not read.
+    print("\nFigures quoted in source files:")
+    six = round(len(last6) / len(inw) * 100, 1)
+    n_rel = len(ALL_RELATIONS)
+    words = {9: "Nine", 10: "Ten", 11: "Eleven", 12: "Twelve"}
+    patterns = [
+        (re.compile(r"(\d{2}(?:\.\d)?)% of the window"),
+         f"{six}", "final six months share"),
+        (re.compile(r"^\"\"\"The metamorphic relation catalogue\. (\w+) relations",
+                    re.M), words.get(n_rel, "?"), "relation count in words"),
+        (re.compile(r"\*\*(\d+) relations \u00d7 36 base inputs"),
+         str(n_rel), "relation count in the repro command"),
+        (re.compile(r"36 base inputs \u00d7 3 seeds = ([\d,]+) runs"),
+         f"{n_rel * 36 * 3:,}", "runs per sweep"),
+    ]
+    for src in SOURCES:
+        text = Path(src).read_text()
+        for rx, want, label in patterns:
+            for got in rx.findall(text):
+                ok = got == want
+                print(f"  {src:<22}{label:<28}{got!r} "
+                      f"{'ok' if ok else 'STALE, want ' + want!r}")
+                if not ok:
+                    failures.append((f"{src} {label}", got, want))
 
     # Cross-document consistency: no stale agent names anywhere.
     stale = re.compile(r"ScanAgent|AnomalySentinel|CriteriaPlanner|TrendAggregator"

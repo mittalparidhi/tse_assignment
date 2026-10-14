@@ -194,6 +194,50 @@ introduced a false citation.
 **Caught by** checking the sources instead of reasoning from a name — the same
 failure mode as §3.9, one step further out.
 
+### 3.12 A sample size written up as a finding
+
+REPORT.md §8.5 stated that under duplication "the prompts still differ on
+exactly **6 of 36** base inputs, and the correlation with the failures is
+**exact**", naming base11/17/22/23/30/31. Both halves were false, and the two
+errors had different origins.
+
+The **6** was the *sample size*: `scripts/prompt_sensitivity.py` defaulted to
+`generate_base_inputs(frame)[:6]`, so only base00–base05 were ever compared —
+and for I3 that sample recorded *zero* prompt differences. The figure 6 was
+lifted from the `inputs_tested` column and presented as though it were the
+result. The named list came from the violation table of an earlier sweep, not
+from any prompt comparison at all; the two were spliced into one sentence that
+asserted a relationship neither had measured.
+
+The word **"exact"** was the more serious error, because it claimed a
+biconditional. Re-running the comparison over all 36 base inputs under all
+three seeds — 108 cells — gives:
+
+| | not violated | violated |
+|-------------------|-------------:|---------:|
+| prompt identical  | 51 | **0** |
+| prompt differs    | 38 | 19 |
+
+The necessary direction holds perfectly and deductively. The sufficient
+direction fails in 38 of 57 cases. The true claim is weaker than the one
+published, but it is also a better finding: it accounts for the seed pattern
+(four base inputs failing on 3/3 seeds, seven on 1/3) that an exact correlation
+could not explain.
+
+**Caught by** a reader asking whether the Relations tab reports per-criteria or
+whole-system results. Checking that led to the per-base-input breakdown, where
+11 violating base inputs contradicted the published 6. The headline rate
+(0.176) was never wrong, and `verify_claims.py` had been checking it — which is
+why the error survived: the verifier asserted the *rate* but nothing about the
+*localisation*, so a false mechanism sat behind a true number. It now asserts
+the full 2x2 and both seed groups, and the script defaults to the whole
+catalogue.
+
+**Lesson recorded.** A number copied out of a results table inherits the
+scope of the run that produced it, not the scope of the sentence it is dropped
+into. This is the second instance of the same failure mode as §3.9 and §3.11:
+asserting something about an artefact without reading the artefact.
+
 ## 5. Human responsibility
 
 The authors reviewed all code and all numerical claims. Errors that remain are
