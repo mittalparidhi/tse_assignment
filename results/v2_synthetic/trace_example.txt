@@ -1,20 +1,13 @@
-  1. CriteriaAgent     action=planned (deterministic)  query_mode=EXACT_LOCALITY  filter_spec={'window_end': '2023-08', 'bhk': [3], 'localities': ['Gachibowli'], 'property_types': None, 'price_min_inr': None, 'price_max_inr': None, 'currency_unit': 'INR', 'area_unit': 'SQFT', 'query_mode': 'EXACT_LOCALITY', 'center_lat': None, 'center_lon': None, 'radius_km': None, 'label': 'trace-demo'}
+  1. CriteriaAgent     action=planned (deterministic)  query_mode=EXACT_LOCALITY  filter_spec={'window_end': '2023-08', 'bhk': [3], 'localities': ['Gachibowli'], 'cities': None, 'property_types': None, 'price_min_inr': None, 'price_max_inr': None, 'currency_unit': 'INR', 'area_unit': 'SQFT', 'query_mode': 'EXACT_LOCALITY', 'center_lat': None, 'center_lon': None, 'radius_km': None, 'label': 'trace-demo'}
   2. RetrievalDispatch agents=4  query_mode=EXACT_LOCALITY  round=0
-  3. RetrievalAgent[0] query_mode=EXACT_LOCALITY  retrieved=85  retry_round=0
-  4. RetrievalAgent[1] query_mode=EXACT_LOCALITY  retrieved=99  retry_round=0
-  5. RetrievalAgent[3] query_mode=EXACT_LOCALITY  retrieved=106  retry_round=0
-  6. RetrievalAgent[2] query_mode=EXACT_LOCALITY  retrieved=95  retry_round=0
+  3. RetrievalAgent[2] query_mode=EXACT_LOCALITY  retrieved=95  retry_round=0
+  4. RetrievalAgent[0] query_mode=EXACT_LOCALITY  retrieved=85  retry_round=0
+  5. RetrievalAgent[1] query_mode=EXACT_LOCALITY  retrieved=99  retry_round=0
+  6. RetrievalAgent[3] query_mode=EXACT_LOCALITY  retrieved=106  retry_round=0
   7. RetrievalMerge    agents=4  round=0  listings=385  excluded_no_coordinate=0
-  8. CoverageAgent     coverage_score=0.0  target=0.5  sufficient_months=0  geographic_spread=1  verdict=INSUFFICIENT  decision=WIDEN and re-retrieve (cycle 1)  relaxation=BHK [3] -> [2, 3, 4]
-  9. RetrievalDispatch agents=4  query_mode=EXACT_LOCALITY  round=1
- 10. RetrievalAgent[3] query_mode=EXACT_LOCALITY  retrieved=219  retry_round=1
- 11. RetrievalAgent[1] query_mode=EXACT_LOCALITY  retrieved=179  retry_round=1
- 12. RetrievalAgent[2] query_mode=EXACT_LOCALITY  retrieved=190  retry_round=1
- 13. RetrievalAgent[0] query_mode=EXACT_LOCALITY  retrieved=175  retry_round=1
- 14. RetrievalMerge    agents=4  round=1  listings=763  excluded_no_coordinate=0
- 15. CoverageAgent     coverage_score=1.0  target=0.5  sufficient_months=12  geographic_spread=1  verdict=SUFFICIENT  decision=PROCEED  relaxation=None
- 16. AnalysisAgent     mode=full  listings=763  recomputed_months=[]  rejected_this_pass=0  sufficient_months=12  move_pct=6.26
- 17. CritiqueAgent     flagged=['2022-09', '2022-12', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08']  new_flags=['2022-09', '2022-12', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08']  verdict=REJECTED  decision=REJECT -> recompute flagged months (cycle 2)  critique_round=0  reason=None
- 18. AnalysisAgent     mode=targeted recomputation  listings=747  recomputed_months=['2022-09', '2022-12', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08']  rejected_this_pass=16  sufficient_months=12  move_pct=6.98
- 19. CritiqueAgent     flagged=[]  new_flags=[]  verdict=APPROVED  decision=APPROVE  critique_round=1  reason=None
- 20. AggregatorAgent   chars=539  coverage_score=1.0  llm_calls=None  llm_fallback_rate=None
+  8. CoverageAgent     coverage_score=0.6667  target=0.5  covered_months=8  attainable_months=12  geographic_spread=1  verdict=ACCEPT  decision=PROCEED  relaxation=None
+  9. AnalysisAgent     mode=full  listings=385  recomputed_months=[]  rejected_this_pass=0  sufficient_months=0  move_pct=None
+ 10. CritiqueAgent     flagged=['2022-09', '2022-12', '2023-03', '2023-04', '2023-06', '2023-07', '2023-08']  new_flags=['2022-09', '2022-12', '2023-03', '2023-04', '2023-06', '2023-07', '2023-08']  verdict=REJECTED  decision=REJECT -> recompute flagged months (cycle 2)  critique_round=0  reason=None
+ 11. AnalysisAgent     mode=targeted recomputation  listings=385  recomputed_months=['2022-09', '2022-12', '2023-03', '2023-04', '2023-06', '2023-07', '2023-08']  rejected_this_pass=8  sufficient_months=0  move_pct=None
+ 12. CritiqueAgent     flagged=['2023-06']  new_flags=[]  verdict=APPROVED  decision=APPROVE  critique_round=1  reason=None
+ 13. AggregatorAgent   chars=522  coverage_score=0.6667  llm_calls=None  llm_fallback_rate=None

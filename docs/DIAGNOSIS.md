@@ -612,10 +612,12 @@ relation able to fail.
 
 ### M1 in v2: same mechanism, measured directly
 
-M1 is 0.167 (12/72) after the fix. Every v2 run records the listings cycle 2
-rejected in source and follow-up: all 12 violating bases changed that count,
-and no base violated with it unchanged. `diagnose.py` on v2 (12 inputs × 2
-seeds) gives M1 **0.333 with cycle 2 on and 0.000 with it off**. Finding 5's
+M1 is 0.167 (12/72) after the fix and **0.194 (14/72)** after the
+design-note alignment (`results/v2_deterministic/`; the earlier sweep is
+`results/v2_before_note_alignment/`). Every v2 run records the listings cycle 2
+rejected in source and follow-up: in both sweeps every violating base changed
+that count (12/12, then 14/14), and no base violated with it unchanged.
+`diagnose.py` on v2 before the alignment (12 inputs × 2 seeds) gives M1 **0.333 with cycle 2 on and 0.000 with it off**. Finding 5's
 verdict stands: **data artifact** of the relative outlier filter.
 
 ### Finding 1 replicated on v2

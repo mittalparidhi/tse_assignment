@@ -4,9 +4,9 @@
 Market: Hyderabad / Secunderabad (the brief's optional Indian-metro route)
 
 **How to read the results.** Two generations of results appear. The
-**contract-v2 sweep** (`contracts/CONTRACT.md` v2.0.0-draft; §7.1) is the
+**contract-v2 sweep** (`contracts/CONTRACT.md` v2.1.0-draft, aligned with the team's design note; §7.1) is the
 headline: it is deterministic, reproducible with one command, and uses the
-final population (4,574 listings), twelve relations, 72 base inputs and
+final population (4,975 sale listings, 4,574 with a usable price), twelve relations, 72 base inputs and
 intervals over base inputs. The **earlier sweeps** (§7.3) — one deterministic,
 two with a local model — were run before the two team implementations were
 merged; they are kept because §8's diagnosis of the model-driven violations
@@ -266,17 +266,19 @@ agents — a property that did **not** hold before §8.1's fix.
 ### 4.3 Why the loops are necessary rather than decorative
 
 **Cycle 1 is forced by the data.** "3 BHK in Gachibowli over twelve months"
-matches 111 listings, of which **one month** reaches the sufficiency threshold.
+matches 120 listings, of which only **two months** have the 30 usable listings
+that count a month as covered.
 Without the loop the system returns mostly empty months, or silently
 over-broadens and answers a different question. The loop makes an unanswerable
 query answerable **while recording which constraint it relaxed** — information
-the user needs to read the number at all. Measured: coverage goes **0.083 →
-0.167 → 0.250** as BHK widens to 2–4 and Gachibowli gains its 15 nearest
-localities (111 → 226 → 649 listings). A linear pipeline cannot do this: the
+the user needs to read the number at all. Measured: coverage goes **0.167 →
+0.250 → 0.333** as Gachibowli gains its 15 nearest localities and then BHK
+widens to 2–4 (120 → 432 → 696 listings, 632 with a usable price). A linear pipeline cannot do this: the
 decision to widen depends on an aggregate that exists only after retrieval.
 
-The loop now stops below the 0.5 target with its levers exhausted, and that is
-deliberate. Before the merge the geography lever *dropped* the locality filter,
+The loop stops below the 0.5 target after its two retries and reports
+**LIMITED** coverage (4 covered months; the whole snapshot could cover at most 7
+for this query), and that is deliberate. Before the merge the geography lever *dropped* the locality filter,
 so this query reached 0.5 by answering for the whole metro (4,141 listings) —
 a different question — and every harness run collapsed the same way, which
 made the locality-subset relation M3 untestable (§8.0).
@@ -303,16 +305,16 @@ Abridged from `results/v2_deterministic/trace_example.txt` ("3 BHK in
 Gachibowli", seed 7):
 
 ```
- 7. RetrievalMerge   agents=4  round=0  listings=111
- 8. CoverageAgent    coverage=0.0833  decision=WIDEN and re-retrieve (cycle 1)   BHK [3] -> [2, 3, 4]
-14. RetrievalMerge   agents=4  round=1  listings=226
-15. CoverageAgent    coverage=0.1667  decision=WIDEN and re-retrieve (cycle 1)   + 15 neighbouring localities
-21. RetrievalMerge   agents=4  round=2  listings=649
-22. CoverageAgent    coverage=0.25    verdict=INSUFFICIENT  decision=PROCEED (levers exhausted)
-23. AnalysisAgent    mode=full  listings=649  move_pct=-4.45
-24. CritiqueAgent    flagged 5 months  decision=REJECT -> recompute flagged months (cycle 2)
-25. AnalysisAgent    mode=targeted recomputation  rejected=17  listings=632
-26. CritiqueAgent    flagged 2 months, none new  decision=APPROVE
+ 7. RetrievalMerge   agents=4  round=0  listings=120
+ 8. CoverageAgent    coverage=0.1667  covered=2 of 7 attainable  verdict=RETRY    + 15 neighbouring localities (cycle 1)
+14. RetrievalMerge   agents=4  round=1  listings=432
+15. CoverageAgent    coverage=0.25    covered=3 of 7             verdict=RETRY    BHK [3] -> [2, 3, 4] (cycle 1)
+21. RetrievalMerge   agents=4  round=2  listings=696
+22. CoverageAgent    coverage=0.3333  covered=4 of 7             verdict=LIMITED  decision=PROCEED
+23. AnalysisAgent    mode=full  listings=696  move_pct=-4.45
+24. CritiqueAgent    flagged 5 months  verdict=REJECTED -> recompute flagged months (cycle 2)
+25. AnalysisAgent    mode=targeted recomputation  rejected=17  move_pct=-0.70
+26. CritiqueAgent    flagged 2 months, none new  verdict=APPROVED
 ```
 
 Cycle 1 fires twice, cycle 2 once, and the answer changes materially at step
@@ -495,39 +497,50 @@ interval of width 0.012 over 14,209 calls.
 ### 7.1 Headline: the contract-v2 deterministic sweep
 
 Rebuilt by `python scripts/headline_table.py --v2` from
-`results/v2_deterministic/`; the column *before M3 fix* is
-`results/v2_before_m3fix/`, the same sweep before geography widening preserved
-inclusion. Unit = base input.
+`results/v2_deterministic/`; the column *before alignment* is
+`results/v2_before_note_alignment/`, the same harness before the design-note
+alignment of §4.5 (M3 fix already in place). Unit = base input. The base
+inputs are regenerated from the frame, and locality depth now counts all
+4,975 listings, so 9 of the 36 locality inputs take Nallagandla instead of
+Puppalaguda as their fourth locality and 9 more list the same set in another
+order; the 36 radius inputs are unchanged.
 
-| MR | Family | Bases | Before M3 fix | **Rate** | 95% CI | Stable-path rate |
+| MR | Family | Bases | Before alignment | **Rate** | 95% CI | Stable-path rate |
 |----|--------|------:|--------------:|---------:|--------|------------------|
 | I1–I5 | invariance | 72 | 0.000 | **0.000** | [0.000, 0.051] | 0.000 |
-| M1 | monotonic | 72 | 0.181 | **0.167** | [0.098, 0.269] | 0.167 |
-| M2 | monotonic | 72 | 0.028 | **0.000** | [0.000, 0.051] | 0.000 |
-| M3 | monotonic | 36 | 0.250 | **0.000** | [0.000, 0.096] | 0.000 |
+| M1 | monotonic | 72 | 0.167 | **0.194** | [0.120, 0.300] | 0.194 |
+| M2 | monotonic | 72 | 0.000 | **0.000** | [0.000, 0.051] | 0.000 |
+| M3 | monotonic | 36 | 0.000 | **0.000** | [0.000, 0.096] | 0.000 |
 | M4 | monotonic | 36 | 0.000 | **0.000** | [0.000, 0.096] | 0.000 |
-| M1raw | monotonic | 72 | 0.583 | **0.542** | [0.427, 0.652] | 0.542 |
+| M1raw | monotonic | 71 | 0.542 | **0.718** | [0.605, 0.810] | 0.718 |
 | D1 | directional | 72 | 0.000 | **0.000** | [0.000, 0.051] | 0.000 |
 | D2 | directional | 72 | 0.000 | **0.000** | [0.000, 0.051] | 0.000 |
 
 2,592 runs, seeds `[11, 23, 47]`; seeds disagreed on **no** base input; the
-cycle-1 path diverged in 27 runs (30 before the fix). The synthetic control
-(`results/v2_synthetic/`, locality inputs only) gives I3 0.167, M2 0.056 and
-M3 0.139, **all 0.000 on the control-path-stable subdomain** — the design
-tension of §8.7, not a statistics fault; M1raw 0.722.
+cycle-1 path diverged in 42 runs (27 before alignment): M3 24, M2 9, M4 6,
+D1 3. M1raw has 71 bases: `base10` (2 BHK, ₹1–6 crore, window to 2023-04)
+has no listing inside its window once the band is kept, so there is no month
+to shift; M1 runs on the band-free projection and keeps all 72. The synthetic
+control (`results/v2_synthetic/`, locality inputs only) gives M2 0.028 and
+M3 0.111, **both 0.000 on the control-path-stable subdomain** — every
+violating run diverged; the design tension of §8.7, not a statistics fault.
+I3 is 0.000 there (0.167 before alignment): its control path no longer
+diverges. M1raw 0.722.
 
 **Reading it.** Every invariance and directional relation holds. M1raw fails by
-design (§8.2). M1's residual is the outlier-filter interaction (§8.0). M3's
+design (§8.2), more often than before alignment (§8.0). M1's residual is the
+outlier-filter interaction (§8.0). M3's
 failures before the fix were a genuine design fault, found and removed (§8.0).
 
 ### 7.2 Run metadata (v2)
 
-| | v2 deterministic | v2 before M3 fix | v2 synthetic |
+| | v2 deterministic | v2 before alignment | v2 synthetic |
 |---|---|---|---|
 | runs | 2,592 | 2,592 | 1,296 |
 | base inputs | 72 | 72 | 36 |
-| elapsed (s, Windows) | 1,473 | 2,945 | 607 |
-| C1 path diverged (runs) | 27 | 30 | 93 |
+| elapsed (s, Windows) | 1,037 | 1,473 | 172 |
+| C1 path diverged (runs) | 42 | 27 | 69 |
+| coverage verdict | all 72 LIMITED | — | — |
 
 ### 7.3 Pre-v2 sweeps: three configurations
 
@@ -602,7 +615,7 @@ of: a genuine agent fault, a data artifact, an ill-conceived MR, or a harness
 bug. All four occur.
 
 **The three most-violated relations in the contract-v2 sweep** are **M1raw
-(0.542)**, **M3 (0.250 before its fix)** and **M1 (0.167)**, diagnosed in §8.0
+(0.718)**, **M3 (0.250 before its fix)** and **M1 (0.194)**, diagnosed in §8.0
 (M1raw's diagnosis, §8.2, is unchanged). §§8.1–8.8 diagnose the pre-v2 sweeps,
 whose most-violated relations under the local model were **M1raw (0.806)**,
 **D1 (0.667)** and **D2 (0.593)**, and the faults found before those —
@@ -635,8 +648,8 @@ for clustered selections (one input fell from 105 to 60 listings).
 **Verdict: genuine agent fault** — and one that only became visible because an
 earlier change made the relation able to fail.
 
-**M1, 0.167 — the outlier filter is not shift-invariant.** All 12 violating
-base inputs are ones where cycle 2 rejected a different number of listings in
+**M1, 0.194 — the outlier filter is not shift-invariant.** All 14 violating
+base inputs (12 of 12 before the alignment) are ones where cycle 2 rejected a different number of listings in
 the follow-up run than in the source; on no base input did M1 fail with the
 rejected count unchanged. Adding ₹5 lakh to every price in a month changes
 ₹/sqft by a different amount per listing (₹1,000 at 500 sq ft, ₹100 at
@@ -648,8 +661,17 @@ statistics; it fails through an outlier filter whose verdict depends on where
 real listings sit relative to a relative threshold, and on clean synthetic data
 M1 is 0.000.
 
-**M1raw, 0.542** — unchanged diagnosis (§8.2): the band is applied after the
-shift, so the follow-up selects a different population.
+Of the 14, 13 surface in `median_listing_price_inr` and one in
+`price_valid_count`, because a rejected listing no longer counts as having a
+usable price.
+
+**M1raw, 0.718 (0.542 before alignment)** — unchanged diagnosis (§8.2): the
+band is applied after the shift, so the follow-up selects a different
+population. The rise is not caused by the changed base inputs: on the 63
+inputs common to both sweeps it went from 35 to 44 violating bases. It comes
+with the alignment's rule changes — the range-overlap band, the 30-listing
+coverage threshold and the new lever order — which change the populations
+compared; those were not attributed separately.
 
 ### 8.0.1 Pre-v2 findings
 
@@ -932,8 +954,8 @@ code it tests.
 | Finding | Rate | Cause | Category |
 |---------|------|-------|----------|
 | **M3** (v2) | **0.250 → 0.000** | geography widening around a shared centre broke set inclusion | **genuine agent fault**, fixed |
-| **M1** (v2) | **0.167** | relative outlier threshold moves under a price shift | **data artifact** |
-| **M1raw** (v2) | **0.542** | band applied after the shift changes the population | **ill-conceived MR** |
+| **M1** (v2) | **0.194** | relative outlier threshold moves under a price shift | **data artifact** |
+| **M1raw** (v2) | **0.718** | band applied after the shift changes the population | **ill-conceived MR** |
 | M3 (pre-v2) | 0.000 | could not fail: widening collapsed every run to the whole metro | **harness/design blind spot** |
 | **M1raw** | **0.806** | band applied after the shift changes the population | **ill-conceived MR** |
 | **D1** | **0.667** | window shift changes the judge's own input | **ill-conceived MR for this architecture** |
@@ -1145,15 +1167,16 @@ python scripts/run_harness.py --tag v2_synthetic --synthetic   # synthetic contr
 python scripts/run_harness.py --tag v2_llm --llm               # needs Ollama + the model
 python scripts/diagnose.py                                     # §8.6 replication
 python scripts/threshold_sensitivity.py                        # §9 table
-python -m pytest                                               # 139 tests, 1 xfail
+python -m pytest                                               # 148 tests, 1 xfail
 python scripts/verify_claims.py                                # re-derive the quoted figures
 ```
 
 Contract-v2 result sets: `results/v2_deterministic/`,
-`results/v2_before_m3fix/`, `results/v2_synthetic/`, `results/v2_diagnosis/`,
+`results/v2_before_note_alignment/`, `results/v2_before_m3fix/`,
+`results/v2_synthetic/`, `results/v2_diagnosis/`,
 `results/v2_sensitivity/`. Pre-v2: `results/phaseA_deterministic/`,
 `results/llm_before_promptfix/`, `results/llm/`, `results/synthetic/`,
 `results/diagnosis/`, `results/sensitivity/`. Shipped artifacts: the frozen
 snapshot and its checksum, the recorded seeds `[11, 23, 47]`, and the response
 cache in `data/llm_cache/`, which lets the pre-v2 LLM sweep replay without a
-GPU. Contracts for every agent are in `contracts/` (v2.0.0-draft).
+GPU. Contracts for every agent are in `contracts/` (v2.1.0-draft).

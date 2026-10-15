@@ -39,24 +39,28 @@ is violated if any seed violates):
 ```
 MR     family       bases  viol   rate    95% CI           stable-path rate
 I1-I5  invariance     72     0   0.000   [0.000, 0.051]    0.000
-M1     monotonic      72    12   0.167   [0.098, 0.269]    0.167
+M1     monotonic      72    14   0.194   [0.120, 0.300]    0.194
 M2     monotonic      72     0   0.000   [0.000, 0.051]    0.000
 M3     monotonic      36     0   0.000   [0.000, 0.096]    0.000
 M4     monotonic      36     0   0.000   [0.000, 0.096]    0.000
-M1raw  monotonic      72    39   0.542   [0.427, 0.652]    0.542
+M1raw  monotonic      71    51   0.718   [0.605, 0.810]    0.718
 D1     directional    72     0   0.000   [0.000, 0.051]    0.000
 D2     directional    72     0   0.000   [0.000, 0.051]    0.000
 
-seeds [11, 23, 47] · seeds disagreed on 0 base inputs · C1 path diverged in 27/2,592 runs
+seeds [11, 23, 47] · seeds disagreed on 0 base inputs · C1 path diverged in 42/2,592 runs
 ```
 
 **`M1raw` is meant to fail** — the documented unsound relation. **M1**
-violates only when the follow-up run's cycle-2 rejected set differs (12/12):
+violates only when the follow-up run's cycle-2 rejected set differs (14/14):
 the relative outlier filter is not shift-invariant. **M3 found a genuine
 design fault** — geography widening around the selection's shared centre
 broke locality-set inclusion (9/36 bases, M2 2/72; kept in
 `results/v2_before_m3fix/`). Widening is now per locality and preserves
-inclusion; M3 and M2 are 0 (`NOTEBOOK.md` Stages 17–18).
+inclusion; M3 and M2 are 0 (`NOTEBOOK.md` Stages 17–18). These are the
+numbers after aligning with the team's design note (contract v2.1); the sweep
+before it is kept in `results/v2_before_note_alignment/` (M1 0.167, M1raw
+0.542, all else 0) and every deviation from the note is listed in
+`contracts/CONTRACT.md` §13 (`NOTEBOOK.md` Stage 20).
 
 The earlier sweeps (`results/phaseA_deterministic`, `llm_before_promptfix`,
 `llm`; 11 relations × 36 inputs, per-run intervals, the pre-v2 population)

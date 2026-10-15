@@ -619,6 +619,44 @@ synthetic snapshot has no coordinates, so geography widening never applies.
 REPORT.md, DESIGN.md, docs/DIAGNOSIS.md (Finding 10) and AI_USE.md (§5) were
 updated to these numbers; pre-v2 figures are kept and labelled as such.
 
+## Stage 20 — Aligning with the design note and re-running (2026-10-15)
+
+The team's design note (*TSE – Agent Architecture, Hyderabad Refined*) was
+adopted as contract v2.1.0-draft: the five-field monthly contract
+(`listing_count`, `price_valid_count`, midpoint listing price, ₹/sqft,
+`coverage_status`), 30-listing coverage with ACCEPT / RETRY / LIMITED, two
+retries in the order geography → BHK → price band, coherence checks and
+NEEDS_REVIEW in the critique, city and locality-ID filters, the range-overlap
+band. Ten deviations are kept and argued in `contracts/CONTRACT.md` §13. The
+sweep before the change is `results/v2_before_note_alignment/`.
+
+**Before / after** (2,592 runs each; unit = base input):
+
+```
+MR     before          after
+M1    12/72  0.167    14/72  0.194     all 14 changed cycle 2's rejected count
+M1raw 39/72  0.542    51/71  0.718     (fails by design; base10 has no window month)
+all other relations 0 before and after; seeds disagreed on 0 bases;
+C1 path diverged in 27 -> 42 runs; all 72 base inputs end LIMITED
+```
+
+- **The base inputs moved.** Locality depth now counts all 4,975 listings, not
+  the 4,574 price-valid ones, so 9 locality inputs take Nallagandla instead of
+  Puppalaguda and 9 reorder the same set. This was found only because M1raw
+  dropped to 71 bases: `base10` keeps 45 listings, none in its window.
+- **M1raw's rise is not that change**: on the 63 common inputs it went 35 → 44.
+  It comes with the new band, threshold and lever order; not attributed further.
+- **M1's two new bases** (`base21`, `rad15`) both changed the rejected count;
+  none disappeared. One violation is in `price_valid_count`, because a rejected
+  listing stops counting as price-valid.
+- **Demo query** ("3 BHK in Gachibowli", seed 7): geography first now, coverage
+  0.167 → 0.25 → 0.333, LIMITED; 696 listings, 632 price-valid; cycle 2 still
+  rejects 17 and moves −4.45% → −0.70%.
+- **Synthetic**: M2 1/36, M3 4/36, all on diverged runs (0 on the stable
+  subdomain); I3 now 0 (was 0.167) because its path no longer diverges;
+  M1raw 26/36.
+- Runtime 1,037 s deterministic, 172 s synthetic (Windows).
+
 ## Threats to validity (carried into the report)
 
 1. **Single-point scrape.** The series is survivorship-biased: older months
