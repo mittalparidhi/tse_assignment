@@ -1,0 +1,13 @@
+base_input,shift_month,band_min_lakh,band_max_lakh,n_before,n_after,left_the_band,entered_the_band,population_changed
+base00,2023-03,40.0,150.0,2,1,1,0,True
+base01,2023-03,80.0,400.0,15,16,0,1,True
+base02,2023-02,50.0,200.0,1,1,0,0,False
+base03,2022-05,40.0,150.0,1,1,0,0,False
+base04,2023-03,100.0,600.0,3,3,0,0,False
+base05,2023-03,50.0,200.0,11,11,0,0,False
+base06,2023-03,40.0,150.0,2,2,0,0,False
+base07,2023-03,100.0,600.0,7,7,0,0,False
+base08,2023-04,80.0,400.0,7,7,0,0,False
+base09,2023-04,40.0,150.0,15,14,1,0,True
+base10,2023-04,100.0,600.0,3,4,0,1,True
+base11,2023-04,80.0,400.0,10,10,0,0,False

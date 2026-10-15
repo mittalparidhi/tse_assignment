@@ -16,8 +16,9 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# the contract-v2 results table, rebuilt from the committed records (instant)
-python scripts/headline_table.py --v2
+# the contract-v2 results table, rebuilt from the committed records (instant);
+# --check also verifies every rate and interval bound appears in REPORT.md
+python scripts/headline_table.py --v2 --check
 
 # the earlier published three-configuration table, and a check that every
 # rate in it appears in REPORT.md

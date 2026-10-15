@@ -2,6 +2,9 @@
 
 **Target market:** Hyderabad / Secunderabad (the brief's optional Indian-metro route)
 **Deliverable stage:** design note (architecture + data source + MR sketches)
+**Updated for contract v2.0.0-draft** after the two team implementations were
+merged. The binding specification is `contracts/` (one contract per agent);
+`contracts/CONTRACT.md` §11 lists every change from the first design and why.
 
 ---
 
@@ -93,7 +96,7 @@ until "the trend" is a named, finite set of numbers. Defined in
 | Field | Meaning |
 |---|---|
 | `window_months` | exactly 12 months, ascending |
-| `monthly[]` | per month: `n_active`, `median_psf`, `median_price`, `p25_psf`, `p75_psf`, `median_age_on_site_days`, `month_is_sufficient` |
+| `monthly[]` | per month: `n_active`, `median_psf`, `median_min_price_inr`, `median_max_price_inr`, `p25_psf`, `p75_psf`, `median_age_on_site_days`, `month_is_sufficient`, `is_partial_month` |
 | `locality_rankings[]` | top localities by median ₹/sqft, with `rank` |
 | `yoy_median_psf_pct` | move between first and last **sufficient** month |
 | `yoy_span_months` | how many months that actually spans |
@@ -192,8 +195,11 @@ payload is surgical rather than a blanket re-run.
 **(b) Conditional / iterative control step.**
 **Cycle 1: Coverage → Retrieval.** The Coverage agent computes
 `coverage_score = sufficient_months / 12` plus geographic spread, and either
-proceeds or widens the binding criterion and re-runs the retrieval agents.
-Both cycles are capped (`max_retry_rounds`, `max_critique_rounds`), so
+proceeds or widens one criterion — price band, then BHK, then geography, each
+at most once — and re-runs the retrieval agents. Geography widening keeps the
+locality constraint: each selected locality adds its own nearest neighbours
+until depth roughly doubles, which preserves set inclusion
+(`contracts/Coverage.md` §3). Both cycles are capped (`max_retry_rounds`, `max_critique_rounds`), so
 termination is guaranteed, and both record their decision in `provenance`.
 
 **(c) Genuine dependency — one agent's output changes what another *does*.**
@@ -226,8 +232,11 @@ returns a report that is mostly empty months, or silently over-broadens the
 query and reports a number that does not answer the question asked. The loop
 converts an unanswerable query into an answerable one **while recording which
 constraint it relaxed**, which the user needs in order to read the number at
-all. Measured: coverage progresses **0.083 → 0.167 → 0.500**, at which point
-the target is met and the agent proceeds.
+all. Measured: coverage progresses **0.083 → 0.167 → 0.250** (111 → 226 → 649
+listings) as BHK widens and Gachibowli gains its 15 nearest localities; the
+levers are then exhausted and the agent proceeds below target, still answering
+for the place asked about. (Before contract v2 the geography lever dropped the
+locality filter, so the query reached 0.5 by answering for the whole metro.)
 
 A linear pipeline cannot do this: the decision to widen depends on an
 aggregate that only exists after retrieval has run.
@@ -238,9 +247,10 @@ individually plausible and only suspicious in aggregate. Validating every
 listing on every run is wasteful and also discards legitimate luxury stock, so
 escalating **only for the months whose aggregate looks wrong** is why the
 complaint carries flagged months. Measured, with the contamination retained:
-targeted recomputation shifts **7 of 12 monthly medians** (up to **+5.50%**),
-**changes the locality ranking order**, rejects **125 listings** on the demo
-query and moves the headline from **−10.9% to −13.6%**.
+targeted recomputation rejects **17 listings** on the demo query, moves
+**4 monthly medians** (up to **11.6%**) and changes the reported move from
+**−4.45% to −0.70%**; on the whole metro it rejects **132** and moves the
+headline from **−6.41% to −7.74%**.
 
 ### 3.4 Where the local model sits
 
@@ -300,8 +310,8 @@ absorb it silently.
 
 ## 4. Metamorphic relation catalogue
 
-Eleven MRs across the three required families (eight is the minimum): five
-invariance, four monotonic, two directional. Every one is a statement about
+Twelve MRs across the three required families (eight is the minimum): five
+invariance, five monotonic, two directional. Every one is a statement about
 `TrendReport` fields and nothing else. `R` is the source report, `R'` the
 follow-up.
 
@@ -314,7 +324,7 @@ The brief singles out one of these for the Indian-metro variant — *"converting
 |----|---------------|----------|-----------|-----------|---------------------------|
 | **I1** | permute listing rows | every field of `R'` equals `R` | all criteria sets | counts exact; floats rel. 1e-9 | order-dependent aggregation; unstable ranking tie-break; shard assignment leaking row order |
 | **I2** | change display units (₹→₹ lakh, sqft→sq.m) | `pct_change_series`, `ranking_order`, `count_series` identical; `median_psf` scales by exactly the unit factor | all criteria sets | rel. 1e-9 | hard-coded unit assumptions; the D1 sq.m/sqft confusion; percentages computed after rounding |
-| **I3** | duplicate every listing (2×) | per-month `median_psf`, `median_price`, `p25`, `p75` and `ranking_order` unchanged; `n_active` exactly doubles | months already `sufficient` **only** — see note | medians rel. 1e-9; counts exactly 2× | dedup-by-id silently collapsing rows; count double-counting |
+| **I3** | duplicate every listing (2×) | per-month `median_psf`, `median_min_price_inr`, `median_max_price_inr`, `p25`, `p75` and `ranking_order` unchanged; `n_active` exactly doubles | months already `sufficient` **only** — see note | medians rel. 1e-9; counts exactly 2× | dedup-by-id silently collapsing rows; count double-counting |
 | **I4** | bijective relabel of `listing_id` | every field of `R'` equals `R` | all criteria sets | exact | agent keyed on id hash/order; shard-by-id-hash changing the accepted set |
 | **I5** | convert the display currency **₹ lakh → ₹ crore** | `pct_change_series`, `ranking_order`, `count_series` identical; medians scale by exactly 10² | the lakh-denominated projection of each base input (a `prepare` hook sets the source to lakh) | rel. 1e-9 | a hard-coded currency assumption, or a percentage computed after rounding to the display unit |
 
@@ -332,23 +342,25 @@ The brief singles out one of these for the Indian-metro variant — *"converting
 
 | ID | Transformation | Relation | Subdomain | Tolerance | Fault exposed if violated |
 |----|---------------|----------|-----------|-----------|---------------------------|
-| **M1** | add ₹500,000 to every price in month *m* | `median_price[m]` rises by ≈X; all other months unchanged; no month's median decreases | the **band-free projection** of each base input — a `prepare` hook strips the price band from *both* runs — and X small enough that no listing crosses a plausibility bound | \|Δ−X\| ≤ 1e-6·X on the target month; others exact | month bucketing bleeding across boundaries; a price filter applied *after* the transform, clipping shifted rows |
+| **M1** | add ₹500,000 to both price bounds in month *m* | `median_min_price_inr[m]` and `median_max_price_inr[m]` rise by ≈X; all other months unchanged; no month's median decreases | the **band-free projection** of each base input — a `prepare` hook strips the price band from *both* runs — and X small enough that no listing crosses a plausibility bound | \|Δ−X\| ≤ 1e-6·X on the target month; others exact | month bucketing bleeding across boundaries; a price filter applied *after* the transform, clipping shifted rows |
 | **M1raw** | as M1, but the price band is **left in place** | as M1 | **none — retained as the documented counter-example, not as a passing check** | as M1 | nothing: the relation itself is unsound. The shift moves listings across the band boundary, so the follow-up selects a different population. Measured: one crossing listing moved a 15-listing month's median by **−₹1,122,750** against an expected **+₹500,000** |
 | **M2** | widen the price band (superset of listings) | `count_series'[i] ≥ count_series[i]` for every month | criteria that set a band, **conditioned on both runs taking the same path through cycle 1** | exact inequality | filter inversion; off-by-one on bounds; a retrieval agent serving cached results for stale criteria |
-| **M3** | restrict to a locality subset | each month's count ≤ the all-locality count for that month | criteria with ≥2 localities, **conditioned on control-path stability** | exact inequality | leakage between retrieval shards; the Analysis agent merging results from a previous criteria set |
+| **M3** | restrict to a locality subset | each month's count ≤ the all-locality count for that month | criteria with ≥2 localities, **conditioned on control-path stability** | exact inequality | leakage between retrieval shards; the Analysis agent merging results from a previous criteria set; geography widening that does not preserve set inclusion (found: 9/36, fixed) |
+| **M4** | halve the search radius | each month's count ≤ the original for that month | radius criteria, **conditioned on control-path stability** | exact inequality | wrong distance formula; unlocated rows leaking into a radius query; radius widening applied inconsistently |
 
 ### Directional
 
 | ID | Transformation | Relation | Subdomain | Tolerance | Fault exposed if violated |
 |----|---------------|----------|-----------|-----------|---------------------------|
 | **D1** | shift the window forward one month | the 11 overlapping months' `MonthStat` rows match the previous run exactly | window ends with both windows inside the data range | counts exact; floats rel. 1e-9 | off-by-one window arithmetic; month bucketing drift; an agent carrying state between runs |
-| **D2** | scale all prices by *k* > 1 | `median_psf`, `median_price` scale by exactly *k*; `pct_change_series` and `ranking_order` invariant | *k* such that no listing crosses the ₹/sqft or price bounds | scaled values rel. 1e-9; pct changes abs. 1e-9 | unit mishandling; plausibility filter applied post-transform; non-linear aggregation |
+| **D2** | scale all prices by *k* > 1 | `median_psf` and both price medians scale by exactly *k*; `pct_change_series` and `ranking_order` invariant | *k* such that no listing crosses the ₹/sqft or price bounds | scaled values rel. 1e-9; pct changes abs. 1e-9 | unit mishandling; plausibility filter applied post-transform; non-linear aggregation |
 
 > **M1 required two refinements, both recorded.** Shifting the band
 > alongside the data was tried first and made things *worse* (12/16 against
 > 6/16), because it holds the target month's population fixed while changing
 > every untouched month's. The adopted form strips the band from both runs.
-> A residual 0.139 violation rate remains and is explained, not hidden: a
+> A residual violation rate remains (0.139 pre-v2, 0.167 in v2) and is
+> explained, not hidden: a
 > constant shift in *price* is not a constant shift in *price-per-sqft*
 > (Δ/area differs per listing), so the psf-based outlier filter legitimately
 > rejects a different set. See `docs/DIAGNOSIS.md` Findings 2 and 5.
@@ -363,30 +375,40 @@ The brief singles out one of these for the Indian-metro variant — *"converting
 > relaxation-stable subdomain, with the divergence count stated. Conditioned
 > that way, every synthetic violation of I3, M2 and M3 disappears.
 
+> **M3 and M4 also need monotone widening.** A smaller selection must never
+> widen to something the larger one does not contain. Doubling a radius is
+> monotone by construction. For localities it was not: widening around the
+> selection's shared centre gave a subset localities its superset lacked, and
+> M3 failed on 9/36 inputs. Each locality now adds its own neighbourhood,
+> which preserves inclusion; M3 is 0/36 (`NOTEBOOK.md` Stages 17–18).
+
 ### 4.1 Boundary interaction, stated up front
 
-M1 and D2 both transform prices, and the loader enforces plausibility bounds
-on price and ₹/sqft (D5). A large enough shift or scale pushes listings across
-those bounds, **changing the population** — at which point the relation
-genuinely does not hold. This is an MR-design trap, not a system fault. We
-handle it by declaring each MR's subdomain in terms of *k* and *X* that keep
-the population fixed, verifying that precondition at run time, and reporting
-how often it bound.
+M1 and D2 both transform prices while the criteria may impose a price band,
+which can **change the selected population** — an MR-design trap, not a system
+fault. D2 scales the band alongside the data; M1 is declared on the band-free
+projection. The loader applies **no** plausibility bounds (D5 is left in for
+cycle 2), so a "no listing crosses a plausibility bound" precondition would be
+vacuous. What can change the analysed population is cycle 2's relative outlier
+filter, so every run records the rejected count in source and follow-up; in
+v2 every M1 violation coincides with a change in it (12/12).
 
 ### 4.2 Statistical protocol
 
-- **36 distinct base inputs per MR**, above the required 30 — generated
-  criteria sets varying window end, BHK, locality breadth and price band.
-  Every input satisfies every relation's applicability precondition, so all
-  eleven relations are evaluated on all 36.
+- **72 distinct base inputs** (36 locality, 36 radius), above the required 30
+  per MR — strided samples of window end × BHK × price band × (locality set,
+  or radius centre and size). Each relation runs on the inputs in its
+  subdomain; every relation has at least 36.
 - **k = 3 fixed seeds** `[11, 23, 47]` per base input, for source and
   follow-up runs alike, since shard assignment, relaxation order and (in LLM
-  mode) the model's own sampling are all seeded. **1,188 checks per sweep**
-  (11 × 36 × 3), each comprising two full pipeline runs.
+  mode) the model's own sampling are all seeded. **2,592 checks per sweep**
+  (12 × 72 × 3 where applicable), each comprising two full pipeline runs.
 - Report per MR: seed list, base-input count, violation count, violation rate
-  and a **95% Wilson confidence interval** (Wilson, not normal-approximation,
+  and a **95% Wilson confidence interval with the base input as the unit** (a
+  base input is violated if any seed violates; seeds of one input are repeated
+  measurements, not independent samples). Wilson, not normal-approximation,
   because violation rates near 0 and 1 are expected and the normal interval
-  misbehaves there).
+  misbehaves there.
 - Stop when the interval is tight enough to support the conclusion drawn.
 
 ---
@@ -399,8 +421,11 @@ assumptions:
 1. **`POSTING_DATE` is the listing's month.** It is a scrape-time posting
    timestamp, not a transaction date, so the series is an *asking-price*
    trend, not a sold-price trend. Stated as such throughout.
-2. **`MIN_PRICE` is the asking price.** 9,075 of 9,487 rows have
-   `MIN_PRICE == MAX_PRICE`; the 412 ranges use the lower bound.
+2. **`MIN_PRICE` is the asking price, and both bounds are reported.** 9,075 of
+   9,487 raw rows have `MIN_PRICE == MAX_PRICE`, and after cleaning every one
+   of the 4,574 canonical listings does. A listing counts only if both bounds
+   are real prices with `MIN_PRICE ≤ MAX_PRICE`; ₹/sqft uses `MIN_PRICE`.
+   "Price on Request" listings are excluded (D6).
 3. **Hyderabad and Secunderabad are one market** (8,762 + 725 rows).
 4. **n ≥ 50 defines a sufficient month.** A judgement call, not a derived
    threshold — and **measurement shows the headline figure is not robust to
@@ -411,8 +436,8 @@ assumptions:
    | 10 | 12 | 2022-09 | **+87.18%** |
    | 25 | 10 | 2022-10 | **+87.18%** |
    | **50** | **6** | **2023-03** | **−6.41%** |
-   | 75 | 5 | 2023-04 | **+7.08%** |
-   | 100 | 5 | 2023-04 | +7.08% |
+   | 75 | 5 | 2023-04 | **+8.32%** |
+   | 100 | 5 | 2023-04 | +8.32% |
    | 300 | 4 | 2023-05 | +3.87% |
 
    The spread is **93.6 percentage points and the sign flips.** The reason is
@@ -423,17 +448,17 @@ assumptions:
    **The honest conclusion is therefore that this snapshot cannot determine
    the direction of the twelve-month move.** We report −6.41% at n ≥ 50 as the
    figure our stated contract produces, not as a finding about the Hyderabad
-   market. Two independent observations point the same way: a 3 km radius
-   slice around the IT corridor gives **+6.24%** against the metro-wide
-   −10.9%, and the snapshot is survivorship-biased by construction (§1.3).
-   **The cross-check was performed and settles it.** NHB RESIDEX
-   (*Press Release July–September 2023*) puts Hyderabad at **+6.8%** on its
-   HPI @ Market Price — a series explicitly based on asking prices, so
-   methodologically matched to ours. Our own data gives **+7.08%** at n ≥ 75
-   and **+6.24%** on the radius slice: agreement to within 0.3–0.6 points. The
-   n ≥ 50 figure is the outlier and has the wrong sign, so the threshold was
-   chosen badly rather than the data being uninformative.
-   See `results/residex/cross_check.md`.
+   market; the snapshot is also survivorship-biased by construction (§1.3).
+   **The cross-check was performed.** NHB RESIDEX (*Press Release
+   July–September 2023*) puts Hyderabad at **+6.8%** on its HPI @ Market Price —
+   a series explicitly based on asking prices, so methodologically matched to
+   ours. Our data gives **+8.32%** at n ≥ 75 (v2; +7.08% before the contract-v2
+   data rules): the right sign and within 1.5 points. The n ≥ 50 figure is the
+   outlier and has the wrong sign, so the threshold was chosen badly rather
+   than the data being uninformative. (A "+6.24% on a 3 km radius slice"
+   figure quoted earlier cannot be reproduced — no script records its centre —
+   and is withdrawn.) Table: `python scripts/threshold_sensitivity.py`; see
+   `results/residex/cross_check.md`.
 
 5. **PIN codes are unavailable.** The brief suggests filtering by locality
    *and* PIN code; the dataset has no PIN/ZIP/postal column, and the six-digit
@@ -443,5 +468,6 @@ assumptions:
 
 6. **The model is a reproducibility artifact.** In LLM mode the run depends on
    the model weights as much as on the snapshot and the seeds, so the model
-   name, quantisation and digest are recorded alongside them. Temperature is
+   name, quantisation and the weights digest Ollama reports are recorded
+   alongside them (the pre-v2 sweeps recorded only a hash of the name). Temperature is
    pinned to 0 and the harness seed is passed to the model on every call.

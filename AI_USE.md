@@ -8,6 +8,7 @@ Per the brief's ground rules: all substantive AI use is disclosed here,
 | Context | Use |
 |---------|-----|
 | **Building the project** | Claude (Anthropic), via the Claude Code CLI, wrote most of the application code, the MR catalogue, the harness and the dashboard, and drafted `DESIGN.md`, `REPORT.md` and `docs/DIAGNOSIS.md`. It ran the data audits, the controlled experiments and the diagnostic analyses. |
+| **Merging the two implementations (contract v2)** | Claude Opus 5.5, via the Claude Code desktop app, used by Paridhi: compared the two codebases, wrote the v2 contract suite, ported the first implementation's data and validation rules, fixed the harness and the agents, and updated the documents (§5). The v2 sweeps were run by Paridhi. |
 | **Inside the application, at run time** | **Qwen2.5-3B-Instruct (Q4_K_M) served locally by Ollama**, used by four of the six agents. |
 
 ## 2. The local model inside the application
@@ -29,7 +30,9 @@ critique held fixed, both modes produce byte-identical series.
 **Reproducibility.** Temperature is 0 and the harness's recorded seed is passed
 to the model on every call, so the model is a **third pinned artifact**
 alongside the frozen snapshot and the seed list — recorded as
-`qwen2.5:3b-instruct-q4_K_M`, digest `d7f5d340f8953384`. A determinism probe
+`qwen2.5:3b-instruct-q4_K_M` with `d7f5d340f8953384`, which was described as
+the model digest but is a hash of the model *name* (§5.6); the code now records
+the weights digest Ollama reports. A determinism probe
 (20 repeats, same prompt, same seed) returned **20/20 identical replies on a
 Kaggle T4**, so the recorded seeds genuinely pin behaviour. Responses are
 cached by `(prompt, seed, model)` hash and the cache is shipped, so the sweep
@@ -238,7 +241,72 @@ scope of the run that produced it, not the scope of the sentence it is dropped
 into. This is the second instance of the same failure mode as §3.9 and §3.11:
 asserting something about an artefact without reading the artefact.
 
-## 5. Human responsibility
+## 5. The merge into contract v2, and where the assistant was wrong again
+
+Two team members built independent implementations. Claude (Opus 5.5, Claude
+Code desktop app) compared them, and the team chose this implementation as the
+base and the first one's contracts, data rules and validation as the rules to
+port. The assistant then did the work in reviewed phases (`NOTEBOOK.md`
+Stages 16–18): merge, contract suite (`contracts/`), data-rule port, harness
+and agent fixes. Decisions were made by Paridhi — for example, keeping both
+price bounds (decision 7 in `contracts/CONTRACT.md` §11) and fixing M3's
+fault rather than only reporting it. Errors the assistant made, in order:
+
+### 5.1 Test names asserted, not checked
+
+The first draft of the agent contracts listed tests as "exists" from memory;
+four did not exist under those names. **Caught by** listing every test function
+before committing and correcting each row.
+
+### 5.2 An automated edit that produced invalid Python
+
+A regex rewrite added `lineterminator="\n"` as the *first* argument of
+`to_csv(...)`, before positional arguments, and nested double quotes inside an
+f-string. **Caught by** compiling every file before committing; reverted and
+redone with bracket matching.
+
+### 5.3 Three geography-widening rules before one was right
+
+(1) Adding as many localities as were selected stalled "3 BHK in Gachibowli"
+at coverage 0.167 — caught by measuring coverage. (2) Widening around the
+selection's centre until depth doubled broke set inclusion — caught by MR M3
+(9/36). (3) The first inclusion-preserving rule ignored the selection and
+halved the depth a clustered query gained (105 → 46 listings) — caught by
+printing listing counts; the final rule skips selected localities and gives 60
+while keeping inclusion (proved in `src/agents/nodes.py`, tested on 76 pairs).
+
+### 5.4 An explanation written before it was measured
+
+The report draft said the RESIDEX gap at n ≥ 75 "depended partly on" the
+Price-on-Request exclusion and IST months. **Caught by** measuring before
+committing: either change alone moves the figure by at most 0.2 points, the
+two together by 1.24. The sentence now states the measurement.
+
+### 5.5 A precondition described as checked when it was vacuous
+
+The v2 testing contract first said the harness would check that M1/D2 move no
+listing across a plausibility bound. The loader applies no such bounds, so the
+check would always pass. **Caught by** reading the loader while implementing
+it; replaced by recording cycle 2's rejected counts, the real mechanism.
+
+### 5.6 Inherited claims that did not survive checking
+
+Three claims in the earlier documents were not true as stated, and the
+assistant had initially repeated them: the "model digest" was a hash of the
+model name; the threshold-sensitivity table had no generating script (one now
+exists and reproduces it); and the "+6.24% radius slice" could not be
+reproduced at all (withdrawn). **Caught by** trying to regenerate every number
+the report quotes rather than copying it.
+
+### 5.7 Platform faults no one had seen
+
+On Windows, git rewrote line endings in checksum-pinned files (the snapshot
+checksum failed), two checking scripts crashed reading "₹" as cp1252, and a
+"≠" column header crashed any redirected output. **Caught by** running the
+reproduction commands on the Windows machine itself rather than assuming they
+worked because they had worked elsewhere.
+
+## 6. Human responsibility
 
 The authors reviewed all code and all numerical claims. Errors that remain are
 the authors'.

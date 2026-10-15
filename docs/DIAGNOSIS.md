@@ -19,8 +19,9 @@ of four causes: a **genuine agent/aggregation fault**, a **data artifact**, an
 so every attribution below rests on a controlled experiment in which exactly
 one thing changes.
 
-All figures come from `results/before_fix/` (972 runs, 9 relations × 36 base
-inputs × 3 seeds `[11, 23, 47]`) and `results/diagnosis/`.
+Findings 1–9 use `results/before_fix/` (972 runs, 9 relations × 36 base
+inputs × 3 seeds `[11, 23, 47]`) and `results/diagnosis/`, all pre-v2.
+Finding 10 covers the contract-v2 sweeps and `results/v2_diagnosis/`.
 
 ## Pre-fix violation rates
 
@@ -576,16 +577,76 @@ overfitting an oracle we do not have.
 
 ---
 
+## Finding 10 — contract v2: M3's inclusion fault, and what still holds
+
+After the two implementations were merged (`contracts/CONTRACT.md` v2,
+`NOTEBOOK.md` Stages 16–18) the population changed (4,574 listings, IST months,
+"Price on Request" excluded), a twelfth relation was added (M4, halve the
+radius), base inputs doubled to 72 (36 radius), and intervals moved to the base
+input as the unit. Sweeps: `results/v2_before_m3fix/`, `results/v2_deterministic/`.
+
+### M3 could not fail before, then found a fault
+
+Pre-v2 M3 was 0.000 in every configuration, but **vacuously**: the geography
+lever dropped the locality filter, and it fired in 100% of logged runs, so the
+subset and the superset were the same whole-metro query. Contract v2 keeps the
+locality constraint. The first version widened around the selection's median
+centre until depth doubled, and M3 then failed:
+
+| | before fix | after fix |
+|---|---|---|
+| M3 | **9 / 36** | **0 / 36** |
+| M2 | 2 / 72 | 0 / 72 |
+
+*Evidence.* All 9 violating bases are the 9 whose localities are {Kondapur,
+Gachibowli, Kokapet, Narsingi}; none of the 27 others violated; 8 of 9 took the
+same cycle-1 path in both runs. On `base03` the 2-locality subset widened to a
+set not contained in the superset's (it gained Gulmohar Park Colony, Hafeezpet,
+Janapriya Nagar, Lingampally, Madinaguda). *Mechanism:* the two runs were
+widened around different centres. *Fix:* each locality walks its own
+nearest-first ranking, skipping selected localities, until depth doubles; if
+A ⊆ B, B skips at least what A skips, so widen(A) ⊆ widen(B). Checked on all 36
+M3 pairs and 40 random subsets; the test fails on the old rule.
+**Verdict: genuine agent fault**, found because an earlier change made the
+relation able to fail.
+
+### M1 in v2: same mechanism, measured directly
+
+M1 is 0.167 (12/72) after the fix. Every v2 run records the listings cycle 2
+rejected in source and follow-up: all 12 violating bases changed that count,
+and no base violated with it unchanged. `diagnose.py` on v2 (12 inputs × 2
+seeds) gives M1 **0.333 with cycle 2 on and 0.000 with it off**. Finding 5's
+verdict stands: **data artifact** of the relative outlier filter.
+
+### Finding 1 replicated on v2
+
+`python scripts/diagnose.py` → `results/v2_diagnosis/`. Re-enabling the
+per-`(shard, month)` grouping: I3 **0.750**, I4 **0.667**; per-month grouping or
+cycle 2 off: **0.000**. Experiment C now uses the deepest input (`base01`; the
+v2 widening keeps `base00` too thin to reject anything): listing totals **60,
+58, 59, 61** at 1/2/4/8 agents under the old grouping, **60** at every count
+under the fix.
+
+### A figure that could not be reproduced
+
+The threshold-sensitivity table behind REPORT §9 was committed without the
+script that produced it. `scripts/threshold_sensitivity.py` now regenerates it
+and reproduces the pre-v2 table exactly from the pre-v2 code; under v2 only the
+n ≥ 75 row moves (+7.08% → +8.32%; neither IST months nor the Price-on-Request
+exclusion alone moves it more than 0.2 points, together 1.24). The "+6.24% on a
+3 km IT-corridor radius slice" figure has no recorded centre, and the plausible
+centres give −3% to −9%; it is withdrawn.
+
 ## Categories, final
 
 | Category | Instances |
 |----------|-----------|
-| **Genuine agent fault** | per-`(shard, month)` threshold (I3, I4, M2, D1); four prompt-contamination faults (I4, I3, I2, I1) |
+| **Genuine agent fault** | per-`(shard, month)` threshold (I3, I4, M2, D1); four prompt-contamination faults (I4, I3, I2, I1); geography widening that broke set inclusion (M3, v2) |
 | **Ill-conceived MR** | M1 with the band in place (retained as `M1raw`) |
-| **Data artifact** | M1's deterministic residual 0.139 — real listings near the outlier boundary |
-| **Harness bug** | the control-path signature comparing message text |
+| **Data artifact** | M1's deterministic residual (0.139 pre-v2, 0.167 v2) — real listings near the relative outlier boundary |
+| **Harness bug** | the control-path signature comparing message text; M3 passing only because widening made it unable to fail |
 | *(beyond the brief's four)* | the cycle-1 relaxation tension; the LLM-judge feedback path |
 
-All four of the brief's categories occurred. Two of nine findings concern the
-*relations*, one concerns our own *instrumentation*, and the rest concern the
+All four of the brief's categories occurred. Two of ten findings concern the
+*relations*, two concern our own *instrumentation*, and the rest concern the
 system.

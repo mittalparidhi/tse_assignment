@@ -5,9 +5,9 @@ of: a genuine agent/aggregation fault, a data artifact, an ill-conceived MR, or
 a harness bug. Asserting a cause is not evidence, so each hypothesis here is
 tested by a controlled experiment in which exactly one thing changes.
 
-    python scripts/diagnose.py
+    python scripts/diagnose.py [--out results/v2_diagnosis]
 
-Writes results/diagnosis/*.csv and a readable summary to stdout.
+Writes <out>/*.csv (default results/v2_diagnosis) and a summary to stdout.
 """
 
 from __future__ import annotations
@@ -28,7 +28,9 @@ from src.mr.transforms import add_to_month_price                  # noqa: E402
 from src.mr.relations import M1_DELTA_INR, _pick_shift_month      # noqa: E402
 from src.trend import apply_criteria, month_window                # noqa: E402
 
-OUT = Path("results/diagnosis")
+#: Where results go. The pre-v2 experiments behind docs/DIAGNOSIS.md are in
+#: results/diagnosis and are not overwritten by default.
+OUT = Path("results/v2_diagnosis")
 SEEDS = (11, 23)
 N_INPUTS = 12
 
@@ -78,6 +80,7 @@ def experiment_c(frame, inputs, graph) -> pd.DataFrame:
     cannot, since the number of workers is not a property of the market.
     """
     rows = []
+    deepest = max(inputs, key=lambda c: len(apply_criteria(frame, c)))
     for n_shards in (1, 2, 4, 8):
         for group_by_month in (False, True):
             cfg = GraphConfig(n_retrieval_agents=n_shards,
@@ -91,9 +94,11 @@ def experiment_c(frame, inputs, graph) -> pd.DataFrame:
                 r = run_relation(BY_ID["I1"], frame, criteria, 11,
                                  graph=graph, config=cfg)
                 totals.append(r.violated)
-            # Also record the actual listing total, which must be shard-invariant.
+            # Also record the actual listing total, which must be shard-invariant,
+            # on the deepest input: a thin one (contract v2 keeps narrow
+            # queries narrow) rejects nothing, and then cannot show the effect.
             from src.agents import run_pipeline
-            state = run_pipeline(frame, inputs[0], seed=11, config=cfg,
+            state = run_pipeline(frame, deepest, seed=11, config=cfg,
                                  graph=graph)
             rows.append({
                 "n_shards": n_shards,
@@ -102,6 +107,7 @@ def experiment_c(frame, inputs, graph) -> pd.DataFrame:
                 "I1_runs": len(totals),
                 "listings_total": state["final_report"].n_listings_total,
                 "rejected": state["n_rejected_outliers"],
+                "listings_input": deepest.label,
             })
             print(f"  [C] shards={n_shards} grouping="
                   f"{'month' if group_by_month else 'shard+month'} "
@@ -145,6 +151,11 @@ def experiment_d(frame, inputs) -> pd.DataFrame:
 
 
 def main() -> int:
+    global OUT
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--out", default=str(OUT))
+    OUT = Path(parser.parse_args().out)
     OUT.mkdir(parents=True, exist_ok=True)
     frame, _ = load_canonical()
     inputs = generate_base_inputs(frame)[:N_INPUTS]

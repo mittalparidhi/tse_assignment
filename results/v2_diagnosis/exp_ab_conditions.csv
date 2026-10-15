@@ -1,0 +1,37 @@
+condition,mr_id,family,violations,runs,rate
+"baseline (C2 on, group=shard+month)",I1,invariance,0,24,0.0
+"baseline (C2 on, group=shard+month)",I2,invariance,0,24,0.0
+"baseline (C2 on, group=shard+month)",I3,invariance,18,24,0.75
+"baseline (C2 on, group=shard+month)",I4,invariance,16,24,0.6666666666666666
+"baseline (C2 on, group=shard+month)",I5,invariance,0,24,0.0
+"baseline (C2 on, group=shard+month)",M1,monotonic,2,24,0.08333333333333333
+"baseline (C2 on, group=shard+month)",M2,monotonic,1,24,0.041666666666666664
+"baseline (C2 on, group=shard+month)",M3,monotonic,0,24,0.0
+"baseline (C2 on, group=shard+month)",M4,monotonic,0,0,
+"baseline (C2 on, group=shard+month)",M1raw,monotonic,6,24,0.25
+"baseline (C2 on, group=shard+month)",D1,directional,0,24,0.0
+"baseline (C2 on, group=shard+month)",D2,directional,0,24,0.0
+A: C2 disabled,I1,invariance,0,24,0.0
+A: C2 disabled,I2,invariance,0,24,0.0
+A: C2 disabled,I3,invariance,0,24,0.0
+A: C2 disabled,I4,invariance,0,24,0.0
+A: C2 disabled,I5,invariance,0,24,0.0
+A: C2 disabled,M1,monotonic,0,24,0.0
+A: C2 disabled,M2,monotonic,0,24,0.0
+A: C2 disabled,M3,monotonic,0,24,0.0
+A: C2 disabled,M4,monotonic,0,0,
+A: C2 disabled,M1raw,monotonic,4,24,0.16666666666666666
+A: C2 disabled,D1,directional,0,24,0.0
+A: C2 disabled,D2,directional,0,24,0.0
+"B: C2 on, group=month",I1,invariance,0,24,0.0
+"B: C2 on, group=month",I2,invariance,0,24,0.0
+"B: C2 on, group=month",I3,invariance,0,24,0.0
+"B: C2 on, group=month",I4,invariance,0,24,0.0
+"B: C2 on, group=month",I5,invariance,0,24,0.0
+"B: C2 on, group=month",M1,monotonic,8,24,0.3333333333333333
+"B: C2 on, group=month",M2,monotonic,0,24,0.0
+"B: C2 on, group=month",M3,monotonic,0,24,0.0
+"B: C2 on, group=month",M4,monotonic,0,0,
+"B: C2 on, group=month",M1raw,monotonic,6,24,0.25
+"B: C2 on, group=month",D1,directional,0,24,0.0
+"B: C2 on, group=month",D2,directional,0,24,0.0

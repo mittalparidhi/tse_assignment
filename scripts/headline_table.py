@@ -78,6 +78,23 @@ def main() -> int:
         print(v2_table(runs))
         print(f"snapshot {meta['snapshot_sha256'][:16]}...  canonical rows "
               f"{meta['canonical_rows']}  base inputs {meta['base_inputs']}")
+        if args.check:
+            # Every v2 rate and interval bound must appear in REPORT.md §7.1,
+            # so the published table cannot drift from the committed records.
+            from src.mr.harness import summarise
+            summary = summarise(runs)
+            summary = summary[summary.base_inputs > 0]
+            report = Path("REPORT.md").read_text(encoding="utf-8")
+            missing = [f"{r.mr_id} {v:.3f}" for r in summary.itertuples()
+                       for v in (r.violation_rate, r.ci95_low, r.ci95_high)
+                       if f"{v:.3f}" not in report]
+            print()
+            if missing:
+                print(f"{len(missing)} v2 figure(s) not found in REPORT.md:")
+                for m in missing:
+                    print(f"  {m}")
+                return 1
+            print("every v2 rate and interval bound appears in REPORT.md")
         return 0
 
     tables = {}

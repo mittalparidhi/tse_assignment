@@ -598,6 +598,27 @@ the widened populations changed; the mechanism did not. The run took 25 min
 on Windows (Paridhi's machine). `results/v2_synthetic/` is unaffected: the
 synthetic snapshot has no coordinates, so geography widening never applies.
 
+## Stage 19 — Re-deriving the report's numbers under v2 (2026-10-15)
+
+- **Finding 1 replicates** (`scripts/diagnose.py` → `results/v2_diagnosis/`):
+  the old per-`(shard, month)` grouping gives I3 0.750, I4 0.667; per-month
+  grouping or cycle 2 off gives 0. Listing totals 60/58/59/61 at 1/2/4/8 agents
+  under the old grouping, 60 under the fix. Experiment C now uses the deepest
+  input; `base00` rejects nothing under v2 widening.
+- **The sensitivity table had no script.** `scripts/threshold_sensitivity.py`
+  reproduces the committed pre-v2 table exactly from the pre-v2 code; under v2
+  only n ≥ 75 moves (+7.08% → +8.32%). IST months alone move it 0.20 points,
+  the Price-on-Request exclusion alone 0.10, both together 1.24. RESIDEX
+  agreement at n ≥ 75 is now 1.5 points, not 0.3; the sign conclusion holds.
+- **"+6.24% on a 3 km radius slice" is withdrawn**: no centre was recorded and
+  the plausible centres give −3% to −9%.
+- Demo query under v2: cycle 2 rejects 17 listings and moves the reported
+  change −4.45% → −0.70% (2 sufficient months); whole metro 132 rejected,
+  −6.41% → −7.74%.
+
+REPORT.md, DESIGN.md, docs/DIAGNOSIS.md (Finding 10) and AI_USE.md (§5) were
+updated to these numbers; pre-v2 figures are kept and labelled as such.
+
 ## Threats to validity (carried into the report)
 
 1. **Single-point scrape.** The series is survivorship-biased: older months
