@@ -1,109 +1,113 @@
 # DATA SUBCONTRACT — Hyderabad Housing-Trends Application
 
-**Parent:** `CONTRACT.md` v1.0.0-draft  
-**Status:** Draft; dataset fingerprint is known, but several source-field semantics remain unresolved.  
-**Scope:** Source freeze, date conversion, row preservation, price eligibility, audit evidence, and reproducibility. This file clarifies data rules; the parent contract controls public schemas, metrics, analysis window, and loop limits. In a conflict, update this file rather than silently changing the parent contract.
+**Parent:** `CONTRACT.md` v2.0.0-draft
+**Status:** Draft. Source fingerprint and defects D1–D5 are verified; D6–D7 are ported from v1 in Phase 3.
+**Scope:** Source freeze, defects, the canonical population and filter cascade, month derivation, identity, and reproducibility checks. The parent controls the output contract, window and loops. In a conflict, update this file rather than silently changing the parent.
 
 ## 1. Source and frozen input
 
 | Item | Contract value |
 |---|---|
 | Raw path | `data/raw/hyderabad.csv` |
-| Source rows / columns | 9,487 / 55 |
-| SHA-256 | `9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a` |
-| Source lineage | 99acres-derived listing scrape; repository and field-description wiki are cited in project documentation |
-| Mutability | Read-only after snapshot freeze |
+| Rows / columns | 9,487 / 55 |
+| SHA-256 | `9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a` (also in `data/raw/CHECKSUMS.txt`) |
+| Origin | Kaggle `arvanshul/gurgaon-real-estate-99acres-com` ("Indian Real Estate – 99acres.com"; covers Gurgaon, Hyderabad, Mumbai, Kolkata). Scraper: `github.com/arv-anshul/99acres-scrape` |
+| Licence | CDLA-Sharing-1.0 |
+| Scrape date | ≈ 26 Aug 2023 (latest `POSTING_DATE`) |
+| Mutability | Read-only |
 
-The hash above was computed from the supplied `hyderabad.csv` bytes. The matching copy inside `archive (3).zip` has the same hash. The source repository is `https://github.com/arv-anshul/99acres-scrape`; the field-description wiki is `https://github-wiki-see.page/m/arv-anshul/99acres-scrape/wiki/SRP-Data-Description`. Do not claim a licence unless the repository licence is checked and cited.
+The brief's recommended 99acres dataset (`arnabk123/...`) covers Gurgaon only and does not contain Hyderabad; this is recorded so a grader reading "gurgaon" in the slug is not misled.
 
-This is a scraped listing sample, not a full market census. Preserve its original records; do not add synthetic listings, merge external datasets into the snapshot, or describe observed row counts as total Hyderabad inventory or completed transactions. The `CITY` field includes 8,762 rows labelled `Hyderabad` and 725 labelled `Secunderabad`. No city filter may be applied silently. The parent contract must explicitly choose a strict `CITY == "Hyderabad"` scope if that is required; otherwise the frozen-source baseline includes both labels and reports the mix.
+This is a single-point scrape: older months contain only listings still live on the scrape date. Observed counts are not inventory, transactions or a census, and the July–August concentration must not be presented as a market surge.
 
-## 2. Timestamp conversion and canonical month grid
+## 2. Verified defects and handling
 
-`POSTING_DATE` is documented as Unix milliseconds. Parse values numerically with explicit millisecond units, treating missing, nonnumeric, non-finite, or out-of-range values as invalid. Interpret a valid value as an absolute instant, convert it to `Asia/Kolkata`, and only then derive `posting_month = YYYY-MM`. Do not derive months from a timezone-naive UTC timestamp. Preserve the original `POSTING_DATE` value.
+| ID | Defect (evidence) | Handling |
+|---|---|---|
+| D1 | `MIN_AREA_SQFT`/`MAX_AREA_SQFT` hold **square metres** despite the name: ratio of the `AREA` display string to `MIN_AREA_SQFT` is 10.7639 at both p5 and p95 over 3,531 rows | Area is parsed from the `AREA` string (`"<n> sq.ft."`); the named columns are never used for ₹/sqft |
+| D2 | `MIN_PRICE`/`MAX_PRICE` carry the int32 sentinel 2,147,483,647 on 5 rows and 0 on 75 rows | Excluded (§3, filter 5) |
+| D3 | `PREFERENCE` mixes sale S=7,927, rent R=1,467, PG P=93 | Sale only |
+| D4 | `BEDROOM_NUM` missing on 2,814 rows, 2,806 of them `Residential Land` (structural, not missing data) | Dwellings only (§3, filter 2) |
+| D5 | Area-entry errors in the tail (a 27 sq ft villa at ₹2.15 cr = ₹796,296/sq ft; a 285,599 sq ft one) | **Deliberately kept** in the canonical frame. Detecting them is the Analysis agent's targeted recomputation (loop C2); filtering them here would make C2 decorative. Plausibility bounds remain available via `apply_plausibility=True` for ablation only |
+| D6 | **[P3]** `PRICE` text "Price on Request" (4 rows in the current canonical frame) | Excluded (§3, filter 4) |
+| D7 | `PROP_ID` is not unique (one ID on two canonical rows) | Both rows kept; **[P4]** `listing_id` made unique (§5) |
 
-Rows with invalid dates remain in the cleaned file and data-quality counts but cannot contribute to monthly aggregates. Do not infer their dates from `REGISTER_DATE`, `UPDATE_DATE`, or another field. Rows with valid dates outside the analysis window also remain auditable but do not contribute to the parent contract's twelve monthly records.
+`TRANSACT_TYPE` code meanings are not verified and the field is not used.
 
-The canonical conversion yields 9,245 valid local timestamps and 242 missing/invalid timestamps. Valid timestamps range from `2022-05-17 23:01:45+05:30` to `2023-08-26 10:29:05+05:30`. The required analysis window is `2022-09` through `2023-08`; August 2023 is partial. The monthly baseline below counts all retained rows with valid posting dates, before filtering to sale records or valid prices.
+## 3. Canonical population and filter cascade
 
-| Month | Observed rows | Month | Observed rows |
-|---|---:|---|---:|
-| 2022-09 | 35 | 2023-03 | 217 |
-| 2022-10 | 51 | 2023-04 | 288 |
-| 2022-11 | 41 | 2023-05 | 482 |
-| 2022-12 | 46 | 2023-06 | 947 |
-| 2023-01 | 32 | 2023-07 | 3,447 |
-| 2023-02 | 45 | 2023-08 | 3,531 |
+Filters run in this order. Each stage's remaining and dropped counts are written to `data/snapshot/canonical_reject_log.csv` by `RejectLog`.
 
-There are 9,162 valid-date rows in the twelve-month window. July and August contribute 6,978 rows (about 76.2% of that window); this concentration may reflect scrape/collection behavior and must not be presented as proof of a market-wide surge. The existing date audit must be regenerated with the timezone rule above before its month-level output is treated as canonical.
+| # | Filter | Rows remaining (current, pre-P3) |
+|---|---|---:|
+| 0 | raw rows | 9,487 |
+| 1 | `PREFERENCE == "S"` | 7,927 |
+| 2 | `PROPERTY_TYPE` in dwelling types | 5,085 |
+| 3 | `POSTING_DATE` parses (Unix ms) | 4,975 |
+| 4 | **[P3]** `PRICE` is not "Price on Request" | — |
+| 5 | `MIN_PRICE` numeric, `> 0`, `!= 2147483647`; **[P3]** same for `MAX_PRICE`, and `MIN_PRICE <= MAX_PRICE` | 4,917 |
+| 6 | Area parses from `AREA` and `> 0` | 4,578 |
 
-## 3. Cleaning and identity rules
+Dwelling types: `Residential Apartment`, `Independent House/Villa`, `Independent/Builder Floor`, `Studio Apartment`, `Serviced Apartments`.
 
-Cleaning must be implemented by a versioned script, not improvised inside agents. Each run writes a summary table with rule ID, rows inspected, rows flagged or changed, and output path. Never overwrite the raw file.
+The counts in the table are audit baselines, not constants: code recomputes them on every load, and **[P3]** the table is updated once filters 4–5 and the timezone rule (§4) are in place. **[P4]** The reject log's stale stage name ("DEFERRED to ScanAgent STRICT") is replaced by the current one ("DEFERRED to Analysis recomputation").
 
-| Rule | Required action |
+Rows that fail a filter are not deleted from the raw file; they are simply absent from the derived canonical frame and counted in the log.
+
+## 4. Derived fields
+
+| Field | Derivation |
 |---|---|
-| D1 — Preserve identity | Add a stable `source_row_id` based on raw row position before transformation. Keep all 55 raw fields unchanged in meaning; append derived fields and flags rather than overwriting source values. |
-| D2 — Date quality | Add localized timestamp, `posting_month`, and a date status. Invalid dates are retained but excluded from monthly aggregates. |
-| D3 — Exact duplicates | Current audit finds 0 fully identical rows. Do not remove any rows unless a documented full-row equality rule detects them and the removal count is logged. |
-| D4 — Repeated property ID | `PROP_ID = Z70135726` occurs twice. The two rows match in the inspected identifiers, date, and price fields but differ in `PRIMARY_TAGS` (`['FEATURED']` versus `[]`). Preserve both and emit an ID-collision audit; a repeated ID alone does not authorize deduplication. |
-| D5 — Sale scope | Use `PREFERENCE == "S"` for sale-price metrics. Counts in the raw snapshot are S=7,927, R=1,467, P=93. Retain non-S rows for general observed-row counts unless the parent contract explicitly defines a different population. Do not infer the meaning of `R` or `P` beyond verified source documentation. |
-| D6 — Transaction code | `TRANSACT_TYPE` values are 1.0=7,340, 2.0=571, missing=1,576. Their code meanings are not verified here; do not use these codes as substitutes for `PREFERENCE`. |
-| D7 — Numeric price bounds | Treat `MIN_PRICE` and `MAX_PRICE` as candidate INR values. A bound is eligible only if numeric, finite, strictly positive, and not sentinel `2147483647`; a range also requires both bounds eligible and `MIN_PRICE <= MAX_PRICE`. Never parse `PRICE` display text and convert the numeric fields a second time. |
-| D8 — Preserve price failures | Retain rows with zero, sentinel, incoherent, or otherwise ineligible bounds. Add mutually interpretable reason flags such as `non_positive_price`, `price_sentinel`, `inverted_price_range`, and `invalid_price_bound`; do not replace them with zero, a midpoint, or an estimate. |
-| D9 — Price per square foot | `PRICE_SQFT` is source-provided but its precise semantics and units are not verified. There are 75 zero values, 8,915 positive values below 100,000, and 497 values at or above 100,000. The 100,000 threshold is a review flag only, not proof of invalidity. Preserve values and emit a review flag; do not assert an INR/sq-ft metric until its meaning is verified. |
-| D10 — Area fields | Preserve `MIN_AREA_SQFT` and `MAX_AREA_SQFT`; do not recompute price per square foot from them until unit/scale semantics are verified. Although their names contain `SQFT`, their distribution warrants a source check. |
+| `listing_id` | currently `PROP_ID`; **[P4]** `PROP_ID` + raw row position, unique |
+| `month` | `POSTING_DATE` (ms) → instant → **[P3]** `Asia/Kolkata` → `YYYY-MM` (currently UTC; 18 rows differ) |
+| `price_inr` | `MIN_PRICE` |
+| `max_price_inr` | **[P3]** `MAX_PRICE` |
+| `area_sqft` | parsed from `AREA` (D1) |
+| `psf_inr` | `price_inr / area_sqft` |
+| `bhk` | bedroom count |
+| `locality` | `LOCALITY_NAME` from the embedded `location` field; `"Unknown"` if absent |
+| `property_type`, `city` | source values |
+| `latitude`, `longitude` | from `MAP_DETAILS`; discarded if outside the Hyderabad box (lat 16.5–18.5, lon 77.5–79.5) |
+| `area_sqm_raw` | from `SECONDARY_AREA`; independent restatement used by the Analysis cross-check |
+| `price_display_inr` | from the `PRICE` display string; independent restatement used by the Analysis cross-check |
+| `age_on_site_days` | whole days from posting time to the reference date; `null` outside 0–1000. Reference is currently `2023-08-26 00:00 UTC`; **[P3]** `LATEST_POSTING` in `Asia/Kolkata` |
+| `description` | first 400 characters of `DESCRIPTION`; read only by the Analysis agent's LLM review, never by statistics |
 
-No current rule authorizes removal of the 242 invalid-date rows, the 78 invalid coherent-price-range rows, or the repeated-ID pair from the stored cleaned snapshot. Eligibility filters apply to metrics, not blanket row deletion.
+No value is imputed. A field that cannot be parsed is `null` (or `"Unknown"` for locality).
 
-## 4. Snapshot and metric denominators
+## 5. Identity rules
 
-`data/processed/hyderabad_clean.csv` is a derived, reproducible artifact. It must preserve all 9,487 raw rows and all original columns; add `source_row_id`, local posting datetime/month, and explicit data-quality flags. If the implementation later introduces a justified row-removal policy, it requires a parent-contract version change and a before/after audit. The raw file and its hash remain unchanged.
+- `PROP_ID` alone does not identify a listing; a repeated ID is not evidence of a duplicate.
+- **[P4]** `listing_id` is unique within the canonical frame and stable across runs on the same snapshot.
+- No row is deduplicated. MR I3 (duplicate every listing) creates distinct IDs for the copies (`#dup` suffix), so it tests replication, not deduplication.
 
-With the canonical timezone rule and current parent-contract eligibility rules, the twelve-month window has 9,162 observed rows, 7,633 rows with `PREFERENCE == "S"`, and 7,555 sale rows with a valid coherent numeric price range. These values are audit baselines, not constants to hard-code into calculations. Monthly output counts and medians must be recomputed from the snapshot on every run. The 78 invalid price ranges in this window are all sale rows; they remain in observed and sale counts but not in price-bound medians.
+## 6. Startup integrity
 
-Define denominators explicitly:
+1. The raw SHA-256 is computed and compared with §1 before loading (`verify_snapshot`). Mismatch → `snapshot_integrity_error`.
+2. The frozen canonical CSV's SHA-256 is recorded in `data/snapshot/CHECKSUMS.txt` and regenerated only by `freeze_canonical`, as a reviewed change.
+3. `.gitattributes` keeps `data/`, `results/` and `tests/golden/` byte-exact across platforms (`core.autocrlf` previously broke the canonical checksum on Windows).
+4. Agents receive the frame in memory; they do not read files.
 
-- `observed_listing_count`: valid localized posting date in the month; no undocumented property-ID deduplication.
-- `sale_listing_count`: observed rows whose `PREFERENCE` is exactly `S`.
-- `valid_price_range_count`: sale rows with two eligible bounds and `MIN_PRICE <= MAX_PRICE`.
-- `valid_price_sqft_count`: publish as a verified-metric denominator only after the field's semantics are checked; before then it may be shown only as a raw quality statistic clearly marked unverified.
-
-Missing monthly rows and missing metrics follow the parent contract: always emit all twelve months; count zero means no eligible observed rows, while a metric that cannot be computed is `null`. Never fill missing prices, invent records, carry values forward, or interpolate.
-
-## 5. Data boundaries and startup integrity
-
-1. The raw snapshot is read-only. All cleaning creates a separate processed artifact.
-2. Application agents consume the processed snapshot and explicit criteria. They must not perform hidden file/network/clock reads to change data semantics.
-3. Do not change row order in a way that alters results. A stable `source_row_id` must permit every flag, eligibility decision, and diagnostic to be traced back to the source row.
-4. At run start, calculate the raw SHA-256 and compare it with the frozen digest above. On mismatch, stop with `snapshot_integrity_error`; do not silently regenerate the expected hash.
-5. Log the raw hash, contract version, cleaning-script version, timezone, input/output row counts, and the summary/audit artifact paths. Do not log credentials or unnecessary full listing descriptions.
-6. Source-field ambiguities (`TRANSACT_TYPE`, `PRICE_SQFT`, area units, and city scope) remain explicit unresolved items until backed by source documentation or a recorded project decision.
-
-## 6. Reproducibility checks
+## 7. Reproducibility checks
 
 | Check | Required result |
 |---|---|
-| R1 — Raw integrity | SHA-256 equals `9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a`. |
-| R2 — Row/column count | 9,487 rows and 55 source columns before appended derived fields. |
-| R3 — Timestamp audit | 9,245 valid localized timestamps; 242 missing/invalid; observed span and monthly counts agree with §2. |
-| R4 — Twelve-month grid | Exactly the ordered months `2022-09` … `2023-08`, with 9,162 observed rows across the window before sale/price filters. |
-| R5 — Sale and price subset | 7,633 sale rows and 7,555 sale rows with valid coherent price ranges in the window under the rules in §3. |
-| R6 — Duplicate audit | 0 exact duplicate rows; the two rows for `Z70135726` remain present and are reported as a repeated ID. |
-| R7 — Repeatability | Re-running the cleaning script on the same raw hash/config produces identical processed bytes or a documented canonical serialization and the same counts/flags. |
-| R8 — No source mutation | Raw SHA-256 before and after cleaning is identical. |
+| R1 — Raw integrity | SHA-256 equals §1 |
+| R2 — Shape | 9,487 rows, 55 columns |
+| R3 — Cascade | Each stage count in §3 is reproduced by `load_canonical()` |
+| R4 — Canonical freeze | `listings_canonical.csv` SHA-256 equals `data/snapshot/CHECKSUMS.txt` |
+| R5 — Identity | **[P4]** `listing_id` unique |
+| R6 — Month rule | **[P3]** months derived in `Asia/Kolkata` |
+| R7 — No mutation | Raw SHA-256 unchanged after a run |
 
-If any baseline changes, first determine whether the source, timezone logic, or cleaning rule changed. Update this contract and its parent version only for an intentional, reviewed change; do not modify expected values just to make a test pass.
+If a baseline changes, first determine whether the source, timezone logic or a filter changed. Update this file and the parent version only for an intentional, reviewed change; never edit an expected value just to make a test pass.
 
-## 7. Traceability to the parent contract
+## 8. Traceability
 
-| This subcontract | Parent contract |
+| This file | Parent |
 |---|---|
-| Source, freeze, and hash | §§2, 11, 12 |
-| Month conversion and partial-month caveat | §§1, 3, 5, 7 |
-| Sale/price eligibility and denominators | §§3, 4, 6, 7 |
-| Row identity and duplicate policy | §§4, 6.3, 11 |
-| Source-field ambiguity and output caveats | §§1, 4.3, 6.2, 7 |
-| Reproducibility and error behavior | §§10–12 |
-
-**Change rule:** This subcontract is reviewed alongside `CONTRACT.md`. Shared schema, window, error-code, or metric-policy changes are made in the parent first; this file then records source-specific evidence and implementation assertions.
+| §1 Source | §2 |
+| §3 Population | §4.1 |
+| §4 Month | §4.2, §4.3 |
+| §5 Identity | §4.4 |
+| §6–7 Integrity | §2, §10 |
