@@ -1,6 +1,6 @@
 # TESTING SUBCONTRACT — Hyderabad Housing-Trends Application
 
-**Parent:** `CONTRACT.md` v2.0.0-draft. This file defines the MR catalogue, base inputs, seeds, the harness, statistics and diagnosis. Shared values come from the parent.
+**Parent:** `CONTRACT.md` v2.1.0-draft. This file defines the MR catalogue, base inputs, seeds, the harness, statistics and diagnosis. Shared values come from the parent.
 
 **Status:** Draft; implemented.
 
@@ -38,8 +38,8 @@ Constructed fixtures are never merged into the real snapshot or reported as obse
 | ID | Transformation | Relation | Subdomain | Tolerance | Fault exposed |
 |---|---|---|---|---|---|
 | I1 | permute listing rows | all of `R'` equals `R` | all inputs | counts exact; floats 1e-9 | order-dependent aggregation; unstable tie-break; shards leaking row order |
-| I2 | display units ₹→₹ lakh, sq ft→sq m | counts, rankings, % changes identical; `median_psf` scales by the exact unit factor | all inputs; band stays in rupees | 1e-9 | hard-coded units; the D1 sq m confusion; % after rounding |
-| I3 | duplicate every listing | counts exactly double; per-month price stats unchanged on already-sufficient months | yoy fields excluded (doubling flips sufficiency for 25–49-listing months) | medians 1e-9; counts exact | silent de-duplication; double counting |
+| I2 | display units ₹→₹ lakh, sq ft→sq m | counts, coverage statuses, rankings, % changes identical; `median_price_per_sqft_inr` scales by the exact unit factor | all inputs; band stays in rupees | 1e-9 | hard-coded units; the D1 sq m confusion; % after rounding |
+| I3 | duplicate every listing | `listing_count` and `price_valid_count` exactly double; per-month price stats unchanged on already-sufficient months; statuses recomputed from the doubled counts, not compared | yoy fields excluded (doubling flips sufficiency for 25–49-listing months) | medians 1e-9; counts exact | silent de-duplication; double counting |
 | I4 | bijective relabel of `listing_id` | all of `R'` equals `R` | all inputs | exact | agents keyed on ID hash; shard-by-ID changing the accepted set |
 | I5 | display currency ₹ lakh → ₹ crore | as I2, factor 10⁻² | lakh projection of each input (`prepare`) | 1e-9 | hard-coded currency; % after rounding |
 
@@ -47,20 +47,33 @@ Constructed fixtures are never merged into the real snapshot or reported as obse
 
 | ID | Transformation | Relation | Subdomain | Tolerance | Fault exposed |
 |---|---|---|---|---|---|
-| M1 | add ₹500,000 to every price in the densest window month | that month's `median_min_price_inr` and `median_max_price_inr` rise by ₹500,000; other months unchanged; none decreases | band-free projection of each input (`prepare` removes the band from both runs) | \|Δ − X\| ≤ 1e-6·X; others 1e-9 | month bucketing leaks; filters applied after the transform |
+| M1 | add ₹500,000 to both price endpoints in the densest window month | that month's `median_listing_price_inr`, `median_min_price_inr` and `median_max_price_inr` rise by ₹500,000; other months unchanged; none decreases; `listing_count`, `price_valid_count` and `coverage_status` unchanged in every month | band-free projection of each input (`prepare` removes the band from both runs) | \|Δ − X\| ≤ 1e-6·X; others 1e-9 | month bucketing leaks; filters applied after the transform |
 | M1raw | as M1 with the band left in place | as M1 | **does not hold** — retained as the documented ill-conceived relation | as M1 | none: listings cross the band, changing the population |
-| M2 | widen the price band 25% each side | each month's count ≥ before | inputs with a band | exact inequality | filter inversion; bound off-by-one; stale cached criteria |
-| M3 | keep the first half of the locality list | each month's count ≤ before | inputs with ≥ 2 localities; meaningful because geography widening keeps a locality constraint (`Coverage.md` §3) | exact inequality | leakage between shards; merging a previous criteria set |
-| M4 | halve `radius_km` | each month's count ≤ before | `RADIUS` inputs; reported over the control-path-stable subdomain, since C1 may double either radius | exact inequality | wrong distance formula; unlocated rows leaking into a radius query; radius widening not applied consistently |
+| M2 | widen the price band 25% each side | each month's `listing_count` ≥ before | inputs with a band | exact inequality | filter inversion; bound off-by-one; stale cached criteria |
+| M3 | keep the first half of the locality list | each month's `listing_count` ≤ before | inputs with ≥ 2 localities; meaningful because geography widening keeps a locality constraint (`Coverage.md` §3) | exact inequality | leakage between shards; merging a previous criteria set |
+| M4 | halve `radius_km` | each month's `listing_count` ≤ before | `RADIUS` inputs; reported over the control-path-stable subdomain, since C1 may double either radius | exact inequality | wrong distance formula; unlocated rows leaking into a radius query; radius widening not applied consistently |
 
 ### Directional
 
 | ID | Transformation | Relation | Subdomain | Tolerance | Fault exposed |
 |---|---|---|---|---|---|
-| D1 | shift the window forward one month | the 11 overlapping months' counts and medians match exactly | both windows inside the observed data | counts exact; floats 1e-9 | window off-by-one; bucketing drift; state carried between runs |
-| D2 | scale all prices by k = 1.5 (band scaled too) | `median_psf` and price medians scale by exactly k; % changes and rankings unchanged | k such that no listing crosses a bound | 1e-9 | unit mishandling; non-linear aggregation |
+| D1 | shift the window forward one month | the 11 overlapping months' counts, coverage statuses (including nulls) and medians match exactly | both windows inside the observed data | counts exact; floats 1e-9 | window off-by-one; bucketing drift; state carried between runs |
+| D2 | scale all prices by k = 1.5 (band scaled too) | `median_price_per_sqft_inr` and all price medians scale by exactly k; % changes and rankings unchanged; counts and coverage statuses unchanged | k such that no listing crosses a bound | 1e-9 | unit mishandling; non-linear aggregation |
 
-**Transforms keep both price bounds consistent.** `add_to_month_price` (M1) adds X to both `price_inr` and `max_price_inr`, and `scale_prices` (D2) multiplies both by k, so `MIN_PRICE <= MAX_PRICE` still holds and both medians move as the relation states.
+**Transforms keep the price fields consistent.** `add_to_month_price` (M1) adds X to both `price_inr` and `max_price_inr` and recomputes the midpoint `listing_price_inr` and the price per sqft from it; `scale_prices` (D2) multiplies all three by k. `MIN_PRICE <= MAX_PRICE` still holds and every median moves as the relation states. Listings without a valid price stay `null`.
+
+**Mapping to the design note's catalogue (§7).**
+
+| Note | Here | Difference |
+|---|---|---|
+| MR1 shuffle rows | I1 | — (I4 adds an ID relabelling) |
+| MR2 express prices in ₹ lakh, scale filter bounds | I2, I5 | display-unit change with the band kept in rupees, plus sq m and the lakh → crore case (`CONTRACT.md` §13 D-7) |
+| MR3 duplicate every listing | I3 | — |
+| MR4 add ₹X to both endpoints in one month | M1 | band removed from both runs (`prepare`) rather than chosen wide enough; M1raw keeps the band as the counter-example |
+| MR5 widen the price band | M2 | — |
+| MR6 locality subset, exact-locality mode | M3 | — (M4 adds the radius analogue) |
+| MR7 shift the window one month | D1 | — |
+| MR8 scale prices by k | D2 | tolerance 1e-9 rather than 1e-6 |
 
 M1 and D2 were stated as assuming that no listing crosses a plausibility bound. That precondition is vacuous here: the loader does not apply plausibility bounds (`Data.md` D5). What can change the analysed population is cycle 2's outlier rejection, so every run records `source_rejected` and `follow_rejected`, and the report states how often they differ. Control-flow termination (both loops capped) is tested separately in `tests/test_agents.py` and is not counted as a data MR.
 

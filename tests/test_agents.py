@@ -210,7 +210,7 @@ def test_narrative_flags_the_partial_month_only_when_in_window(frame, graph):
                            graph=graph)
     assert "2023-08 is a partial month" in with_aug["narrative"]
     assert "partial month" not in without["narrative"]
-    assert with_aug["final_report"].provenance["contract_version"] == "2.0.0-draft"
+    assert with_aug["final_report"].provenance["contract_version"] == "2.1.0-draft"
     assert with_aug["final_report"].provenance["snapshot_sha256"].startswith("9e8169")
 
 
@@ -295,3 +295,27 @@ def test_geography_widening_preserves_set_inclusion(frame):
         big = _relax_geography(spec, frame)
         small = _relax_geography(spec.with_(localities=small_set), frame)
         assert set(small[0].localities) <= set(big[0].localities)
+
+
+def test_spent_critique_cap_is_reported_as_needs_review(frame, graph):
+    """Design note §4.3.7: an unresolved complaint is labelled NEEDS_REVIEW,
+    never silently accepted."""
+    state = run_pipeline(frame, Criteria(window_end="2023-08"), seed=11,
+                         config=GraphConfig(max_critique_rounds=0),
+                         graph=build_graph())
+    assert state["critique_verdict"] == "NEEDS_REVIEW"
+    assert state["final_report"].provenance["review_status"] == "NEEDS_REVIEW"
+    assert "NEEDS_REVIEW" in state["narrative"]
+    normal = run_pipeline(frame, Criteria(window_end="2023-08"), seed=11, graph=graph)
+    assert normal["final_report"].provenance["review_status"] == "APPROVED"
+
+
+def test_listing_count_is_stable_under_outlier_rejection(frame, graph):
+    """Rejected listings lose their price, not their place in listing_count."""
+    on = run_pipeline(frame, Criteria(window_end="2023-08"), seed=11, graph=graph)
+    off = run_pipeline(frame, Criteria(window_end="2023-08"), seed=11,
+                       config=GraphConfig(max_critique_rounds=0), graph=build_graph())
+    assert on["n_rejected_outliers"] > 0
+    assert on["final_report"].count_series() == off["final_report"].count_series()
+    assert (sum(off["final_report"].valid_count_series())
+            - sum(on["final_report"].valid_count_series())) == on["n_rejected_outliers"]

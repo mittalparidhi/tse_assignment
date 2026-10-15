@@ -1,4 +1,4 @@
-# Hyderabad Contract Suite (v2.0.0-draft)
+# Hyderabad Contract Suite (v2.1.0-draft)
 
 ## Authority and reading order
 
@@ -24,7 +24,7 @@ If a subordinate file conflicts with `CONTRACT.md`, the global contract wins.
 | `Testing.md` | MR catalogue, harness, statistics | `src/mr/`, `scripts/run_harness.py` |
 | `Golden.md` | Regression vectors | `tests/golden/`, `tests/test_golden.py` |
 
-The v1 suite (fixed window, Planner/Scanner/Validator/Anomaly/Diagnostic/Reporter agents) is preserved unchanged in `legacy/contracts/`. `CONTRACT.md` §11 lists every change from v1 and why.
+The v1 suite (fixed window, Planner/Scanner/Validator/Anomaly/Diagnostic/Reporter agents) is preserved unchanged in `legacy/contracts/`. `CONTRACT.md` §11 lists every change from v1 and why, and §13 lists every deliberate deviation from the team's design note (*TSE – Agent Architecture, Hyderabad Refined*) with its evidence.
 
 ## Implementation status tags
 

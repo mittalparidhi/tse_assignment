@@ -1,6 +1,6 @@
 # RETRIEVAL AGENTS SUBCONTRACT — Hyderabad Housing-Trends Application
 
-**Parent:** `CONTRACT.md` v2.0.0-draft. **Related:** `Criteria.md`, `Coverage.md`, `Data.md`. The parent wins on conflicts.
+**Parent:** `CONTRACT.md` v2.1.0-draft. **Related:** `Criteria.md`, `Coverage.md`, `Data.md`. The parent wins on conflicts.
 
 **Status:** Draft; implemented.
 
@@ -21,10 +21,10 @@
 
 | `query_mode` | Algorithm |
 |---|---|
-| `EXACT_LOCALITY` | set membership: `locality` in `localities` (no filter when `localities` is `None`) |
+| `EXACT_LOCALITY` | set membership: `locality` or `locality_id` in `localities` (no filter when `localities` is `None`) |
 | `RADIUS` | haversine great-circle distance from (`center_lat`, `center_lon`) `<= radius_km`; rows without coordinates are **excluded**, because an unlocated row cannot satisfy a geographic claim |
 
-Both apply the same BHK, property-type and price-band filters (`src/trend.py::apply_criteria`; bands inclusive, in rupees) and keep only months in the window.
+Both apply the same BHK, city, property-type and price-band filters (`src/trend.py::apply_criteria`; bands inclusive, in rupees, by the listing-range overlap rule — `MAX_PRICE >= band minimum` and `MIN_PRICE <= band maximum`; listings without a valid price cannot be placed in a band and are excluded when one is set) and keep only months in the window. Without a band, listings without a valid price are retrieved: they count in `listing_count`.
 
 ## 3. Sharding and merge
 

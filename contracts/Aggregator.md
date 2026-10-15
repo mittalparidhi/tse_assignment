@@ -1,6 +1,6 @@
 # AGGREGATOR AGENT SUBCONTRACT — Hyderabad Housing-Trends Application
 
-**Parent:** `CONTRACT.md` v2.0.0-draft. **Related:** `Analysis.md`, `LLM.md`. The parent wins on conflicts.
+**Parent:** `CONTRACT.md` v2.1.0-draft. **Related:** `Analysis.md`, `LLM.md`. The parent wins on conflicts.
 
 **Status:** Draft; implemented. Phase 3 adds caveats for the new fields.
 
@@ -22,10 +22,11 @@ Note: in v1, "Aggregator" meant monthly aggregation. In v2 it is the final repor
 ## 2. Responsibilities
 
 1. `final_report` is `trend_stats` unchanged. The only permitted update is refreshing LLM call/fallback counts in `provenance` after the last model call, so the reported fallback rate includes the critique and narrative calls.
-2. The deterministic narrative states the window, listing count, the ₹/sqft move with **the number of months it actually spans**, the most expensive locality with its count, any relaxations applied by C1 ("your query was too narrow and was relaxed: …"), and any listings rejected by C2.
+2. The deterministic narrative states the window, `listing_count` and `price_valid_count` totals, how many months are `ADEQUATE` / `LIMITED` / `NO_DATA_IN_SNAPSHOT`, the ₹/sqft move with **the number of months it actually spans**, the most expensive locality with its count, any relaxations applied by C1 ("your query was too narrow and was relaxed: …"), and any listings rejected by C2.
 3. If no move can be stated (fewer than two sufficient months), say so; never fill in a figure.
 4. When the window includes the partial month, say that August 2023 is partial (data to 26 Aug).
 5. Describe counts as observed listings in a snapshot, never as market inventory or sales.
+6. Record the outcome as `provenance.review_status`: `APPROVED`, or `NEEDS_REVIEW` when the critique's cap was spent with a new problem outstanding (design note §4.3.7), and say so in the narrative. Record `provenance.coverage_verdict` (`ACCEPT` / `LIMITED`).
 
 ## 3. LLM narrative (LLM mode only)
 

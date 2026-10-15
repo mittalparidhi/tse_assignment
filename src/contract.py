@@ -49,7 +49,7 @@ CurrencyUnit = Literal["INR", "INR_LAKH", "INR_CRORE"]
 AreaUnit = Literal["SQFT", "SQM"]
 
 #: Version of the contract suite in ``contracts/`` this code implements.
-CONTRACT_VERSION = "2.0.0-draft"
+CONTRACT_VERSION = "2.1.0-draft"
 
 #: Default last month of the 12-month window.
 DEFAULT_WINDOW_END = "2023-08"

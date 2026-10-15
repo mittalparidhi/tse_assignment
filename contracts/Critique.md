@@ -1,6 +1,6 @@
 # CRITIQUE AGENT SUBCONTRACT — Hyderabad Housing-Trends Application
 
-**Parent:** `CONTRACT.md` v2.0.0-draft. **Related:** `Analysis.md`, `LLM.md`. The parent wins on conflicts.
+**Parent:** `CONTRACT.md` v2.1.0-draft. **Related:** `Analysis.md`, `LLM.md`. The parent wins on conflicts.
 
 **Status:** Draft; implemented.
 
@@ -23,11 +23,14 @@ A month is flagged when any holds:
 
 | Rule | Condition |
 |---|---|
-| Structural | the month has listings but no computable median ₹/sqft |
-| Jump | month-on-month change in `median_psf` exceeds `jump_threshold_pct` (25%) in absolute value, and the month has listings |
+| Invariant: counts | `price_valid_count > listing_count` |
+| Invariant: nulls | a median exists without price-valid listings, or price-valid listings exist without a median |
+| Invariant: values | a median is not positive |
+| Invariant: status | `coverage_status` disagrees with the counts |
+| Jump | month-on-month change in `median_price_per_sqft_inr` exceeds `jump_threshold_pct` (25%) in absolute value, and the month has price-valid listings |
 | Contextual outlier | some listing in the month has robust \|z\| of log ₹/sqft `> robust_z_threshold` (3.5) |
 
-The contextual-outlier rule is evaluated on `analysed_listings`, the listings that remain after any rejection, so after a recomputation it checks whether the rejection cleaned the month.
+The invariants are the design note's "statistic/count coherence" checks (§4.3.6); each complaint names the invariant broken. A known empty or sparse month is a coverage status (`NO_DATA_IN_SNAPSHOT`, `LIMITED`), not a fault, and is not flagged for being empty. The contextual-outlier rule is evaluated on the price-valid `analysed_listings`, the listings that remain after any rejection, so after a recomputation it checks whether the rejection cleaned the month.
 
 ## 3. LLM judgment (LLM mode only)
 
@@ -38,9 +41,9 @@ The contextual-outlier rule is evaluated on `analysed_listings`, the listings th
 ## 4. Decision and loop accounting
 
 - `new_flags = flagged − flagged_months already handled`.
-- Recompute (route `recompute` → `AnalysisAgent`) only if `new_flags` is non-empty and `critique_rounds < max_critique_rounds` (1). Otherwise route `report`.
+- Recompute (route `recompute` → `AnalysisAgent`) only if `new_flags` is non-empty and `critique_rounds < max_critique_rounds` (1). Otherwise route `report`, with verdict `APPROVED` — or **`NEEDS_REVIEW`** if `new_flags` is non-empty but the cap is spent (design note §4.3.7). The Aggregator records it as `provenance.review_status` and states it in the summary; it is never silently accepted.
 - On recompute: `flagged_months` becomes the full flagged set, `critique_rounds` increments, and the complaint carries the months and reasons.
-- Termination is guaranteed: at most one round. A second round is unsound because the flagged set grows between rounds and the relative threshold is not idempotent (measured 2/16 MR violations at two rounds, 0/16 at one).
+- Termination is guaranteed: at most one round. The design note allows two; one is kept because a second round is unsound (`CONTRACT.md` §13 D-4) because the flagged set grows between rounds and the relative threshold is not idempotent (measured 2/16 MR violations at two rounds, 0/16 at one).
 - Each decision is traced with `flagged`, `new_flags`, `verdict`, `decision` and the first reason.
 
 ## 5. Must not

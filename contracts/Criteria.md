@@ -1,6 +1,6 @@
 # CRITERIA AGENT SUBCONTRACT — Hyderabad Housing-Trends Application
 
-**Parent:** `CONTRACT.md` v2.0.0-draft. **Related:** `Data.md`, `LLM.md`, `Retrieval.md`. The parent wins on conflicts.
+**Parent:** `CONTRACT.md` v2.1.0-draft. **Related:** `Data.md`, `LLM.md`, `Retrieval.md`. The parent wins on conflicts.
 
 **Status:** Draft; implemented. Request validation was ported from v1 (`legacy/app/criteria_agent.py`) in Phase 3.
 
@@ -23,12 +23,13 @@
 |---|---|---|
 | `window_end` | `YYYY-MM` | last month of the 12-month window (inclusive); default `2023-08` |
 | `bhk` | tuple of int or `None` | bedroom counts; `None` = all |
-| `localities` | tuple of str or `None` | exact locality names; `None` = whole metro |
+| `localities` | tuple of str or `None` | locality names or source `LOCALITY_ID`s; `None` = whole metro |
+| `cities` | tuple of str or `None` | `Hyderabad` and/or `Secunderabad`; `None` = both (design note §3; `CONTRACT.md` §13 D-9) |
 | `property_types` | tuple of str or `None` | dwelling types; `None` = all |
-| `price_min_inr`, `price_max_inr` | float or `None` | price band in **rupees**, inclusive |
+| `price_min_inr`, `price_max_inr` | float or `None` | price band in **rupees**, inclusive; a listing matches if its `[MIN_PRICE, MAX_PRICE]` range overlaps the band (design note MR5) |
 | `currency_unit` | `INR` \| `INR_LAKH` \| `INR_CRORE` | display only |
 | `area_unit` | `SQFT` \| `SQM` | display only |
-| `query_mode` | `EXACT_LOCALITY` \| `RADIUS` | retrieval algorithm (`Retrieval.md` §2) |
+| `query_mode` | `EXACT_LOCALITY` \| `RADIUS` | retrieval algorithm (`Retrieval.md` §2); a request may name the radius mode `GEO_RADIUS`, the design note's name |
 | `center_lat`, `center_lon`, `radius_km` | float or `None` | radius search parameters |
 | `label` | str | base-input identifier; not a filter |
 
@@ -39,12 +40,12 @@ Validation runs at the request boundary: the Streamlit sidebar and any programma
 1. Reject unknown request fields. Never silently ignore a filter.
 2. `window_end` must match `YYYY-MM` and be a month present in the canonical frame (currently 2022-05 … 2023-08).
 3. `bhk` values must be whole numbers in the source-observed domain 1–10; duplicates are removed and the list sorted.
-4. Locality names are matched case- and whitespace-insensitively to source-observed names and replaced by the canonical spelling; duplicates removed, first-request order kept. An unmatched name is rejected, never approximated. The loader's `"Unknown"` placeholder is not a locality and is rejected.
+4. Locality names are matched case- and whitespace-insensitively to source-observed names and replaced by the canonical spelling; a source `LOCALITY_ID` is accepted as given; duplicates removed, first-request order kept. An unmatched name or ID is rejected, never approximated. The loader's `"Unknown"` placeholder is not a locality and is rejected.
 5. `property_types` must be dwelling types (`Data.md` §3).
 6. Prices must be finite and `> 0`; `price_min_inr <= price_max_inr` when both are given.
 7. Units must be from the allowed sets above.
 8. `RADIUS` requires `center_lat`, `center_lon` inside the Hyderabad box (lat 16.5–18.5, lon 77.5–79.5) and `0 < radius_km <= 100`. `RADIUS` with `localities`, or `EXACT_LOCALITY` with a radius, is a mode conflict.
-9. City is not a filter; both Hyderabad and Secunderabad are always in scope.
+9. `cities` must be source-observed city names (case-insensitive): Hyderabad and/or Secunderabad. Omitted, both are in scope.
 
 **MR transformations bypass this validation.** The harness builds follow-up `Criteria` directly, so a valid transformation (for example a window shifted into an edge month) is never rejected by request-boundary rules. Every harness base input must itself pass validation.
 
@@ -58,6 +59,7 @@ Errors use `{"status": "error", "error_code": ..., "message": ...}`; the message
 | `unknown_request_fields` | rule 1 |
 | `invalid_date_format` / `unsupported_date_window` | rule 2 |
 | `invalid_bhk` / `unsupported_bhk` | rule 3 |
+| `unsupported_city` | rule 9 |
 | `unsupported_locality` | rule 4 |
 | `unsupported_property_type` | rule 5 |
 | `invalid_price` / `invalid_price_range` | rule 6 |

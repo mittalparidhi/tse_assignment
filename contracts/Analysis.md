@@ -1,6 +1,6 @@
 # ANALYSIS AGENT SUBCONTRACT — Hyderabad Housing-Trends Application
 
-**Parent:** `CONTRACT.md` v2.0.0-draft. **Related:** `Critique.md`, `Data.md`, `LLM.md`. The parent wins on conflicts.
+**Parent:** `CONTRACT.md` v2.1.0-draft. **Related:** `Critique.md`, `Data.md`, `LLM.md`. The parent wins on conflicts.
 
 **Status:** Draft; implemented. New output fields are added in Phase 3; rejection accounting is fixed in Phase 4.
 
@@ -21,10 +21,11 @@
 
 Computed by `compute_trend` exactly as defined in `CONTRACT.md` §5:
 
-- Per month: `n_active`, `median_psf`, `p25_psf`, `p75_psf`, `median_min_price_inr`, `median_max_price_inr` (replacing `median_price`), `median_age_on_site_days`, `month_is_sufficient`, `is_partial_month`.
-- Report: `locality_rankings` (≥ 5 listings, top 10, median ₹/sqft descending, name tie-break, stable sort), `yoy_median_psf_pct` and `yoy_span_months` (first vs last sufficient month), `n_listings_total`.
+- Per month, the design note's five fields: `listing_count` (all matching listings), `price_valid_count` (the price-valid, not-rejected ones), `median_listing_price_inr` (median of `(MIN_PRICE + MAX_PRICE) / 2`), `median_price_per_sqft_inr`, `coverage_status`. Both medians use the same eligible set: the price-valid listings.
+- Per month, extensions: `median_min_price_inr`, `median_max_price_inr`, `p25_psf`, `p75_psf`, `median_age_on_site_days` (over all listings in the month), `month_is_sufficient`, `is_partial_month`.
+- Report: `locality_rankings` (price-valid listings; ≥ 5 per locality, top 10, median ₹/sqft descending, name tie-break, stable sort), `yoy_median_psf_pct` and `yoy_span_months` (first vs last sufficient month), `n_listings_total`, `n_price_valid_total`.
 - Display scaling: price × currency factor; ₹/sqft × (currency factor ÷ area factor). Percentages are computed from unrounded values.
-- Empty months: count 0, statistics `null`. No imputation, interpolation or carry-forward.
+- Empty months: counts 0, statistics `null`, `NO_DATA_IN_SNAPSHOT`. A month whose listings all lack a valid price: `listing_count > 0`, statistics `null`, `LIMITED`. No imputation, interpolation or carry-forward.
 - Medians and percentiles use numpy; an even count's median is the mean of the two middle values.
 
 A model never computes, rounds or revises any of these numbers.
@@ -39,7 +40,7 @@ Runs only when `critique_complaint` is set and `flagged_months` is non-empty. Fo
 | Area disagreement | `area_sqft` differs from `area_sqm_raw × 10.7639104` by more than `cross_field_tolerance` (1%) |
 | Price disagreement | `price_inr` differs from `price_display_inr` by more than 1% |
 
-A comparison with a missing restatement is skipped, not treated as a disagreement. The z-score uses the median and MAD, so a single extreme value cannot set its own threshold. Setting `group_outliers_by_month = False` reproduces the original per-shard fault and exists only to keep the root-cause analysis reproducible.
+Only price-valid listings are candidates. A **rejected listing is flagged, not removed**: it loses `price_valid`, so it leaves `price_valid_count` and both medians but stays in `listing_count` (design note §2 counts listings with an unusable price). A comparison with a missing restatement is skipped, not treated as a disagreement. The z-score uses the median and MAD, so a single extreme value cannot set its own threshold. Setting `group_outliers_by_month = False` reproduces the original per-shard fault and exists only to keep the root-cause analysis reproducible.
 
 The robust threshold is relative, so the filter is not shift-invariant: adding a constant to one month's prices changes ₹/sqft by a different amount per listing and can change which listings are rejected. This is the documented cause of MR M1's residual violations (`docs/DIAGNOSIS.md`).
 
@@ -51,7 +52,7 @@ The robust threshold is relative, so the filter is not shift-invariant: adding a
 
 ## 5. Accounting
 
-- `n_rejected_outliers` equals the number rejected in the current computation. Each recomputation starts again from `raw_listings` with the cumulative flagged months, so adding round totals would double-count. The listings the report was computed from are kept as `analysed_listings` for the Critique agent.
+- `n_rejected_outliers` equals the number rejected in the current computation (`raw_listings` price-valid count minus the report's `n_price_valid_total`). Each recomputation starts again from `raw_listings` with the cumulative flagged months, so adding round totals would double-count. The listings the report was computed from, rejections flagged, are kept as `analysed_listings` for the Critique agent.
 - Provenance records seed, agent mode, query mode, loop counts, relaxations, coverage score, rejected count, flagged months, `n_no_coordinate` and LLM accounting, `contract_version`, and `snapshot_sha256` (the snapshot the frame was derived from; `None` for frames not built by `load_canonical`, such as the synthetic snapshot).
 
 ## 6. Must not

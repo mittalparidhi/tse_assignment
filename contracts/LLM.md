@@ -1,6 +1,6 @@
 # MODEL/LLM SUBCONTRACT — Hyderabad Housing-Trends Application
 
-**Parent:** `CONTRACT.md` v2.0.0-draft. This file restricts model use and defines reproducible fallback behaviour.
+**Parent:** `CONTRACT.md` v2.1.0-draft. This file restricts model use and defines reproducible fallback behaviour.
 
 **Status:** Draft; implemented. The committed LLM sweeps predate contract v2 (§6).
 

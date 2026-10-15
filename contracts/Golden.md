@@ -1,6 +1,6 @@
 # GOLDEN VECTORS AND REGRESSION ORACLES — Hyderabad Housing-Trends Application
 
-**Parent:** `CONTRACT.md` v2.0.0-draft.
+**Parent:** `CONTRACT.md` v2.1.0-draft.
 **Purpose:** Frozen expected outputs that detect unintended changes to the statistics and the agent pipeline on the real snapshot.
 **Status:** Draft. The vectors in `tests/golden/deterministic_baseline.json` were regenerated in Phase 3 for contract v2 (IST months, Price-on-Request exclusion, `MAX_PRICE` validity, new fields).
 
@@ -37,7 +37,7 @@ If the raw hash differs, the golden tests fail with `snapshot_integrity_error`; 
 | `banded` | `window_end = 2023-07`, a price band |
 | `lakh` | `window_end = 2023-08`, `currency_unit = INR_LAKH` |
 
-Each stores the 12-month count, ₹/sqft, price and % change series, the sufficient months, rankings, total, yoy move and span. Each also stores `median_min_price_inr`, `median_max_price_inr` and `is_partial_month` per month.
+Each stores the 12-month `listing_count`, `price_valid_count` and `coverage_status` series, the ₹/sqft, listing-price, min/max-price and % change series, `is_partial_month`, the sufficient months, rankings, total, yoy move and span.
 
 ### 2.2 Pipeline vectors (`pipeline::<label>`, `test_agent_pipeline_unchanged`)
 
@@ -49,7 +49,7 @@ The full agent graph, deterministic mode:
 | `base00` | harness base input 0 | 11 |
 | `base05` | harness base input 5 | 23 |
 
-Each stores counts, ₹/sqft series, rankings, total, yoy move and span, coverage score, relaxations, widening rounds (`widen_rounds`), critique rounds (`critique_rounds`) and rejected-listing count (`n_rejected_outliers`; renamed from the stale `strict_rounds`/`n_rejected_strict`). The pipeline vectors were regenerated when geography widening changed (`narrow` 4,141 → 632 listings).
+Each stores counts, price-valid counts, ₹/sqft series, rankings, total, yoy move and span, coverage score, relaxations, widening rounds (`widen_rounds`), critique rounds (`critique_rounds`), `coverage_verdict`, `review_status` and rejected-listing count (`n_rejected_outliers`; renamed from the stale `strict_rounds`/`n_rejected_strict`). The pipeline vectors were regenerated when geography widening changed (`narrow` 4,141 → 632 listings).
 
 ### 2.3 Corrections log
 
