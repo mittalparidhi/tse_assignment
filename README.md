@@ -16,47 +16,55 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# the headline results table, rebuilt from the committed records (instant,
-# no model needed) -- and --check verifies every rate appears in REPORT.md
+# the contract-v2 results table, rebuilt from the committed records (instant)
+python scripts/headline_table.py --v2
+
+# the earlier published three-configuration table, and a check that every
+# rate in it appears in REPORT.md
 python scripts/headline_table.py --check
 
-# or re-run a sweep from scratch (stronger, slower)
-python scripts/run_harness.py --tag check      # deterministic, ~6 min
+# or re-run the contract-v2 sweep from scratch (stronger, ~50 min)
+python scripts/run_harness.py --tag v2_deterministic
 ```
 
 That verifies the snapshot checksum, rebuilds the canonical frame, runs
-**11 relations × 36 base inputs × 3 seeds = 1,188 runs**, and writes the
-results table to `results/check/headline.txt`.
+**12 relations × 72 base inputs × 3 seeds = 2,592 runs** (36 locality and
+36 radius inputs; each relation runs on the inputs in its subdomain), and
+writes the results table to `results/v2_deterministic/headline.txt`.
 
-Three configurations were swept, 1,188 checks each:
+Contract-v2 deterministic sweep (statistical unit = base input; a base input
+is violated if any seed violates):
 
 ```
-MR     family       determ.  LLM pre-fix  LLM post-fix   95% CI (post-fix)
-I1     invariance    0.000      0.000        0.000        [0.000, 0.034]
-I2     invariance    0.000      0.028        0.000        [0.000, 0.034]
-I3     invariance    0.000      0.417        0.176        [0.116, 0.258]
-I4     invariance    0.000      0.630        0.000        [0.000, 0.034]
-I5     invariance    0.000      0.000        0.000        [0.000, 0.034]
-M1     monotonic     0.139      0.222        0.333        [0.252, 0.427]
-M2     monotonic     0.000      0.111        0.111        [0.065, 0.184]
-M3     monotonic     0.000      0.000        0.000        [0.000, 0.034]
-M1raw  monotonic     0.861      0.852        0.806        [0.721, 0.869]
-D1     directional   0.000      0.222        0.667        [0.573, 0.748]
-D2     directional   0.000      0.556        0.593        [0.498, 0.681]
+MR     family       bases  viol   rate    95% CI           stable-path rate
+I1-I5  invariance     72     0   0.000   [0.000, 0.051]    0.000
+M1     monotonic      72    13   0.181   [0.109, 0.285]    0.181
+M2     monotonic      72     2   0.028   [0.008, 0.096]    0.028
+M3     monotonic      36     9   0.250   [0.138, 0.411]    0.258
+M4     monotonic      36     0   0.000   [0.000, 0.096]    0.000
+M1raw  monotonic      72    42   0.583   [0.468, 0.690]    0.583
+D1     directional    72     0   0.000   [0.000, 0.051]    0.000
+D2     directional    72     0   0.000   [0.000, 0.051]    0.000
 
-seeds [11, 23, 47] · C1 path divergence 0/1188 in all three
+seeds [11, 23, 47] · seeds disagreed on 0 base inputs · C1 path diverged in 30/2,592 runs
 ```
 
-**`M1raw` is meant to fail** — it is the documented unsound relation, retained
-as a counter-example. **I4 and I2 going 0.630/0.028 → 0.000** is the LLM
-prompt-contamination fix (`docs/DIAGNOSIS.md` Finding 8). **D1 and M1 getting
-worse** is a measured trade-off, argued in `REPORT.md` §8.6.
+**`M1raw` is meant to fail** — the documented unsound relation. **M1 and M2**
+violate only when the follow-up run's cycle-2 rejected set differs (13/13,
+2/2): the relative outlier filter is not shift- or population-invariant.
+**M3** is a genuine design fault: geography widening around each run's own
+centre does not preserve locality-set inclusion (`NOTEBOOK.md` Stage 17).
+
+The earlier sweeps (`results/phaseA_deterministic`, `llm_before_promptfix`,
+`llm`; 11 relations × 36 inputs, per-run intervals, the pre-v2 population)
+are kept as the record behind `docs/DIAGNOSIS.md` and `REPORT.md` §7. The
+two LLM sweeps need Ollama and have not been re-run under contract v2.
 
 ### Other entry points
 
 ```bash
 streamlit run app.py                                  # the dashboard
-python -m pytest                                      # 101 tests, 1 xfail
+python -m pytest                                      # 138 tests, 1 xfail
 python scripts/make_synthetic.py                      # synthetic snapshot + oracle check
 python scripts/run_harness.py --tag syn --synthetic   # relations vs known ground truth
 python scripts/diagnose.py                            # the root-cause experiments

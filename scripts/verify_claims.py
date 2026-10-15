@@ -63,14 +63,14 @@ def main() -> int:
         ("missing BEDROOM_NUM", int(raw.BEDROOM_NUM.isna().sum()), 2814),
         ("of which Residential Land",
          int((raw[raw.BEDROOM_NUM.isna()].PROPERTY_TYPE == "Residential Land").sum()), 2806),
-        ("relations", len(ALL_RELATIONS), 11),
-        ("families 5/4/2",
+        ("relations", len(ALL_RELATIONS), 12),
+        ("families 5/5/2",
          tuple(sum(1 for m in ALL_RELATIONS if m.family == f)
-               for f in ("invariance","monotonic","directional")), (5, 4, 2)),
-        ("base inputs", len(inputs), 36),
+               for f in ("invariance","monotonic","directional")), (5, 5, 2)),
+        ("locality base inputs", len(inputs), 36),
         ("seeds", list(SEEDS), [11, 23, 47]),
         ("sufficiency threshold", MIN_SUFFICIENT_N, 50),
-        ("runs per sweep", meta["total_runs"], 1188),
+        ("runs per LLM sweep (pre-v2)", meta["total_runs"], 1188),
         ("determinism probe trials", probe["trials"], 20),
         ("determinism distinct outputs", probe["distinct_outputs"], 1),
         ("LLM calls (post-fix)", meta["llm"]["llm_calls"], 14209),
@@ -182,10 +182,11 @@ def main() -> int:
          f"{six}", "final six months share"),
         (re.compile(r"^\"\"\"The metamorphic relation catalogue\. (\w+) relations",
                     re.M), words.get(n_rel, "?"), "relation count in words"),
-        (re.compile(r"\*\*(\d+) relations \u00d7 36 base inputs"),
+        # The v2 sweep: 36 locality + 36 radius base inputs.
+        (re.compile(r"\*\*(\d+) relations \u00d7 72 base inputs"),
          str(n_rel), "relation count in the repro command"),
-        (re.compile(r"36 base inputs \u00d7 3 seeds = ([\d,]+) runs"),
-         f"{n_rel * 36 * 3:,}", "runs per sweep"),
+        (re.compile(r"72 base inputs \u00d7 3 seeds = ([\d,]+) runs"),
+         f"{n_rel * 72 * 3:,}", "runs per sweep"),
     ]
     for src in SOURCES:
         text = Path(src).read_text(encoding="utf-8")
