@@ -147,7 +147,7 @@ be falsified until "the trend" is a named, finite set of numbers. Defined in
 | Field | Meaning |
 |---|---|
 | `window_months` | exactly twelve months, ascending |
-| `monthly[]` | per month: `n_active`, `median_psf`, `median_min_price_inr`, `median_max_price_inr`, `p25_psf`, `p75_psf`, `median_age_on_site_days`, `month_is_sufficient`, `is_partial_month` |
+| `monthly[]` | per month, the design note's five fields: `listing_count` (including listings without a valid price), `price_valid_count`, `median_listing_price_inr` (median of (MIN + MAX) / 2), `median_price_per_sqft_inr`, `coverage_status` (ADEQUATE / LIMITED / NO_DATA_IN_SNAPSHOT); and extensions `median_min_price_inr`, `median_max_price_inr`, `p25_psf`, `p75_psf`, `median_age_on_site_days`, `month_is_sufficient`, `is_partial_month` |
 | `locality_rankings[]` | localities by median ₹/sqft, with explicit `rank` |
 | `yoy_median_psf_pct` | move between the first and last **sufficient** month |
 | `yoy_span_months` | how many months that actually spans |
@@ -155,11 +155,16 @@ be falsified until "the trend" is a named, finite set of numbers. Defined in
 | `currency_unit`, `area_unit` | display units, carried so unit-invariance is observable |
 | `criteria`, `provenance` | the slice described; seeds, loop counts, LLM accounting, trace |
 
-**Both price bounds are reported.** A listing counts only if `MIN_PRICE` and
-`MAX_PRICE` are both real prices with `MIN_PRICE ≤ MAX_PRICE`; ₹/sqft uses
-`MIN_PRICE`, the asking price. On this snapshot every canonical listing has
-`MIN_PRICE == MAX_PRICE`, so the two medians coincide; the separation is kept
-so that a range listing would show. **August 2023 is flagged partial**
+**The design note's output contract.** Each month reports `listing_count`
+(every matching listing, including those whose price or area is unusable) and
+`price_valid_count` (the listings both medians are computed from), so "no
+usable price" is distinguishable from "no listing". The representative asking
+price is the midpoint of `MIN_PRICE` and `MAX_PRICE`; on this snapshot every
+price-valid listing has `MIN_PRICE == MAX_PRICE`, so the midpoint, the minimum
+and the maximum coincide (the latter two are kept as extensions).
+`coverage_status` is `ADEQUATE` with at least 30 usable listings,
+`NO_DATA_IN_SNAPSHOT` with none at all, and `LIMITED` otherwise; a missing
+median is `null`, never zero. **August 2023 is flagged partial**
 (data to the 26th) and the summary says so whenever it is in the window.
 
 Five decisions exist specifically so that relations mean something.
@@ -230,8 +235,12 @@ not a blanket re-run.
 
 **(b) Conditional / iterative control step.** Cycle 1, Coverage → Retrieval:
 the Coverage agent computes `coverage_score = sufficient_months / 12`, then
-proceeds or widens one criterion — price band, then BHK, then geography, each
-at most once — and re-runs retrieval. Geography widening never drops the
+proceeds or widens one criterion — geography, then BHK, then price band (the
+design note's order), each at most once, at most two retries — and re-runs
+retrieval. A month counts as covered with at least 30 usable listings; if the
+target cannot be reached, or the whole snapshot could not cover more months,
+the run proceeds with **LIMITED** coverage and reports the gap rather than
+inventing data. Geography widening never drops the
 locality filter: each selected locality adds its own nearest neighbours until
 depth roughly doubles, which preserves set inclusion (a subset widens to a
 subset; `contracts/Coverage.md` §3). Both cycles are capped, so termination is
@@ -310,7 +319,29 @@ Cycle 1 fires twice, cycle 2 once, and the answer changes materially at step
 25. At step 26 the critique re-examines the *cleaned* listings and still finds
 two months with an outlier, but none it has not already handled, so it stops.
 
-### 4.5 Where the local model sits
+### 4.5 Alignment with the design note
+
+The team's design note (*TSE – Agent Architecture, Hyderabad Refined*) is
+adopted in contract v2.1: its five-field monthly contract, the 30-listing
+coverage threshold with ACCEPT / RETRY / LIMITED verdicts, two retries in its
+lever order, the critique's coherence checks and NEEDS_REVIEW outcome, the
+city and locality-ID filters, the `GEO_RADIUS` name, the range-overlap price
+band and `data/SOURCE.md`. Ten deliberate deviations are listed with their
+evidence in `contracts/CONTRACT.md` §13. The most consequential:
+
+- **Months come from `POSTING_DATE`, not `REGISTER_DATE__U`.** The note's
+  monthly counts reproduce exactly on the raw file, but `REGISTER_DATE__U` is
+  later than `POSTING_DATE` on 5,389 rows (a refresh date, not the listing
+  date) and leaves 4 of 12 months with 30 usable listings, against 7.
+- **Sale dwellings only**: rent and PG rows carry rents, land has no built-up
+  area; mixing them would make price per sqft meaningless.
+- **One critique recomputation, not two**: a second round was measured to
+  cause violations (2/16 vs 0/16); NEEDS_REVIEW makes the cap visible.
+- **Four retrieval agents, a wider optional LLM role, twelve MRs**: supersets
+  of the note, each argued in §13; the note's MR1–MR8 map onto I1–I3, M1–M3,
+  D1 and D2 (`contracts/Testing.md` §4).
+
+### 4.6 Where the local model sits
 
 In LLM mode four agents delegate judgment to Qwen2.5-3B-Instruct (Q4_K_M) via
 Ollama: Criteria chooses `query_mode`; Analysis reviews the **grey zone**
@@ -786,7 +817,7 @@ were leaks of information the judgment is not about:
 An identifier carries no information about whether a description corroborates a
 price; a judgment about whether a month is anomalous must not depend on the
 units it is shown in. **Verdict: genuine agent faults**, fixed by the four
-prompt-hygiene constraints of §4.5.
+prompt-hygiene constraints of §4.6.
 
 **The fourth is the most instructive.** I1 scored 0.000 across 108 runs, but a
 prompt-invariance test showed the review ordering sorted on a *subset* of the

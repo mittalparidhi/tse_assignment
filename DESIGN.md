@@ -2,9 +2,11 @@
 
 **Target market:** Hyderabad / Secunderabad (the brief's optional Indian-metro route)
 **Deliverable stage:** design note (architecture + data source + MR sketches)
-**Updated for contract v2.0.0-draft** after the two team implementations were
-merged. The binding specification is `contracts/` (one contract per agent);
-`contracts/CONTRACT.md` §11 lists every change from the first design and why.
+**Updated for contract v2.1.0-draft** after the two team implementations were
+merged and aligned with the team's design note (*TSE – Agent Architecture,
+Hyderabad Refined*). The binding specification is `contracts/` (one contract
+per agent); `contracts/CONTRACT.md` §11 lists every change from the first
+design and §13 every deliberate deviation from the design note, with evidence.
 
 ---
 
@@ -96,7 +98,7 @@ until "the trend" is a named, finite set of numbers. Defined in
 | Field | Meaning |
 |---|---|
 | `window_months` | exactly 12 months, ascending |
-| `monthly[]` | per month: `n_active`, `median_psf`, `median_min_price_inr`, `median_max_price_inr`, `p25_psf`, `p75_psf`, `median_age_on_site_days`, `month_is_sufficient`, `is_partial_month` |
+| `monthly[]` | per month, the design note's five fields: `listing_count` (including listings without a valid price), `price_valid_count`, `median_listing_price_inr` (median of (MIN + MAX) / 2), `median_price_per_sqft_inr`, `coverage_status` (ADEQUATE / LIMITED / NO_DATA_IN_SNAPSHOT); and extensions `median_min_price_inr`, `median_max_price_inr`, `p25_psf`, `p75_psf`, `median_age_on_site_days`, `month_is_sufficient`, `is_partial_month` |
 | `locality_rankings[]` | top localities by median ₹/sqft, with `rank` |
 | `yoy_median_psf_pct` | move between first and last **sufficient** month |
 | `yoy_span_months` | how many months that actually spans |
@@ -195,8 +197,10 @@ payload is surgical rather than a blanket re-run.
 **(b) Conditional / iterative control step.**
 **Cycle 1: Coverage → Retrieval.** The Coverage agent computes
 `coverage_score = sufficient_months / 12` plus geographic spread, and either
-proceeds or widens one criterion — price band, then BHK, then geography, each
-at most once — and re-runs the retrieval agents. Geography widening keeps the
+proceeds or widens one criterion — geography, then BHK, then price band, each
+at most once, at most two retries (design note §4.3.4) — and re-runs the
+retrieval agents. A month is covered with at least 30 usable listings; below
+target the run proceeds with LIMITED coverage and reports the gap. Geography widening keeps the
 locality constraint: each selected locality adds its own nearest neighbours
 until depth roughly doubles, which preserves set inclusion
 (`contracts/Coverage.md` §3). Both cycles are capped (`max_retry_rounds`, `max_critique_rounds`), so
