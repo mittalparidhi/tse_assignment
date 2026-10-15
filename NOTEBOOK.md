@@ -457,6 +457,56 @@ Deterministic: all relations 0.000 except M1 at 0.139 (data artifact) and
 `M1raw` at 0.861 by design. LLM post-fix: invariance 19 violations (from 116),
 directional 136 — the trade-off argued in §8.6 of the report.
 
+## Stage 16 — Merging the two implementations (2026-10-15)
+
+Two independent implementations existed: this one (`src/`, the harness) and
+a first one built against the v1 contract suite (`app/`: typed Criteria and
+Retrieval agents, a fixed 2022-09 → 2023-08 window, strict data contracts).
+This one became the running application; the first is kept under `legacy/`.
+The "Final state" above predates this stage.
+
+**Merge.** Branch `integrate-friend-impl`. Only `.gitignore`, `pytest.ini`
+and this notebook conflicted. Baseline before any change: 101 passed,
+1 xfailed.
+
+**A checksum broke on checkout.** With `core.autocrlf=true` on Windows, git
+rewrote `listings_canonical.csv` with CRLF and its SHA-256 no longer matched
+`CHECKSUMS.txt`. Fixed with `.gitattributes` (`data/`, `results/`,
+`tests/golden/` are `-text`); every file then matched byte for byte. The
+writers now force `"\n"` too, and `headline_table.py`/`verify_claims.py`
+read files as UTF-8 — both had crashed on Windows on "₹" and "–".
+
+**Contract v2.0.0-draft** (`contracts/`) replaces the v1 suite; §11 of
+`CONTRACT.md` lists each change and why. Four v1 rules were carried over into
+the loader and measured:
+
+| Rule | Effect on the canonical frame |
+|---|---|
+| Months derived in `Asia/Kolkata`, not UTC | 18 rows change month |
+| "Price on Request" excluded | 4 rows removed (61 reach that filter; most would have failed the price check anyway) |
+| `MAX_PRICE` valid and `>= MIN_PRICE` | 0 removed — every canonical row has `MIN_PRICE == MAX_PRICE` |
+| Age on site measured to the last posting in IST | median 37 → 36 days |
+
+Canonical rows 4,578 → **4,574**; last-six-months share 96.5% → 96.4%; thin
+months now ₹4,167 → ₹8,783/sqft on 22–35 listings. The report gained
+`median_min_price_inr`, `median_max_price_inr` (replacing `median_price`) and
+`is_partial_month`; the narrative states that 2023-08 is partial. Request
+validation from the first implementation (`src/validation.py`) now guards the
+dashboard; every harness base input passes it.
+
+Golden vectors were regenerated with `scripts/regenerate_golden.py`, which
+records old and new totals and the reason in `_corrections` (for example
+`trend::all` 4,537 → 4,533). The synthetic path was already broken before this
+stage — the generator and the committed synthetic CSV lacked columns added
+later — and was repaired; regenerated from the same seed, the existing values
+match to within float rounding.
+
+**Open, for the next stage:** the committed `results/` and `REPORT.md`
+tables predate these rules. The dashboard's default whole-metro query now
+shows **−7.7%** after targeted recomputation, while the report quotes −6.41% at
+n ≥ 50 from the committed sensitivity results. These are not yet compared like
+for like; that is done when the results are regenerated.
+
 ## Threats to validity (carried into the report)
 
 1. **Single-point scrape.** The series is survivorship-biased: older months

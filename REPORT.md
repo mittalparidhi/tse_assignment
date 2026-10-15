@@ -85,11 +85,13 @@ Filter cascade, every drop counted:
 raw rows                                            9487
 sale only (PREFERENCE=S)                            7927   -1560
 dwellings only                                      5085   -2842
-parseable POSTING_DATE                              4975    -110
-price not zero/sentinel                             4917     -58
-parseable AREA (sqft)                               4578    -339
-plausibility bounds DEFERRED to Analysis             4578      -0
-canonical listings                                  4578
+parseable POSTING_DATE (months in IST)              4975    -110
+not Price on Request                                4914     -61
+MIN_PRICE not zero/sentinel                         4913      -1
+MAX_PRICE valid and >= MIN_PRICE                    4913      -0
+parseable AREA (sqft)                               4574    -339
+plausibility bounds DEFERRED to Analysis             4574      -0
+canonical listings                                  4574
 ```
 
 ### 2.2 The threat this snapshot carries
@@ -99,13 +101,13 @@ on the scrape date, so the series is survivorship-biased. Monthly depth in the
 September 2022 – August 2023 window, after cleaning:
 
 ```
-2022-09   24    2022-12   29    2023-03   58    2023-06   541
-2022-10   34    2023-01   21    2023-04  158    2023-07  1689
-2022-11   25    2023-02   23    2023-05  304    2023-08  1557
+2022-09   25    2022-12   29    2023-03   61    2023-06   544
+2022-10   35    2023-01   22    2023-04  159    2023-07  1711
+2022-11   27    2023-02   23    2023-05  309    2023-08  1588
 ```
 
-**96.5% of the window's listings fall in its final six months**, and the thin
-months' medians swing from ₹4,104 to ₹8,567/sqft on 21–34 listings. §9 shows
+**96.4% of the window's listings fall in its final six months**, and the thin
+months' medians swing from ₹4,167 to ₹8,783/sqft on 22–35 listings. §9 shows
 this is not a footnote but the dominant limitation of the whole study.
 
 A **synthetic snapshot** with uniform monthly depth is built alongside the real
@@ -149,11 +151,11 @@ snapshot, not twelve. A field called "year-on-year" that silently measures half
 a year would let the window-shift relation assert on an undefined quantity.
 
 **`month_is_sufficient` exists at all** (n ≥ 50). Without it the system can
-publish a median computed from 21 listings with no flag.
+publish a median computed from 22 listings with no flag.
 
 **`median_age_on_site_days` is not called "days on market."** It is
-`scrape_date − posting_date` for listings live at the scrape — median 37 days
-(p10 6, p90 108). It is **right-censored**, since every listing is still live,
+`scrape_date − posting_date` for listings live at the scrape — median 36 days
+(p10 6, p90 110). It is **right-censored**, since every listing is still live,
 and **length-biased**, since slow listings accumulate in a snapshot while fast
 ones exit, so it overstates typical time-to-sale. It is a secondary statistic
 and **no relation asserts on it.** Reporting it as days-on-market would be a

@@ -212,7 +212,7 @@ class LLMClient:
     def __post_init__(self) -> None:
         if self.cache_path and Path(self.cache_path).exists():
             try:
-                self._cache = json.loads(Path(self.cache_path).read_text())
+                self._cache = json.loads(Path(self.cache_path).read_text(encoding="utf-8"))
             except (ValueError, OSError):
                 self._cache = {}
 
@@ -230,7 +230,8 @@ class LLMClient:
             return
         path = Path(self.cache_path)
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(self._cache, indent=0, sort_keys=True))
+        path.write_text(json.dumps(self._cache, indent=0, sort_keys=True),
+                        encoding="utf-8", newline="\n")
         self._cache_dirty = False
 
     # -- generation -----------------------------------------------------

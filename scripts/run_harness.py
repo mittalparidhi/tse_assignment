@@ -70,12 +70,12 @@ def main() -> int:
         print(f"snapshot verified: sha256={digest[:16]}...")
         frame, reject_log = load_canonical()
         print(f"canonical listings: {len(frame):,}")
-        reject_log.as_frame().to_csv(out / "filter_cascade.csv", index=False)
+        reject_log.as_frame().to_csv(out / "filter_cascade.csv", index=False, lineterminator="\n")
 
     base_inputs = generate_base_inputs(frame)
     if args.quick:
         base_inputs = base_inputs[:3]
-    summarise(base_inputs).to_csv(out / "base_inputs.csv", index=False)
+    summarise(base_inputs).to_csv(out / "base_inputs.csv", index=False, lineterminator="\n")
     print(f"base inputs: {len(base_inputs)}   seeds: {list(SEEDS)}")
 
     llm = None
@@ -101,11 +101,12 @@ def main() -> int:
         llm.flush_cache()
         print(f"LLM accounting: {llm.stats.as_dict()}")
 
-    results.to_csv(out / "mr_runs.csv", index=False)
-    mr_summarise(results).to_csv(out / "mr_summary.csv", index=False)
+    results.to_csv(out / "mr_runs.csv", index=False, lineterminator="\n")
+    mr_summarise(results).to_csv(out / "mr_summary.csv", index=False, lineterminator="\n")
 
     table = headline_table(results)
-    (out / "headline.txt").write_text(table + "\n")
+    (out / "headline.txt").write_text(table + "\n", encoding="utf-8",
+                                      newline="\n")
     print("\n" + table)
 
     # An execution trace proving both cycles fire at run time.
@@ -119,7 +120,8 @@ def main() -> int:
              "  ".join(f"{k}={v}" for k, v in e.items()
                        if k not in {"step", "agent"})
              for e in state["trace"]]
-    (out / "trace_example.txt").write_text("\n".join(lines) + "\n")
+    (out / "trace_example.txt").write_text("\n".join(lines) + "\n",
+                                           encoding="utf-8", newline="\n")
 
     (out / "run_meta.json").write_text(json.dumps({
         "snapshot_sha256": digest,
@@ -134,7 +136,7 @@ def main() -> int:
             **model_fingerprint(args.llm_model, llm.backend),
             **llm.stats.as_dict(),
         }),
-    }, indent=2))
+    }, indent=2), encoding="utf-8", newline="\n")
 
     print(f"\nwritten to {out}/")
     return 0

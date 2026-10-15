@@ -281,13 +281,16 @@ with data_tab:
          "evidence": "a 27 sqft villa at Rs 2.15 cr = Rs 796,296/sqft",
          "handling": "left in deliberately; the Analysis agent's targeted "
                      "recomputation is what must catch these (cycle 2)"},
+        {"id": "D6", "defect": "'Price on Request' listings",
+         "evidence": "87 rows; numeric bounds are placeholders, not prices",
+         "handling": "dropped"},
     ]), width='stretch', hide_index=True)
 
     st.markdown(
         "**The threat this snapshot carries.** It is a single-point scrape, "
         "so older months hold only listings still live on the scrape date. "
-        "96.5% of the window's listings fall in its last six months, and the "
-        "thin months' medians swing on 21-34 listings. That is why the report "
+        "96.4% of the window's listings fall in its last six months, and the "
+        "thin months' medians swing on 22-35 listings. That is why the report "
         "carries a per-month `adequate_depth` flag and why month-comparing "
         "relations are declared only over the sufficient subdomain."
     )

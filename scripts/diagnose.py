@@ -149,15 +149,15 @@ def main() -> int:
 
     print("== Experiments A and B: is cycle 2's grouping the cause? ==")
     ab = experiment_a_and_b(frame, inputs, graph)
-    ab.to_csv(OUT / "exp_ab_conditions.csv", index=False)
+    ab.to_csv(OUT / "exp_ab_conditions.csv", index=False, lineterminator="\n")
 
     print("\n== Experiment C: shard-count sensitivity ==")
     c = experiment_c(frame, inputs, graph)
-    c.to_csv(OUT / "exp_c_shard_sensitivity.csv", index=False)
+    c.to_csv(OUT / "exp_c_shard_sensitivity.csv", index=False, lineterminator="\n")
 
     print("\n== Experiment D: does M1's shift move listings across the band? ==")
     d = experiment_d(frame, inputs)
-    d.to_csv(OUT / "exp_d_m1_band_crossing.csv", index=False)
+    d.to_csv(OUT / "exp_d_m1_band_crossing.csv", index=False, lineterminator="\n")
     print(d.to_string(index=False))
 
     print("\n\n================ SUMMARY ================")

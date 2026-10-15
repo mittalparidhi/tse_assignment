@@ -66,7 +66,7 @@ def main() -> int:
             return 2
         tables[label] = rates(tag)
 
-    meta = json.loads(Path("results/llm/run_meta.json").read_text())
+    meta = json.loads(Path("results/llm/run_meta.json").read_text(encoding="utf-8"))
     shipped = tables["LLM post-fix"]
 
     print("Headline results — rebuilt from the committed per-run records\n")
@@ -90,10 +90,10 @@ def main() -> int:
           f"model {meta['llm']['model']} ({meta['llm']['model_tag_sha256']})")
     print(f"LLM fallback rate {meta['llm']['llm_fallback_rate']}  "
           f"determinism probe "
-          f"{json.loads(Path('results/llm/determinism_probe.json').read_text())['identical_rate']:.0%} identical")
+          f"{json.loads(Path('results/llm/determinism_probe.json').read_text(encoding='utf-8'))['identical_rate']:.0%} identical")
 
     if args.check:
-        report = Path("REPORT.md").read_text()
+        report = Path("REPORT.md").read_text(encoding="utf-8")
         missing = []
         for mr in shipped.index:
             for label, _ in CONFIGS:

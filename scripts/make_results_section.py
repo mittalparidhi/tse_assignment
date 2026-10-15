@@ -23,7 +23,7 @@ def load(tag: str):
     return (
         pd.read_csv(base / "mr_summary.csv"),
         pd.read_csv(base / "mr_runs.csv"),
-        json.loads((base / "run_meta.json").read_text()),
+        json.loads((base / "run_meta.json").read_text(encoding="utf-8")),
     )
 
 

@@ -32,22 +32,30 @@ each drop is counted in the reject log rather than applied silently.
 | **D2** | int32 sentinel `2,147,483,647` (= 2³¹−1) in `MIN_PRICE`/`MAX_PRICE` on 5 rows; `0` on 75 | value equals the signed-32-bit maximum exactly | both dropped |
 | **D3** | sale, rent and PG listings mixed | `PREFERENCE`: S=7,927 / R=1,467 / P=93 | sale only |
 | **D4** | `BEDROOM_NUM` missing on 2,814 rows (29.7%) | **2,806 of them are `Residential Land`** — plots have no bedrooms; where both exist, heading-derived BHK agrees on 6,041 rows and conflicts on **0** | restrict to dwellings; this is structural inapplicability, not missingness |
-| **D5** | area-entry errors in the tail | a **27 sqft "villa" at ₹2.15 cr** (₹796,296/sqft) and a **285,599 sqft** one, concentrated in `Independent House/Villa` | plausibility bounds on area, price and ₹/sqft, every drop counted |
+| **D5** | area-entry errors in the tail | a **27 sqft "villa" at ₹2.15 cr** (₹796,296/sqft) and a **285,599 sqft** one, concentrated in `Independent House/Villa` | **left in deliberately**: the Analysis agent's targeted recomputation (cycle 2) must catch them; the plausibility bounds exist only as an ablation |
+| **D6** | `PRICE` reads "Price on Request" on 87 rows | the seller published no price, so the numeric bounds are placeholders | dropped (contract v2) |
 
 ### 1.2 Filter cascade (reproducible)
 
 ```
-raw rows                           9487
-sale only (PREFERENCE=S)           7927   -1560
-dwellings only                     5085   -2842
-parseable POSTING_DATE             4975    -110
-price not zero/sentinel            4917     -58
-parseable AREA (sqft)              4578    -339
-area in [100, 20,000] sqft         4566     -12
-price within plausibility bounds   4563      -3
-psf in [1,000, 100,000] INR/sqft   4504     -59
-canonical listings                 4504
+raw rows                                   9487
+sale only (PREFERENCE=S)                   7927   -1560
+dwellings only                             5085   -2842
+parseable POSTING_DATE (months in IST)     4975    -110
+not Price on Request                       4914     -61
+MIN_PRICE not zero/sentinel                4913      -1
+MAX_PRICE valid and >= MIN_PRICE           4913      -0
+parseable AREA (sqft)                      4574    -339
+plausibility bounds DEFERRED to Analysis   4574      -0
+canonical listings                         4574
 ```
+
+The plausibility bounds (area 100–20,000 sq ft, price, ₹1,000–100,000/sq ft)
+are **not** applied by the loader: D5 contamination is left in for the Analysis
+agent's targeted recomputation to catch (cycle 2). Applied as an ablation they
+would remove a further 73 rows (4,574 → 4,501). "Price on Request" (D6), the
+`MAX_PRICE` check and IST month derivation come from contract v2
+(`contracts/CONTRACT.md` §4); every canonical row has `MIN_PRICE == MAX_PRICE`.
 
 ### 1.3 The threat this snapshot carries
 
@@ -56,13 +64,13 @@ live on the scrape date. Monthly depth in the 12-month window
 Sep 2022 – Aug 2023, after cleaning:
 
 ```
-2022-09   24      2022-12   29      2023-03   58      2023-06   541
-2022-10   34      2023-01   21      2023-04  158      2023-07  1689
-2022-11   25      2023-02   23      2023-05  304      2023-08  1557
+2022-09   25      2022-12   29      2023-03   61      2023-06   544
+2022-10   35      2023-01   22      2023-04  159      2023-07  1711
+2022-11   27      2023-02   23      2023-05  309      2023-08  1588
 ```
 
-**96.5% of the window's listings fall in its last six months.** The medians of
-the thin months swing ₹4,104 → ₹8,567/sqft on 21–34 listings, which is
+**96.4% of the window's listings fall in its last six months.** The medians of
+the thin months swing ₹4,167 → ₹8,783/sqft on 22–35 listings, which is
 sampling noise, not a market move. Two consequences drive the whole design:
 
 1. The report carries a per-month **`sufficient`** flag (n ≥ 50). MRs that
@@ -118,7 +126,7 @@ Four contract decisions that exist specifically to keep MRs meaningful:
 `median_age_on_site_days` fills the design note's `median_days_on_market`
 slot, but is deliberately not called that. It is
 `scrape_date − posting_date` for listings live at the scrape, which measured
-across the snapshot gives a median of 37 days (p10 6, p90 108).
+across the snapshot gives a median of 36 days (p10 6, p90 110).
 
 Two reasons the honest name matters:
 

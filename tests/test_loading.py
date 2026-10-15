@@ -93,7 +93,7 @@ def _raw_row(prop_id, posting_ms, price=5_000_000, max_price=None,
 
 def _load_fixture(tmp_path, rows):
     path = tmp_path / "raw.csv"
-    pd.DataFrame(rows).to_csv(path, index=False)
+    pd.DataFrame(rows).to_csv(path, index=False, lineterminator="\n")
     return loading.load_canonical(path, verify=False)
 
 
@@ -150,5 +150,17 @@ def test_frozen_canonical_snapshot_matches_a_fresh_rebuild(canonical):
     frame, _ = canonical
     rebuilt = hashlib.sha256(loading.canonical_csv_bytes(frame)).hexdigest()
     recorded = (loading.RAW_PATH.parents[1] / "snapshot" / "CHECKSUMS.txt"
-                ).read_text().split()[0]
+                ).read_text(encoding="utf-8").split()[0]
     assert rebuilt == recorded
+
+
+def test_partial_month_constant_agrees_with_the_latest_posting():
+    """PARTIAL_MONTH (src/contract.py) and LATEST_POSTING (src/loading.py)
+    state one fact in two places; they must not drift apart, and
+    LATEST_POSTING must really be the latest posting in the raw file."""
+    from src.contract import PARTIAL_MONTH
+    assert loading.LATEST_POSTING.strftime("%Y-%m") == PARTIAL_MONTH
+    raw = pd.read_csv(loading.RAW_PATH, usecols=["POSTING_DATE"])
+    latest = pd.to_datetime(pd.to_numeric(raw["POSTING_DATE"], errors="coerce"),
+                            unit="ms", utc=True).max()
+    assert latest.tz_convert(loading.LOCAL_TIMEZONE) == loading.LATEST_POSTING

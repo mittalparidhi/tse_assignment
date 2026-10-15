@@ -49,15 +49,15 @@ def main() -> int:
     summary = pd.read_csv("results/llm/mr_summary.csv").set_index("mr_id")
     det = pd.read_csv("results/phaseA_deterministic/mr_summary.csv").set_index("mr_id")
     pre = pd.read_csv("results/llm_before_promptfix/mr_summary.csv").set_index("mr_id")
-    meta = json.loads(Path("results/llm/run_meta.json").read_text())
-    probe = json.loads(Path("results/llm/determinism_probe.json").read_text())
+    meta = json.loads(Path("results/llm/run_meta.json").read_text(encoding="utf-8"))
+    probe = json.loads(Path("results/llm/determinism_probe.json").read_text(encoding="utf-8"))
     sens = pd.read_csv("results/sensitivity/threshold_sensitivity.csv")
 
     checks: list[tuple[str, object, object]] = [
         ("snapshot sha256 prefix", verify_snapshot()[:16], "9e81698322606c86"),
         ("raw rows", len(raw), 9487),
         ("raw columns", len(raw.columns), 55),
-        ("canonical rows", len(frame), 4578),
+        ("canonical rows", len(frame), 4574),
         ("int32 sentinel value", 2**31 - 1, 2_147_483_647),
         ("PREFERENCE S/R/P", tuple(raw.PREFERENCE.value_counts()[["S","R","P"]]), (7927, 1467, 93)),
         ("missing BEDROOM_NUM", int(raw.BEDROOM_NUM.isna().sum()), 2814),
@@ -82,7 +82,7 @@ def main() -> int:
     checks.append(("coordinate coverage %",
                    round(frame.latitude.notna().mean() * 100, 1), 94.7))
     checks.append(("median age on site (days)",
-                   int(frame.age_on_site_days.median()), 37))
+                   int(frame.age_on_site_days.median()), 36))
 
     # Share of the window's listings in its final six months.
     window = [f"2022-{m:02d}" for m in (9, 10, 11, 12)] + \
@@ -90,7 +90,7 @@ def main() -> int:
     inw = frame[frame.month.isin(window)]
     last6 = inw[inw.month.isin(window[-6:])]
     checks.append(("final six months share %",
-                   round(len(last6) / len(inw) * 100, 1), 96.5))
+                   round(len(last6) / len(inw) * 100, 1), 96.4))
 
     # Violation rates quoted in the documents.
     for mr, d, p, q in [("I4", 0.000, 0.630, 0.000), ("I3", 0.000, 0.417, 0.176),
@@ -145,7 +145,7 @@ def main() -> int:
                    Path("results/residex/Press_Release_July-September_2023.pdf").exists(), True))
     if residex.exists():
         checks.append(("RESIDEX Hyderabad figure quoted",
-                       "+6.8%" in residex.read_text(), True))
+                       "+6.8%" in residex.read_text(encoding="utf-8"), True))
 
     failures = []
     print(f"{'claim':<34}{'derived':>22}{'documented':>22}")
@@ -188,7 +188,7 @@ def main() -> int:
          f"{n_rel * 36 * 3:,}", "runs per sweep"),
     ]
     for src in SOURCES:
-        text = Path(src).read_text()
+        text = Path(src).read_text(encoding="utf-8")
         for rx, want, label in patterns:
             for got in rx.findall(text):
                 ok = got == want
@@ -203,7 +203,7 @@ def main() -> int:
     print("\nStale agent/cycle names in documents:")
     bad = 0
     for doc in DOCS:
-        hits = len(stale.findall(Path(doc).read_text()))
+        hits = len(stale.findall(Path(doc).read_text(encoding="utf-8")))
         bad += hits
         print(f"  {doc:<22}{hits}")
     failures.append(("stale names", bad, 0)) if bad else None

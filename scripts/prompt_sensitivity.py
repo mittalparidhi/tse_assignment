@@ -106,7 +106,7 @@ def _i3_prompt_vs_violation(frame, config, graph, prompts_at):
 
     table = pd.DataFrame(rows)
     I3_OUT.parent.mkdir(parents=True, exist_ok=True)
-    table.to_csv(I3_OUT, index=False)
+    table.to_csv(I3_OUT, index=False, lineterminator="\n")
     return table
 
 
@@ -152,7 +152,7 @@ def main(n_inputs: int | None = None) -> int:
     table = pd.DataFrame(rows)
     out = Path("results/diagnosis/prompt_sensitivity.csv")
     out.parent.mkdir(parents=True, exist_ok=True)
-    table.to_csv(out, index=False)
+    table.to_csv(out, index=False, lineterminator="\n")
 
     i3 = _i3_prompt_vs_violation(frame, config, graph, prompts_at)
 

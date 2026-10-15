@@ -24,7 +24,7 @@ from src.mr.base_inputs import generate_base_inputs
 from src.trend import Criteria, compute_trend
 
 GOLDEN = json.loads(
-    (Path(__file__).parent / "golden" / "deterministic_baseline.json").read_text()
+    (Path(__file__).parent / "golden" / "deterministic_baseline.json").read_text(encoding="utf-8")
 )
 
 

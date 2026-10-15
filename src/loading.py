@@ -386,7 +386,7 @@ def freeze_canonical(
     )
     digest = hashlib.sha256(out_path.read_bytes()).hexdigest()
     out_path.with_name("CHECKSUMS.txt").write_text(
-        f"{digest}  {out_path.name}\n", newline="\n"
+        f"{digest}  {out_path.name}\n", encoding="utf-8", newline="\n"
     )
     return frame
 

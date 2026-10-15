@@ -132,8 +132,8 @@ Five defects are documented and handled, among them:
   no bedrooms, so this is structural inapplicability rather than missing data.
 
 **The main threat:** it is a single-point scrape, so older months hold only
-listings still live on the scrape date. 96.5% of the window's listings fall in
-its last six months, and thin months' medians swing on 21–34 listings. The
+listings still live on the scrape date. 96.4% of the window's listings fall in
+its last six months, and thin months' medians swing on 22–35 listings. The
 report therefore carries a per-month `sufficient` flag and month-comparing
 relations are declared only over that subdomain.
 
