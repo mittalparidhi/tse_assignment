@@ -492,22 +492,12 @@ def test_critique_prompt_withholds_listing_counts(frame):
         assert "median=" in prompt
 
 
-@pytest.mark.xfail(
-    reason="Known, localised, not fully isolated. The duplication relation fell "
-           "from 0.417 to 0.176 after the content-addressing fix. Over all 36 "
-           "base inputs x 3 seeds, a differing review prompt is NECESSARY but "
-           "not sufficient: 0 of the 51 identical-prompt cells violated, while "
-           "19 of the 57 differing-prompt cells did. 11 of 36 base inputs "
-           "violated on the shipped Kaggle sweep -- base22/23/30/31 on all "
-           "three seeds, base11/17/24/27/32/33/35 on one of three. The review "
-           "batch comes out with fewer listings on the doubled frame; which "
-           "perturbations bite is not isolated. The three inputs asserted below "
-           "are drawn from the always-failing group. Open defect, not papered "
-           "over. Evidence: results/diagnosis/i3_prompt_vs_violation.csv",
-    strict=True,
-)
 def test_duplication_invariance_residual_on_specific_inputs(frame):
-    """The 0.176 residual on MR-I3, pinned so it cannot regress unnoticed."""
+    """The 0.176 residual on MR-I3, open since the content-addressing fix and
+    pinned here as a strict xfail until the v2 LLM sweep isolated it: the
+    review batch was cut to its top rows BEFORE de-duplication, so a doubled
+    frame showed the model fewer distinct listings (8 vs 10 on base23) and a
+    verdict reached only the twins inside the cut (NOTEBOOK.md Stage 22)."""
     from src.mr.base_inputs import generate_base_inputs
     from src.mr.relations import BY_ID
     import numpy as np
@@ -606,3 +596,4 @@ def test_narrative_without_a_trend_does_not_ask_the_model(frame):
     assert seen == []
     assert report.provenance["narrative_source"] == "template"
     assert report.provenance["llm_fallbacks"] == 0
+

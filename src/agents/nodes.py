@@ -517,7 +517,12 @@ def _llm_review_rejections(
                     key=lambda m: (-len(grey_by_month[m]), m))[:cfg.max_review_months]
 
     for month in chosen:
-        grey = grey_by_month[month].nlargest(REVIEW_BATCH, "psf_inr")
+        # The whole grey zone, not its top REVIEW_BATCH rows: cutting before
+        # de-duplicating (below) showed a duplicated frame 8 distinct listings
+        # where the original showed 10, and applied a verdict to only the
+        # twins that survived the cut -- I3 0.111 in the v2 LLM sweep
+        # (NOTEBOOK.md Stage 22). The batch is cut after de-duplication.
+        grey = grey_by_month[month]
         # Listings are presented by POSITION, never by listing id.
         #
         # The ids used to appear in the prompt, and the metamorphic relations
