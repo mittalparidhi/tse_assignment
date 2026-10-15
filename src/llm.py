@@ -195,6 +195,12 @@ def extract_json(text: str) -> dict | None:
     return None
 
 
+class BackendUnavailable(RuntimeError):
+    """The model server stopped answering. Raised instead of falling back, so
+    a sweep whose server died does not finish as a mislabelled deterministic
+    sweep (observed: Ollama killed mid-run, every call then fell back)."""
+
+
 @dataclass
 class LLMClient:
     """Seeded, cached, fallback-safe access to a local model."""
@@ -205,9 +211,17 @@ class LLMClient:
     num_predict: int = 256
     max_attempts: int = 3
     cache_path: Path | None = DEFAULT_CACHE
+    #: Write the cache after this many new replies, so an interrupted sweep
+    #: keeps its replies and a re-run replays them (0 = only on flush_cache).
+    flush_every: int = 0
+    #: Raise BackendUnavailable after this many backend errors in a row
+    #: (None = never; each error falls back as before).
+    max_consecutive_errors: int | None = None
     stats: LLMStats = field(default_factory=LLMStats)
     _cache: dict[str, str] = field(default_factory=dict, repr=False)
     _cache_dirty: bool = field(default=False, repr=False)
+    _unflushed: int = field(default=0, repr=False)
+    _consecutive_errors: int = field(default=0, repr=False)
 
     def __post_init__(self) -> None:
         if self.cache_path and Path(self.cache_path).exists():
@@ -230,9 +244,13 @@ class LLMClient:
             return
         path = Path(self.cache_path)
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(self._cache, indent=0, sort_keys=True),
-                        encoding="utf-8", newline="\n")
+        # Write then rename, so a kill mid-write cannot leave a truncated cache.
+        tmp = path.with_name(path.name + ".tmp")
+        tmp.write_text(json.dumps(self._cache, indent=0, sort_keys=True),
+                       encoding="utf-8", newline="\n")
+        tmp.replace(path)
         self._cache_dirty = False
+        self._unflushed = 0
 
     # -- generation -----------------------------------------------------
 
@@ -249,13 +267,24 @@ class LLMClient:
             )
         except KeyError:
             raise
-        except Exception:
+        except Exception as error:
             self.stats.errors += 1
+            self._consecutive_errors += 1
+            if (self.max_consecutive_errors is not None
+                    and self._consecutive_errors >= self.max_consecutive_errors):
+                self.flush_cache()
+                raise BackendUnavailable(
+                    f"{self._consecutive_errors} backend errors in a row; "
+                    f"last: {error!r}") from error
             raise
         finally:
             self.stats.seconds += time.perf_counter() - started
+        self._consecutive_errors = 0
         self._cache[key] = text
         self._cache_dirty = True
+        self._unflushed += 1
+        if self.flush_every and self._unflushed >= self.flush_every:
+            self.flush_cache()
         return text
 
     def ask_json(
@@ -275,7 +304,7 @@ class LLMClient:
         for attempt in range(self.max_attempts):
             try:
                 text = self._raw(prompt, seed + attempt * 1000, attempt)
-            except KeyError:
+            except (KeyError, BackendUnavailable):
                 raise
             except Exception:
                 break
@@ -290,7 +319,7 @@ class LLMClient:
         self.stats.calls += 1
         try:
             text = self._raw(prompt, seed, 0).strip()
-        except KeyError:
+        except (KeyError, BackendUnavailable):
             raise
         except Exception:
             self.stats.fallbacks += 1

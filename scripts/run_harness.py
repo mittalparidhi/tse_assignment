@@ -94,7 +94,17 @@ def main() -> int:
             backend=OllamaBackend(args.llm_host),
             model=args.llm_model,
             cache_path=Path(args.llm_cache),
+            flush_every=50,
+            max_consecutive_errors=10,
         )
+        # Preflight: one real call. Without it a dead server makes every call
+        # fall back and the sweep finishes as a deterministic one.
+        try:
+            llm.backend.generate("Reply with OK.", seed=0, model=args.llm_model,
+                                 temperature=0.0, num_predict=4)
+        except Exception as error:                                # noqa: BLE001
+            sys.exit(f"Ollama at {args.llm_host} did not answer ({error!r}); "
+                     "start it with `ollama serve` and pull the model first.")
         config = GraphConfig(agent_mode=AgentMode.LLM,
                              llm_model=args.llm_model,
                              llm_host=args.llm_host)

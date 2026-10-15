@@ -12,6 +12,7 @@ import pytest
 
 from src.agents import AgentMode, GraphConfig, build_graph, run_pipeline
 from src.llm import (
+    BackendUnavailable,
     LLMClient,
     ScriptedBackend,
     extract_json,
@@ -539,3 +540,28 @@ def test_model_radius_without_a_centre_falls_back_to_exact_matching(frame):
     assert planned["query_mode"] == "EXACT_LOCALITY"
     assert "no centre supplied" in planned["reason"]
     assert state["query_mode"] == "EXACT_LOCALITY"
+
+
+def test_cache_is_written_periodically_so_an_interrupted_sweep_keeps_replies(tmp_path):
+    path = tmp_path / "cache.json"
+    client = LLMClient(backend=ScriptedBackend({"PING": '{"ok": true}'}),
+                       cache_path=path, flush_every=2)
+    client.ask_json("PING", seed=1, fallback={})
+    assert not path.exists()
+    client.ask_json("PING", seed=2, fallback={})
+    assert path.exists()          # written without flush_cache()
+    reloaded = LLMClient(backend=ScriptedBackend({}), cache_path=path)
+    assert reloaded.ask_json("PING", seed=2, fallback={"ok": False}) == ({"ok": True}, False)
+
+
+def test_a_dead_backend_stops_the_sweep_instead_of_falling_back_forever():
+    class Dead(ScriptedBackend):
+        def generate(self, prompt, **kwargs):
+            raise ConnectionRefusedError("connection refused")
+
+    client = LLMClient(backend=Dead({}), cache_path=None, max_attempts=1,
+                       max_consecutive_errors=3)
+    client.ask_json("PING", seed=1, fallback={})
+    client.ask_text("PING", seed=2, fallback="x")
+    with pytest.raises(BackendUnavailable):
+        client.ask_json("PING", seed=3, fallback={})
