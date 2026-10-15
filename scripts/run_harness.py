@@ -29,7 +29,8 @@ from src.llm import (                                         # noqa: E402
     LLMClient, OllamaBackend, model_fingerprint,
 )
 from src.loading import load_canonical, verify_snapshot       # noqa: E402
-from src.mr.base_inputs import generate_base_inputs, summarise  # noqa: E402
+from src.mr.base_inputs import (generate_base_inputs,             # noqa: E402
+                                generate_radius_inputs, summarise)
 from src.mr.harness import SEEDS, headline_table, run_all, summarise as mr_summarise  # noqa: E402
 from src.trend import Criteria                                # noqa: E402
 
@@ -72,9 +73,17 @@ def main() -> int:
         print(f"canonical listings: {len(frame):,}")
         reject_log.as_frame().to_csv(out / "filter_cascade.csv", index=False, lineterminator="\n")
 
-    base_inputs = generate_base_inputs(frame)
-    if args.quick:
-        base_inputs = base_inputs[:3]
+    if args.synthetic:
+        # The synthetic snapshot has no coordinates, so it cannot carry the
+        # radius inputs; its role is the oracle check on the statistics.
+        base_inputs = generate_base_inputs(frame)
+        if args.quick:
+            base_inputs = base_inputs[:3]
+    else:
+        locality, radius = generate_base_inputs(frame), generate_radius_inputs(frame)
+        if args.quick:
+            locality, radius = locality[:3], radius[:3]
+        base_inputs = locality + radius
     summarise(base_inputs).to_csv(out / "base_inputs.csv", index=False, lineterminator="\n")
     print(f"base inputs: {len(base_inputs)}   seeds: {list(SEEDS)}")
 

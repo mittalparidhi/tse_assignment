@@ -125,6 +125,11 @@ def widen_price_band(criteria: Criteria, factor: float = 0.25) -> Criteria:
     )
 
 
+def shrink_radius(criteria: Criteria, factor: float = 0.5) -> Criteria:
+    """Shrink a radius query around the same centre: a geographic subset."""
+    return criteria.with_(radius_km=criteria.radius_km * factor)
+
+
 def restrict_localities(
     criteria: Criteria, keep: tuple[str, ...]
 ) -> Criteria:

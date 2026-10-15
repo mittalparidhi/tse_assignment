@@ -90,12 +90,72 @@ def generate_base_inputs(
     return out
 
 
+#: Radius base inputs, so the RADIUS retrieval algorithm -- the other branch
+#: of the genuine dependency -- is exercised by the relations, and MR-M4 has
+#: at least 30 distinct applicable inputs of its own (contracts/Testing.md §3).
+MIN_RADIUS_INPUTS = 36
+
+
+def radius_centres(frame: pd.DataFrame, n: int = 6) -> list[tuple[str, float, float]]:
+    """Median coordinates of the deepest localities that have located rows."""
+    located = frame.dropna(subset=["latitude", "longitude"])
+    located = located[located["locality"] != "Unknown"]
+    centres = located.groupby("locality")[["latitude", "longitude"]].median()
+    deepest = located["locality"].value_counts().index[:n]
+    return [(name, round(float(centres.loc[name, "latitude"]), 4),
+             round(float(centres.loc[name, "longitude"]), 4))
+            for name in deepest]
+
+
+def generate_radius_inputs(
+    frame: pd.DataFrame, target: int = MIN_RADIUS_INPUTS
+) -> list[Criteria]:
+    """RADIUS base inputs, built the same way as the locality ones: a strided
+    sample of the full cross product, so no dimension is held constant."""
+    months = sorted(frame["month"].dropna().unique().tolist())
+    ends = months[:-1][-5:]
+    bhk_options: list[tuple[int, ...] | None] = [None, (2,), (3,), (2, 3), (3, 4)]
+    band_options = [(4_000_000.0, 15_000_000.0), (5_000_000.0, 20_000_000.0),
+                    (8_000_000.0, 40_000_000.0), (10_000_000.0, 60_000_000.0)]
+    places = [(name, lat, lon, km) for name, lat, lon in radius_centres(frame)
+              for km in (3.0, 5.0)]
+
+    grid = list(itertools.product(ends, bhk_options, band_options, places))
+    stride = max(1, len(grid) // target)
+    out: list[Criteria] = []
+    seen: set[tuple] = set()
+    for i in range(target * 2):
+        end, bhk, band, (name, lat, lon, km) = grid[(i * stride) % len(grid)]
+        key = (end, bhk, band, name, km)
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(Criteria(
+            window_end=end, bhk=bhk,
+            price_min_inr=band[0], price_max_inr=band[1],
+            query_mode="RADIUS", center_lat=lat, center_lon=lon, radius_km=km,
+            label=f"rad{len(out):02d}",
+        ))
+        if len(out) == target:
+            break
+    if len(out) < 30:
+        raise RuntimeError(f"only {len(out)} distinct radius base inputs")
+    return out
+
+
+def generate_all_base_inputs(frame: pd.DataFrame) -> list[Criteria]:
+    """Locality inputs followed by radius inputs: what the harness sweeps."""
+    return generate_base_inputs(frame) + generate_radius_inputs(frame)
+
+
 def summarise(inputs: list[Criteria]) -> pd.DataFrame:
     return pd.DataFrame([{
         "label": c.label,
         "window_end": c.window_end,
+        "query_mode": c.query_mode,
         "bhk": "all" if not c.bhk else "/".join(map(str, c.bhk)),
         "n_localities": 0 if not c.localities else len(c.localities),
+        "radius_km": c.radius_km,
         "band_lakh": (f"{(c.price_min_inr or 0)/1e5:.0f}-"
                       f"{(c.price_max_inr or 0)/1e5:.0f}"),
     } for c in inputs])

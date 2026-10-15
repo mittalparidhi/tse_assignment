@@ -59,3 +59,17 @@ def test_wilson_interval_narrows_as_trials_grow():
 def test_empty_trials_is_nan_not_a_crash():
     lo, hi = wilson_ci(0, 0)
     assert math.isnan(lo) and math.isnan(hi)
+
+
+def test_radius_inputs_exercise_m4_on_at_least_thirty_bases():
+    """contracts/Testing.md §3: the RADIUS algorithm is exercised by the
+    relations, and M4 has >= 30 distinct applicable base inputs."""
+    from src.loading import load_canonical
+    from src.mr.base_inputs import generate_radius_inputs
+    from src.mr.relations import BY_ID
+    frame, _ = load_canonical()
+    radius = generate_radius_inputs(frame)
+    assert all(c.query_mode == "RADIUS" for c in radius)
+    assert len({c.label for c in radius}) == len(radius) >= 30
+    assert sum(BY_ID["M4"].applicable(frame, c) for c in radius) >= 30
+    assert not any(BY_ID["M3"].applicable(frame, c) for c in radius)

@@ -10,7 +10,7 @@ and unknown-field cases.
 import pytest
 
 from src.loading import load_canonical
-from src.mr.base_inputs import generate_base_inputs
+from src.mr.base_inputs import generate_all_base_inputs
 from src.validation import (
     CriteriaValidationError,
     SourceCatalog,
@@ -120,5 +120,5 @@ def test_query_mode_conflicts_are_rejected(catalog, frame):
 
 def test_every_harness_base_input_passes_validation(catalog, frame):
     """Testing.md §3: base inputs must be requests a user could make."""
-    for base in generate_base_inputs(frame):
+    for base in generate_all_base_inputs(frame):
         assert validate_request(criteria_as_request(base), catalog) == base

@@ -1,4 +1,4 @@
-"""The metamorphic relation catalogue. Eleven relations, three families.
+"""The metamorphic relation catalogue. Twelve relations, three families.
 
 Each relation is a statement about ``TrendReport`` fields and nothing else
 (see ``src/contract.py``). A relation declares:
@@ -389,6 +389,29 @@ MR_M3 = MR(
 )
 
 
+def _check_m4(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
+    for s, d in zip(src.monthly, dst.monthly):
+        if d.n_active > s.n_active:
+            return False, (f"{s.month}: half the radius gave MORE listings "
+                           f"({s.n_active} -> {d.n_active})")
+    return True, ""
+
+
+MR_M4 = MR(
+    mr_id="M4", family="monotonic", name="halve the search radius",
+    subdomain="RADIUS criteria; meaningful over the control-path-stable "
+              "subdomain, since cycle 1 may double either run's radius",
+    tolerance="exact inequality",
+    fault="wrong distance formula; unlocated rows leaking into a radius "
+          "query; radius widening not applied consistently",
+    applicable=lambda frame, criteria: (
+        criteria.query_mode == "RADIUS" and bool(criteria.radius_km)
+    ),
+    transform=lambda frame, criteria, rng: (frame, tf.shrink_radius(criteria)),
+    check=_check_m4,
+)
+
+
 # ============================= DIRECTIONAL ================================
 
 def _check_d1(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
@@ -479,7 +502,7 @@ MR_D2 = MR(
 ALL_RELATIONS: tuple[MR, ...] = (
     MR_I1, MR_I2, MR_I3, MR_I4,     # invariance
     MR_I5,                          # invariance: the brief's crore <-> lakh case
-    MR_M1, MR_M2, MR_M3,            # monotonic
+    MR_M1, MR_M2, MR_M3, MR_M4,     # monotonic
     MR_M1_RAW,                      # monotonic, documented counter-example
     MR_D1, MR_D2,                   # directional
 )
