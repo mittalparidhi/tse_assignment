@@ -9,6 +9,8 @@ rate and confidence interval from the raw results rather than copying them.
 
     python scripts/headline_table.py            # the table as published
     python scripts/headline_table.py --check     # also verify it matches REPORT.md
+    python scripts/headline_table.py --v2        # the contract-v2 sweep, unit =
+                                                 # base input (results/v2_deterministic)
 
 Re-running a sweep from scratch is still available and is the stronger check:
     python scripts/run_harness.py --tag check               # deterministic
@@ -29,6 +31,11 @@ import pandas as pd
 from src.mr.harness import wilson_ci          # noqa: E402
 from src.mr.relations import ALL_RELATIONS    # noqa: E402
 
+#: The contract-v2 deterministic sweep (statistical unit = base input).
+V2_TAG = "v2_deterministic"
+
+#: The published three-configuration table. These sweeps predate contract v2
+#: (contracts/README.md open items) and are kept as the record behind it.
 CONFIGS = [
     ("deterministic", "phaseA_deterministic"),
     ("LLM pre-fix", "llm_before_promptfix"),
@@ -56,7 +63,22 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true",
                         help="verify the rebuilt rates appear in REPORT.md")
+    parser.add_argument("--v2", action="store_true",
+                        help="rebuild the contract-v2 deterministic table instead")
     args = parser.parse_args()
+
+    if args.v2:
+        from src.mr.harness import headline_table as v2_table
+        runs = pd.read_csv(Path("results") / V2_TAG / "mr_runs.csv")
+        meta = json.loads((Path("results") / V2_TAG / "run_meta.json")
+                          .read_text(encoding="utf-8"))
+        print(f"Contract v2 deterministic sweep -- rebuilt from "
+              f"results/{V2_TAG}/mr_runs.csv")
+        print()
+        print(v2_table(runs))
+        print(f"snapshot {meta['snapshot_sha256'][:16]}...  canonical rows "
+              f"{meta['canonical_rows']}  base inputs {meta['base_inputs']}")
+        return 0
 
     tables = {}
     for label, tag in CONFIGS:

@@ -507,6 +507,63 @@ shows **−7.7%** after targeted recomputation, while the report quotes −6.41%
 n ≥ 50 from the committed sensitivity results. These are not yet compared like
 for like; that is done when the results are regenerated.
 
+## Stage 17 — Harness and agent fixes, and the contract-v2 sweep (2026-10-15)
+
+Changes (contract v2, Phase 4): unique `listing_id` (`PROP_ID#row`);
+rejected-listing count no longer summed across rounds; the critique inspects
+the listings the report was built from; geography widening adds the nearest
+localities until listing depth at least doubles instead of dropping the
+locality filter; 36 radius base inputs and MR M4 (halve the radius);
+violation rates and Wilson intervals over **base inputs**, not runs; every run
+records the listings cycle 2 rejected in source and follow-up.
+
+`results/v2_deterministic/` — 12 relations, 36 locality + 36 radius base
+inputs, seeds [11, 23, 47], 2,592 runs, 4,574 canonical rows, 49 min:
+
+```
+MR     bases viol  rate   95% CI           | stable bases viol rate
+I1-I5    72    0  0.000  [0.000, 0.051]    |   72    0  0.000
+M1       72   13  0.181  [0.109, 0.285]    |   72   13  0.181
+M2       72    2  0.028  [0.008, 0.096]    |   71    2  0.028
+M3       36    9  0.250  [0.138, 0.411]    |   31    8  0.258
+M4       36    0  0.000  [0.000, 0.096]    |   32    0  0.000
+M1raw    72   42  0.583  [0.468, 0.690]    |   72   42  0.583
+D1, D2   72    0  0.000  [0.000, 0.051]    |   72    0  0.000
+seeds disagreed on 0 base inputs; C1 path diverged in 30 of 2,592 runs
+```
+
+What the violations are, from the per-run records:
+
+- **M1 (0.181).** All 13 violating bases changed the set cycle 2 rejected
+  (source vs follow-up `rejected` differs in 13/13); no base violated with
+  the rejected set unchanged. This is the documented mechanism, now measured
+  directly: adding ₹5 lakh to a month's prices changes ₹/sqft by a
+  different amount per listing, so the relative (MAD) outlier threshold
+  rejects a different set.
+- **M2 (0.028).** Both violations are 2023-03 losing listings (24 → 22) when
+  the band widens, again with a changed rejected set: new listings move the
+  month's median and MAD, and two listings that passed now fail. The outlier
+  filter is not monotone in the population.
+- **M3 (0.250) — new, and a genuine agent-design fault.** Before Phase 4 M3
+  could not fail (both runs collapsed to the whole metro). Now: 8 of 9
+  violations are on the same control path, and they all come from the 4-
+  locality input (Kondapur, Gachibowli, Kokapet, Narsingi). The geography
+  lever widens around each run's own centre, so the widened subset is **not**
+  contained in the widened superset — the subset run gained Gulmohar Park
+  Colony, Hafeezpet, Janapriya Nagar, Lingampally, Madinaguda, which the
+  superset run did not. The 2-locality input keeps containment and never
+  violates. A widening rule that preserves set inclusion (for example, add
+  every locality within a distance of *any* selected one) would remove it.
+- **M4 (0.000)** — radius halving holds on all 36 radius inputs.
+
+`results/v2_synthetic/` (locality inputs only, 1,296 runs): I3 0.167, M2
+0.056, M3 0.139, and **all three are 0 on the control-path-stable
+subdomain** — on known ground truth every violation is a cycle-1 path
+divergence, not a statistics fault. M1 0.000; M1raw 0.722 (fails by design).
+
+The LLM sweeps were not re-run (no Ollama on this machine); they predate
+contract v2 and are not comparable with these rates.
+
 ## Threats to validity (carried into the report)
 
 1. **Single-point scrape.** The series is survivorship-biased: older months

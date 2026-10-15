@@ -1,0 +1,15 @@
+{
+  "snapshot_sha256": "1d0672562d42a2f185ef735fa8eff0af52016cf65523b4da3b1c2500386e665a",
+  "synthetic": true,
+  "canonical_rows": 4800,
+  "base_inputs": 36,
+  "seeds": [
+    11,
+    23,
+    47
+  ],
+  "total_runs": 1296,
+  "elapsed_seconds": 607.16,
+  "agent_mode": "DETERMINISTIC",
+  "llm": null
+}
