@@ -517,7 +517,8 @@ locality filter; 36 radius base inputs and MR M4 (halve the radius);
 violation rates and Wilson intervals over **base inputs**, not runs; every run
 records the listings cycle 2 rejected in source and follow-up.
 
-`results/v2_deterministic/` — 12 relations, 36 locality + 36 radius base
+`results/v2_before_m3fix/` (first written to `results/v2_deterministic/`;
+moved when the M3 fault was fixed in Stage 18) — 12 relations, 36 locality + 36 radius base
 inputs, seeds [11, 23, 47], 2,592 runs, 4,574 canonical rows, 49 min:
 
 ```
@@ -563,6 +564,39 @@ divergence, not a statistics fault. M1 0.000; M1raw 0.722 (fails by design).
 
 The LLM sweeps were not re-run (no Ollama on this machine); they predate
 contract v2 and are not comparable with these rates.
+
+## Stage 18 — Fixing the M3 fault: widening that preserves inclusion (2026-10-15)
+
+**Fix.** Each selected locality now brings its own neighbourhood: walking
+its own nearest-first ranking, it adds unselected localities until they hold
+at least as many snapshot listings as it does. If A ⊆ B, B skips at least
+what A skips, so it walks at least as far along every ranking A walks, and
+widen(A) ⊆ widen(B). `test_geography_widening_preserves_set_inclusion`
+checks this on all 36 M3 pairs and 40 random subset pairs, and fails on the
+Stage 17 rule. A first per-locality draft that ignored the selection kept
+inclusion but added little depth for clustered selections (`base05` 105 → 46
+listings); skipping already-selected localities while counting brought it to
+60. A single locality is unchanged ("3 BHK in Gachibowli": 632 listings).
+
+**Before / after** — `results/v2_before_m3fix/` vs `results/v2_deterministic/`
+(2,592 runs each; unit = base input):
+
+```
+MR     before          after           change
+M3     9/36  0.250     0/36  0.000     fault removed
+M2     2/72  0.028     0/72  0.000
+M1    13/72  0.181    12/72  0.167
+M1raw 42/72  0.583    39/72  0.542     (fails by design)
+all other relations 0 before and after; seeds disagreed on 0 bases;
+C1 path diverged in 30 -> 27 runs
+```
+
+M1 still violates only when cycle 2's rejected set changes (12/12), so it
+remains the outlier-filter interaction, not a widening effect. Its violating
+bases moved — 4 new (`base00`, `base03`, `base04`, `base07`), 5 gone — because
+the widened populations changed; the mechanism did not. The run took 25 min
+on Windows (Paridhi's machine). `results/v2_synthetic/` is unaffected: the
+synthetic snapshot has no coordinates, so geography widening never applies.
 
 ## Threats to validity (carried into the report)
 

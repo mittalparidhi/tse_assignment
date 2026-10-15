@@ -38,22 +38,24 @@ is violated if any seed violates):
 ```
 MR     family       bases  viol   rate    95% CI           stable-path rate
 I1-I5  invariance     72     0   0.000   [0.000, 0.051]    0.000
-M1     monotonic      72    13   0.181   [0.109, 0.285]    0.181
-M2     monotonic      72     2   0.028   [0.008, 0.096]    0.028
-M3     monotonic      36     9   0.250   [0.138, 0.411]    0.258
+M1     monotonic      72    12   0.167   [0.098, 0.269]    0.167
+M2     monotonic      72     0   0.000   [0.000, 0.051]    0.000
+M3     monotonic      36     0   0.000   [0.000, 0.096]    0.000
 M4     monotonic      36     0   0.000   [0.000, 0.096]    0.000
-M1raw  monotonic      72    42   0.583   [0.468, 0.690]    0.583
+M1raw  monotonic      72    39   0.542   [0.427, 0.652]    0.542
 D1     directional    72     0   0.000   [0.000, 0.051]    0.000
 D2     directional    72     0   0.000   [0.000, 0.051]    0.000
 
-seeds [11, 23, 47] · seeds disagreed on 0 base inputs · C1 path diverged in 30/2,592 runs
+seeds [11, 23, 47] · seeds disagreed on 0 base inputs · C1 path diverged in 27/2,592 runs
 ```
 
-**`M1raw` is meant to fail** — the documented unsound relation. **M1 and M2**
-violate only when the follow-up run's cycle-2 rejected set differs (13/13,
-2/2): the relative outlier filter is not shift- or population-invariant.
-**M3** is a genuine design fault: geography widening around each run's own
-centre does not preserve locality-set inclusion (`NOTEBOOK.md` Stage 17).
+**`M1raw` is meant to fail** — the documented unsound relation. **M1**
+violates only when the follow-up run's cycle-2 rejected set differs (12/12):
+the relative outlier filter is not shift-invariant. **M3 found a genuine
+design fault** — geography widening around the selection's shared centre
+broke locality-set inclusion (9/36 bases, M2 2/72; kept in
+`results/v2_before_m3fix/`). Widening is now per locality and preserves
+inclusion; M3 and M2 are 0 (`NOTEBOOK.md` Stages 17–18).
 
 The earlier sweeps (`results/phaseA_deterministic`, `llm_before_promptfix`,
 `llm`; 11 relations × 36 inputs, per-run intervals, the pre-v2 population)

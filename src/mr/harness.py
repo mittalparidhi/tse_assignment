@@ -271,7 +271,7 @@ def headline_table(results: pd.DataFrame) -> str:
     lines = [
         "Unit = base input (violated if any seed violates)  | Relaxation-stable subdomain",
         f"{'MR':<6}{'family':<12}{'bases':>6}{'viol':>5}{'rate':>7}"
-        f"{'95% CI':>18}{'seed≠':>6}  | {'bases':>6}{'viol':>5}{'rate':>7}{'95% CI':>18}",
+        f"{'95% CI':>18}{'disagr':>7}  | {'bases':>6}{'viol':>5}{'rate':>7}{'95% CI':>18}",
         "-" * 106,
     ]
     for row in summary.itertuples(index=False):
@@ -285,7 +285,7 @@ def headline_table(results: pd.DataFrame) -> str:
         lines.append(
             f"{row.mr_id:<6}{row.family:<12}{row.base_inputs:>6}"
             f"{row.violations:>5}{row.violation_rate:>7.3f}{ci:>18}"
-            f"{row.seed_disagreements:>6}  | {row.stable_base_inputs:>6}"
+            f"{row.seed_disagreements:>7}  | {row.stable_base_inputs:>6}"
             f"{row.stable_violations:>5}{srate}{sci:>18}"
         )
     lines.append("-" * 106)
@@ -293,6 +293,6 @@ def headline_table(results: pd.DataFrame) -> str:
     lines.append(
         f"seeds: {list(SEEDS)}   total runs: {len(results)}   "
         f"runs where the C1 relaxation path diverged: {diverged}   "
-        f"seed≠ = base inputs whose seeds disagreed"
+        f"disagr = base inputs whose seeds disagreed"
     )
     return "\n".join(lines)

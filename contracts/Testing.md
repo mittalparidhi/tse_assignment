@@ -84,7 +84,7 @@ Coverage depends on counts, so a transformation that changes counts can change w
 | `before_fix` / `after_fix` | deterministic sweeps before/after the first round of fixes diagnosed in `docs/DIAGNOSIS.md` (per-shard outlier threshold, M1 refinement) |
 | `synthetic` | synthetic snapshot, oracle check |
 
-Each `results/<tag>/` holds `base_inputs.csv`, `mr_runs.csv`, `mr_summary.csv`, `headline.txt`, `run_meta.json` (snapshot SHA, seeds, counts, model record) and `trace_example.txt`. The contract-v2 sweeps are `results/v2_deterministic/` and `results/v2_synthetic/`. The other tags are earlier sweeps, kept as the record behind `docs/DIAGNOSIS.md`; they predate contract v2. The LLM sweeps (`llm_before_promptfix`, `llm`) need Ollama and were not re-run (`README.md` open items).
+Each `results/<tag>/` holds `base_inputs.csv`, `mr_runs.csv`, `mr_summary.csv`, `headline.txt`, `run_meta.json` (snapshot SHA, seeds, counts, model record) and `trace_example.txt`. The contract-v2 sweeps are `results/v2_deterministic/` and `results/v2_synthetic/`; `results/v2_before_m3fix/` is the v2 sweep before geography widening preserved set inclusion, kept as the evidence for the M3 fault (`Coverage.md` §3). The other tags are earlier sweeps, kept as the record behind `docs/DIAGNOSIS.md`; they predate contract v2. The LLM sweeps (`llm_before_promptfix`, `llm`) need Ollama and were not re-run (`README.md` open items).
 
 ## 8. Harness self-tests
 

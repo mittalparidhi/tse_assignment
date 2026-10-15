@@ -152,7 +152,7 @@ The brief's three control-flow requirements:
 ### C1 — Coverage widening
 
 - `coverage_score = sufficient months / 12`. Proceed when `coverage_score >= coverage_target`.
-- Otherwise widen one lever per round, each lever at most once, in order: price band (×0.75 / ×1.25), BHK (±1), geography. Geography widening doubles the radius, or adds the nearest localities until listing depth at least doubles (`Coverage.md` §3); it never removes the locality constraint. A narrow query can therefore end below the coverage target with its levers exhausted: the answer stays about the place asked for.
+- Otherwise widen one lever per round, each lever at most once, in order: price band (×0.75 / ×1.25), BHK (±1), geography. Geography widening doubles the radius, or adds each selected locality's own depth-doubling neighbourhood (`Coverage.md` §3); it never removes the locality constraint and it preserves set inclusion (a subset widens to a subset). A narrow query can therefore end below the coverage target with its levers exhausted: the answer stays about the place asked for.
 - At most `max_retry_rounds` retries; stop early when no lever applies. Every relaxation is recorded in `relaxations` and shown to the user.
 
 ### C2 — Critique recomputation

@@ -1,0 +1,27 @@
+  1. CriteriaAgent     action=planned (deterministic)  query_mode=EXACT_LOCALITY  filter_spec={'window_end': '2023-08', 'bhk': [3], 'localities': ['Gachibowli'], 'property_types': None, 'price_min_inr': None, 'price_max_inr': None, 'currency_unit': 'INR', 'area_unit': 'SQFT', 'query_mode': 'EXACT_LOCALITY', 'center_lat': None, 'center_lon': None, 'radius_km': None, 'label': 'trace-demo'}
+  2. RetrievalDispatch agents=4  query_mode=EXACT_LOCALITY  round=0
+  3. RetrievalAgent[1] query_mode=EXACT_LOCALITY  retrieved=29  retry_round=0
+  4. RetrievalAgent[0] query_mode=EXACT_LOCALITY  retrieved=27  retry_round=0
+  5. RetrievalAgent[2] query_mode=EXACT_LOCALITY  retrieved=28  retry_round=0
+  6. RetrievalAgent[3] query_mode=EXACT_LOCALITY  retrieved=27  retry_round=0
+  7. RetrievalMerge    agents=4  round=0  listings=111  excluded_no_coordinate=0
+  8. CoverageAgent     coverage_score=0.0833  target=0.5  sufficient_months=1  geographic_spread=1  verdict=INSUFFICIENT  decision=WIDEN and re-retrieve (cycle 1)  relaxation=BHK [3] -> [2, 3, 4]
+  9. RetrievalDispatch agents=4  query_mode=EXACT_LOCALITY  round=1
+ 10. RetrievalAgent[1] query_mode=EXACT_LOCALITY  retrieved=56  retry_round=1
+ 11. RetrievalAgent[2] query_mode=EXACT_LOCALITY  retrieved=56  retry_round=1
+ 12. RetrievalAgent[3] query_mode=EXACT_LOCALITY  retrieved=53  retry_round=1
+ 13. RetrievalAgent[0] query_mode=EXACT_LOCALITY  retrieved=61  retry_round=1
+ 14. RetrievalMerge    agents=4  round=1  listings=226  excluded_no_coordinate=0
+ 15. CoverageAgent     coverage_score=0.1667  target=0.5  sufficient_months=2  geographic_spread=1  verdict=INSUFFICIENT  decision=WIDEN and re-retrieve (cycle 1)  relaxation=localities widened by 15 neighbouring localities: ['Gayathri Nagar Colony', 'Indira Nagar', 'Nanakramguda', 'Mouryas Ranga Prasad Avenue', 'Gowlidoddy', 'Huda Layout', 'Hyderabad to Zaheerabad Highway', 'East Anand Bagh'] ...
+ 16. RetrievalDispatch agents=4  query_mode=EXACT_LOCALITY  round=2
+ 17. RetrievalAgent[2] query_mode=EXACT_LOCALITY  retrieved=173  retry_round=2
+ 18. RetrievalAgent[1] query_mode=EXACT_LOCALITY  retrieved=149  retry_round=2
+ 19. RetrievalAgent[3] query_mode=EXACT_LOCALITY  retrieved=156  retry_round=2
+ 20. RetrievalAgent[0] query_mode=EXACT_LOCALITY  retrieved=171  retry_round=2
+ 21. RetrievalMerge    agents=4  round=2  listings=649  excluded_no_coordinate=0
+ 22. CoverageAgent     coverage_score=0.25  target=0.5  sufficient_months=3  geographic_spread=16  verdict=INSUFFICIENT  decision=PROCEED  relaxation=None
+ 23. AnalysisAgent     mode=full  listings=649  recomputed_months=[]  rejected_this_pass=0  sufficient_months=3  move_pct=-4.45
+ 24. CritiqueAgent     flagged=['2023-01', '2023-03', '2023-06', '2023-07', '2023-08']  new_flags=['2023-01', '2023-03', '2023-06', '2023-07', '2023-08']  verdict=REJECTED  decision=REJECT -> recompute flagged months (cycle 2)  critique_round=0  reason=None
+ 25. AnalysisAgent     mode=targeted recomputation  listings=632  recomputed_months=['2023-01', '2023-03', '2023-06', '2023-07', '2023-08']  rejected_this_pass=17  sufficient_months=2  move_pct=-0.7
+ 26. CritiqueAgent     flagged=['2023-01', '2023-06']  new_flags=[]  verdict=APPROVED  decision=APPROVE  critique_round=1  reason=None
+ 27. AggregatorAgent   chars=767  coverage_score=0.25  llm_calls=None  llm_fallback_rate=None
