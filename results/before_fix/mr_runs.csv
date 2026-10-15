@@ -1,0 +1,973 @@
+mr_id,family,base_input,seed,applicable,violated,detail,source_loops_c1,source_loops_c2,follow_loops_c1,follow_loops_c2,seconds
+I1,invariance,base00,11,True,False,,3,1,3,1,0.14526043700061564
+I1,invariance,base00,23,True,False,,3,1,3,1,0.15433054700042703
+I1,invariance,base00,47,True,False,,3,1,3,1,0.11780177699984051
+I1,invariance,base01,11,True,False,,3,1,3,1,0.13069764399915584
+I1,invariance,base01,23,True,False,,3,1,3,1,0.11934028699943156
+I1,invariance,base01,47,True,False,,3,1,3,1,0.18133741000019654
+I1,invariance,base02,11,True,False,,3,1,3,1,0.48816944699865417
+I1,invariance,base02,23,True,False,,3,1,3,1,0.3698399419990892
+I1,invariance,base02,47,True,False,,3,1,3,1,0.15958637000039744
+I1,invariance,base03,11,True,False,,3,1,3,1,0.17907007400026487
+I1,invariance,base03,23,True,False,,3,1,3,1,0.4671105930010526
+I1,invariance,base03,47,True,False,,3,1,3,1,0.16689603800114128
+I1,invariance,base04,11,True,False,,3,1,3,1,0.20717959300054645
+I1,invariance,base04,23,True,False,,3,1,3,1,0.23146024199922977
+I1,invariance,base04,47,True,False,,3,2,3,2,0.3438106659996265
+I1,invariance,base05,11,True,False,,3,1,3,1,0.2778599600005691
+I1,invariance,base05,23,True,False,,3,2,3,2,0.21117015699928743
+I1,invariance,base05,47,True,False,,3,2,3,2,0.21260037499996542
+I1,invariance,base06,11,True,False,,3,1,3,1,0.17339592600001197
+I1,invariance,base06,23,True,False,,3,1,3,1,0.39524107400029607
+I1,invariance,base06,47,True,False,,3,1,3,1,0.3708019810001133
+I1,invariance,base07,11,True,False,,3,1,3,1,0.15479268800118007
+I1,invariance,base07,23,True,False,,3,1,3,1,0.15889969199997722
+I1,invariance,base07,47,True,False,,3,1,3,1,0.43328595599996333
+I1,invariance,base08,11,True,False,,3,1,3,1,0.254284134000045
+I1,invariance,base08,23,True,False,,3,1,3,1,0.13199799499852816
+I1,invariance,base08,47,True,False,,3,1,3,1,0.1369936580013018
+I1,invariance,base09,11,True,False,,3,1,3,1,0.14485620999948878
+I1,invariance,base09,23,True,False,,3,1,3,1,0.26645829399967624
+I1,invariance,base09,47,True,False,,3,1,3,1,0.49804853000023286
+I1,invariance,base10,11,True,False,,3,2,3,2,0.6724306559990509
+I1,invariance,base10,23,True,False,,3,1,3,1,0.21133684599953995
+I1,invariance,base10,47,True,False,,3,1,3,1,0.12291876500057697
+I1,invariance,base11,11,True,False,,3,1,3,1,0.1719987989999936
+I1,invariance,base11,23,True,False,,3,1,3,1,0.2832808649982326
+I1,invariance,base11,47,True,False,,3,1,3,1,0.2561085870001989
+I1,invariance,base12,11,True,False,,3,1,3,1,0.16813570199883543
+I1,invariance,base12,23,True,False,,3,2,3,2,0.23786251800083846
+I1,invariance,base12,47,True,False,,3,2,3,2,0.2137664860001678
+I1,invariance,base13,11,True,False,,3,1,3,1,0.14684278900131176
+I1,invariance,base13,23,True,False,,3,1,3,1,0.13397034499939764
+I1,invariance,base13,47,True,False,,3,2,3,2,0.20643397999992885
+I1,invariance,base14,11,True,False,,3,1,3,1,0.1413374229996407
+I1,invariance,base14,23,True,False,,3,1,3,1,0.16912504300125875
+I1,invariance,base14,47,True,False,,3,1,3,1,0.13737276400024712
+I1,invariance,base15,11,True,False,,3,1,3,1,0.14516916700085858
+I1,invariance,base15,23,True,False,,3,1,3,1,0.1386430910006311
+I1,invariance,base15,47,True,False,,3,1,3,1,0.14004503300020588
+I1,invariance,base16,11,True,False,,3,1,3,1,0.1524354619996302
+I1,invariance,base16,23,True,False,,3,1,3,1,0.13919636399987212
+I1,invariance,base16,47,True,False,,3,1,3,1,0.2693662410001707
+I1,invariance,base17,11,True,False,,3,1,3,1,0.1400856760010356
+I1,invariance,base17,23,True,False,,3,1,3,1,0.2582967059988732
+I1,invariance,base17,47,True,False,,3,1,3,1,0.26652441800069937
+I1,invariance,base18,11,True,False,,3,1,3,1,0.1764629640001658
+I1,invariance,base18,23,True,False,,3,2,3,2,0.2197762050000165
+I1,invariance,base18,47,True,False,,3,2,3,2,0.4393238550001115
+I1,invariance,base19,11,True,False,,3,1,3,1,0.17599270199934836
+I1,invariance,base19,23,True,False,,3,1,3,1,0.3938996180004324
+I1,invariance,base19,47,True,False,,3,1,3,1,0.3791856389998429
+I1,invariance,base20,11,True,False,,3,1,3,1,0.20235150100052124
+I1,invariance,base20,23,True,False,,3,1,3,1,0.1836633820003044
+I1,invariance,base20,47,True,False,,3,2,3,2,0.6106442720010818
+I1,invariance,base21,11,True,False,,3,1,3,1,0.17832819400064182
+I1,invariance,base21,23,True,False,,3,1,3,1,0.14531663600064348
+I1,invariance,base21,47,True,False,,3,1,3,1,0.1749299230014003
+I1,invariance,base22,11,True,False,,3,1,3,1,0.16274400600013905
+I1,invariance,base22,23,True,False,,3,1,3,1,0.15846979299931263
+I1,invariance,base22,47,True,False,,3,1,3,1,0.16429841299941472
+I1,invariance,base23,11,True,False,,3,1,3,1,0.14521223699921393
+I1,invariance,base23,23,True,False,,3,1,3,1,0.14521351700022933
+I1,invariance,base23,47,True,False,,3,1,3,1,0.14856014500037418
+I1,invariance,base24,11,True,False,,3,1,3,1,0.1414784469998267
+I1,invariance,base24,23,True,False,,3,1,3,1,0.26365659100156336
+I1,invariance,base24,47,True,False,,3,1,3,1,0.31468876100007037
+I1,invariance,base25,11,True,False,,3,1,3,1,0.190053001000706
+I1,invariance,base25,23,True,False,,3,1,3,1,0.14922542500062264
+I1,invariance,base25,47,True,False,,3,1,3,1,0.15473936600028537
+I1,invariance,base26,11,True,False,,3,1,3,1,0.13750786099990364
+I1,invariance,base26,23,True,False,,3,1,3,1,0.351890538000589
+I1,invariance,base26,47,True,False,,3,2,3,2,0.6555284630012466
+I1,invariance,base27,11,True,False,,3,1,3,1,0.18391522000092664
+I1,invariance,base27,23,True,False,,3,1,3,1,0.15451409900015278
+I1,invariance,base27,47,True,False,,3,1,3,1,0.3441991029994824
+I1,invariance,base28,11,True,False,,3,1,3,1,0.1754078390003997
+I1,invariance,base28,23,True,False,,3,1,3,1,0.15068976800102973
+I1,invariance,base28,47,True,False,,3,1,3,1,0.154550716999438
+I1,invariance,base29,11,True,False,,3,1,3,1,0.159415688000081
+I1,invariance,base29,23,True,False,,3,1,3,1,0.16792102200088266
+I1,invariance,base29,47,True,False,,3,1,3,1,0.2030313320010464
+I1,invariance,base30,11,True,False,,3,1,3,1,0.16654935400038084
+I1,invariance,base30,23,True,False,,3,1,3,1,0.14926886299872422
+I1,invariance,base30,47,True,False,,3,1,3,1,0.16539201699924888
+I1,invariance,base31,11,True,False,,3,1,3,1,0.1599370239982818
+I1,invariance,base31,23,True,False,,3,1,3,1,0.16155376999995497
+I1,invariance,base31,47,True,False,,3,1,3,1,0.16500050499962526
+I1,invariance,base32,11,True,False,,3,1,3,1,0.20363481399908778
+I1,invariance,base32,23,True,False,,3,1,3,1,0.15331496600083483
+I1,invariance,base32,47,True,False,,3,1,3,1,0.3136326009989716
+I1,invariance,base33,11,True,False,,3,1,3,1,0.46723007800028427
+I1,invariance,base33,23,True,False,,3,1,3,1,0.18254377999983262
+I1,invariance,base33,47,True,False,,3,1,3,1,0.15596951599945896
+I1,invariance,base34,11,True,False,,3,1,3,1,0.16236459100036882
+I1,invariance,base34,23,True,False,,3,2,3,2,0.45700619099989126
+I1,invariance,base34,47,True,False,,3,2,3,2,0.2710472189992288
+I1,invariance,base35,11,True,False,,3,1,3,1,0.163619507000476
+I1,invariance,base35,23,True,False,,3,1,3,1,0.16143931800070277
+I1,invariance,base35,47,True,False,,3,1,3,1,0.15521343000000343
+I2,invariance,base00,11,True,False,,3,1,3,1,0.2875897439989785
+I2,invariance,base00,23,True,False,,3,1,3,1,0.47205130600013945
+I2,invariance,base00,47,True,False,,3,1,3,1,0.3822440429994458
+I2,invariance,base01,11,True,False,,3,1,3,1,0.15896358099962526
+I2,invariance,base01,23,True,False,,3,1,3,1,0.1251893660009955
+I2,invariance,base01,47,True,False,,3,1,3,1,0.13240574200062838
+I2,invariance,base02,11,True,False,,3,1,3,1,0.34637135100092564
+I2,invariance,base02,23,True,False,,3,1,3,1,0.428663922000851
+I2,invariance,base02,47,True,False,,3,1,3,1,0.22382250599912368
+I2,invariance,base03,11,True,False,,3,1,3,1,0.14169516899892187
+I2,invariance,base03,23,True,False,,3,1,3,1,0.22757669800012081
+I2,invariance,base03,47,True,False,,3,1,3,1,0.16641601199989964
+I2,invariance,base04,11,True,False,,3,1,3,1,0.15171919999920647
+I2,invariance,base04,23,True,False,,3,1,3,1,0.19946657399850665
+I2,invariance,base04,47,True,False,,3,2,3,2,0.18939862700062804
+I2,invariance,base05,11,True,False,,3,1,3,1,0.15010088800045196
+I2,invariance,base05,23,True,False,,3,2,3,2,0.20823526999993192
+I2,invariance,base05,47,True,False,,3,2,3,2,0.22096853900075075
+I2,invariance,base06,11,True,False,,3,1,3,1,0.16115297299984377
+I2,invariance,base06,23,True,False,,3,1,3,1,0.4631082300002163
+I2,invariance,base06,47,True,False,,3,1,3,1,0.16133554599946365
+I2,invariance,base07,11,True,False,,3,1,3,1,0.1502189390012063
+I2,invariance,base07,23,True,False,,3,1,3,1,0.14214026700028626
+I2,invariance,base07,47,True,False,,3,1,3,1,0.12739658399914333
+I2,invariance,base08,11,True,False,,3,1,3,1,0.12430864000089059
+I2,invariance,base08,23,True,False,,3,1,3,1,0.1244959289997496
+I2,invariance,base08,47,True,False,,3,1,3,1,0.12347442999998748
+I2,invariance,base09,11,True,False,,3,1,3,1,0.12372109900024952
+I2,invariance,base09,23,True,False,,3,1,3,1,0.13384021999991091
+I2,invariance,base09,47,True,False,,3,1,3,1,0.1835609879999538
+I2,invariance,base10,11,True,False,,3,2,3,2,0.5123570569994627
+I2,invariance,base10,23,True,False,,3,1,3,1,0.1459635690007417
+I2,invariance,base10,47,True,False,,3,1,3,1,0.37744053400092525
+I2,invariance,base11,11,True,False,,3,1,3,1,0.20304757000121754
+I2,invariance,base11,23,True,False,,3,1,3,1,0.12737564599956386
+I2,invariance,base11,47,True,False,,3,1,3,1,0.14394969000022684
+I2,invariance,base12,11,True,False,,3,1,3,1,0.1407905389987718
+I2,invariance,base12,23,True,False,,3,2,3,2,0.26304822199927
+I2,invariance,base12,47,True,False,,3,2,3,2,0.21322536299885542
+I2,invariance,base13,11,True,False,,3,1,3,1,0.13015163900126936
+I2,invariance,base13,23,True,False,,3,1,3,1,0.17503854099959426
+I2,invariance,base13,47,True,False,,3,2,3,2,0.3979535290000058
+I2,invariance,base14,11,True,False,,3,1,3,1,0.1484244330004003
+I2,invariance,base14,23,True,False,,3,1,3,1,0.1404615939991345
+I2,invariance,base14,47,True,False,,3,1,3,1,0.16416813400064711
+I2,invariance,base15,11,True,False,,3,1,3,1,0.2439834750002774
+I2,invariance,base15,23,True,False,,3,1,3,1,0.35298939400126983
+I2,invariance,base15,47,True,False,,3,1,3,1,0.264566335001291
+I2,invariance,base16,11,True,False,,3,1,3,1,0.21536637600001995
+I2,invariance,base16,23,True,False,,3,1,3,1,0.14114720699944883
+I2,invariance,base16,47,True,False,,3,1,3,1,0.13750668700049573
+I2,invariance,base17,11,True,False,,3,1,3,1,0.12419932599914318
+I2,invariance,base17,23,True,False,,3,1,3,1,0.137009328998829
+I2,invariance,base17,47,True,False,,3,1,3,1,0.14138930199987954
+I2,invariance,base18,11,True,False,,3,1,3,1,0.3543914109995967
+I2,invariance,base18,23,True,False,,3,2,3,2,0.3485354770000413
+I2,invariance,base18,47,True,False,,3,2,3,2,0.23689453899896762
+I2,invariance,base19,11,True,False,,3,1,3,1,0.38284058299905155
+I2,invariance,base19,23,True,False,,3,1,3,1,0.15185839199875772
+I2,invariance,base19,47,True,False,,3,1,3,1,0.1852045100004034
+I2,invariance,base20,11,True,False,,3,1,3,1,0.14308981800058973
+I2,invariance,base20,23,True,False,,3,1,3,1,0.13097079600083816
+I2,invariance,base20,47,True,False,,3,2,3,2,0.20123016399884364
+I2,invariance,base21,11,True,False,,3,1,3,1,0.1409284840010514
+I2,invariance,base21,23,True,False,,3,1,3,1,0.14532451900049637
+I2,invariance,base21,47,True,False,,3,1,3,1,0.19537740999840025
+I2,invariance,base22,11,True,False,,3,1,3,1,0.18637492899870267
+I2,invariance,base22,23,True,False,,3,1,3,1,0.15153542200096126
+I2,invariance,base22,47,True,False,,3,1,3,1,0.16292161400087934
+I2,invariance,base23,11,True,False,,3,1,3,1,0.1454512740001519
+I2,invariance,base23,23,True,False,,3,1,3,1,0.17461293799897248
+I2,invariance,base23,47,True,False,,3,1,3,1,0.17328361500040046
+I2,invariance,base24,11,True,False,,3,1,3,1,0.1614716900003259
+I2,invariance,base24,23,True,False,,3,1,3,1,0.14604549300020153
+I2,invariance,base24,47,True,False,,3,1,3,1,0.23282851699877938
+I2,invariance,base25,11,True,False,,3,1,3,1,0.15171194699905755
+I2,invariance,base25,23,True,False,,3,1,3,1,0.1645192429987219
+I2,invariance,base25,47,True,False,,3,1,3,1,0.14233224199961114
+I2,invariance,base26,11,True,False,,3,1,3,1,0.19102817900056834
+I2,invariance,base26,23,True,False,,3,1,3,1,0.17029165699932491
+I2,invariance,base26,47,True,False,,3,2,3,2,0.5779827990008926
+I2,invariance,base27,11,True,False,,3,1,3,1,0.36344099899906723
+I2,invariance,base27,23,True,False,,3,1,3,1,0.5493842779997067
+I2,invariance,base27,47,True,False,,3,1,3,1,0.26878991200101154
+I2,invariance,base28,11,True,False,,3,1,3,1,0.20726311299949884
+I2,invariance,base28,23,True,False,,3,1,3,1,0.49412038099944766
+I2,invariance,base28,47,True,False,,3,1,3,1,0.5534170320006524
+I2,invariance,base29,11,True,False,,3,1,3,1,0.33352932300113025
+I2,invariance,base29,23,True,False,,3,1,3,1,0.21581449899895233
+I2,invariance,base29,47,True,False,,3,1,3,1,0.21541008500025782
+I2,invariance,base30,11,True,False,,3,1,3,1,0.41156397700069647
+I2,invariance,base30,23,True,False,,3,1,3,1,0.29883402999985265
+I2,invariance,base30,47,True,False,,3,1,3,1,0.18568305799999507
+I2,invariance,base31,11,True,False,,3,1,3,1,0.19353281400071864
+I2,invariance,base31,23,True,False,,3,1,3,1,0.18291089500053204
+I2,invariance,base31,47,True,False,,3,1,3,1,0.37766132800061314
+I2,invariance,base32,11,True,False,,3,1,3,1,0.19416229899979953
+I2,invariance,base32,23,True,False,,3,1,3,1,0.21100312700036739
+I2,invariance,base32,47,True,False,,3,1,3,1,0.16355551299966464
+I2,invariance,base33,11,True,False,,3,1,3,1,0.16169258499940042
+I2,invariance,base33,23,True,False,,3,1,3,1,0.19212060400059272
+I2,invariance,base33,47,True,False,,3,1,3,1,0.37053574200035655
+I2,invariance,base34,11,True,False,,3,1,3,1,0.4035289430012199
+I2,invariance,base34,23,True,False,,3,2,3,2,0.7913732119995984
+I2,invariance,base34,47,True,False,,3,2,3,2,0.4412216590008029
+I2,invariance,base35,11,True,False,,3,1,3,1,0.18224433300019882
+I2,invariance,base35,23,True,False,,3,1,3,1,0.4753414180013351
+I2,invariance,base35,47,True,False,,3,1,3,1,0.23309210899969912
+I3,invariance,base00,11,True,True,"2022-05: count 9 -> 15, expected exactly 2x",3,1,3,1,0.201430987999629
+I3,invariance,base00,23,True,True,"2022-05: count 9 -> 15, expected exactly 2x",3,1,3,1,0.15571962899957725
+I3,invariance,base00,47,True,True,"2022-05: count 9 -> 17, expected exactly 2x",3,1,3,1,0.2444810819997656
+I3,invariance,base01,11,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.12837782600036007
+I3,invariance,base01,23,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.12800220600001921
+I3,invariance,base01,47,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.14607069100020453
+I3,invariance,base02,11,True,True,"2022-06: count 6 -> 11, expected exactly 2x",3,1,3,1,0.1415120849997038
+I3,invariance,base02,23,True,True,"2022-06: count 5 -> 11, expected exactly 2x",3,1,3,1,0.1719697949993133
+I3,invariance,base02,47,True,True,"2022-06: count 6 -> 11, expected exactly 2x",3,1,3,1,0.20707235299960303
+I3,invariance,base03,11,True,True,"2022-05: count 9 -> 15, expected exactly 2x",3,1,3,1,0.6391815339993627
+I3,invariance,base03,23,True,True,"2022-05: count 9 -> 15, expected exactly 2x",3,1,3,1,0.22883677000027092
+I3,invariance,base03,47,True,True,"2022-05: count 9 -> 17, expected exactly 2x",3,1,3,1,0.1429946589996689
+I3,invariance,base04,11,True,True,"2022-09: count 5 -> 9, expected exactly 2x",3,1,3,1,0.24885652500051947
+I3,invariance,base04,23,True,True,"2022-05: count 4 -> 7, expected exactly 2x",3,1,3,1,0.1683532520000881
+I3,invariance,base04,47,True,True,"2022-10: count 9 -> 19, expected exactly 2x",3,2,3,2,0.19848882000042067
+I3,invariance,base05,11,True,True,"2022-05: count 9 -> 15, expected exactly 2x",3,1,3,1,0.1469425190007314
+I3,invariance,base05,23,True,True,"2022-05: count 9 -> 15, expected exactly 2x",3,2,3,2,0.21889716500118084
+I3,invariance,base05,47,True,True,"2022-05: count 9 -> 17, expected exactly 2x",3,2,3,2,0.22401715500018327
+I3,invariance,base06,11,True,True,"2022-05: count 9 -> 15, expected exactly 2x",3,1,3,1,0.18230819100062945
+I3,invariance,base06,23,True,True,"2022-05: count 9 -> 15, expected exactly 2x",3,1,3,1,0.14879715600000054
+I3,invariance,base06,47,True,True,"2022-05: count 9 -> 17, expected exactly 2x",3,1,3,1,0.16010259900031087
+I3,invariance,base07,11,True,True,"2022-09: count 5 -> 9, expected exactly 2x",3,1,3,1,0.15393174300152168
+I3,invariance,base07,23,True,True,"2022-05: count 4 -> 7, expected exactly 2x",3,1,3,1,0.16745871999955853
+I3,invariance,base07,47,True,True,"2022-11: count 9 -> 19, expected exactly 2x",3,1,3,1,0.184814316999109
+I3,invariance,base08,11,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.13110271000005014
+I3,invariance,base08,23,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.1574958549990697
+I3,invariance,base08,47,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.16140421500131197
+I3,invariance,base09,11,True,True,"2022-09: count 21 -> 46, expected exactly 2x",3,1,3,1,0.1792492790009419
+I3,invariance,base09,23,True,True,"2022-12: count 21 -> 40, expected exactly 2x",3,1,3,1,0.14796454699899186
+I3,invariance,base09,47,True,True,"2022-09: count 23 -> 45, expected exactly 2x",3,1,3,1,0.14923064799950225
+I3,invariance,base10,11,True,True,"2022-10: count 7 -> 13, expected exactly 2x",3,2,3,1,0.15972675500051992
+I3,invariance,base10,23,True,True,"2022-12: count 8 -> 14, expected exactly 2x",3,1,3,1,0.2369150289996469
+I3,invariance,base10,47,True,True,"2022-10: count 7 -> 13, expected exactly 2x",3,1,3,1,0.24253934900116292
+I3,invariance,base11,11,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.1765372589998151
+I3,invariance,base11,23,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.4474666980004258
+I3,invariance,base11,47,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.24167901100008748
+I3,invariance,base12,11,True,True,"2022-05: count 9 -> 15, expected exactly 2x",3,1,3,1,0.15866122800071025
+I3,invariance,base12,23,True,True,"2022-05: count 9 -> 15, expected exactly 2x",3,2,3,2,0.22158331900027406
+I3,invariance,base12,47,True,True,"2022-05: count 9 -> 17, expected exactly 2x",3,2,3,2,0.2460490880002908
+I3,invariance,base13,11,True,True,"2022-09: count 5 -> 9, expected exactly 2x",3,1,3,1,0.150267242001064
+I3,invariance,base13,23,True,True,"2022-05: count 4 -> 7, expected exactly 2x",3,1,3,1,0.15121806600109267
+I3,invariance,base13,47,True,True,"2022-10: count 9 -> 19, expected exactly 2x",3,2,3,2,0.25425258300128917
+I3,invariance,base14,11,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.15197749599974486
+I3,invariance,base14,23,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.19333241599997564
+I3,invariance,base14,47,True,True,"2022-05: count 7 -> 12, expected exactly 2x",3,1,3,1,0.15084542699878511
+I3,invariance,base15,11,True,True,"2022-06: count 7 -> 13, expected exactly 2x",3,1,3,1,0.3063743680013431
+I3,invariance,base15,23,True,True,"2022-09: count 22 -> 45, expected exactly 2x",3,1,3,1,0.14644279300046037
+I3,invariance,base15,47,True,True,"2022-06: count 6 -> 13, expected exactly 2x",3,1,3,1,0.14245823999954155
+I3,invariance,base16,11,True,True,"2022-09: count 21 -> 46, expected exactly 2x",3,1,3,1,0.1626557719991979
+I3,invariance,base16,23,True,True,"2022-12: count 21 -> 40, expected exactly 2x",3,1,3,1,0.4103146029992786
+I3,invariance,base16,47,True,True,"2022-09: count 23 -> 45, expected exactly 2x",3,1,3,1,0.16383092499927443
+I3,invariance,base17,11,True,True,"2023-04: count 94 -> 194, expected exactly 2x",3,1,3,1,0.13700459500068973
+I3,invariance,base17,23,True,True,"2022-06: count 4 -> 9, expected exactly 2x",3,1,3,1,0.132144186000005
+I3,invariance,base17,47,True,True,"2022-06: count 5 -> 9, expected exactly 2x",3,1,3,1,0.1460152810013824
+I3,invariance,base18,11,True,True,"2022-06: count 7 -> 13, expected exactly 2x",3,1,3,1,0.16581450100056827
+I3,invariance,base18,23,True,True,"2022-09: count 22 -> 45, expected exactly 2x",3,2,3,2,0.23726409700066142
+I3,invariance,base18,47,True,True,"2022-06: count 6 -> 13, expected exactly 2x",3,2,3,2,0.2269826660012768
+I3,invariance,base19,11,True,True,"2022-06: count 6 -> 11, expected exactly 2x",3,1,3,1,0.41954545399858034
+I3,invariance,base19,23,True,True,"2022-06: count 6 -> 11, expected exactly 2x",3,1,3,1,0.31056939700101793
+I3,invariance,base19,47,True,True,"2022-09: count 23 -> 45, expected exactly 2x",3,1,3,1,0.15815601699978288
+I3,invariance,base20,11,True,True,"2022-09: count 5 -> 9, expected exactly 2x",3,1,3,1,0.14122726899950067
+I3,invariance,base20,23,True,True,"2022-09: count 5 -> 8, expected exactly 2x",3,1,3,1,0.1423708539987274
+I3,invariance,base20,47,True,True,"2022-10: count 9 -> 19, expected exactly 2x",3,2,3,2,0.21326132499962114
+I3,invariance,base21,11,True,True,"2022-06: count 7 -> 13, expected exactly 2x",3,1,3,1,0.20721856199998
+I3,invariance,base21,23,True,True,"2022-09: count 22 -> 45, expected exactly 2x",3,1,3,1,0.17753195099976438
+I3,invariance,base21,47,True,True,"2022-06: count 6 -> 13, expected exactly 2x",3,1,3,1,0.1685744229998818
+I3,invariance,base22,11,True,True,"2022-09: count 21 -> 46, expected exactly 2x",3,1,3,1,0.3765362890007964
+I3,invariance,base22,23,True,True,"2022-12: count 21 -> 44, expected exactly 2x",3,1,3,1,0.2417309699994803
+I3,invariance,base22,47,True,True,"2022-09: count 23 -> 45, expected exactly 2x",3,1,3,1,0.16581379200033552
+I3,invariance,base23,11,True,True,"2022-09: count 5 -> 9, expected exactly 2x",3,1,3,1,0.1468772539992642
+I3,invariance,base23,23,True,True,"2022-09: count 5 -> 8, expected exactly 2x",3,1,3,1,0.38201439499971457
+I3,invariance,base23,47,True,True,"2022-11: count 9 -> 19, expected exactly 2x",3,1,3,1,0.6495007060002536
+I3,invariance,base24,11,True,True,"2023-04: count 94 -> 194, expected exactly 2x",3,1,3,1,0.4491237500005809
+I3,invariance,base24,23,True,True,"2023-02: count 12 -> 22, expected exactly 2x",3,1,3,1,0.3567711319992668
+I3,invariance,base24,47,True,True,"2023-02: count 11 -> 21, expected exactly 2x",3,1,3,1,0.2977532690001681
+I3,invariance,base25,11,True,True,"2022-09: count 21 -> 46, expected exactly 2x",3,1,3,1,0.6173804589998326
+I3,invariance,base25,23,True,True,"2022-12: count 21 -> 44, expected exactly 2x",3,1,3,1,0.5451847879994602
+I3,invariance,base25,47,True,True,"2022-09: count 23 -> 45, expected exactly 2x",3,1,3,1,0.24976998300007835
+I3,invariance,base26,11,True,True,"2022-09: count 5 -> 9, expected exactly 2x",3,1,3,1,0.15942792200075928
+I3,invariance,base26,23,True,True,"2022-09: count 5 -> 8, expected exactly 2x",3,1,3,1,0.1697286080016056
+I3,invariance,base26,47,True,True,"2022-10: count 9 -> 19, expected exactly 2x",3,2,3,2,0.23531349999939266
+I3,invariance,base27,11,True,True,"2022-10: count 14 -> 25, expected exactly 2x",3,1,3,1,0.14935055800015107
+I3,invariance,base27,23,True,True,"2022-10: count 14 -> 27, expected exactly 2x",3,1,3,1,0.1747013819986023
+I3,invariance,base27,47,True,True,"2022-11: count 9 -> 21, expected exactly 2x",3,1,3,1,0.16965831900051853
+I3,invariance,base28,11,True,True,"2022-09: count 22 -> 45, expected exactly 2x",3,1,3,1,0.16090558399992005
+I3,invariance,base28,23,True,True,"2022-09: count 22 -> 45, expected exactly 2x",3,1,3,1,0.16537502299979678
+I3,invariance,base28,47,True,True,"2022-09: count 23 -> 45, expected exactly 2x",3,1,3,1,0.17455614100072125
+I3,invariance,base29,11,True,True,"2022-09: count 5 -> 9, expected exactly 2x",3,1,3,1,0.3323522859991499
+I3,invariance,base29,23,True,True,"2022-09: count 5 -> 8, expected exactly 2x",3,1,3,1,0.19151942700045765
+I3,invariance,base29,47,True,True,"2022-11: count 9 -> 19, expected exactly 2x",3,1,3,1,0.3914062659987394
+I3,invariance,base30,11,True,True,"2022-10: count 15 -> 27, expected exactly 2x",3,1,3,1,0.5687028869997448
+I3,invariance,base30,23,True,True,"2022-10: count 15 -> 29, expected exactly 2x",3,1,3,1,0.23248912800045218
+I3,invariance,base30,47,True,True,"2022-11: count 9 -> 21, expected exactly 2x",3,1,3,1,0.17339357899982133
+I3,invariance,base31,11,True,True,"2022-09: count 22 -> 45, expected exactly 2x",3,1,3,1,0.19078563199946075
+I3,invariance,base31,23,True,True,"2022-09: count 22 -> 45, expected exactly 2x",3,1,3,1,0.17090783800085774
+I3,invariance,base31,47,True,True,"2022-09: count 23 -> 45, expected exactly 2x",3,1,3,1,0.19532270200033963
+I3,invariance,base32,11,True,True,"2022-09: count 21 -> 46, expected exactly 2x",3,1,3,1,0.20334469499903207
+I3,invariance,base32,23,True,True,"2022-12: count 21 -> 44, expected exactly 2x",3,1,3,1,0.2129338769991591
+I3,invariance,base32,47,True,True,"2022-09: count 23 -> 45, expected exactly 2x",3,1,3,1,0.2712672960005875
+I3,invariance,base33,11,True,True,"2022-10: count 14 -> 25, expected exactly 2x",3,1,3,1,0.45979670499946224
+I3,invariance,base33,23,True,True,"2022-10: count 14 -> 27, expected exactly 2x",3,1,3,1,0.5755166959988856
+I3,invariance,base33,47,True,True,"2022-11: count 9 -> 21, expected exactly 2x",3,1,3,1,0.5442962939996505
+I3,invariance,base34,11,True,True,"2022-09: count 22 -> 45, expected exactly 2x",3,1,3,1,0.20305515000109153
+I3,invariance,base34,23,True,True,"2022-09: count 22 -> 45, expected exactly 2x",3,2,3,2,0.2517839450010797
+I3,invariance,base34,47,True,True,"2022-09: count 23 -> 45, expected exactly 2x",3,2,3,2,0.2611897359984141
+I3,invariance,base35,11,True,True,"2022-09: count 21 -> 46, expected exactly 2x",3,1,3,1,0.2142382500005624
+I3,invariance,base35,23,True,True,"2022-12: count 21 -> 44, expected exactly 2x",3,1,3,1,0.17350753999926383
+I3,invariance,base35,47,True,True,"2022-09: count 23 -> 45, expected exactly 2x",3,1,3,1,0.3332101510004577
+I4,invariance,base00,11,True,True,"count series differ: [0, 9, 6, 17, 5, 21, 18, 18, 23, 15, 15, 37] vs [0, 8, 6, 17, 5, 21, 19, 18, 21, 13, 13, 37]",3,1,3,1,0.35570599299899186
+I4,invariance,base00,23,True,True,"count series differ: [0, 9, 6, 17, 5, 23, 19, 19, 21, 15, 15, 37] vs [0, 9, 6, 17, 5, 22, 17, 19, 21, 14, 14, 37]",3,1,3,1,0.4936787810001988
+I4,invariance,base00,47,True,True,"count series differ: [0, 9, 5, 17, 5, 23, 20, 19, 19, 15, 15, 37] vs [0, 9, 6, 17, 5, 22, 18, 19, 23, 15, 16, 37]",3,1,3,1,0.23756553699968208
+I4,invariance,base01,11,True,True,"count series differ: [0, 7, 6, 10, 5, 9, 15, 11, 14, 17, 14, 50] vs [0, 7, 6, 10, 5, 9, 14, 11, 14, 15, 13, 50]",3,1,3,1,0.17326039299950935
+I4,invariance,base01,23,True,True,"count series differ: [0, 7, 5, 9, 5, 9, 15, 11, 14, 17, 15, 50] vs [0, 7, 5, 10, 5, 9, 14, 12, 14, 17, 14, 50]",3,1,3,1,0.1261787639996328
+I4,invariance,base01,47,True,True,"count series differ: [0, 7, 5, 9, 5, 9, 13, 9, 14, 17, 14, 50] vs [0, 7, 6, 10, 5, 9, 14, 11, 14, 17, 13, 50]",3,1,3,1,0.1300827319992095
+I4,invariance,base02,11,True,True,"count series differ: [0, 8, 6, 13, 5, 22, 17, 20, 22, 12, 14, 43] vs [0, 8, 6, 13, 5, 22, 17, 19, 21, 11, 12, 44]",3,1,3,1,0.12926785300078336
+I4,invariance,base02,23,True,True,"count series differ: [0, 8, 5, 13, 5, 22, 17, 22, 21, 12, 14, 43] vs [0, 8, 6, 13, 5, 22, 17, 20, 21, 11, 12, 43]",3,1,3,1,0.1277042009987781
+I4,invariance,base02,47,True,True,"count series differ: [0, 8, 6, 13, 5, 23, 17, 20, 19, 12, 14, 44] vs [0, 8, 6, 13, 5, 22, 17, 19, 21, 12, 14, 44]",3,1,3,1,0.13275643499946455
+I4,invariance,base03,11,True,True,"count series differ: [0, 9, 6, 17, 5, 21, 17, 18, 23, 15, 15, 36] vs [0, 8, 6, 17, 5, 21, 18, 18, 21, 13, 13, 36]",3,1,3,1,0.1419566530003067
+I4,invariance,base03,23,True,True,"count series differ: [0, 9, 6, 17, 5, 23, 19, 19, 21, 15, 15, 36] vs [0, 9, 6, 17, 5, 22, 17, 19, 21, 14, 14, 36]",3,1,3,1,0.1462349079993146
+I4,invariance,base03,47,True,True,"count series differ: [0, 9, 5, 17, 5, 23, 20, 19, 19, 15, 15, 36] vs [0, 9, 6, 17, 5, 22, 18, 19, 23, 15, 16, 36]",3,1,3,1,0.15020906499921693
+I4,invariance,base04,11,True,True,"count series differ: [0, 4, 3, 10, 5, 5, 10, 10, 12, 17, 12, 46] vs [0, 4, 3, 10, 5, 4, 10, 10, 12, 17, 12, 45]",3,1,3,1,0.13693073499962338
+I4,invariance,base04,23,True,True,"count series differ: [0, 4, 3, 10, 5, 5, 8, 10, 12, 16, 12, 45] vs [0, 4, 3, 10, 5, 4, 10, 10, 12, 16, 14, 45]",3,1,3,1,0.11653041499994288
+I4,invariance,base04,47,True,True,"count series differ: [0, 4, 3, 10, 5, 5, 9, 9, 12, 17, 13, 45] vs [0, 4, 3, 10, 5, 4, 9, 10, 12, 16, 12, 45]",3,2,3,1,0.15647791900119046
+I4,invariance,base05,11,True,True,"count series differ: [0, 9, 7, 17, 5, 22, 16, 22, 24, 17, 14, 46] vs [0, 8, 7, 17, 5, 22, 17, 21, 22, 16, 13, 46]",3,1,3,1,0.14844820100006473
+I4,invariance,base05,23,True,True,"count series differ: [0, 9, 6, 17, 5, 22, 19, 24, 22, 17, 16, 45] vs [0, 9, 7, 17, 5, 22, 16, 21, 22, 17, 13, 46]",3,2,3,1,0.41058062899901415
+I4,invariance,base05,47,True,True,"count series differ: [0, 9, 6, 17, 5, 23, 19, 21, 20, 17, 16, 46] vs [0, 9, 7, 17, 5, 22, 19, 22, 23, 17, 16, 46]",3,2,3,2,0.7414982190002775
+I4,invariance,base06,11,True,True,"count series differ: [0, 9, 6, 17, 5, 21, 18, 18, 23, 15, 15, 37] vs [0, 8, 6, 17, 5, 21, 19, 18, 21, 13, 13, 37]",3,1,3,1,0.37946329199985485
+I4,invariance,base06,23,True,True,"count series differ: [0, 9, 6, 17, 5, 23, 19, 19, 21, 15, 15, 37] vs [0, 9, 6, 17, 5, 22, 17, 19, 21, 14, 14, 37]",3,1,3,1,0.1453814369997417
+I4,invariance,base06,47,True,True,"count series differ: [0, 9, 5, 17, 5, 23, 20, 19, 19, 15, 15, 37] vs [0, 9, 6, 17, 5, 22, 18, 19, 23, 15, 16, 37]",3,1,3,1,0.13907642099911754
+I4,invariance,base07,11,True,True,"count series differ: [0, 4, 3, 10, 5, 5, 11, 9, 12, 17, 13, 47] vs [0, 4, 3, 10, 5, 4, 11, 9, 12, 17, 13, 46]",3,1,3,1,0.12403281899969443
+I4,invariance,base07,23,True,True,"count series differ: [0, 4, 3, 10, 5, 5, 9, 9, 12, 16, 13, 46] vs [0, 4, 3, 10, 5, 4, 11, 10, 12, 16, 15, 47]",3,1,3,1,0.13416591199893446
+I4,invariance,base07,47,True,True,"count series differ: [0, 4, 3, 10, 5, 5, 10, 9, 12, 17, 13, 47] vs [0, 4, 3, 10, 5, 4, 10, 8, 10, 17, 13, 48]",3,1,3,2,0.18765439000162587
+I4,invariance,base08,11,True,True,"count series differ: [7, 6, 10, 5, 9, 15, 11, 14, 17, 14, 50, 120] vs [7, 6, 10, 5, 9, 14, 11, 14, 15, 13, 50, 120]",3,1,3,1,0.19230587800120702
+I4,invariance,base08,23,True,True,"count series differ: [7, 5, 9, 5, 9, 15, 11, 14, 17, 15, 50, 119] vs [7, 5, 10, 5, 9, 14, 12, 14, 17, 14, 50, 118]",3,1,3,1,0.31626184299966553
+I4,invariance,base08,47,True,True,"count series differ: [7, 5, 9, 5, 9, 13, 9, 14, 17, 14, 50, 120] vs [7, 6, 10, 5, 9, 14, 11, 14, 17, 13, 50, 121]",3,1,3,1,0.4478152650008269
+I4,invariance,base09,11,True,True,"count series differ: [8, 5, 13, 5, 21, 18, 18, 21, 11, 15, 34, 97] vs [8, 5, 13, 5, 21, 18, 17, 19, 10, 12, 34, 94]",3,1,3,1,0.18311612099932972
+I4,invariance,base09,23,True,True,"count series differ: [8, 5, 13, 5, 23, 18, 19, 21, 11, 14, 34, 97] vs [8, 5, 13, 5, 22, 18, 19, 20, 10, 14, 34, 97]",3,1,3,1,0.1584371690005355
+I4,invariance,base09,47,True,True,"count series differ: [8, 5, 13, 5, 23, 18, 19, 18, 11, 14, 34, 96] vs [8, 5, 13, 5, 22, 18, 17, 21, 11, 15, 34, 95]",3,1,3,1,0.13111635400127852
+I4,invariance,base10,11,True,True,"count series differ: [3, 2, 6, 5, 4, 7, 6, 8, 9, 10, 37, 79] vs [3, 2, 6, 5, 4, 6, 6, 8, 9, 9, 37, 80]",3,2,3,1,0.1487643370001024
+I4,invariance,base10,23,True,True,"count series differ: [3, 2, 6, 5, 4, 6, 6, 8, 9, 10, 37, 76] vs [3, 2, 6, 5, 4, 6, 6, 8, 8, 10, 37, 80]",3,1,3,2,0.4770770800005266
+I4,invariance,base10,47,True,True,"count series differ: [3, 2, 6, 5, 4, 7, 6, 8, 9, 9, 37, 79] vs [3, 2, 6, 5, 4, 7, 6, 8, 8, 9, 37, 79]",3,1,3,2,0.15255824999985634
+I4,invariance,base11,11,True,True,"count series differ: [7, 6, 10, 5, 9, 14, 11, 14, 17, 13, 49, 114] vs [7, 6, 10, 5, 9, 13, 11, 14, 15, 13, 49, 114]",3,1,3,1,0.4039279790013097
+I4,invariance,base11,23,True,True,"count series differ: [7, 5, 9, 5, 9, 14, 11, 14, 17, 14, 49, 115] vs [7, 5, 10, 5, 9, 13, 12, 14, 17, 14, 49, 113]",3,1,3,1,0.21834620399931737
+I4,invariance,base11,47,True,True,"count series differ: [7, 5, 9, 5, 9, 13, 9, 14, 17, 13, 49, 115] vs [7, 6, 10, 5, 9, 13, 11, 14, 17, 12, 49, 115]",3,1,3,1,0.13886270599869022
+I4,invariance,base12,11,True,True,"count series differ: [9, 7, 17, 5, 22, 16, 22, 24, 17, 14, 46, 111] vs [8, 7, 17, 5, 22, 17, 21, 22, 16, 13, 46, 111]",3,1,3,1,0.1380601660002867
+I4,invariance,base12,23,True,True,"count series differ: [9, 6, 17, 5, 22, 19, 24, 22, 17, 16, 45, 111] vs [9, 7, 17, 5, 22, 16, 21, 22, 17, 13, 46, 111]",3,2,3,1,0.20219320300020627
+I4,invariance,base12,47,True,True,"count series differ: [9, 6, 17, 5, 23, 19, 21, 20, 17, 16, 46, 111] vs [9, 7, 17, 5, 22, 19, 22, 23, 17, 16, 46, 111]",3,2,3,2,0.4825676750006096
+I4,invariance,base13,11,True,True,"count series differ: [4, 3, 10, 5, 5, 10, 10, 12, 17, 12, 46, 106] vs [4, 3, 10, 5, 4, 10, 10, 12, 17, 12, 45, 105]",3,1,3,1,0.14368179099983536
+I4,invariance,base13,23,True,True,"count series differ: [4, 3, 10, 5, 5, 8, 10, 12, 16, 12, 45, 106] vs [4, 3, 10, 5, 4, 10, 10, 12, 16, 14, 45, 106]",3,1,3,1,0.36997461300052237
+I4,invariance,base13,47,True,True,"count series differ: [4, 3, 10, 5, 5, 9, 9, 12, 17, 13, 45, 110] vs [4, 3, 10, 5, 4, 9, 10, 12, 16, 12, 45, 106]",3,2,3,1,0.3688790449996304
+I4,invariance,base14,11,True,True,"count series differ: [7, 6, 10, 5, 9, 15, 11, 14, 17, 14, 50, 116] vs [7, 6, 10, 5, 9, 14, 11, 14, 15, 13, 50, 116]",3,1,3,1,0.2646280500011926
+I4,invariance,base14,23,True,True,"count series differ: [7, 5, 9, 5, 9, 15, 11, 14, 17, 15, 50, 117] vs [7, 5, 10, 5, 9, 14, 12, 14, 17, 14, 50, 115]",3,1,3,1,0.15004664000116463
+I4,invariance,base14,47,True,True,"count series differ: [7, 5, 9, 5, 9, 13, 9, 14, 17, 14, 50, 117] vs [7, 6, 10, 5, 9, 14, 11, 14, 17, 13, 50, 117]",3,1,3,1,0.1366145960000722
+I4,invariance,base15,11,True,True,"count series differ: [7, 17, 5, 22, 17, 22, 24, 17, 14, 46, 111, 246] vs [7, 17, 5, 22, 18, 21, 22, 16, 13, 47, 111, 246]",3,1,3,1,0.14657595600147033
+I4,invariance,base15,23,True,True,"count series differ: [6, 17, 5, 22, 18, 24, 22, 17, 15, 46, 111, 246] vs [7, 17, 5, 22, 16, 21, 22, 17, 13, 47, 111, 246]",3,1,3,1,0.13715531500020006
+I4,invariance,base15,47,True,True,"count series differ: [6, 17, 5, 23, 19, 21, 20, 17, 15, 47, 111, 246] vs [7, 17, 5, 22, 17, 22, 23, 17, 15, 47, 111, 246]",3,1,3,1,0.18438350500036904
+I4,invariance,base16,11,True,True,"count series differ: [5, 13, 5, 21, 18, 18, 21, 11, 15, 34, 97, 204] vs [5, 13, 5, 21, 18, 17, 19, 10, 12, 34, 94, 204]",3,1,3,1,0.23194961800072633
+I4,invariance,base16,23,True,True,"count series differ: [5, 13, 5, 23, 18, 19, 21, 11, 14, 34, 97, 204] vs [5, 13, 5, 22, 18, 19, 20, 10, 14, 34, 97, 204]",3,1,3,1,0.268918264999229
+I4,invariance,base16,47,True,True,"count series differ: [5, 13, 5, 23, 18, 19, 18, 11, 14, 34, 96, 204] vs [5, 13, 5, 22, 18, 17, 21, 11, 15, 34, 95, 204]",3,1,3,1,0.16775415200027055
+I4,invariance,base17,11,True,True,"count series differ: [5, 6, 5, 9, 11, 8, 11, 11, 11, 42, 94, 200] vs [5, 6, 5, 9, 11, 8, 11, 11, 11, 42, 97, 199]",3,1,3,1,0.15429400999892096
+I4,invariance,base17,23,True,True,"count series differ: [4, 6, 5, 9, 11, 8, 11, 11, 12, 42, 95, 200] vs [5, 6, 5, 9, 11, 8, 11, 10, 12, 42, 96, 200]",3,1,3,1,0.2765037850003864
+I4,invariance,base17,47,True,True,"count series differ: [5, 6, 5, 9, 11, 8, 11, 11, 11, 42, 96, 200] vs [5, 6, 5, 9, 11, 8, 11, 11, 10, 42, 96, 200]",3,1,3,1,0.27797241899861547
+I4,invariance,base18,11,True,True,"count series differ: [7, 17, 5, 22, 16, 22, 24, 17, 14, 46, 110, 243] vs [7, 17, 5, 22, 17, 21, 22, 16, 13, 46, 110, 243]",3,1,3,1,0.14068980099909822
+I4,invariance,base18,23,True,True,"count series differ: [6, 17, 5, 22, 19, 24, 22, 17, 16, 45, 110, 244] vs [7, 17, 5, 22, 16, 21, 22, 17, 13, 46, 110, 243]",3,2,3,1,0.1813069700001506
+I4,invariance,base18,47,True,True,"count series differ: [6, 17, 5, 23, 19, 21, 20, 17, 16, 46, 110, 244] vs [7, 17, 5, 22, 19, 22, 23, 17, 16, 46, 110, 244]",3,2,3,2,0.2134000019996165
+I4,invariance,base19,11,True,True,"count series differ: [6, 17, 5, 21, 17, 18, 23, 15, 15, 36, 101, 214] vs [6, 17, 5, 21, 18, 18, 21, 13, 13, 36, 99, 214]",3,1,3,1,0.1452885269991384
+I4,invariance,base19,23,True,True,"count series differ: [6, 17, 5, 23, 19, 19, 21, 15, 15, 36, 101, 214] vs [6, 17, 5, 22, 17, 19, 21, 14, 14, 36, 101, 214]",3,1,3,1,0.1493314610015659
+I4,invariance,base19,47,True,True,"count series differ: [5, 17, 5, 23, 20, 19, 19, 15, 15, 36, 100, 214] vs [6, 17, 5, 22, 18, 19, 23, 15, 16, 36, 100, 214]",3,1,3,1,0.15572039899961965
+I4,invariance,base20,11,True,True,"count series differ: [3, 10, 5, 5, 10, 10, 12, 17, 12, 46, 106, 208] vs [3, 10, 5, 4, 10, 10, 12, 17, 12, 45, 105, 208]",3,1,3,1,0.18192058299973723
+I4,invariance,base20,23,True,True,"count series differ: [3, 10, 5, 5, 8, 10, 12, 16, 12, 45, 106, 209] vs [3, 10, 5, 4, 10, 10, 12, 16, 14, 45, 106, 209]",3,1,3,1,0.13917161300014413
+I4,invariance,base20,47,True,True,"count series differ: [3, 10, 5, 5, 9, 9, 12, 17, 13, 45, 110, 208] vs [3, 10, 5, 4, 9, 10, 12, 16, 12, 45, 106, 209]",3,2,3,1,0.1674606099986704
+I4,invariance,base21,11,True,True,"count series differ: [7, 17, 5, 22, 17, 22, 24, 17, 14, 46, 110, 244] vs [7, 17, 5, 22, 18, 21, 22, 16, 13, 47, 110, 244]",3,1,3,1,0.14880432999962068
+I4,invariance,base21,23,True,True,"count series differ: [6, 17, 5, 22, 18, 24, 22, 17, 15, 46, 110, 244] vs [7, 17, 5, 22, 16, 21, 22, 17, 13, 47, 110, 244]",3,1,3,1,0.1497693299988896
+I4,invariance,base21,47,True,True,"count series differ: [6, 17, 5, 23, 19, 21, 20, 17, 15, 47, 110, 244] vs [7, 17, 5, 22, 17, 22, 23, 17, 15, 47, 110, 244]",3,1,3,1,0.16566193799917528
+I4,invariance,base22,11,True,True,"count series differ: [17, 5, 21, 18, 18, 23, 15, 15, 37, 101, 215, 357] vs [17, 5, 21, 19, 18, 21, 13, 13, 37, 99, 215, 357]",3,1,3,1,0.16927242099882278
+I4,invariance,base22,23,True,True,"count series differ: [17, 5, 23, 19, 19, 21, 15, 15, 37, 101, 215, 357] vs [17, 5, 22, 17, 19, 21, 14, 14, 37, 101, 215, 357]",3,1,3,1,0.17048896699998295
+I4,invariance,base22,47,True,True,"count series differ: [17, 5, 23, 20, 19, 19, 15, 15, 37, 100, 215, 357] vs [17, 5, 22, 18, 19, 23, 15, 16, 37, 100, 215, 357]",3,1,3,1,0.14332281399947533
+I4,invariance,base23,11,True,True,"count series differ: [10, 5, 5, 11, 9, 12, 17, 13, 47, 112, 219, 417] vs [10, 5, 4, 11, 9, 12, 17, 13, 46, 112, 218, 415]",3,1,3,1,0.32122818199968606
+I4,invariance,base23,23,True,True,"count series differ: [10, 5, 5, 9, 9, 12, 16, 13, 46, 112, 219, 416] vs [10, 5, 4, 11, 10, 12, 16, 15, 47, 112, 219, 417]",3,1,3,1,0.4684896420003497
+I4,invariance,base23,47,True,True,"count series differ: [10, 5, 5, 10, 9, 12, 17, 13, 47, 112, 218, 417] vs [10, 5, 4, 10, 8, 10, 17, 13, 48, 117, 224, 416]",3,1,3,2,0.33535891199971957
+I4,invariance,base24,11,True,True,"count series differ: [6, 5, 9, 11, 8, 11, 11, 11, 42, 94, 200, 348] vs [6, 5, 9, 11, 8, 11, 11, 11, 42, 97, 199, 348]",3,1,3,1,0.12836509499902604
+I4,invariance,base24,23,True,True,"count series differ: [6, 5, 9, 11, 8, 11, 11, 12, 42, 95, 200, 347] vs [6, 5, 9, 11, 8, 11, 10, 12, 42, 96, 200, 348]",3,1,3,1,0.13427772000068217
+I4,invariance,base24,47,True,True,"count series differ: [6, 5, 9, 11, 8, 11, 11, 11, 42, 96, 200, 348] vs [6, 5, 9, 11, 8, 11, 11, 10, 42, 96, 200, 347]",3,1,3,1,0.13632863699967857
+I4,invariance,base25,11,True,True,"count series differ: [17, 5, 21, 17, 18, 23, 15, 15, 36, 100, 214, 349] vs [17, 5, 21, 18, 18, 21, 13, 13, 36, 98, 214, 349]",3,1,3,1,0.155237324999689
+I4,invariance,base25,23,True,True,"count series differ: [17, 5, 23, 19, 19, 21, 15, 15, 36, 100, 214, 349] vs [17, 5, 22, 17, 19, 21, 14, 14, 36, 100, 214, 349]",3,1,3,1,0.4650971369992476
+I4,invariance,base25,47,True,True,"count series differ: [17, 5, 23, 20, 19, 19, 15, 15, 36, 100, 214, 349] vs [17, 5, 22, 18, 19, 23, 15, 16, 36, 100, 214, 349]",3,1,3,1,0.15075865000108024
+I4,invariance,base26,11,True,True,"count series differ: [10, 5, 5, 10, 10, 12, 17, 12, 46, 106, 208, 394] vs [10, 5, 4, 10, 10, 12, 17, 12, 45, 105, 208, 394]",3,1,3,1,0.14092175399855478
+I4,invariance,base26,23,True,True,"count series differ: [10, 5, 5, 8, 10, 12, 16, 12, 45, 106, 209, 396] vs [10, 5, 4, 10, 10, 12, 16, 14, 45, 106, 209, 395]",3,1,3,1,0.1502285459991981
+I4,invariance,base26,47,True,True,"count series differ: [10, 5, 5, 9, 9, 12, 17, 13, 45, 110, 208, 396] vs [10, 5, 4, 9, 10, 12, 16, 12, 45, 106, 209, 395]",3,2,3,1,0.17798086399852764
+I4,invariance,base27,11,True,True,"count series differ: [10, 5, 9, 14, 11, 14, 17, 13, 49, 114, 228, 431] vs [10, 5, 9, 13, 11, 14, 15, 13, 49, 114, 228, 431]",3,1,3,1,0.2128700020002725
+I4,invariance,base27,23,True,True,"count series differ: [10, 5, 9, 14, 11, 14, 17, 14, 49, 115, 228, 431] vs [10, 5, 9, 13, 12, 14, 17, 14, 49, 113, 228, 431]",3,1,3,1,0.14128528499895765
+I4,invariance,base27,47,True,True,"count series differ: [10, 5, 9, 13, 9, 14, 17, 13, 49, 115, 228, 431] vs [10, 5, 9, 13, 11, 14, 17, 12, 49, 115, 228, 431]",3,1,3,1,0.1382966969995323
+I4,invariance,base28,11,True,True,"count series differ: [17, 5, 22, 17, 22, 24, 17, 14, 46, 110, 244, 413] vs [17, 5, 22, 18, 21, 22, 16, 13, 47, 110, 244, 413]",3,1,3,1,0.15427306899982796
+I4,invariance,base28,23,True,True,"count series differ: [17, 5, 22, 18, 24, 22, 17, 15, 46, 110, 244, 413] vs [17, 5, 22, 16, 21, 22, 17, 13, 47, 110, 244, 414]",3,1,3,1,0.15410125900052662
+I4,invariance,base28,47,True,True,"count series differ: [17, 5, 23, 19, 21, 20, 17, 15, 47, 110, 244, 413] vs [17, 5, 22, 17, 22, 23, 17, 15, 47, 110, 244, 413]",3,1,3,1,0.15990970599887078
+I4,invariance,base29,11,True,True,"count series differ: [10, 5, 5, 11, 9, 12, 17, 13, 47, 108, 214, 403] vs [10, 5, 4, 11, 9, 12, 17, 13, 46, 108, 213, 403]",3,1,3,1,0.15880735700011428
+I4,invariance,base29,23,True,True,"count series differ: [10, 5, 5, 9, 9, 12, 16, 13, 46, 108, 214, 405] vs [10, 5, 4, 11, 10, 12, 16, 15, 47, 108, 214, 404]",3,1,3,1,0.14801821400033077
+I4,invariance,base29,47,True,True,"count series differ: [10, 5, 5, 10, 9, 12, 17, 13, 47, 108, 213, 405] vs [10, 5, 4, 10, 8, 10, 17, 13, 48, 113, 214, 404]",3,1,3,2,0.3018137380004191
+I4,invariance,base30,11,True,True,"count series differ: [5, 9, 15, 11, 14, 17, 14, 50, 120, 235, 446, 1442] vs [5, 9, 14, 11, 14, 15, 13, 50, 120, 235, 446, 1441]",3,1,3,1,0.2867748919998121
+I4,invariance,base30,23,True,True,"count series differ: [5, 9, 15, 11, 14, 17, 15, 50, 119, 235, 446, 1442] vs [5, 9, 14, 12, 14, 17, 14, 50, 118, 235, 446, 1444]",3,1,3,1,0.22844884100049967
+I4,invariance,base30,47,True,True,"count series differ: [5, 9, 13, 9, 14, 17, 14, 50, 120, 235, 446, 1441] vs [5, 9, 14, 11, 14, 17, 13, 50, 121, 235, 446, 1442]",3,1,3,1,0.16560314899834339
+I4,invariance,base31,11,True,True,"count series differ: [5, 22, 17, 20, 22, 12, 14, 43, 105, 229, 378, 1271] vs [5, 22, 17, 19, 21, 11, 12, 44, 103, 229, 378, 1271]",3,1,3,1,0.16318133599997964
+I4,invariance,base31,23,True,True,"count series differ: [5, 22, 17, 22, 21, 12, 14, 43, 104, 229, 378, 1271] vs [5, 22, 17, 20, 21, 11, 12, 43, 105, 229, 378, 1271]",3,1,3,1,0.16911824899943895
+I4,invariance,base31,47,True,True,"count series differ: [5, 23, 17, 20, 19, 12, 14, 44, 104, 229, 378, 1271] vs [5, 22, 17, 19, 21, 12, 14, 44, 104, 229, 378, 1271]",3,1,3,1,0.408688698998958
+I4,invariance,base32,11,True,True,"count series differ: [5, 21, 17, 18, 23, 15, 15, 36, 100, 214, 349, 1116] vs [5, 21, 18, 18, 21, 13, 13, 36, 98, 214, 349, 1114]",3,1,3,1,0.5032318300000043
+I4,invariance,base32,23,True,True,"count series differ: [5, 23, 19, 19, 21, 15, 15, 36, 100, 214, 349, 1114] vs [5, 22, 17, 19, 21, 14, 14, 36, 100, 214, 349, 1114]",3,1,3,1,0.6139410929990845
+I4,invariance,base32,47,True,True,"count series differ: [5, 23, 20, 19, 19, 15, 15, 36, 100, 214, 349, 1116] vs [5, 22, 18, 19, 23, 15, 16, 36, 100, 214, 349, 1116]",3,1,3,1,0.3230159699996875
+I4,invariance,base33,11,True,True,"count series differ: [5, 9, 14, 11, 14, 17, 13, 49, 114, 228, 429, 1410] vs [5, 9, 13, 11, 14, 15, 13, 49, 114, 228, 429, 1409]",3,1,3,1,0.2949200010007189
+I4,invariance,base33,23,True,True,"count series differ: [5, 9, 14, 11, 14, 17, 14, 49, 115, 228, 429, 1409] vs [5, 9, 13, 12, 14, 17, 14, 49, 113, 228, 429, 1411]",3,1,3,1,0.3857848860006925
+I4,invariance,base33,47,True,True,"count series differ: [5, 9, 13, 9, 14, 17, 13, 49, 115, 228, 429, 1409] vs [5, 9, 13, 11, 14, 17, 12, 49, 115, 228, 429, 1409]",3,1,3,1,0.17042543800016574
+I4,invariance,base34,11,True,True,"count series differ: [5, 22, 16, 22, 24, 17, 14, 46, 111, 243, 413, 1337] vs [5, 22, 17, 21, 22, 16, 13, 46, 111, 243, 413, 1337]",3,1,3,1,0.16722290699908626
+I4,invariance,base34,23,True,True,"count series differ: [5, 22, 19, 24, 22, 17, 16, 45, 111, 244, 425, 1356] vs [5, 22, 16, 21, 22, 17, 13, 46, 111, 243, 415, 1337]",3,2,3,1,0.2011005299991666
+I4,invariance,base34,47,True,True,"count series differ: [5, 23, 19, 21, 20, 17, 16, 46, 111, 244, 414, 1356] vs [5, 22, 19, 22, 23, 17, 16, 46, 111, 244, 425, 1356]",3,2,3,2,0.26821852899956866
+I4,invariance,base35,11,True,True,"count series differ: [5, 21, 18, 18, 23, 15, 15, 37, 100, 214, 351, 1119] vs [5, 21, 19, 18, 21, 13, 13, 37, 98, 214, 351, 1117]",3,1,3,1,0.18689012200047728
+I4,invariance,base35,23,True,True,"count series differ: [5, 23, 19, 19, 21, 15, 15, 37, 100, 214, 351, 1117] vs [5, 22, 17, 19, 21, 14, 14, 37, 100, 214, 351, 1117]",3,1,3,1,0.2410036309993302
+I4,invariance,base35,47,True,True,"count series differ: [5, 23, 20, 19, 19, 15, 15, 37, 100, 214, 351, 1119] vs [5, 22, 18, 19, 23, 15, 16, 37, 100, 214, 351, 1119]",3,1,3,1,0.16710395499831066
+M1,monotonic,base00,11,True,False,,3,1,3,1,0.13338818800002628
+M1,monotonic,base00,23,True,False,,3,1,3,1,0.1572590659998241
+M1,monotonic,base00,47,True,False,,3,1,3,1,0.1439637319999747
+M1,monotonic,base01,11,True,False,,3,1,3,1,0.14021611899988784
+M1,monotonic,base01,23,True,False,,3,1,3,1,0.12628085299911618
+M1,monotonic,base01,47,True,False,,3,1,3,1,0.1688453369988565
+M1,monotonic,base02,11,True,True,2023-03: untouched month moved 14000000.0 -> 13600000.0,3,1,3,1,0.13172117400063144
+M1,monotonic,base02,23,True,True,2022-06: untouched month moved 6100000.0 -> 6150000.0,3,1,3,2,0.34213091600031476
+M1,monotonic,base02,47,True,True,"2023-02: median price moved -150,000.00, expected 500,000.00",3,1,3,2,0.1773464400012017
+M1,monotonic,base03,11,True,False,,3,1,3,1,0.3080949699997291
+M1,monotonic,base03,23,True,False,,3,1,3,1,0.16545310099900234
+M1,monotonic,base03,47,True,False,,3,1,3,1,0.1779580589991383
+M1,monotonic,base04,11,True,False,,3,1,3,1,0.13374542800011113
+M1,monotonic,base04,23,True,False,,3,1,3,1,0.45194636800079024
+M1,monotonic,base04,47,True,False,,3,2,3,2,0.6865163229995233
+M1,monotonic,base05,11,True,True,"2023-03: median price moved -1,412,600.00, expected 500,000.00",3,1,3,1,0.30654799600051774
+M1,monotonic,base05,23,True,True,2022-10: untouched month moved 5500001.0 -> 5250250.5,3,2,3,1,0.21817636500054505
+M1,monotonic,base05,47,True,True,2023-02: untouched month moved 8490000.0 -> 8800000.0,3,2,3,1,0.18358716900002037
+M1,monotonic,base06,11,True,False,,3,1,3,1,0.1500176539993845
+M1,monotonic,base06,23,True,False,,3,1,3,1,0.1535310710005433
+M1,monotonic,base06,47,True,False,,3,1,3,1,0.1444489519999479
+M1,monotonic,base07,11,True,False,,3,1,3,1,0.1335209480002959
+M1,monotonic,base07,23,True,False,,3,1,3,1,0.14578655100012838
+M1,monotonic,base07,47,True,False,,3,1,3,1,0.13829656000052637
+M1,monotonic,base08,11,True,True,"2023-04: median price moved 227,000.00, expected 500,000.00",3,1,3,1,0.13570276300015394
+M1,monotonic,base08,23,True,True,"2023-04: median price moved 0.00, expected 500,000.00",3,1,3,1,0.13968521899914776
+M1,monotonic,base08,47,True,True,"2023-04: median price moved -101,000.00, expected 500,000.00",3,1,3,1,0.14144199899965315
+M1,monotonic,base09,11,True,True,"2023-04: median price moved 325,000.00, expected 500,000.00",3,1,3,1,0.1469303289995878
+M1,monotonic,base09,23,True,True,"2023-04: median price moved 39,650.00, expected 500,000.00",3,1,3,1,0.13193025200052944
+M1,monotonic,base09,47,True,True,"2023-04: median price moved 273,750.00, expected 500,000.00",3,1,3,1,0.13451412799986429
+M1,monotonic,base10,11,True,True,"2023-04: median price moved -313,000.00, expected 500,000.00",3,2,3,2,0.2099407040004735
+M1,monotonic,base10,23,True,True,"2023-04: median price moved -24,000.00, expected 500,000.00",3,1,3,1,0.15691214700018463
+M1,monotonic,base10,47,True,True,"2023-04: median price moved -156,000.00, expected 500,000.00",3,1,3,1,0.4939108109992958
+M1,monotonic,base11,11,True,True,"2023-04: median price moved 171,500.00, expected 500,000.00",3,1,3,1,0.2057829519999359
+M1,monotonic,base11,23,True,True,"2023-04: median price moved 93,500.00, expected 500,000.00",3,1,3,1,0.13648494799963373
+M1,monotonic,base11,47,True,True,"2023-04: median price moved 93,500.00, expected 500,000.00",3,1,3,1,0.1512499790005677
+M1,monotonic,base12,11,True,True,"2023-04: median price moved 75,000.00, expected 500,000.00",3,1,3,1,0.15214975199887704
+M1,monotonic,base12,23,True,True,"2023-04: median price moved 75,000.00, expected 500,000.00",3,2,3,2,0.21543913800087466
+M1,monotonic,base12,47,True,True,"2023-04: median price moved 75,000.00, expected 500,000.00",3,2,3,2,0.32832933099962247
+M1,monotonic,base13,11,True,True,"2023-04: median price moved 368,000.00, expected 500,000.00",3,1,3,1,0.16260973300086334
+M1,monotonic,base13,23,True,True,"2023-04: median price moved 368,000.00, expected 500,000.00",3,1,3,1,0.2080693039988546
+M1,monotonic,base13,47,True,True,"2023-04: median price moved -1,000,000.00, expected 500,000.00",3,2,3,2,0.36248766800054
+M1,monotonic,base14,11,True,True,"2023-04: median price moved 15,500.00, expected 500,000.00",3,1,3,1,0.25371836699923733
+M1,monotonic,base14,23,True,True,"2023-04: median price moved -234,500.00, expected 500,000.00",3,1,3,1,0.2519967230000475
+M1,monotonic,base14,47,True,True,"2023-04: median price moved -234,500.00, expected 500,000.00",3,1,3,1,0.36408571200081496
+M1,monotonic,base15,11,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,0.16789025099933497
+M1,monotonic,base15,23,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,0.1463243690013769
+M1,monotonic,base15,47,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,0.18912781799917866
+M1,monotonic,base16,11,True,True,"2023-05: median price moved 337,700.00, expected 500,000.00",3,1,3,1,0.18231368999840925
+M1,monotonic,base16,23,True,True,"2023-05: median price moved 337,700.00, expected 500,000.00",3,1,3,1,0.15932082300059847
+M1,monotonic,base16,47,True,True,"2023-05: median price moved 337,700.00, expected 500,000.00",3,1,3,1,0.2066515549995529
+M1,monotonic,base17,11,True,True,"2023-05: median price moved -131,750.00, expected 500,000.00",3,1,3,1,0.1778257610003493
+M1,monotonic,base17,23,True,True,"2023-05: median price moved -131,750.00, expected 500,000.00",3,1,3,1,0.13847282400092809
+M1,monotonic,base17,47,True,True,"2023-05: median price moved -131,750.00, expected 500,000.00",3,1,3,1,0.14902991599956295
+M1,monotonic,base18,11,True,True,"2023-05: median price moved 396,800.00, expected 500,000.00",3,1,3,1,0.1538276900009805
+M1,monotonic,base18,23,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,2,3,2,0.22598212099910597
+M1,monotonic,base18,47,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,2,3,2,0.22984941100003198
+M1,monotonic,base19,11,True,True,"2023-05: median price moved 340,000.00, expected 500,000.00",3,1,3,1,0.15913773399915954
+M1,monotonic,base19,23,True,True,"2023-05: median price moved 340,000.00, expected 500,000.00",3,1,3,1,0.5041858289987431
+M1,monotonic,base19,47,True,True,"2023-05: median price moved 340,000.00, expected 500,000.00",3,1,3,1,0.3631476479986304
+M1,monotonic,base20,11,True,True,"2023-05: median price moved 297,050.00, expected 500,000.00",3,1,3,1,0.4796442429997114
+M1,monotonic,base20,23,True,True,"2023-05: median price moved 297,050.00, expected 500,000.00",3,1,3,1,0.2290648259986483
+M1,monotonic,base20,47,True,True,"2023-05: median price moved 347,467.50, expected 500,000.00",3,2,3,2,0.20364959300059127
+M1,monotonic,base21,11,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,0.1587156400000822
+M1,monotonic,base21,23,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,0.15049515099963173
+M1,monotonic,base21,47,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,0.16606642099941382
+M1,monotonic,base22,11,True,True,"2023-06: median price moved 400,000.00, expected 500,000.00",3,1,3,1,0.15288914800112252
+M1,monotonic,base22,23,True,True,"2023-06: median price moved 400,000.00, expected 500,000.00",3,1,3,1,0.16061032899960992
+M1,monotonic,base22,47,True,True,"2023-06: median price moved 400,000.00, expected 500,000.00",3,1,3,1,0.14991132700015442
+M1,monotonic,base23,11,True,True,"2023-06: median price moved 0.00, expected 500,000.00",3,1,3,1,0.15252811099890096
+M1,monotonic,base23,23,True,True,"2023-06: median price moved -50,000.00, expected 500,000.00",3,1,3,1,0.14164500500010035
+M1,monotonic,base23,47,True,True,"2023-06: median price moved 0.00, expected 500,000.00",3,1,3,1,0.18481961299949035
+M1,monotonic,base24,11,True,True,"2023-06: median price moved 85,000.50, expected 500,000.00",3,1,3,1,0.1411880720006593
+M1,monotonic,base24,23,True,True,"2023-06: median price moved 1.00, expected 500,000.00",3,1,3,1,0.2899015800012421
+M1,monotonic,base24,47,True,True,"2023-06: median price moved 85,000.50, expected 500,000.00",3,1,3,1,0.4753962259983382
+M1,monotonic,base25,11,True,True,"2023-06: median price moved 431,825.00, expected 500,000.00",3,1,3,1,0.5541190650001226
+M1,monotonic,base25,23,True,True,"2023-06: median price moved 431,825.00, expected 500,000.00",3,1,3,1,0.15769949099922087
+M1,monotonic,base25,47,True,True,"2023-06: median price moved 431,825.00, expected 500,000.00",3,1,3,1,0.16475411999999778
+M1,monotonic,base26,11,True,True,"2023-06: median price moved 24,633.00, expected 500,000.00",3,1,3,1,0.1716114139999263
+M1,monotonic,base26,23,True,True,"2023-06: median price moved 24,633.00, expected 500,000.00",3,1,3,1,0.16356755900051212
+M1,monotonic,base26,47,True,True,"2023-06: median price moved 24,633.00, expected 500,000.00",3,2,3,2,0.41303380699901027
+M1,monotonic,base27,11,True,True,"2023-06: median price moved 490,000.00, expected 500,000.00",3,1,3,1,0.3290631169984408
+M1,monotonic,base27,23,True,True,"2023-06: median price moved 490,000.00, expected 500,000.00",3,1,3,1,0.17982485400170845
+M1,monotonic,base27,47,True,True,"2023-06: median price moved 490,000.00, expected 500,000.00",3,1,3,1,0.40294484999867564
+M1,monotonic,base28,11,True,True,"2023-06: median price moved 200,001.00, expected 500,000.00",3,1,3,1,0.3145543999999063
+M1,monotonic,base28,23,True,True,"2023-06: median price moved 200,001.00, expected 500,000.00",3,1,3,1,0.5783267570004682
+M1,monotonic,base28,47,True,True,"2023-06: median price moved 200,001.00, expected 500,000.00",3,1,3,1,0.4542916089994833
+M1,monotonic,base29,11,True,True,"2023-06: median price moved 192,467.00, expected 500,000.00",3,1,3,1,0.43556060700029775
+M1,monotonic,base29,23,True,True,"2023-06: median price moved 192,467.00, expected 500,000.00",3,1,3,1,0.3231311330000608
+M1,monotonic,base29,47,True,True,"2023-06: median price moved 192,467.00, expected 500,000.00",3,1,3,1,0.1608775089989649
+M1,monotonic,base30,11,True,False,,3,1,3,1,0.16299999200055026
+M1,monotonic,base30,23,True,True,"2023-07: median price moved 484,000.00, expected 500,000.00",3,1,3,1,0.15848585599997023
+M1,monotonic,base30,47,True,False,,3,1,3,1,0.18430506799995783
+M1,monotonic,base31,11,True,False,,3,1,3,1,0.1792016399995191
+M1,monotonic,base31,23,True,False,,3,1,3,1,0.2023451280001609
+M1,monotonic,base31,47,True,False,,3,1,3,1,0.20361119100016367
+M1,monotonic,base32,11,True,True,"2023-07: median price moved 340,247.00, expected 500,000.00",3,1,3,1,0.23258000199894013
+M1,monotonic,base32,23,True,True,"2023-07: median price moved 352,541.00, expected 500,000.00",3,1,3,1,0.27349330200013355
+M1,monotonic,base32,47,True,True,"2023-07: median price moved 340,247.00, expected 500,000.00",3,1,3,1,0.1666349879997142
+M1,monotonic,base33,11,True,True,"2023-07: median price moved 300,000.00, expected 500,000.00",3,1,3,1,0.1752400339992164
+M1,monotonic,base33,23,True,True,"2023-07: median price moved 300,000.00, expected 500,000.00",3,1,3,1,0.2347181040004216
+M1,monotonic,base33,47,True,True,"2023-07: median price moved 300,000.00, expected 500,000.00",3,1,3,1,0.30514271700121753
+M1,monotonic,base34,11,True,True,"2023-07: median price moved 444,000.00, expected 500,000.00",3,1,3,1,0.1757912180000858
+M1,monotonic,base34,23,True,True,"2023-07: median price moved 444,000.00, expected 500,000.00",3,2,3,2,0.24282926200066868
+M1,monotonic,base34,47,True,True,"2023-07: median price moved 444,000.00, expected 500,000.00",3,2,3,2,0.2738449389999005
+M1,monotonic,base35,11,True,True,"2023-07: median price moved 400,000.00, expected 500,000.00",3,1,3,1,0.1758729579996725
+M1,monotonic,base35,23,True,True,"2023-07: median price moved 400,000.00, expected 500,000.00",3,1,3,1,0.2454122750004899
+M1,monotonic,base35,47,True,True,"2023-07: median price moved 400,000.00, expected 500,000.00",3,1,3,1,0.2040874439990148
+M2,monotonic,base00,11,True,False,,3,1,3,1,0.14313416999902984
+M2,monotonic,base00,23,True,False,,3,1,3,1,0.12045187999865448
+M2,monotonic,base00,47,True,False,,3,1,3,1,0.127716214999964
+M2,monotonic,base01,11,True,False,,3,1,3,1,0.1368700399998488
+M2,monotonic,base01,23,True,False,,3,1,3,1,0.1420012990001851
+M2,monotonic,base01,47,True,False,,3,1,3,1,0.1237080259998038
+M2,monotonic,base02,11,True,True,2022-10: widened band gave fewer listings (17 -> 15),3,1,3,1,0.1403505630005384
+M2,monotonic,base02,23,True,False,,3,1,3,1,0.29171006599972316
+M2,monotonic,base02,47,True,False,,3,1,3,1,0.4042292499998439
+M2,monotonic,base03,11,True,False,,3,1,3,1,0.28020449399991776
+M2,monotonic,base03,23,True,False,,3,1,3,1,0.15120738400037226
+M2,monotonic,base03,47,True,False,,3,1,3,1,0.18401400199945783
+M2,monotonic,base04,11,True,False,,3,1,3,1,0.13200869399952353
+M2,monotonic,base04,23,True,False,,3,1,3,1,0.13591683200138505
+M2,monotonic,base04,47,True,False,,3,2,3,1,0.18688992399984272
+M2,monotonic,base05,11,True,False,,3,1,3,1,0.1423525089994655
+M2,monotonic,base05,23,True,False,,3,2,3,1,0.3145335620010883
+M2,monotonic,base05,47,True,False,,3,2,3,1,0.5241715119991568
+M2,monotonic,base06,11,True,False,,3,1,3,1,0.2780903019993275
+M2,monotonic,base06,23,True,False,,3,1,3,1,0.1433953340001608
+M2,monotonic,base06,47,True,False,,3,1,3,1,0.14138127400110534
+M2,monotonic,base07,11,True,False,,3,1,3,1,0.1351630369990744
+M2,monotonic,base07,23,True,False,,3,1,3,1,0.1287161179989198
+M2,monotonic,base07,47,True,False,,3,1,3,1,0.13723953699991398
+M2,monotonic,base08,11,True,False,,3,1,3,1,0.1447294259996852
+M2,monotonic,base08,23,True,False,,3,1,3,1,0.14797837999867625
+M2,monotonic,base08,47,True,False,,3,1,3,1,0.15761800899963418
+M2,monotonic,base09,11,True,False,,3,1,3,2,0.198624104999908
+M2,monotonic,base09,23,True,False,,3,1,3,2,0.16901351799970143
+M2,monotonic,base09,47,True,False,,3,1,3,2,0.15208544400047685
+M2,monotonic,base10,11,True,False,,3,2,3,1,0.17646166299891775
+M2,monotonic,base10,23,True,False,,3,1,3,2,0.17916116300148133
+M2,monotonic,base10,47,True,False,,3,1,3,2,0.1824576769995474
+M2,monotonic,base11,11,True,False,,3,1,3,1,0.14537799100071425
+M2,monotonic,base11,23,True,False,,3,1,3,1,0.12705671100047766
+M2,monotonic,base11,47,True,False,,3,1,3,1,0.18683619299918064
+M2,monotonic,base12,11,True,False,,3,1,3,1,0.2025685259995953
+M2,monotonic,base12,23,True,False,,3,2,3,1,0.22477589300069667
+M2,monotonic,base12,47,True,False,,3,2,3,1,0.33413084499989054
+M2,monotonic,base13,11,True,False,,3,1,3,1,0.16519801399954304
+M2,monotonic,base13,23,True,False,,3,1,3,1,0.40350372799912293
+M2,monotonic,base13,47,True,False,,3,2,3,1,0.33394962799866335
+M2,monotonic,base14,11,True,False,,3,1,3,1,0.1480995609999809
+M2,monotonic,base14,23,True,False,,3,1,3,1,0.16505250299996987
+M2,monotonic,base14,47,True,False,,3,1,3,1,0.1825546359996224
+M2,monotonic,base15,11,True,False,,3,1,3,1,0.15222317099869542
+M2,monotonic,base15,23,True,False,,3,1,3,1,0.1935952179992455
+M2,monotonic,base15,47,True,False,,3,1,3,1,0.24020466100046178
+M2,monotonic,base16,11,True,False,,3,1,3,2,0.2377959440000268
+M2,monotonic,base16,23,True,False,,3,1,3,2,0.19239331300013873
+M2,monotonic,base16,47,True,False,,3,1,3,2,0.18523493200154917
+M2,monotonic,base17,11,True,False,,3,1,3,1,0.4508689560007042
+M2,monotonic,base17,23,True,False,,3,1,3,2,0.2027212970006076
+M2,monotonic,base17,47,True,False,,3,1,3,2,0.17729826399954618
+M2,monotonic,base18,11,True,False,,3,1,3,1,0.15957459600031143
+M2,monotonic,base18,23,True,False,,3,2,3,1,0.3126750120009092
+M2,monotonic,base18,47,True,False,,3,2,3,1,0.18115736399886373
+M2,monotonic,base19,11,True,False,,3,1,3,1,0.15602624299935997
+M2,monotonic,base19,23,True,False,,3,1,3,1,0.15195559399944614
+M2,monotonic,base19,47,True,False,,3,1,3,1,0.1654309790010302
+M2,monotonic,base20,11,True,False,,3,1,3,1,0.15929919100017287
+M2,monotonic,base20,23,True,False,,3,1,3,1,0.17138367500047025
+M2,monotonic,base20,47,True,False,,3,2,3,1,0.23191113599932578
+M2,monotonic,base21,11,True,False,,3,1,3,1,0.16769260200089775
+M2,monotonic,base21,23,True,False,,3,1,3,1,0.19144449399937002
+M2,monotonic,base21,47,True,False,,3,1,3,1,0.36237010799959535
+M2,monotonic,base22,11,True,False,,3,1,3,1,0.14384146399970632
+M2,monotonic,base22,23,True,False,,3,1,3,1,0.14653004100000544
+M2,monotonic,base22,47,True,False,,3,1,3,1,0.14217491899944434
+M2,monotonic,base23,11,True,False,,3,1,3,1,0.3777590629997576
+M2,monotonic,base23,23,True,False,,3,1,3,1,0.21173603700117383
+M2,monotonic,base23,47,True,False,,3,1,3,1,0.19032610599970212
+M2,monotonic,base24,11,True,False,,3,1,3,1,0.19287850799992157
+M2,monotonic,base24,23,True,False,,3,1,3,2,0.1991606009996758
+M2,monotonic,base24,47,True,False,,3,1,3,2,0.21408067800075514
+M2,monotonic,base25,11,True,False,,3,1,3,1,0.1521291740009474
+M2,monotonic,base25,23,True,False,,3,1,3,1,0.1472753449997981
+M2,monotonic,base25,47,True,False,,3,1,3,1,0.3810127500000817
+M2,monotonic,base26,11,True,False,,3,1,3,1,0.46955069599971466
+M2,monotonic,base26,23,True,False,,3,1,3,1,0.22653684199940471
+M2,monotonic,base26,47,True,False,,3,2,3,1,0.17299463400013337
+M2,monotonic,base27,11,True,False,,3,1,3,1,0.1539633429983951
+M2,monotonic,base27,23,True,False,,3,1,3,1,0.16111554599956435
+M2,monotonic,base27,47,True,False,,3,1,3,1,0.17432492800071486
+M2,monotonic,base28,11,True,False,,3,1,3,1,0.17856717100039532
+M2,monotonic,base28,23,True,False,,3,1,3,1,0.1402156259991898
+M2,monotonic,base28,47,True,False,,3,1,3,1,0.15195373300048232
+M2,monotonic,base29,11,True,False,,3,1,3,1,0.1521875899998122
+M2,monotonic,base29,23,True,False,,3,1,3,1,0.1642337419998512
+M2,monotonic,base29,47,True,False,,3,1,3,1,0.1867368359999091
+M2,monotonic,base30,11,True,False,,3,1,3,1,0.1722957050005789
+M2,monotonic,base30,23,True,False,,3,1,3,1,0.16281573599917465
+M2,monotonic,base30,47,True,False,,3,1,3,1,0.16602610600057233
+M2,monotonic,base31,11,True,True,2022-10: widened band gave fewer listings (17 -> 15),3,1,3,1,0.16853949700089288
+M2,monotonic,base31,23,True,False,,3,1,3,1,0.3168966780012852
+M2,monotonic,base31,47,True,False,,3,1,3,1,0.31291804399916145
+M2,monotonic,base32,11,True,False,,3,1,3,1,0.19933201899948472
+M2,monotonic,base32,23,True,False,,3,1,3,1,0.21318469200014079
+M2,monotonic,base32,47,True,False,,3,1,3,1,0.24683475100027863
+M2,monotonic,base33,11,True,False,,3,1,3,1,0.2667933709999488
+M2,monotonic,base33,23,True,False,,3,1,3,1,0.193950908998886
+M2,monotonic,base33,47,True,False,,3,1,3,1,0.20770120800079894
+M2,monotonic,base34,11,True,False,,3,1,3,1,0.1972212259988737
+M2,monotonic,base34,23,True,False,,3,2,3,1,0.23258570899997721
+M2,monotonic,base34,47,True,False,,3,2,3,1,0.3244315360007022
+M2,monotonic,base35,11,True,False,,3,1,3,1,0.4769241440008045
+M2,monotonic,base35,23,True,False,,3,1,3,1,0.23138788000142085
+M2,monotonic,base35,47,True,False,,3,1,3,1,0.20486833799986925
+M3,monotonic,base00,11,True,False,,3,1,3,1,0.16145916699861118
+M3,monotonic,base00,23,True,False,,3,1,3,1,0.15273793100095645
+M3,monotonic,base00,47,True,False,,3,1,3,1,0.15369599299992842
+M3,monotonic,base01,11,True,False,,3,1,3,1,0.15292864100047154
+M3,monotonic,base01,23,True,False,,3,1,3,1,0.15005994100101816
+M3,monotonic,base01,47,True,False,,3,1,3,1,0.3476697280002554
+M3,monotonic,base02,11,True,False,,3,1,3,1,0.519359097999768
+M3,monotonic,base02,23,True,False,,3,1,3,1,0.2221282769987738
+M3,monotonic,base02,47,True,False,,3,1,3,1,0.13447390500004985
+M3,monotonic,base03,11,True,False,,3,1,3,1,0.14796888800083252
+M3,monotonic,base03,23,True,False,,3,1,3,1,0.18374019899965788
+M3,monotonic,base03,47,True,False,,3,1,3,1,0.18039375899934385
+M3,monotonic,base04,11,True,False,,3,1,3,1,0.1562902790010412
+M3,monotonic,base04,23,True,False,,3,1,3,1,0.27383356700011063
+M3,monotonic,base04,47,True,False,,3,2,3,2,0.44974442000057024
+M3,monotonic,base05,11,True,False,,3,1,3,1,0.14661486499971943
+M3,monotonic,base05,23,True,False,,3,2,3,2,0.47044145700056106
+M3,monotonic,base05,47,True,False,,3,2,3,2,0.3573815729996568
+M3,monotonic,base06,11,True,False,,3,1,3,1,0.1867019019991858
+M3,monotonic,base06,23,True,False,,3,1,3,1,0.1602130040009797
+M3,monotonic,base06,47,True,False,,3,1,3,1,0.14231465800003207
+M3,monotonic,base07,11,True,False,,3,1,3,1,0.1462121879994811
+M3,monotonic,base07,23,True,False,,3,1,3,1,0.13854347999949823
+M3,monotonic,base07,47,True,False,,3,1,3,1,0.13414149199888925
+M3,monotonic,base08,11,True,False,,3,1,3,1,0.14099723599974823
+M3,monotonic,base08,23,True,False,,3,1,3,1,0.15142533899961563
+M3,monotonic,base08,47,True,False,,3,1,3,1,0.23888099000032526
+M3,monotonic,base09,11,True,False,,3,1,3,1,0.4646091919985338
+M3,monotonic,base09,23,True,False,,3,1,3,1,0.29049604300053034
+M3,monotonic,base09,47,True,False,,3,1,3,1,0.1607981759989343
+M3,monotonic,base10,11,True,False,,3,2,3,2,0.312522888998501
+M3,monotonic,base10,23,True,False,,3,1,3,1,0.3182979820012406
+M3,monotonic,base10,47,True,False,,3,1,3,1,0.20187243100008345
+M3,monotonic,base11,11,True,False,,3,1,3,1,0.17659156099944084
+M3,monotonic,base11,23,True,False,,3,1,3,1,0.2132343840003159
+M3,monotonic,base11,47,True,False,,3,1,3,1,0.3611217419984314
+M3,monotonic,base12,11,True,False,,3,1,3,1,0.1762379920000967
+M3,monotonic,base12,23,True,False,,3,2,3,2,0.22317484199993487
+M3,monotonic,base12,47,True,False,,3,2,3,2,0.22759731599944644
+M3,monotonic,base13,11,True,False,,3,1,3,1,0.15328310100085218
+M3,monotonic,base13,23,True,False,,3,1,3,1,0.21122517499861715
+M3,monotonic,base13,47,True,False,,3,2,3,2,0.47316131700063124
+M3,monotonic,base14,11,True,False,,3,1,3,1,0.17935315300019283
+M3,monotonic,base14,23,True,False,,3,1,3,1,0.13503112899888947
+M3,monotonic,base14,47,True,False,,3,1,3,1,0.148652657000639
+M3,monotonic,base15,11,True,False,,3,1,3,1,0.14711576700028672
+M3,monotonic,base15,23,True,False,,3,1,3,1,0.16426985200087074
+M3,monotonic,base15,47,True,False,,3,1,3,1,0.17642462699950556
+M3,monotonic,base16,11,True,False,,3,1,3,1,0.17017072899943742
+M3,monotonic,base16,23,True,False,,3,1,3,1,0.17424760700123443
+M3,monotonic,base16,47,True,False,,3,1,3,1,0.16361000100005185
+M3,monotonic,base17,11,True,False,,3,1,3,1,0.15079084600074566
+M3,monotonic,base17,23,True,False,,3,1,3,1,0.1705371890002425
+M3,monotonic,base17,47,True,False,,3,1,3,1,0.18696535200069775
+M3,monotonic,base18,11,True,False,,3,1,3,1,0.4002352850002353
+M3,monotonic,base18,23,True,False,,3,2,3,2,0.23018812500049535
+M3,monotonic,base18,47,True,False,,3,2,3,2,0.28407181600050535
+M3,monotonic,base19,11,True,False,,3,1,3,1,0.2754668210000091
+M3,monotonic,base19,23,True,False,,3,1,3,1,0.16582081600063248
+M3,monotonic,base19,47,True,False,,3,1,3,1,0.15425589499864145
+M3,monotonic,base20,11,True,False,,3,1,3,1,0.1615901799996209
+M3,monotonic,base20,23,True,False,,3,1,3,1,0.14805365500069456
+M3,monotonic,base20,47,True,False,,3,2,3,2,0.25682191800115106
+M3,monotonic,base21,11,True,False,,3,1,3,1,0.21042441099962161
+M3,monotonic,base21,23,True,False,,3,1,3,1,0.17563961800078687
+M3,monotonic,base21,47,True,False,,3,1,3,1,0.23693238899977587
+M3,monotonic,base22,11,True,False,,3,1,3,1,0.22200322800017602
+M3,monotonic,base22,23,True,False,,3,1,3,1,0.2134466830011661
+M3,monotonic,base22,47,True,False,,3,1,3,1,0.2553092620000825
+M3,monotonic,base23,11,True,False,,3,1,3,1,0.18708769099976053
+M3,monotonic,base23,23,True,False,,3,1,3,1,0.18074516100023175
+M3,monotonic,base23,47,True,False,,3,1,3,1,0.17391181099992536
+M3,monotonic,base24,11,True,False,,3,1,3,1,0.16020485400076723
+M3,monotonic,base24,23,True,False,,3,1,3,1,0.17704545900051016
+M3,monotonic,base24,47,True,False,,3,1,3,1,0.1960750359994563
+M3,monotonic,base25,11,True,False,,3,1,3,1,0.19290039100087597
+M3,monotonic,base25,23,True,False,,3,1,3,1,0.18822363400067843
+M3,monotonic,base25,47,True,False,,3,1,3,1,0.4231247000006988
+M3,monotonic,base26,11,True,False,,3,1,3,1,0.44828891300130635
+M3,monotonic,base26,23,True,False,,3,1,3,1,0.19600541399995564
+M3,monotonic,base26,47,True,False,,3,2,3,2,0.23638821500026097
+M3,monotonic,base27,11,True,False,,3,1,3,1,0.17705538299924228
+M3,monotonic,base27,23,True,False,,3,1,3,1,0.18080672399992181
+M3,monotonic,base27,47,True,False,,3,1,3,1,0.2072312990003411
+M3,monotonic,base28,11,True,False,,3,1,3,1,0.24672306399952504
+M3,monotonic,base28,23,True,False,,3,1,3,1,0.27976661899992905
+M3,monotonic,base28,47,True,False,,3,1,3,1,0.6371154290009144
+M3,monotonic,base29,11,True,False,,3,1,3,1,0.2087726890003978
+M3,monotonic,base29,23,True,False,,3,1,3,1,0.15451355500044883
+M3,monotonic,base29,47,True,False,,3,1,3,1,0.19175741899925924
+M3,monotonic,base30,11,True,False,,3,1,3,1,0.4272856959996716
+M3,monotonic,base30,23,True,False,,3,1,3,1,0.25520470300034503
+M3,monotonic,base30,47,True,False,,3,1,3,1,0.24386024399973394
+M3,monotonic,base31,11,True,False,,3,1,3,1,0.3914683460006927
+M3,monotonic,base31,23,True,False,,3,1,3,1,0.3433509670012427
+M3,monotonic,base31,47,True,False,,3,1,3,1,0.3307707229996595
+M3,monotonic,base32,11,True,False,,3,1,3,1,0.2571310690000246
+M3,monotonic,base32,23,True,False,,3,1,3,1,0.3194946200001141
+M3,monotonic,base32,47,True,False,,3,1,3,1,0.2611199849998229
+M3,monotonic,base33,11,True,False,,3,1,3,1,0.23550056000021868
+M3,monotonic,base33,23,True,False,,3,1,3,1,0.495024496998667
+M3,monotonic,base33,47,True,False,,3,1,3,1,0.3164207469999383
+M3,monotonic,base34,11,True,False,,3,1,3,1,0.2722090900006151
+M3,monotonic,base34,23,True,False,,3,2,3,2,0.411350267000671
+M3,monotonic,base34,47,True,False,,3,2,3,2,0.3954098039994278
+M3,monotonic,base35,11,True,False,,3,1,3,1,0.32496192600046925
+M3,monotonic,base35,23,True,False,,3,1,3,1,0.2693183749997843
+M3,monotonic,base35,47,True,False,,3,1,3,1,0.3457097930004238
+D1,directional,base00,11,True,False,,3,1,3,1,0.15432271400095487
+D1,directional,base00,23,True,False,,3,1,3,1,0.29330264199961675
+D1,directional,base00,47,True,False,,3,1,3,1,0.32354522199966596
+D1,directional,base01,11,True,False,,3,1,3,1,0.22776793900084158
+D1,directional,base01,23,True,False,,3,1,3,1,0.22251356599917926
+D1,directional,base01,47,True,False,,3,1,3,1,0.2502795399996103
+D1,directional,base02,11,True,False,,3,1,3,1,0.24980530199900386
+D1,directional,base02,23,True,False,,3,1,3,1,0.22675189599976875
+D1,directional,base02,47,True,False,,3,1,3,1,0.3215381560003152
+D1,directional,base03,11,True,False,,3,1,3,1,0.19818164200114552
+D1,directional,base03,23,True,False,,3,1,3,1,0.23742246699839598
+D1,directional,base03,47,True,False,,3,1,3,1,0.11415527800090786
+D1,directional,base04,11,True,False,,3,1,3,1,0.13648906299931696
+D1,directional,base04,23,True,False,,3,1,3,1,0.1304113009991852
+D1,directional,base04,47,True,False,,3,2,3,2,0.21555359699959808
+D1,directional,base05,11,True,False,,3,1,3,1,0.1545057799994538
+D1,directional,base05,23,True,False,,3,2,3,2,0.31840657200154965
+D1,directional,base05,47,True,False,,3,2,3,2,0.3413807460001408
+D1,directional,base06,11,True,False,,3,1,3,1,0.14637897299871838
+D1,directional,base06,23,True,False,,3,1,3,1,0.19266137500017066
+D1,directional,base06,47,True,False,,3,1,3,1,0.38594700300018303
+D1,directional,base07,11,True,False,,3,1,3,1,0.2593472049993579
+D1,directional,base07,23,True,False,,3,1,3,1,0.3035239620003267
+D1,directional,base07,47,True,False,,3,1,3,1,0.15854538100029458
+D1,directional,base08,11,True,False,,3,1,3,1,0.1301139700008207
+D1,directional,base08,23,True,False,,3,1,3,1,0.1587661499997921
+D1,directional,base08,47,True,False,,3,1,3,1,0.19564369799991255
+D1,directional,base09,11,True,False,,3,1,3,1,0.2638203420010541
+D1,directional,base09,23,True,False,,3,1,3,1,0.1929283410008793
+D1,directional,base09,47,True,False,,3,1,3,1,0.2249483510004211
+D1,directional,base10,11,True,False,,3,2,3,2,0.24330873699909716
+D1,directional,base10,23,True,False,,3,1,3,1,0.30303630200069165
+D1,directional,base10,47,True,False,,3,1,3,1,0.25508052300028794
+D1,directional,base11,11,True,False,,3,1,3,1,0.15875663699989673
+D1,directional,base11,23,True,False,,3,1,3,1,0.11819386999923154
+D1,directional,base11,47,True,False,,3,1,3,1,0.1347655070003384
+D1,directional,base12,11,True,False,,3,1,3,1,0.12143209200075944
+D1,directional,base12,23,True,False,,3,2,3,2,0.200825331001397
+D1,directional,base12,47,True,False,,3,2,3,2,0.21653939899988472
+D1,directional,base13,11,True,False,,3,1,3,1,0.14052894499945978
+D1,directional,base13,23,True,False,,3,1,3,1,0.13925985400055652
+D1,directional,base13,47,True,False,,3,2,3,2,0.22511596299955272
+D1,directional,base14,11,True,False,,3,1,3,1,0.19621552500029793
+D1,directional,base14,23,True,False,,3,1,3,1,0.2251708330004476
+D1,directional,base14,47,True,False,,3,1,3,1,0.16082438600096793
+D1,directional,base15,11,True,False,,3,1,3,1,0.2802772630002437
+D1,directional,base15,23,True,False,,3,1,3,1,0.2149309579999681
+D1,directional,base15,47,True,False,,3,1,3,1,0.20387790899985703
+D1,directional,base16,11,True,False,,3,1,3,1,0.16070921599930443
+D1,directional,base16,23,True,False,,3,1,3,1,0.2656605930005753
+D1,directional,base16,47,True,False,,3,1,3,1,0.1504587340004946
+D1,directional,base17,11,True,False,,3,1,3,1,0.19619671200052835
+D1,directional,base17,23,True,False,,3,1,3,1,0.21846973500032618
+D1,directional,base17,47,True,False,,3,1,3,1,0.25401335199967434
+D1,directional,base18,11,True,False,,3,1,3,1,0.22151260400096362
+D1,directional,base18,23,True,False,,3,2,3,2,0.1902457169999252
+D1,directional,base18,47,True,False,,3,2,3,2,0.17643822100035322
+D1,directional,base19,11,True,False,,3,1,3,1,0.13878500799910398
+D1,directional,base19,23,True,False,,3,1,3,1,0.17593767400103388
+D1,directional,base19,47,True,False,,3,1,3,1,0.1666224559994589
+D1,directional,base20,11,True,False,,3,1,3,1,0.1942276080008014
+D1,directional,base20,23,True,False,,3,1,3,1,0.14706720399954065
+D1,directional,base20,47,True,False,,3,2,3,2,0.21893485100008547
+D1,directional,base21,11,True,False,,3,1,3,1,0.146909647000939
+D1,directional,base21,23,True,False,,3,1,3,1,0.17587768900011724
+D1,directional,base21,47,True,False,,3,1,3,1,0.19836140900042665
+D1,directional,base22,11,True,False,,3,1,3,1,0.20265651299996534
+D1,directional,base22,23,True,False,,3,1,3,1,0.21349320199988142
+D1,directional,base22,47,True,False,,3,1,3,1,0.16014858199923765
+D1,directional,base23,11,True,False,,3,1,3,1,0.1767184639993502
+D1,directional,base23,23,True,False,,3,1,3,1,0.3020138619995123
+D1,directional,base23,47,True,False,,3,1,3,1,0.3106325509997987
+D1,directional,base24,11,True,False,,3,1,3,1,0.3075317089987948
+D1,directional,base24,23,True,False,,3,1,3,1,0.22483515800013265
+D1,directional,base24,47,True,False,,3,1,3,1,0.24669526500110806
+D1,directional,base25,11,True,False,,3,1,3,1,0.4395424450012797
+D1,directional,base25,23,True,False,,3,1,3,1,0.36704655699941213
+D1,directional,base25,47,True,False,,3,1,3,1,0.26414000899967505
+D1,directional,base26,11,True,False,,3,1,3,1,0.21328396900025837
+D1,directional,base26,23,True,False,,3,1,3,1,0.19610246599950187
+D1,directional,base26,47,True,False,,3,2,3,2,0.4206611520003207
+D1,directional,base27,11,True,False,,3,1,3,1,0.2751022010015731
+D1,directional,base27,23,True,False,,3,1,3,1,0.2198190320013964
+D1,directional,base27,47,True,False,,3,1,3,1,0.14875516800020705
+D1,directional,base28,11,True,False,,3,1,3,1,0.16876421800043317
+D1,directional,base28,23,True,False,,3,1,3,1,0.18438746099855052
+D1,directional,base28,47,True,False,,3,1,3,1,0.22240180799963127
+D1,directional,base29,11,True,False,,3,1,3,1,0.37963961999957974
+D1,directional,base29,23,True,False,,3,1,3,1,0.2661929499990947
+D1,directional,base29,47,True,False,,3,1,3,1,0.21421253900007287
+D1,directional,base30,11,True,False,,3,1,2,1,0.16137899800014566
+D1,directional,base30,23,True,False,,3,1,2,1,0.3382095350007148
+D1,directional,base30,47,True,False,,3,1,2,1,0.239292887999909
+D1,directional,base31,11,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,0.22754794799948286
+D1,directional,base31,23,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,0.4631324769998173
+D1,directional,base31,47,True,False,,3,1,3,1,0.3525794710003538
+D1,directional,base32,11,True,True,2022-09: count 21 != 23 across the shifted window,3,1,3,1,0.15610617399943294
+D1,directional,base32,23,True,False,,3,1,3,1,0.13672583799962013
+D1,directional,base32,47,True,False,,3,1,3,1,0.16027274899897748
+D1,directional,base33,11,True,False,,3,1,3,1,0.18025291099911556
+D1,directional,base33,23,True,False,,3,1,3,1,0.171316181000293
+D1,directional,base33,47,True,False,,3,1,3,1,0.1833710440005234
+D1,directional,base34,11,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,0.17379731199980597
+D1,directional,base34,23,True,True,2022-09: count 22 != 23 across the shifted window,3,2,3,2,0.29080387099929794
+D1,directional,base34,47,True,False,,3,2,3,2,0.2321692740006256
+D1,directional,base35,11,True,True,2022-09: count 21 != 23 across the shifted window,3,1,3,1,0.1597956810001051
+D1,directional,base35,23,True,False,,3,1,3,1,0.15447068399953423
+D1,directional,base35,47,True,False,,3,1,3,1,0.25818888699905074
+D2,directional,base00,11,True,False,,3,1,3,1,0.3181866370014177
+D2,directional,base00,23,True,False,,3,1,3,1,0.29397977500048
+D2,directional,base00,47,True,False,,3,1,3,1,0.11386384800061933
+D2,directional,base01,11,True,False,,3,1,3,1,0.18821484699947177
+D2,directional,base01,23,True,False,,3,1,3,1,0.16825414699997054
+D2,directional,base01,47,True,False,,3,1,3,1,0.10764572900006897
+D2,directional,base02,11,True,False,,3,1,3,1,0.1646423109996249
+D2,directional,base02,23,True,False,,3,1,3,1,0.12716319500032114
+D2,directional,base02,47,True,False,,3,1,3,1,0.14789321499847574
+D2,directional,base03,11,True,False,,3,1,3,1,0.1384223410004779
+D2,directional,base03,23,True,False,,3,1,3,1,0.149262610999358
+D2,directional,base03,47,True,False,,3,1,3,1,0.16070427799968456
+D2,directional,base04,11,True,False,,3,1,3,1,0.13357265400009055
+D2,directional,base04,23,True,False,,3,1,3,1,0.14811390099930577
+D2,directional,base04,47,True,False,,3,2,3,2,0.3119065259998024
+D2,directional,base05,11,True,False,,3,1,3,1,0.19281590699938533
+D2,directional,base05,23,True,False,,3,2,3,2,0.39390871599971433
+D2,directional,base05,47,True,False,,3,2,3,2,0.48120177000055264
+D2,directional,base06,11,True,False,,3,1,3,1,0.19386017699980584
+D2,directional,base06,23,True,False,,3,1,3,1,0.3169089580005675
+D2,directional,base06,47,True,False,,3,1,3,1,0.25836595200053125
+D2,directional,base07,11,True,False,,3,1,3,1,0.3126590360006958
+D2,directional,base07,23,True,False,,3,1,3,1,0.5985278739990463
+D2,directional,base07,47,True,False,,3,1,3,1,0.5479651450004894
+D2,directional,base08,11,True,False,,3,1,3,1,0.2794845050011645
+D2,directional,base08,23,True,False,,3,1,3,1,0.22663308800110826
+D2,directional,base08,47,True,False,,3,1,3,1,0.2600141409984644
+D2,directional,base09,11,True,False,,3,1,3,1,0.19922732499981066
+D2,directional,base09,23,True,False,,3,1,3,1,0.2052714260007633
+D2,directional,base09,47,True,False,,3,1,3,1,0.3048319650006306
+D2,directional,base10,11,True,False,,3,2,3,2,0.5562130309990607
+D2,directional,base10,23,True,False,,3,1,3,1,0.20478772000024037
+D2,directional,base10,47,True,False,,3,1,3,1,0.2705341179989773
+D2,directional,base11,11,True,False,,3,1,3,1,0.2086822420005774
+D2,directional,base11,23,True,False,,3,1,3,1,0.21525511899926641
+D2,directional,base11,47,True,False,,3,1,3,1,0.2138188259996241
+D2,directional,base12,11,True,False,,3,1,3,1,0.22110288200019568
+D2,directional,base12,23,True,False,,3,2,3,2,0.28242740699897695
+D2,directional,base12,47,True,False,,3,2,3,2,0.3924573770000279
+D2,directional,base13,11,True,False,,3,1,3,1,0.16579020700010005
+D2,directional,base13,23,True,False,,3,1,3,1,0.11924668200117594
+D2,directional,base13,47,True,False,,3,2,3,2,0.2536587540016626
+D2,directional,base14,11,True,False,,3,1,3,1,0.1412293329995009
+D2,directional,base14,23,True,False,,3,1,3,1,0.14666431099976762
+D2,directional,base14,47,True,False,,3,1,3,1,0.13916804699874774
+D2,directional,base15,11,True,False,,3,1,3,1,0.44448947999990196
+D2,directional,base15,23,True,False,,3,1,3,1,0.4842915699991863
+D2,directional,base15,47,True,False,,3,1,3,1,0.12058062100004463
+D2,directional,base16,11,True,False,,3,1,3,1,0.18304612599968095
+D2,directional,base16,23,True,False,,3,1,3,1,0.2327672640003584
+D2,directional,base16,47,True,False,,3,1,3,1,0.1425599649992364
+D2,directional,base17,11,True,False,,3,1,3,1,0.12279921500157798
+D2,directional,base17,23,True,False,,3,1,3,1,0.154716154000198
+D2,directional,base17,47,True,False,,3,1,3,1,0.1166139689994452
+D2,directional,base18,11,True,False,,3,1,3,1,0.1420895160008513
+D2,directional,base18,23,True,False,,3,2,3,2,0.1800821349988837
+D2,directional,base18,47,True,False,,3,2,3,2,0.4167636210004275
+D2,directional,base19,11,True,False,,3,1,3,1,0.2115904540005431
+D2,directional,base19,23,True,False,,3,1,3,1,0.1492232189993956
+D2,directional,base19,47,True,False,,3,1,3,1,0.13831680299881555
+D2,directional,base20,11,True,False,,3,1,3,1,0.14417691199923865
+D2,directional,base20,23,True,False,,3,1,3,1,0.28834079500120424
+D2,directional,base20,47,True,False,,3,2,3,2,0.39351757599979464
+D2,directional,base21,11,True,False,,3,1,3,1,0.15959986000052595
+D2,directional,base21,23,True,False,,3,1,3,1,0.15432388500084926
+D2,directional,base21,47,True,False,,3,1,3,1,0.15454496699931042
+D2,directional,base22,11,True,False,,3,1,3,1,0.2422706580000522
+D2,directional,base22,23,True,False,,3,1,3,1,0.25729960900025617
+D2,directional,base22,47,True,False,,3,1,3,1,0.22680230299920368
+D2,directional,base23,11,True,False,,3,1,3,1,0.2545366019985522
+D2,directional,base23,23,True,False,,3,1,3,1,0.22993204900012643
+D2,directional,base23,47,True,False,,3,1,3,1,0.40172009299931233
+D2,directional,base24,11,True,False,,3,1,3,1,0.15588175499942736
+D2,directional,base24,23,True,False,,3,1,3,1,0.2544853620001959
+D2,directional,base24,47,True,False,,3,1,3,1,0.5408131089989183
+D2,directional,base25,11,True,False,,3,1,3,1,0.26427499299825286
+D2,directional,base25,23,True,False,,3,1,3,1,0.33050380399981805
+D2,directional,base25,47,True,False,,3,1,3,1,0.39308828100001847
+D2,directional,base26,11,True,False,,3,1,3,1,0.5187345209997147
+D2,directional,base26,23,True,False,,3,1,3,1,0.1636919129996386
+D2,directional,base26,47,True,False,,3,2,3,2,0.2277314290004142
+D2,directional,base27,11,True,False,,3,1,3,1,0.27432360099919606
+D2,directional,base27,23,True,False,,3,1,3,1,0.1669473050005763
+D2,directional,base27,47,True,False,,3,1,3,1,0.1643917169985798
+D2,directional,base28,11,True,False,,3,1,3,1,0.1667869660013821
+D2,directional,base28,23,True,False,,3,1,3,1,0.16450966100092046
+D2,directional,base28,47,True,False,,3,1,3,1,0.22975153500010492
+D2,directional,base29,11,True,False,,3,1,3,1,0.20251771600123902
+D2,directional,base29,23,True,False,,3,1,3,1,0.17442667400064238
+D2,directional,base29,47,True,False,,3,1,3,1,0.1569941399993695
+D2,directional,base30,11,True,False,,3,1,3,1,0.1772740039996279
+D2,directional,base30,23,True,False,,3,1,3,1,0.3671662340002513
+D2,directional,base30,47,True,False,,3,1,3,1,0.6407796679995954
+D2,directional,base31,11,True,False,,3,1,3,1,0.2606604270004027
+D2,directional,base31,23,True,False,,3,1,3,1,0.20884699700036435
+D2,directional,base31,47,True,False,,3,1,3,1,0.2194205960004183
+D2,directional,base32,11,True,False,,3,1,3,1,0.18167636199905246
+D2,directional,base32,23,True,False,,3,1,3,1,0.21764419600003748
+D2,directional,base32,47,True,False,,3,1,3,1,0.2597160420009459
+D2,directional,base33,11,True,False,,3,1,3,1,0.1997597540012066
+D2,directional,base33,23,True,False,,3,1,3,1,0.19059670199931134
+D2,directional,base33,47,True,False,,3,1,3,1,0.1828769799994916
+D2,directional,base34,11,True,False,,3,1,3,1,0.18686909999996715
+D2,directional,base34,23,True,False,,3,2,3,2,0.24914657799854467
+D2,directional,base34,47,True,False,,3,2,3,2,0.35679250300017884
+D2,directional,base35,11,True,False,,3,1,3,1,0.19994074699934572
+D2,directional,base35,23,True,False,,3,1,3,1,0.18005266199907055
+D2,directional,base35,47,True,False,,3,1,3,1,0.1800706750000245

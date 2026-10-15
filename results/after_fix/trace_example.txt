@@ -1,0 +1,16 @@
+  1. CriteriaPlanner   action=initial plan  criteria={'window_end': '2023-08', 'bhk': [3], 'localities': ['Gachibowli'], 'property_types': None, 'price_min_inr': None, 'price_max_inr': None, 'currency_unit': 'INR', 'area_unit': 'SQFT', 'label': 'trace-demo'}
+  2. ScanAgent         mode=FAST  shards=4  strict_grouping=month  matched=111  accepted=111  rejected_this_pass=0  strict_months=[]
+  3. CoverageAuditor   coverage=0.0833  target=0.5  sufficient_months=1  decision=ITERATE (cycle C1)  widen_round=0
+  4. CriteriaPlanner   action=RELAXED (cycle C1)  round=1  lever=2  relaxation=BHK [3] -> [2, 3, 4]
+  5. ScanAgent         mode=FAST  shards=4  strict_grouping=month  matched=227  accepted=227  rejected_this_pass=0  strict_months=[]
+  6. CoverageAuditor   coverage=0.1667  target=0.5  sufficient_months=2  decision=ITERATE (cycle C1)  widen_round=1
+  7. CriteriaPlanner   action=RELAXED (cycle C1)  round=2  lever=3  relaxation=locality filter dropped (was ['Gachibowli'])
+  8. ScanAgent         mode=FAST  shards=4  strict_grouping=month  matched=4266  accepted=4266  rejected_this_pass=0  strict_months=[]
+  9. CoverageAuditor   coverage=0.5  target=0.5  sufficient_months=6  decision=STOP  widen_round=2
+ 10. TrendAggregator   listings=4266  sufficient_months=6  move_pct=-10.9
+ 11. AnomalySentinel   flagged=['2022-09', '2022-10', '2022-11', '2022-12', '2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08']  new_flags=['2022-09', '2022-10', '2022-11', '2022-12', '2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08']  decision=ESCALATE to STRICT (cycle C2)  strict_round=0
+ 12. ScanAgent         mode=STRICT  shards=4  strict_grouping=month  matched=4266  accepted=4141  rejected_this_pass=125  strict_months=['2022-09', '2022-10', '2022-11', '2022-12', '2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08']
+ 13. CoverageAuditor   coverage=0.5  target=0.5  sufficient_months=6  decision=STOP  widen_round=2
+ 14. TrendAggregator   listings=4141  sufficient_months=6  move_pct=-13.6
+ 15. AnomalySentinel   flagged=['2022-10', '2022-11', '2023-01', '2023-07', '2023-08']  new_flags=[]  decision=CLEAN  strict_round=1
+ 16. NarrativeAgent    chars=473
