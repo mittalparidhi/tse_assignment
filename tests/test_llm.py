@@ -584,17 +584,25 @@ def _narrative_run(frame, criteria, seen):
 
 def test_radius_narrative_may_repeat_its_own_centre_and_radius(frame):
     from src.mr.base_inputs import generate_radius_inputs
-    seen = []
-    state = _narrative_run(frame, generate_radius_inputs(frame)[0], seen)
+    for criteria in generate_radius_inputs(frame):
+        seen = []
+        state = _narrative_run(frame, criteria, seen)
+        if state["final_report"].yoy_median_psf_pct is not None:
+            break
+    assert seen, "no radius input with a price change"
     assert "km of" in state["narrative"], state["narrative"]
+    assert state["final_report"].provenance["narrative_source"] == "model"
 
 
-def test_narrative_without_a_trend_uses_the_no_trend_prompt(frame):
-    from src.agents.nodes import _NARRATIVE_PROMPT_NO_TREND
+def test_narrative_without_a_trend_does_not_ask_the_model(frame):
+    """No price change, nothing to summarise: the template is used and the
+    skip is recorded, not counted as a fallback (NOTEBOOK.md Stage 21)."""
     seen = []
     state = _narrative_run(
         frame, Criteria(window_end="2023-08", bhk=(1,), localities=("Kollur",)),
         seen)
-    assert state["final_report"].yoy_median_psf_pct is None
-    assert seen and seen[-1].startswith(_NARRATIVE_PROMPT_NO_TREND.splitlines()[0])
-    assert "price change in median per sqft" not in seen[-1]
+    report = state["final_report"]
+    assert report.yoy_median_psf_pct is None
+    assert seen == []
+    assert report.provenance["narrative_source"] == "template"
+    assert report.provenance["llm_fallbacks"] == 0

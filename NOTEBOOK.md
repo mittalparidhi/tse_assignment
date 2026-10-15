@@ -681,11 +681,15 @@ digest `357c53fb…`). Three problems surfaced on the way:
   reached the whole metro and a move was usually available. The 9 "invented"
   figures were the radius scope itself (`within 6 km of 17.440, 78.348`),
   which the guard did not count as supplied.
-- **Fix.** A no-trend prompt when the move is unavailable, and figures in the
-  scope count as supplied. The prompt with a move is byte-identical, so its
-  cached replies stay valid. No relation compares the narrative, so the
-  sweep's violation verdicts are unaffected; only the reported fallback rate
-  is.
+- **First fix, measured and withdrawn.** A dedicated no-trend prompt raised
+  the fallback rate at 50 runs to 0.277. Sampled replies: all 6 radius inputs
+  passed (the scope-figure fix works), but 5 of 6 locality inputs still
+  copied the `reliable months:` label and the whole widened locality list.
+- **Fix.** When there is no price change the model is not asked; the template
+  says it, and `provenance.narrative_source` records `template` (a skip, not a
+  fallback). Figures in the scope count as supplied. The prompt with a move is
+  byte-identical, so its cached replies stay valid. No relation compares the
+  narrative or `provenance`, so violation verdicts are unaffected.
 
 ## Threats to validity (carried into the report)
 

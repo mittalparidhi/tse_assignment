@@ -31,7 +31,7 @@ Note: in v1, "Aggregator" meant monthly aggregation. In v2 it is the final repor
 ## 3. LLM narrative (LLM mode only)
 
 - The model receives only: the ₹/sqft move, reliable months out of 12, the area covered (radius, locality list, or "the whole Hyderabad metro area"), and listings analysed.
-- When the move is unavailable (fewer than two sufficient months) the model gets a separate prompt that asks it to say no trend could be measured, instead of asking for the size and direction of a change that does not exist; asked for one, the 3B model copied the facts block on 49 of 51 such base inputs (`NOTEBOOK.md` Stage 21).
+- When the move is unavailable (fewer than two sufficient months) the model is **not asked**: the deterministic narrative is used and `provenance.narrative_source` is `template`, recorded as a skip, not a fallback. Asked, the 3B model copied the facts block on 49 of 51 such base inputs, and a dedicated no-trend prompt still failed on 5 of 6 locality inputs (`NOTEBOOK.md` Stage 21). `narrative_source` is `model` when the model's summary is used.
 - **Faithfulness guard:** every number in the reply must be one of the supplied figures (including those in the area text, e.g. a radius and its centre), and no instruction text may leak into it. A reply failing the guard is replaced by the deterministic narrative and counted as a fallback.
 - The model never sees or changes `TrendReport` fields.
 
@@ -46,7 +46,7 @@ Recompute or round statistics in the report; drop a month; hide relaxations or r
 | Narrative comes from the model in LLM mode (`test_narrative_comes_from_the_model`) | exists |
 | Unfaithful narrative rejected and counted (`test_unfaithful_narrative_is_rejected_and_counted`) | exists |
 | Guard rejects leaked instructions and invented figures; accepts supplied ones | exists (`test_narrative_guard_*`) |
-| A radius narrative may repeat its own centre and radius; no-trend runs get the no-trend prompt (`test_radius_narrative_may_repeat_its_own_centre_and_radius`, `test_narrative_without_a_trend_uses_the_no_trend_prompt`) | exists |
+| A radius narrative may repeat its own centre and radius; no-trend runs do not ask the model (`test_radius_narrative_may_repeat_its_own_centre_and_radius`, `test_narrative_without_a_trend_does_not_ask_the_model`) | exists |
 | LLM stats reach provenance (`test_llm_stats_reach_the_report_provenance`) | exists |
 | Partial-month caveat only when 2023-08 is in the window (`test_narrative_flags_the_partial_month_only_when_in_window`) | exists |
 
