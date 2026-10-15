@@ -24,7 +24,7 @@ Note: in v1, "Aggregator" meant monthly aggregation. In v2 it is the final repor
 1. `final_report` is `trend_stats` unchanged. The only permitted update is refreshing LLM call/fallback counts in `provenance` after the last model call, so the reported fallback rate includes the critique and narrative calls.
 2. The deterministic narrative states the window, listing count, the ₹/sqft move with **the number of months it actually spans**, the most expensive locality with its count, any relaxations applied by C1 ("your query was too narrow and was relaxed: …"), and any listings rejected by C2.
 3. If no move can be stated (fewer than two sufficient months), say so; never fill in a figure.
-4. **[P3]** When the window includes the partial month, say that August 2023 is partial (data to 26 Aug).
+4. When the window includes the partial month, say that August 2023 is partial (data to 26 Aug).
 5. Describe counts as observed listings in a snapshot, never as market inventory or sales.
 
 ## 3. LLM narrative (LLM mode only)
@@ -45,7 +45,7 @@ Recompute or round statistics in the report; drop a month; hide relaxations or r
 | Unfaithful narrative rejected and counted (`test_unfaithful_narrative_is_rejected_and_counted`) | exists |
 | Guard rejects leaked instructions and invented figures; accepts supplied ones | exists (`test_narrative_guard_*`) |
 | LLM stats reach provenance (`test_llm_stats_reach_the_report_provenance`) | exists |
-| Partial-month caveat in the narrative | **[P3]** |
+| Partial-month caveat only when 2023-08 is in the window (`test_narrative_flags_the_partial_month_only_when_in_window`) | exists |
 
 ## 6. Traceability
 

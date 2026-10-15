@@ -20,7 +20,12 @@ from src import viz
 from src.agents import AgentMode, GraphConfig, build_graph, run_pipeline
 from src.loading import load_canonical, verify_snapshot
 from src.mr.relations import ALL_RELATIONS
-from src.trend import Criteria, available_months
+from src.trend import available_months
+from src.validation import (
+    CriteriaValidationError,
+    SourceCatalog,
+    validate_request,
+)
 
 st.set_page_config(page_title="Hyderabad Housing Trends",
                    page_icon="H", layout="wide")
@@ -39,6 +44,11 @@ def _graph(n_retrieval_agents: int):
 
 
 frame, cascade, digest = _load()
+
+
+@st.cache_resource
+def _catalog() -> SourceCatalog:
+    return SourceCatalog.from_frame(frame)
 months = available_months(frame)
 locality_counts = frame["locality"].value_counts()
 
@@ -99,18 +109,26 @@ if geo == "RADIUS":
     center_lon = st.sidebar.number_input("Centre longitude", value=78.3489,
                                          format="%.4f")
 
-criteria = Criteria(
-    window_end=window_end,
-    bhk=tuple(sorted(bhk_choice)) or None,
-    localities=tuple(locality_choice) or None,
-    price_min_inr=None if lo_lakh is None else lo_lakh * 1e5,
-    price_max_inr=None if hi_lakh is None else hi_lakh * 1e5,
-    query_mode=geo,
-    center_lat=center_lat,
-    center_lon=center_lon,
-    radius_km=radius_km,
-    label="ui",
-)
+request = {
+    "window_end": window_end,
+    "bhk": sorted(bhk_choice) or None,
+    "localities": list(locality_choice) or None,
+    "price_min_inr": None if lo_lakh is None else lo_lakh * 1e5,
+    "price_max_inr": None if hi_lakh is None else hi_lakh * 1e5,
+    "query_mode": geo,
+    "center_lat": center_lat,
+    "center_lon": center_lon,
+    "radius_km": radius_km,
+    "label": "ui",
+}
+try:
+    # contracts/Criteria.md §3: every request is checked against values the
+    # snapshot actually contains before any agent runs.
+    criteria = validate_request(
+        {k: v for k, v in request.items() if v is not None}, _catalog())
+except CriteriaValidationError as error:
+    st.error(f"**{error.code}**: {error.message}")
+    st.stop()
 config = GraphConfig(coverage_target=coverage_target,
                      max_retry_rounds=max_retry,
                      max_critique_rounds=max_critique,

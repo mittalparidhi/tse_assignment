@@ -1,7 +1,7 @@
 # DATA SUBCONTRACT — Hyderabad Housing-Trends Application
 
 **Parent:** `CONTRACT.md` v2.0.0-draft
-**Status:** Draft. Source fingerprint and defects D1–D5 are verified; D6–D7 are ported from v1 in Phase 3.
+**Status:** Draft. Source fingerprint and defects D1–D6 are verified and handled; D7 identity is completed in Phase 4.
 **Scope:** Source freeze, defects, the canonical population and filter cascade, month derivation, identity, and reproducibility checks. The parent controls the output contract, window and loops. In a conflict, update this file rather than silently changing the parent.
 
 ## 1. Source and frozen input
@@ -29,7 +29,7 @@ This is a single-point scrape: older months contain only listings still live on 
 | D3 | `PREFERENCE` mixes sale S=7,927, rent R=1,467, PG P=93 | Sale only |
 | D4 | `BEDROOM_NUM` missing on 2,814 rows, 2,806 of them `Residential Land` (structural, not missing data) | Dwellings only (§3, filter 2) |
 | D5 | Area-entry errors in the tail (a 27 sq ft villa at ₹2.15 cr = ₹796,296/sq ft; a 285,599 sq ft one) | **Deliberately kept** in the canonical frame. Detecting them is the Analysis agent's targeted recomputation (loop C2); filtering them here would make C2 decorative. Plausibility bounds remain available via `apply_plausibility=True` for ablation only |
-| D6 | **[P3]** `PRICE` text "Price on Request" (4 rows in the current canonical frame) | Excluded (§3, filter 4) |
+| D6 | `PRICE` text "Price on Request" on 87 raw rows; their numeric bounds are placeholders. 61 reach this filter; 4 would otherwise have entered the canonical frame | Excluded (§3, filter 4) |
 | D7 | `PROP_ID` is not unique (one ID on two canonical rows) | Both rows kept; **[P4]** `listing_id` made unique (§5) |
 
 `TRANSACT_TYPE` code meanings are not verified and the field is not used.
@@ -38,19 +38,20 @@ This is a single-point scrape: older months contain only listings still live on 
 
 Filters run in this order. Each stage's remaining and dropped counts are written to `data/snapshot/canonical_reject_log.csv` by `RejectLog`.
 
-| # | Filter | Rows remaining (current, pre-P3) |
+| # | Filter | Rows remaining |
 |---|---|---:|
 | 0 | raw rows | 9,487 |
 | 1 | `PREFERENCE == "S"` | 7,927 |
 | 2 | `PROPERTY_TYPE` in dwelling types | 5,085 |
 | 3 | `POSTING_DATE` parses (Unix ms) | 4,975 |
-| 4 | **[P3]** `PRICE` is not "Price on Request" | — |
-| 5 | `MIN_PRICE` numeric, `> 0`, `!= 2147483647`; **[P3]** same for `MAX_PRICE`, and `MIN_PRICE <= MAX_PRICE` | 4,917 |
-| 6 | Area parses from `AREA` and `> 0` | 4,578 |
+| 4 | `PRICE` is not "Price on Request" | 4,914 |
+| 5a | `MIN_PRICE` numeric, `> 0`, `!= 2147483647` | 4,913 |
+| 5b | same for `MAX_PRICE`, and `MIN_PRICE <= MAX_PRICE` | 4,913 |
+| 6 | Area parses from `AREA` and `> 0` | 4,574 |
 
 Dwelling types: `Residential Apartment`, `Independent House/Villa`, `Independent/Builder Floor`, `Studio Apartment`, `Serviced Apartments`.
 
-The counts in the table are audit baselines, not constants: code recomputes them on every load, and **[P3]** the table is updated once filters 4–5 and the timezone rule (§4) are in place. **[P4]** The reject log's stale stage name ("DEFERRED to ScanAgent STRICT") is replaced by the current one ("DEFERRED to Analysis recomputation").
+The counts in the table are audit baselines, not constants: code recomputes them on every load. Every canonical listing has `MIN_PRICE == MAX_PRICE`, so filter 5b drops nothing here; it guards against range listings. **[P4]** The reject log's stale stage name ("DEFERRED to ScanAgent STRICT") is replaced by the current one ("DEFERRED to Analysis recomputation").
 
 Rows that fail a filter are not deleted from the raw file; they are simply absent from the derived canonical frame and counted in the log.
 
@@ -59,9 +60,9 @@ Rows that fail a filter are not deleted from the raw file; they are simply absen
 | Field | Derivation |
 |---|---|
 | `listing_id` | currently `PROP_ID`; **[P4]** `PROP_ID` + raw row position, unique |
-| `month` | `POSTING_DATE` (ms) → instant → **[P3]** `Asia/Kolkata` → `YYYY-MM` (currently UTC; 18 rows differ) |
+| `month` | `POSTING_DATE` (ms) → instant → `Asia/Kolkata` → `YYYY-MM` (18 rows would land in a different month under UTC) |
 | `price_inr` | `MIN_PRICE` |
-| `max_price_inr` | **[P3]** `MAX_PRICE` |
+| `max_price_inr` | `MAX_PRICE` |
 | `area_sqft` | parsed from `AREA` (D1) |
 | `psf_inr` | `price_inr / area_sqft` |
 | `bhk` | bedroom count |
@@ -70,7 +71,7 @@ Rows that fail a filter are not deleted from the raw file; they are simply absen
 | `latitude`, `longitude` | from `MAP_DETAILS`; discarded if outside the Hyderabad box (lat 16.5–18.5, lon 77.5–79.5) |
 | `area_sqm_raw` | from `SECONDARY_AREA`; independent restatement used by the Analysis cross-check |
 | `price_display_inr` | from the `PRICE` display string; independent restatement used by the Analysis cross-check |
-| `age_on_site_days` | whole days from posting time to the reference date; `null` outside 0–1000. Reference is currently `2023-08-26 00:00 UTC`; **[P3]** `LATEST_POSTING` in `Asia/Kolkata` |
+| `age_on_site_days` | whole days from posting time to the reference date; `null` outside 0–1000. Reference is `LATEST_POSTING` (`2023-08-26 10:29:05+05:30`) |
 | `description` | first 400 characters of `DESCRIPTION`; read only by the Analysis agent's LLM review, never by statistics |
 
 No value is imputed. A field that cannot be parsed is `null` (or `"Unknown"` for locality).
@@ -84,7 +85,7 @@ No value is imputed. A field that cannot be parsed is `null` (or `"Unknown"` for
 ## 6. Startup integrity
 
 1. The raw SHA-256 is computed and compared with §1 before loading (`verify_snapshot`). Mismatch → `snapshot_integrity_error`.
-2. The frozen canonical CSV's SHA-256 is recorded in `data/snapshot/CHECKSUMS.txt` and regenerated only by `freeze_canonical`, as a reviewed change. The application does not read this file; it rebuilds the frame from the raw snapshot on every run. The frozen copy is therefore a published record of the population, and **[P3]** a test rebuilds the frame, serialises it exactly as `freeze_canonical` does, and checks the result against `CHECKSUMS.txt`, so a loader change cannot leave the frozen copy silently out of date.
+2. The frozen canonical CSV's SHA-256 is recorded in `data/snapshot/CHECKSUMS.txt` and regenerated only by `freeze_canonical`, as a reviewed change. The application does not read this file; it rebuilds the frame from the raw snapshot on every run. The frozen copy is therefore a published record of the population, and a test rebuilds the frame, serialises it exactly as `freeze_canonical` does, and checks the result against `CHECKSUMS.txt`, so a loader change cannot leave the frozen copy silently out of date.
 3. `.gitattributes` keeps `data/`, `results/` and `tests/golden/` byte-exact across platforms (`core.autocrlf` previously broke the canonical checksum on Windows).
 4. Agents receive the frame in memory; they do not read files.
 
@@ -95,9 +96,9 @@ No value is imputed. A field that cannot be parsed is `null` (or `"Unknown"` for
 | R1 — Raw integrity | SHA-256 equals §1 |
 | R2 — Shape | 9,487 rows, 55 columns |
 | R3 — Cascade | Each stage count in §3 is reproduced by `load_canonical()` |
-| R4 — Canonical freeze | `listings_canonical.csv` SHA-256 equals `data/snapshot/CHECKSUMS.txt`, and **[P3]** a freshly rebuilt frame serialises to the same digest |
+| R4 — Canonical freeze | `listings_canonical.csv` SHA-256 equals `data/snapshot/CHECKSUMS.txt`, and a freshly rebuilt frame serialises to the same digest (`test_frozen_canonical_snapshot_matches_a_fresh_rebuild`) |
 | R5 — Identity | **[P4]** `listing_id` unique |
-| R6 — Month rule | **[P3]** months derived in `Asia/Kolkata` |
+| R6 — Month rule | months derived in `Asia/Kolkata` (`test_month_is_derived_in_india_time_not_utc`) |
 | R7 — No mutation | Raw SHA-256 unchanged after a run |
 
 If a baseline changes, first determine whether the source, timezone logic or a filter changed. Update this file and the parent version only for an intentional, reviewed change; never edit an expected value just to make a test pass.

@@ -21,7 +21,7 @@
 
 Computed by `compute_trend` exactly as defined in `CONTRACT.md` §5:
 
-- Per month: `n_active`, `median_psf`, `p25_psf`, `p75_psf`, **[P3]** `median_min_price_inr`, `median_max_price_inr` (replacing `median_price`), `median_age_on_site_days`, `month_is_sufficient`, **[P3]** `is_partial_month`.
+- Per month: `n_active`, `median_psf`, `p25_psf`, `p75_psf`, `median_min_price_inr`, `median_max_price_inr` (replacing `median_price`), `median_age_on_site_days`, `month_is_sufficient`, `is_partial_month`.
 - Report: `locality_rankings` (≥ 5 listings, top 10, median ₹/sqft descending, name tie-break, stable sort), `yoy_median_psf_pct` and `yoy_span_months` (first vs last sufficient month), `n_listings_total`.
 - Display scaling: price × currency factor; ₹/sqft × (currency factor ÷ area factor). Percentages are computed from unrounded values.
 - Empty months: count 0, statistics `null`. No imputation, interpolation or carry-forward.
@@ -52,7 +52,7 @@ The robust threshold is relative, so the filter is not shift-invariant: adding a
 ## 5. Accounting
 
 - **[P4]** `n_rejected_outliers` equals the number rejected in the current computation. Because each recomputation starts again from `raw_listings` with the cumulative flagged months, adding round totals double-counts; the current code does so when more than one round runs.
-- Provenance records seed, agent mode, query mode, loop counts, relaxations, coverage score, rejected count, flagged months, `n_no_coordinate` and LLM accounting; **[P3]** also `contract_version` and `snapshot_sha256`.
+- Provenance records seed, agent mode, query mode, loop counts, relaxations, coverage score, rejected count, flagged months, `n_no_coordinate` and LLM accounting, `contract_version`, and `snapshot_sha256` (the snapshot the frame was derived from; `None` for frames not built by `load_canonical`, such as the synthetic snapshot).
 
 ## 6. Must not
 
@@ -67,7 +67,7 @@ Reject listings outside flagged months; add or modify listings; compute any stat
 | Statistics identical in both modes (`test_statistics_are_identical_in_both_modes`) | exists |
 | Median, sufficiency, empty months, yoy span, ranking ties, units (`tests/test_trend.py`) | exists |
 | Golden series unchanged (`tests/test_golden.py`) | exists; regenerated in Phase 3 |
-| `median_min_price_inr` / `median_max_price_inr` / `is_partial_month` | **[P3]** |
+| Min/max price medians and partial-month flag (`test_min_and_max_price_medians_are_reported_separately`, `test_only_the_snapshot_end_month_is_flagged_partial`) | exists |
 | `n_rejected_outliers` not double-counted across rounds | **[P4]** |
 
 ## 8. Traceability

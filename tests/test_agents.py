@@ -180,3 +180,16 @@ def test_robust_z_is_unmoved_by_an_extreme_outlier():
 def test_default_mode_is_deterministic():
     """The committed result sets and the test suite both depend on this."""
     assert GraphConfig().agent_mode == AgentMode.DETERMINISTIC
+
+
+def test_narrative_flags_the_partial_month_only_when_in_window(frame, graph):
+    """contracts/Aggregator.md §2.4: August 2023 is never presented as a full
+    month."""
+    with_aug = run_pipeline(frame, Criteria(window_end="2023-08"), seed=11,
+                            graph=graph)
+    without = run_pipeline(frame, Criteria(window_end="2023-07"), seed=11,
+                           graph=graph)
+    assert "2023-08 is a partial month" in with_aug["narrative"]
+    assert "partial month" not in without["narrative"]
+    assert with_aug["final_report"].provenance["contract_version"] == "2.0.0-draft"
+    assert with_aug["final_report"].provenance["snapshot_sha256"].startswith("9e8169")

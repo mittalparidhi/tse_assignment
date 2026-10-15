@@ -14,7 +14,7 @@ If a subordinate file conflicts with `CONTRACT.md`, the global contract wins.
 |---|---|---|
 | `CONTRACT.md` | Global rules, constants, `TrendReport`, graph, loops, acceptance | `src/contract.py`, `src/agents/graph.py` |
 | `Data.md` | Snapshot, defects D1–D7, filter cascade, identity | `src/loading.py` |
-| `Criteria.md` | Request validation, `query_mode` | `src/agents/nodes.py::criteria_agent`, **[P3]** `src/validation.py` |
+| `Criteria.md` | Request validation, `query_mode` | `src/agents/nodes.py::criteria_agent`, `src/validation.py` |
 | `Retrieval.md` | Sharded scan, exact-locality vs radius | `make_retrieval_agent`, `retrieval_dispatch`, `retrieval_merge` |
 | `Coverage.md` | Coverage score, widening, loop C1 | `coverage_agent` |
 | `Analysis.md` | Statistics, targeted outlier rejection | `analysis_agent`, `src/trend.py` |
@@ -28,7 +28,7 @@ The v1 suite (fixed window, Planner/Scanner/Validator/Anomaly/Diagnostic/Reporte
 
 ## Implementation status tags
 
-**[P3]** marks a clause not yet satisfied by code, to be implemented in Phase 3 (porting the v1 data and validation rules). **[P4]** marks one for Phase 4 (harness and agent fixes). A tag is removed only when code and a test satisfy the clause. Untagged clauses describe current behaviour.
+**[P4]** marks a clause not yet satisfied by code, to be implemented in Phase 4 (harness and agent fixes). Phase 3 (porting the v1 data and validation rules) is complete and its tags have been removed. A tag is removed only when code and a test satisfy the clause. Untagged clauses describe current behaviour.
 
 ## Context-budget policy
 

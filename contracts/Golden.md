@@ -2,7 +2,7 @@
 
 **Parent:** `CONTRACT.md` v2.0.0-draft.
 **Purpose:** Frozen expected outputs that detect unintended changes to the statistics and the agent pipeline on the real snapshot.
-**Status:** Draft. The vectors exist in `tests/golden/deterministic_baseline.json`; their **values are regenerated in Phase 3**, because the IST month rule, the Price-on-Request exclusion and the `MAX_PRICE` validity rule all change the population.
+**Status:** Draft. The vectors in `tests/golden/deterministic_baseline.json` were regenerated in Phase 3 for contract v2 (IST months, Price-on-Request exclusion, `MAX_PRICE` validity, new fields).
 
 `CONTRACT.md` owns the output contract; `Data.md` owns the population; `Analysis.md` owns the statistics. This file records expected outputs and the rules for changing them. It does not redefine those rules.
 
@@ -37,7 +37,7 @@ If the raw hash differs, the golden tests fail with `snapshot_integrity_error`; 
 | `banded` | `window_end = 2023-07`, a price band |
 | `lakh` | `window_end = 2023-08`, `currency_unit = INR_LAKH` |
 
-Each stores the 12-month count, ₹/sqft, price and % change series, the sufficient months, rankings, total, yoy move and span. **[P3]** Each also stores `median_min_price_inr`, `median_max_price_inr` and `is_partial_month` per month.
+Each stores the 12-month count, ₹/sqft, price and % change series, the sufficient months, rankings, total, yoy move and span. Each also stores `median_min_price_inr`, `median_max_price_inr` and `is_partial_month` per month.
 
 ### 2.2 Pipeline vectors (`pipeline::<label>`, `test_agent_pipeline_unchanged`)
 
@@ -68,7 +68,7 @@ Each stores counts, ₹/sqft series, rankings, total, yoy move and span, coverag
 1. Identify the cause: snapshot, population rule, statistic, agent logic, or config.
 2. A change is allowed only for an intentional, reviewed contract change. Record it in `_corrections` with the reason, and bump the parent version if a rule changed.
 3. Never update a value only to make a failing test pass. A golden failure after a refactor is a regression until proven otherwise.
-4. **[P3]** The Phase 3 regeneration is one such change: record the old and new totals and which rule caused each difference (IST months, Price on Request, `MAX_PRICE` validity).
+4. Regenerate only with `scripts/regenerate_golden.py --reason "..."`, which writes the new vectors and records old and new totals with the reason in `_corrections`. The Phase 3 regeneration is recorded there (for example `trend::all` total 4,537 → 4,533).
 
 ## 5. Acceptance
 

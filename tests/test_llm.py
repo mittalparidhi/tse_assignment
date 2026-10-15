@@ -495,3 +495,23 @@ def test_duplication_invariance_residual_on_specific_inputs(frame):
         )
         assert (_captured_prompts(frame, prepared)
                 == _captured_prompts(follow_frame, follow_criteria)), label
+
+
+def test_model_radius_without_a_centre_falls_back_to_exact_matching(frame):
+    """contracts/Criteria.md §5: the agent never invents a centre for a
+    radius search the model asked for."""
+    routes = dict(SCRIPTED_ROUTES)
+    routes["Decide how the search should be run"] = (
+        '{"query_mode": "RADIUS", "reason": "says near"}')
+    client = LLMClient(backend=ScriptedBackend(routes), cache_path=None,
+                       model="scripted")
+    config = GraphConfig(agent_mode=AgentMode.LLM)
+    state = run_pipeline(
+        frame, Criteria(window_end="2023-08", localities=("Gachibowli",)),
+        seed=7, config=config, graph=build_graph(config.n_retrieval_agents),
+        user_query="flats near Gachibowli", llm=client,
+    )
+    planned = [e for e in state["trace"] if e["agent"] == "CriteriaAgent"][0]
+    assert planned["query_mode"] == "EXACT_LOCALITY"
+    assert "no centre supplied" in planned["reason"]
+    assert state["query_mode"] == "EXACT_LOCALITY"

@@ -2,11 +2,11 @@
 
 **Parent:** `CONTRACT.md` v2.0.0-draft. **Related:** `Data.md`, `LLM.md`, `Retrieval.md`. The parent wins on conflicts.
 
-**Status:** Draft. The agent and `query_mode` exist; request validation is ported from v1 (`legacy/app/criteria_agent.py`) in Phase 3.
+**Status:** Draft; implemented. Request validation was ported from v1 (`legacy/app/criteria_agent.py`) in Phase 3.
 
 ## 1. Role and boundary
 
-**Kind:** decision-maker. **Code:** `src/agents/nodes.py::criteria_agent`; **[P3]** validation in `src/validation.py`.
+**Kind:** decision-maker. **Code:** `src/agents/nodes.py::criteria_agent`; validation in `src/validation.py::validate_request`, used by the dashboard sidebar.
 
 **Job:** turn a request into a validated `Criteria` (the `filter_spec`) and choose the retrieval algorithm via `query_mode`. It does not read listing rows (except locality names for the LLM prompt), compute statistics, or widen criteria.
 
@@ -32,14 +32,14 @@
 | `center_lat`, `center_lon`, `radius_km` | float or `None` | radius search parameters |
 | `label` | str | base-input identifier; not a filter |
 
-## 3. Validation rules **[P3]**
+## 3. Validation rules
 
 Validation runs at the request boundary: the Streamlit sidebar and any programmatic entry point. It is ported from the v1 Criteria agent.
 
 1. Reject unknown request fields. Never silently ignore a filter.
 2. `window_end` must match `YYYY-MM` and be a month present in the canonical frame (currently 2022-05 … 2023-08).
 3. `bhk` values must be whole numbers in the source-observed domain 1–10; duplicates are removed and the list sorted.
-4. Locality names are matched case- and whitespace-insensitively to source-observed names and replaced by the canonical spelling; duplicates removed, first-request order kept. An unmatched name is rejected, never approximated.
+4. Locality names are matched case- and whitespace-insensitively to source-observed names and replaced by the canonical spelling; duplicates removed, first-request order kept. An unmatched name is rejected, never approximated. The loader's `"Unknown"` placeholder is not a locality and is rejected.
 5. `property_types` must be dwelling types (`Data.md` §3).
 6. Prices must be finite and `> 0`; `price_min_inr <= price_max_inr` when both are given.
 7. Units must be from the allowed sets above.
@@ -48,7 +48,7 @@ Validation runs at the request boundary: the Streamlit sidebar and any programma
 
 **MR transformations bypass this validation.** The harness builds follow-up `Criteria` directly, so a valid transformation (for example a window shifted into an edge month) is never rejected by request-boundary rules. Every harness base input must itself pass validation.
 
-## 4. Error codes **[P3]**
+## 4. Error codes
 
 Errors use `{"status": "error", "error_code": ..., "message": ...}`; the message names the field and the allowed values.
 
@@ -62,7 +62,7 @@ Errors use `{"status": "error", "error_code": ..., "message": ...}`; the message
 | `unsupported_property_type` | rule 5 |
 | `invalid_price` / `invalid_price_range` | rule 6 |
 | `unsupported_unit` | rule 7 |
-| `invalid_geo_radius` / `missing_geo_center` / `query_mode_mismatch` | rule 8 |
+| `invalid_geo_radius` / `missing_geo_center` / `invalid_geo_center` / `query_mode_mismatch` | rule 8 |
 
 ## 5. `query_mode` decision
 
@@ -81,10 +81,10 @@ Change the window, units, price band, BHK or locality list; read files or the ne
 | Default mode is deterministic | exists (`test_agents.py::test_default_mode_is_deterministic`) |
 | LLM mode uses the model's `query_mode` | exists (`test_llm.py::test_criteria_agent_uses_the_models_query_mode`) |
 | `RADIUS` requires a centre | exists (`test_agents.py::test_radius_requires_a_centre`) |
-| LLM `RADIUS` without centre falls back to `EXACT_LOCALITY` | **[P3]** |
-| Each rule in §3 rejects with its §4 code; valid requests pass unchanged | **[P3]** ported from `legacy/tests/test_criteria_agent.py` |
-| Locality canonicalisation (case/whitespace) and de-duplication | **[P3]** |
-| Every harness base input passes validation | **[P3]** |
+| LLM `RADIUS` without centre falls back to `EXACT_LOCALITY` (`test_model_radius_without_a_centre_falls_back_to_exact_matching`) | exists |
+| Each rule in §3 rejects with its §4 code; valid requests pass (`tests/test_validation.py`, ported from `legacy/tests/test_criteria_agent.py`) | exists |
+| Locality canonicalisation and de-duplication (`test_locality_names_are_canonicalised_and_deduplicated`) | exists |
+| Every harness base input passes validation (`test_every_harness_base_input_passes_validation`) | exists |
 
 ## 8. Traceability
 

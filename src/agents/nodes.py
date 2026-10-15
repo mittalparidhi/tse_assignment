@@ -830,6 +830,10 @@ def aggregator_agent(state: TrendState) -> TrendState:
             log_step(state, "AggregatorAgent",
                      narrative_rejected=why, using="deterministic template")
             text = deterministic
+        elif text != deterministic:
+            caveat = _partial_month_caveat(report)
+            if caveat:
+                text = f"{text} {caveat}"
         state["narrative"] = text
     else:
         state["narrative"] = _deterministic_narrative(state, report)
@@ -853,6 +857,16 @@ def aggregator_agent(state: TrendState) -> TrendState:
     return state
 
 
+def _partial_month_caveat(report) -> str:
+    """Contracts/Aggregator.md §2.4. Added by code, never by the model, so it
+    cannot be dropped or reworded into a claim about a full month."""
+    partial = [m.month for m in report.monthly if m.is_partial_month]
+    if not partial:
+        return ""
+    return (f"{partial[0]} is a partial month: the snapshot ends on "
+            f"26 Aug 2023, so it is reported as observed, not extrapolated.")
+
+
 def _deterministic_narrative(state: TrendState, report) -> str:
     first, last = report.window_months[0], report.window_months[-1]
     move = report.yoy_median_psf_pct
@@ -873,6 +887,9 @@ def _deterministic_narrative(state: TrendState, report) -> str:
             f"across the {report.yoy_span_months} months with adequate "
             f"listing depth (the window spans 12)."
         )
+    caveat = _partial_month_caveat(report)
+    if caveat:
+        lines.append(caveat)
     if report.locality_rankings:
         top = report.locality_rankings[0]
         lines.append(

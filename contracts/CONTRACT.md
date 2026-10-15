@@ -4,7 +4,7 @@
 **Version:** 2.0.0-draft
 **Authority:** This file is the single source of truth for shared constants, the output contract, metric definitions, the agent graph, loop policies, failure semantics, and invariants. `Data.md`, the six agent contracts (`Criteria.md`, `Retrieval.md`, `Coverage.md`, `Analysis.md`, `Critique.md`, `Aggregator.md`), `LLM.md`, `Testing.md`, and `Golden.md` are subordinate. They may clarify implementation but must not redefine global rules. If one conflicts with this file, the global contract wins and the subordinate clause must be corrected.
 
-**Implementation status tags.** A clause marked **[P3]** or **[P4]** is part of this contract but is not yet satisfied by the code; it is implemented in Phase 3 (porting data/validation rules) or Phase 4 (harness and agent fixes) respectively. Untagged clauses describe current behaviour. A tag is removed only when code and a test satisfy the clause.
+**Implementation status tags.** A clause marked **[P4]** is part of this contract but is not yet satisfied by the code; it is implemented in Phase 4 (harness and agent fixes). Phase 3 (porting the v1 data and validation rules) is complete and its tags have been removed. Untagged clauses describe current behaviour. A tag is removed only when code and a test satisfy the clause.
 
 ## 1. Purpose and scope
 
@@ -15,7 +15,7 @@ The application reports **asking prices of active sale listings of dwellings obs
 ## 2. Dataset and provenance
 
 - Raw input: `data/raw/hyderabad.csv`, 9,487 rows × 55 columns, SHA-256 `9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a`. Read-only.
-- Canonical derived frame: rebuilt in memory from the raw file on every run by `src/loading.py::load_canonical()`. A copy is frozen to `data/snapshot/listings_canonical.csv` with its SHA-256 in `data/snapshot/CHECKSUMS.txt` as a published record; the application does not read it, and **[P3]** a test checks that a rebuilt frame still matches it (`Data.md` §6). Every dropped row is accounted for in `data/snapshot/canonical_reject_log.csv`.
+- Canonical derived frame: rebuilt in memory from the raw file on every run by `src/loading.py::load_canonical()`. A copy is frozen to `data/snapshot/listings_canonical.csv` with its SHA-256 in `data/snapshot/CHECKSUMS.txt` as a published record; the application does not read it, and a test checks that a rebuilt frame still matches it (`Data.md` §6). Every dropped row is accounted for in `data/snapshot/canonical_reject_log.csv`.
 - The v1 cleaned file (`data/processed/hyderabad_clean.csv`) and its cleaning and audit scripts are not part of v2; they are kept for reference under `legacy/`.
 - Source: 99acres.com Hyderabad slice via Kaggle (`arvanshul/gurgaon-real-estate-99acres-com`, licence CDLA-Sharing-1.0; the slug is misleading, the dataset covers Gurgaon, Hyderabad, Mumbai and Kolkata). Scraped ≈ 26 Aug 2023.
 - Verify the raw SHA-256 before every run. On mismatch, stop with `snapshot_integrity_error`; never update the expected digest automatically.
@@ -28,12 +28,12 @@ Constants are defined once in code (`src/contract.py`, `src/loading.py`, `src/ag
 
 | Constant | Value | Defined in |
 |---|---|---|
-| `CONTRACT_VERSION` | `2.0.0-draft` | **[P3]** `src/contract.py` |
+| `CONTRACT_VERSION` | `2.0.0-draft` | `src/contract.py` |
 | `EXPECTED_SHA256` | raw digest above | `src/loading.py` |
 | `INT32_SENTINEL` | `2147483647` | `src/loading.py` |
-| `LOCAL_TIMEZONE` | `Asia/Kolkata` | **[P3]** `src/loading.py` |
-| `LATEST_POSTING` | `2023-08-26 10:29:05+05:30` (defines the partial month and the age-on-site reference) | **[P3]** `src/loading.py` |
-| `DEFAULT_WINDOW_END` | `2023-08` | **[P3]** `src/contract.py` |
+| `LOCAL_TIMEZONE` | `Asia/Kolkata` | `src/loading.py` |
+| `LATEST_POSTING` | `2023-08-26 10:29:05+05:30` (defines the partial month and the age-on-site reference) | `src/loading.py` |
+| `DEFAULT_WINDOW_END` | `2023-08` | `src/contract.py` (also `PARTIAL_MONTH`) |
 | `WINDOW_LENGTH` | 12 months | `src/trend.py::month_window` |
 | `MIN_SUFFICIENT_N` | 50 listings | `src/contract.py` |
 | `coverage_target` | 0.50 (share of window months that are sufficient) | `GraphConfig` |
@@ -57,19 +57,19 @@ A raw row enters the canonical frame only if all hold (order of the filter casca
 1. `PREFERENCE == "S"` (sale; rent and PG excluded).
 2. `PROPERTY_TYPE` is a dwelling type listed in `Data.md` (land and plots excluded).
 3. `POSTING_DATE` parses as Unix milliseconds.
-4. **[P3]** `PRICE` text is not "Price on Request".
-5. `MIN_PRICE` is numeric, finite, `> 0` and `!= INT32_SENTINEL`; **[P3]** `MAX_PRICE` satisfies the same, and `MIN_PRICE <= MAX_PRICE`.
+4. `PRICE` text is not "Price on Request".
+5. `MIN_PRICE` is numeric, finite, `> 0` and `!= INT32_SENTINEL`; `MAX_PRICE` satisfies the same, and `MIN_PRICE <= MAX_PRICE`.
 6. Area parses from the `AREA` display string in sq ft and is `> 0` (never from `MIN_AREA_SQFT`, which holds square metres; `Data.md` D1).
 
 Each filter's input and output counts are logged. Raw rows are never modified; the canonical frame is derived.
 
 ### 4.2 Month assignment
 
-Parse `POSTING_DATE` as Unix milliseconds, **[P3]** convert the instant to `Asia/Kolkata`, then derive `month = YYYY-MM`. Do not derive the month from UTC. (Measured: 18 canonical rows change month between UTC and IST.)
+Parse `POSTING_DATE` as Unix milliseconds, convert the instant to `Asia/Kolkata`, then derive `month = YYYY-MM`. Do not derive the month from UTC. (Measured: 18 canonical rows change month between UTC and IST.)
 
 ### 4.3 Window
 
-A report covers exactly 12 consecutive calendar months ending at `window_end` (inclusive). `window_end` is movable; the default is `2023-08`. Months with no listings are still reported (count 0, statistics `null`). **[P3]** `2023-08` is a partial month (last posting 26 Aug) and is flagged `is_partial_month = true`; it is never extrapolated.
+A report covers exactly 12 consecutive calendar months ending at `window_end` (inclusive). `window_end` is movable; the default is `2023-08`. Months with no listings are still reported (count 0, statistics `null`). `2023-08` is a partial month (last posting 26 Aug) and is flagged `is_partial_month = true`; it is never extrapolated.
 
 ### 4.4 Identity
 
@@ -87,11 +87,11 @@ Every MR is a statement about these fields and nothing else. Defined in `src/con
 | `n_active` | canonical listings in the month matching the criteria, after any outlier rejection |
 | `median_psf` | median of `MIN_PRICE / area_sqft`, in display units |
 | `p25_psf`, `p75_psf` | 25th / 75th percentile of the same (numpy linear interpolation) |
-| `median_min_price_inr` | **[P3]** median `MIN_PRICE`, in display currency (replaces `median_price`) |
-| `median_max_price_inr` | **[P3]** median `MAX_PRICE`, in display currency |
+| `median_min_price_inr` | median `MIN_PRICE`, in display currency (replaces `median_price`) |
+| `median_max_price_inr` | median `MAX_PRICE`, in display currency. On the current snapshot every canonical listing has `MIN_PRICE == MAX_PRICE`, so this equals `median_min_price_inr`; it is kept so a range listing would show |
 | `median_age_on_site_days` | median (latest posting − posting date); right-censored and length-biased, so secondary; no MR asserts on it |
 | `month_is_sufficient` | `n_active >= MIN_SUFFICIENT_N` |
-| `is_partial_month` | **[P3]** `true` for the month containing `LATEST_POSTING` |
+| `is_partial_month` | `true` for the month containing `LATEST_POSTING` |
 
 A statistic that cannot be computed is `null`, never zero. Medians use the mean of the two middle values for even counts.
 
@@ -108,7 +108,7 @@ A statistic that cannot be computed is `null`, never zero. Medians use the mean 
 | `currency_unit` | `INR`, `INR_LAKH` or `INR_CRORE` |
 | `area_unit` | `SQFT` or `SQM` |
 | `criteria` | the effective (possibly widened) criteria |
-| `provenance` | seed, agent mode, query mode, loop counts, relaxations, coverage score, rejected count, flagged months, LLM accounting, **[P3]** `contract_version`, `snapshot_sha256` |
+| `provenance` | seed, agent mode, query mode, loop counts, relaxations, coverage score, rejected count, flagged months, LLM accounting, `contract_version`, `snapshot_sha256` (of the snapshot the frame was derived from) |
 
 Construction fails with a contract violation if the window is not 12 months, rows are misaligned, or `yoy_median_psf_pct` is non-finite.
 
