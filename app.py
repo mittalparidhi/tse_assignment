@@ -162,7 +162,10 @@ with trend_tab:
                    help="Every chart here has a table equivalent."):
         st.dataframe(pd.DataFrame([{
             "month": m.month, "active_listings": m.n_active,
-            "median_psf": m.median_psf, "median_price": m.median_price,
+            "median_psf": m.median_psf,
+            "median_min_price_inr": m.median_min_price_inr,
+            "median_max_price_inr": m.median_max_price_inr,
+            "partial_month": m.is_partial_month,
             "p25_psf": m.p25_psf, "p75_psf": m.p75_psf,
             "adequate_depth": m.month_is_sufficient,
         } for m in report.monthly]), width='stretch', hide_index=True)

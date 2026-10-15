@@ -41,6 +41,16 @@ import math
 CurrencyUnit = Literal["INR", "INR_LAKH", "INR_CRORE"]
 AreaUnit = Literal["SQFT", "SQM"]
 
+#: Version of the contract suite in ``contracts/`` this code implements.
+CONTRACT_VERSION = "2.0.0-draft"
+
+#: Default last month of the 12-month window.
+DEFAULT_WINDOW_END = "2023-08"
+
+#: The month holding the snapshot's latest posting (2023-08-26 10:29 IST).
+#: Observed only up to that date, so it is flagged and never extrapolated.
+PARTIAL_MONTH = "2023-08"
+
 #: A month is reported but flagged unreliable below this many active listings.
 MIN_SUFFICIENT_N = 50
 
@@ -64,8 +74,13 @@ class MonthStat:
 
     month: str                  # 'YYYY-MM'
     n_active: int               # active listings matching the criteria
-    median_psf: float | None    # median price per unit area
-    median_price: float | None  # median asking price
+    median_psf: float | None    # median MIN_PRICE per unit area
+    #: Median MIN_PRICE (the asking price) and median MAX_PRICE, in display
+    #: currency. Reported separately (contract v2 decision 7). On the current
+    #: snapshot every canonical listing has MIN_PRICE == MAX_PRICE, so the two
+    #: series coincide; the separation is kept so a range listing would show.
+    median_min_price_inr: float | None
+    median_max_price_inr: float | None
     p25_psf: float | None
     p75_psf: float | None
     #: Median (scrape_date - posting_date) for listings live at the scrape.
@@ -82,6 +97,8 @@ class MonthStat:
     #: output contract had no sufficiency concept at all, and a bare
     #: ``sufficient`` read ambiguously at call sites.
     month_is_sufficient: bool
+    #: True for PARTIAL_MONTH: observed only up to the latest posting date.
+    is_partial_month: bool
 
     @property
     def iqr_psf(self) -> float | None:
@@ -123,8 +140,11 @@ class TrendReport:
     def count_series(self) -> list[int]:
         return [m.n_active for m in self.monthly]
 
-    def price_series(self) -> list[float | None]:
-        return [m.median_price for m in self.monthly]
+    def min_price_series(self) -> list[float | None]:
+        return [m.median_min_price_inr for m in self.monthly]
+
+    def max_price_series(self) -> list[float | None]:
+        return [m.median_max_price_inr for m in self.monthly]
 
     def age_series(self) -> list[float | None]:
         return [m.median_age_on_site_days for m in self.monthly]

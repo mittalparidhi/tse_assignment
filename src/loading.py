@@ -15,7 +15,10 @@ D1  ``MIN_AREA_SQFT`` / ``MAX_AREA_SQFT`` are **square metres despite the
     We therefore parse area from the ``AREA`` display string.
 
 D2  ``MIN_PRICE``/``MAX_PRICE`` carry the int32 sentinel 2,147,483,647
-    (= 2**31 - 1) on 5 rows, and 0 on 75 rows. Both are dropped.
+    (= 2**31 - 1) on 5 rows, and 0 on 75 rows. Both are dropped. A row is
+    kept only if both bounds are real prices and ``MIN_PRICE <= MAX_PRICE``
+    (contract v2 decision 7: both medians are reported; MIN_PRICE is the
+    asking price used for price per sqft).
 
 D3  ``PREFERENCE`` mixes sale (S, 7,927), rent (R, 1,467) and PG (P, 93).
     Mixing rent into an asking-price median is meaningless; sale only.
@@ -25,6 +28,11 @@ D4  ``BEDROOM_NUM`` is missing on 2,814 rows, of which 2,806 are
     Restricting to dwellings removes the missingness *and* makes price per
     built-up area comparable. Of the rows where both exist, heading-derived
     BHK agrees with ``BEDROOM_NUM`` on 6,041 and conflicts on 0.
+
+D6  ``PRICE`` reads "Price on Request" on 87 raw rows: the seller published no
+    price, so the numeric bounds are placeholders, not asking prices. Dropped.
+
+Months are derived in Asia/Kolkata, never UTC (contract v2 decision 4).
 
 D5  Area-entry errors in the tail: a 27 sqft "villa" at Rs 2.15 cr
     (Rs 796,296/sqft) and a 285,599 sqft one, concentrated in
@@ -63,10 +71,20 @@ EXPECTED_SHA256 = (
 #: Int32 sentinel observed in MIN_PRICE/MAX_PRICE (D2).
 INT32_SENTINEL = 2_147_483_647
 
-#: The scrape date, taken as the latest observed POSTING_DATE in the frozen
-#: file. Used to derive age-on-site. Hard-coded rather than recomputed so the
-#: derived column cannot drift if the frame is ever filtered before loading.
-SCRAPE_DATE = pd.Timestamp("2023-08-26", tz="UTC")
+#: Months are local calendar months. POSTING_DATE is an absolute instant (Unix
+#: ms); deriving the month in UTC would put listings posted between 00:00 and
+#: 05:30 IST into the previous month (18 canonical rows).
+LOCAL_TIMEZONE = "Asia/Kolkata"
+
+#: The latest POSTING_DATE in the frozen raw file, in local time. It marks
+#: 2023-08 as a partial month and is the reference for age-on-site. Hard-coded
+#: rather than recomputed so the derived column cannot drift if the frame is
+#: ever filtered before loading.
+LATEST_POSTING = pd.Timestamp("2023-08-26 10:29:05", tz=LOCAL_TIMEZONE)
+
+#: Display text meaning the seller published no price (D6). These rows carry
+#: placeholder numbers in MIN_PRICE/MAX_PRICE that are not asking prices.
+PRICE_ON_REQUEST_RE = r"\bprice\s+on\s+request\b"
 
 #: Bounding box used to reject implausible coordinates (Hyderabad metro).
 HYDERABAD_BBOX = (16.5, 18.5, 77.5, 79.5)   # lat_min, lat_max, lon_min, lon_max
@@ -91,15 +109,15 @@ _AREA_RE = re.compile(r"^([\d.,]+)\s*sq\.ft\.$", re.IGNORECASE)
 _SQM_RE = re.compile(r"^([\d.,]+)\s*sq\.m\.$", re.IGNORECASE)
 _PRICE_RE = re.compile(r"^([\d.,]+)\s*(L|Cr|K)?$", re.IGNORECASE)
 
-#: Display-suffix -> rupee multiplier, for the STRICT-mode cross-check.
+#: Display-suffix -> rupee multiplier, for the Analysis agent's cross-check.
 _PRICE_SUFFIX = {"l": 1e5, "cr": 1e7, "k": 1e3, "": 1.0}
 
 CANONICAL_COLUMNS = [
-    "listing_id", "month", "price_inr", "area_sqft", "psf_inr",
-    "bhk", "locality", "property_type", "city",
-    # Independent restatements of price and area, kept for the retrieval
-    # agents' STRICT mode to cross-check against. Never used by the
-    # deterministic statistics.
+    "listing_id", "month", "price_inr", "max_price_inr", "area_sqft",
+    "psf_inr", "bhk", "locality", "property_type", "city",
+    # Independent restatements of price and area, kept for the Analysis
+    # agent's targeted recomputation to cross-check against. Never used by
+    # the deterministic statistics.
     "area_sqm_raw", "price_display_inr",
     # Secondary statistic (see MonthStat.median_age_on_site_days).
     "age_on_site_days",
@@ -266,16 +284,29 @@ def load_canonical(
     posted = pd.to_datetime(
         pd.to_numeric(df["POSTING_DATE"], errors="coerce"),
         unit="ms", errors="coerce", utc=True,
-    )
+    ).dt.tz_convert(LOCAL_TIMEZONE)
     df = df.assign(_posted=posted).dropna(subset=["_posted"])
     log.record("parseable POSTING_DATE", len(df))
 
-    price = pd.to_numeric(df["MIN_PRICE"], errors="coerce")  # D2
-    df = df.assign(_price=price)
+    on_request = df["PRICE"].astype("string").str.contains(   # D6
+        PRICE_ON_REQUEST_RE, case=False, regex=True, na=False)
+    df = df[~on_request]
+    log.record("not Price on Request", len(df))
+
+    # D2. A price range is usable only if both bounds are real prices and
+    # coherent; MIN_PRICE is the asking price, MAX_PRICE its upper bound.
+    price = pd.to_numeric(df["MIN_PRICE"], errors="coerce")
+    max_price = pd.to_numeric(df["MAX_PRICE"], errors="coerce")
+    df = df.assign(_price=price, _max_price=max_price)
     df = df[df["_price"].notna()
             & (df["_price"] > 0)
             & (df["_price"] < INT32_SENTINEL)]
-    log.record("price not zero/sentinel", len(df))
+    log.record("MIN_PRICE not zero/sentinel", len(df))
+    df = df[df["_max_price"].notna()
+            & (df["_max_price"] > 0)
+            & (df["_max_price"] < INT32_SENTINEL)
+            & (df["_price"] <= df["_max_price"])]
+    log.record("MAX_PRICE valid and >= MIN_PRICE", len(df))
 
     area = df["AREA"].map(_parse_area_sqft)                  # D1
     df = df.assign(_area=area).dropna(subset=["_area"])
@@ -301,9 +332,9 @@ def load_canonical(
 
     bhk = pd.to_numeric(df["BEDROOM_NUM"], errors="coerce")
 
-    # Age on site at the scrape date. Right-censored and length-biased; see
+    # Age on site at the latest posting. Right-censored and length-biased; see
     # MonthStat.median_age_on_site_days for why it is not "days on market".
-    age_days = (SCRAPE_DATE - df["_posted"]).dt.days.astype(float)
+    age_days = (LATEST_POSTING - df["_posted"]).dt.days.astype(float)
     age_days = age_days.where(age_days.between(0, 1000))
 
     coords = df["MAP_DETAILS"].map(_parse_latlon)
@@ -312,6 +343,7 @@ def load_canonical(
         "listing_id": df["PROP_ID"].astype(str).to_numpy(),
         "month": df["_posted"].dt.strftime("%Y-%m").to_numpy(),
         "price_inr": df["_price"].astype(float).to_numpy(),
+        "max_price_inr": df["_max_price"].astype(float).to_numpy(),
         "area_sqft": df["_area"].astype(float).to_numpy(),
         "psf_inr": df["_psf"].astype(float).to_numpy(),
         "bhk": bhk.to_numpy(),
@@ -327,7 +359,16 @@ def load_canonical(
     })[CANONICAL_COLUMNS].reset_index(drop=True)
 
     log.record("canonical listings", len(canonical))
+    # Carried with the frame so reports can name the snapshot they describe.
+    canonical.attrs["snapshot_sha256"] = EXPECTED_SHA256 if verify else None
     return canonical, log
+
+
+def canonical_csv_bytes(frame: pd.DataFrame) -> bytes:
+    """The exact bytes ``freeze_canonical`` writes, so a test can check that a
+    rebuilt frame still matches the frozen copy without writing a file.
+    The line terminator is fixed so the digest does not depend on the OS."""
+    return frame.to_csv(index=False, lineterminator="\n").encode("utf-8")
 
 
 def freeze_canonical(
@@ -336,14 +377,16 @@ def freeze_canonical(
     """Materialise the canonical frame next to its reject log and checksum."""
     frame, log = load_canonical()
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    frame.to_csv(out_path, index=False)
+    out_path.write_bytes(canonical_csv_bytes(frame))
 
+    # Explicit "\n" so the files, and the digest, are identical on Windows.
     log.as_frame().to_csv(
-        out_path.with_name("canonical_reject_log.csv"), index=False
+        out_path.with_name("canonical_reject_log.csv"), index=False,
+        lineterminator="\n",
     )
     digest = hashlib.sha256(out_path.read_bytes()).hexdigest()
     out_path.with_name("CHECKSUMS.txt").write_text(
-        f"{digest}  {out_path.name}\n"
+        f"{digest}  {out_path.name}\n", newline="\n"
     )
     return frame
 

@@ -26,7 +26,7 @@ import json
 import numpy as np
 import pandas as pd
 
-from ..contract import MIN_SUFFICIENT_N
+from ..contract import CONTRACT_VERSION, MIN_SUFFICIENT_N
 from ..trend import (
     Criteria,
     apply_criteria,
@@ -566,6 +566,10 @@ def analysis_agent(state: TrendState) -> TrendState:
     state["n_rejected_outliers"] = state.get("n_rejected_outliers", 0) + rejected
 
     provenance = {
+        "contract_version": CONTRACT_VERSION,
+        # None for frames not built by load_canonical (e.g. the synthetic
+        # snapshot), so a report never names a snapshot it did not come from.
+        "snapshot_sha256": state["frame"].attrs.get("snapshot_sha256"),
         "seed": state.get("seed", 0),
         "agent_mode": state["config"].agent_mode.value,
         "query_mode": spec.query_mode,

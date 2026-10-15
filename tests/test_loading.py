@@ -73,3 +73,82 @@ def test_price_display_parser_handles_indian_units():
     assert loading._parse_price_display("1.2 Cr") == pytest.approx(12_000_000)
     assert loading._parse_price_display("") is None
     assert loading._parse_price_display("on request") is None
+
+
+# -- Contract v2 rules ported from the first implementation (Phase 3) --------
+
+def _raw_row(prop_id, posting_ms, price=5_000_000, max_price=None,
+             price_text="50 L", area="1000 sq.ft."):
+    return {
+        "PROP_ID": prop_id, "PREFERENCE": "S",
+        "PROPERTY_TYPE": "Residential Apartment",
+        "POSTING_DATE": posting_ms, "PRICE": price_text,
+        "MIN_PRICE": price,
+        "MAX_PRICE": price if max_price is None else max_price,
+        "AREA": area, "SECONDARY_AREA": "", "BEDROOM_NUM": 2,
+        "MAP_DETAILS": "", "location": "{'LOCALITY_NAME': 'Kondapur'}",
+        "CITY": "Hyderabad", "DESCRIPTION": "fixture",
+    }
+
+
+def _load_fixture(tmp_path, rows):
+    path = tmp_path / "raw.csv"
+    pd.DataFrame(rows).to_csv(path, index=False)
+    return loading.load_canonical(path, verify=False)
+
+
+# 2023-07-31 19:00:00 UTC == 2023-08-01 00:30 IST
+_NEAR_MIDNIGHT_MS = 1_690_830_000_000
+
+
+def test_month_is_derived_in_india_time_not_utc(tmp_path):
+    """Contract v2 decision 4: a listing posted at 00:30 IST on 1 August is
+    an August listing, although it is still 31 July in UTC."""
+    frame, _ = _load_fixture(tmp_path, [_raw_row("A", _NEAR_MIDNIGHT_MS)])
+    assert frame["month"].tolist() == ["2023-08"]
+
+
+def test_price_on_request_is_excluded_even_with_numeric_bounds(tmp_path):
+    """Contract v2 decision 5 (D6): the numeric bounds of a Price on Request
+    listing are placeholders, so the row never reaches the statistics."""
+    frame, log = _load_fixture(tmp_path, [
+        _raw_row("A", _NEAR_MIDNIGHT_MS),
+        _raw_row("B", _NEAR_MIDNIGHT_MS, price_text="Price on Request"),
+        _raw_row("C", _NEAR_MIDNIGHT_MS, price_text="  price ON request "),
+    ])
+    assert frame["listing_id"].tolist() == ["A"]
+    stages = log.as_frame().set_index("stage")
+    assert stages.loc["not Price on Request", "rows_dropped"] == 2
+
+
+def test_max_price_must_be_valid_and_not_below_min_price(tmp_path):
+    """Contract v2 decision 7: both bounds must be real prices, MIN <= MAX."""
+    frame, _ = _load_fixture(tmp_path, [
+        _raw_row("ok", _NEAR_MIDNIGHT_MS, price=5e6, max_price=6e6),
+        _raw_row("inverted", _NEAR_MIDNIGHT_MS, price=6e6, max_price=5e6),
+        _raw_row("sentinel", _NEAR_MIDNIGHT_MS, max_price=loading.INT32_SENTINEL),
+        _raw_row("zero", _NEAR_MIDNIGHT_MS, max_price=0),
+    ])
+    assert frame["listing_id"].tolist() == ["ok"]
+    assert frame["max_price_inr"].tolist() == [6e6]
+
+
+def test_real_snapshot_has_no_price_on_request_or_inverted_range(canonical):
+    frame, _ = canonical
+    assert (frame["price_inr"] <= frame["max_price_inr"]).all()
+    raw = pd.read_csv(loading.RAW_PATH, low_memory=False)
+    on_request = raw["PRICE"].astype("string").str.contains(
+        loading.PRICE_ON_REQUEST_RE, case=False, regex=True, na=False)
+    assert not set(raw.loc[on_request, "PROP_ID"].astype(str)) & set(
+        frame["listing_id"])
+
+
+def test_frozen_canonical_snapshot_matches_a_fresh_rebuild(canonical):
+    """Data.md R4: the app rebuilds the frame from the raw file on every run,
+    so the frozen copy must still describe exactly that frame."""
+    import hashlib
+    frame, _ = canonical
+    rebuilt = hashlib.sha256(loading.canonical_csv_bytes(frame)).hexdigest()
+    recorded = (loading.RAW_PATH.parents[1] / "snapshot" / "CHECKSUMS.txt"
+                ).read_text().split()[0]
+    assert rebuilt == recorded

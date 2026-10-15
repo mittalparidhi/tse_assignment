@@ -4,6 +4,31 @@
       "now": 2,
       "reason": "The pre-Phase-A coverage auditor incremented its round counter before checking whether any relaxation lever could actually be applied, so it counted one no-op iteration. base00 has only two applicable levers (price_band, geography) and its golden 'relaxations' list correctly holds two entries, which is what shows the counter was wrong rather than the behaviour. Every reported statistic -- psf series, counts, rankings, total, yoy, span, coverage, rejected -- is byte-identical before and after. Consequence for the report: the claim that cycle 1 'fired 3 rounds in all 1080 runs' was partly this over-count; the substantive statement is that cycle 1 exhausted its available levers in every run, which is what explains the zero control-path divergence.",
       "was": 3
+    },
+    "pipeline::narrow.total": {
+      "now": 4141,
+      "reason": "Contract v2.0.0-draft (Phase 3): months derived in Asia/Kolkata instead of UTC; 'Price on Request' rows excluded (4 canonical rows); MAX_PRICE must be valid and >= MIN_PRICE (drops none); min/max price medians and is_partial_month added. Canonical rows 4,578 -> 4,574.",
+      "was": 4141
+    },
+    "trend::all.total": {
+      "now": 4533,
+      "reason": "Contract v2.0.0-draft (Phase 3): months derived in Asia/Kolkata instead of UTC; 'Price on Request' rows excluded (4 canonical rows); MAX_PRICE must be valid and >= MIN_PRICE (drops none); min/max price medians and is_partial_month added. Canonical rows 4,578 -> 4,574.",
+      "was": 4537
+    },
+    "trend::banded.total": {
+      "now": 1940,
+      "reason": "Contract v2.0.0-draft (Phase 3): months derived in Asia/Kolkata instead of UTC; 'Price on Request' rows excluded (4 canonical rows); MAX_PRICE must be valid and >= MIN_PRICE (drops none); min/max price medians and is_partial_month added. Canonical rows 4,578 -> 4,574.",
+      "was": 1948
+    },
+    "trend::bhk3.total": {
+      "now": 2234,
+      "reason": "Contract v2.0.0-draft (Phase 3): months derived in Asia/Kolkata instead of UTC; 'Price on Request' rows excluded (4 canonical rows); MAX_PRICE must be valid and >= MIN_PRICE (drops none); min/max price medians and is_partial_month added. Canonical rows 4,578 -> 4,574.",
+      "was": 2234
+    },
+    "trend::lakh.total": {
+      "now": 4533,
+      "reason": "Contract v2.0.0-draft (Phase 3): months derived in Asia/Kolkata instead of UTC; 'Price on Request' rows excluded (4 canonical rows); MAX_PRICE must be valid and >= MIN_PRICE (drops none); min/max price medians and is_partial_month added. Canonical rows 4,578 -> 4,574.",
+      "was": 4537
     }
   },
   "pipeline::base00": {
@@ -120,14 +145,14 @@
       21,
       20,
       57,
-      143,
+      142,
       287,
-      508,
-      1606,
-      1403
+      502,
+      1605,
+      1411
     ],
     "coverage": 0.5,
-    "n_rejected_strict": 125,
+    "n_rejected_strict": 122,
     "psf": [
       4104.169444444445,
       4503.105590062112,
@@ -136,17 +161,17 @@
       8566.978193146417,
       6746.6753236384375,
       8333.333333333334,
-      6967.213114754099,
+      6883.606557377049,
       7105.263157894737,
-      7747.563723228101,
-      7199.0,
-      7200.0
+      7726.058375634518,
+      7207.206456456456,
+      7189.189189189189
     ],
     "ranking": [
-      "Gandipet",
       "Kismathpur",
-      "Film Nagar",
       "Jubilee Hills",
+      "Film Nagar",
+      "Gandipet",
       "Raidurgam",
       "Nanakramguda",
       "Diamond Hills",
@@ -162,7 +187,7 @@
     "strict_rounds": 1,
     "total": 4141,
     "widen_rounds": 2,
-    "yoy": -13.600000000000007
+    "yoy": -13.729729729729737
   },
   "trend::all": {
     "counts": [
@@ -173,11 +198,53 @@
       22,
       23,
       61,
-      162,
+      159,
       309,
-      552,
-      1712,
-      1580
+      544,
+      1711,
+      1588
+    ],
+    "max_price": [
+      5800000.0,
+      8600000.0,
+      5800000.0,
+      7202970.0,
+      16000000.0,
+      11000000.0,
+      15000000.0,
+      14000000.0,
+      13000000.0,
+      13500000.0,
+      13200000.0,
+      13801000.0
+    ],
+    "min_price": [
+      5800000.0,
+      8600000.0,
+      5800000.0,
+      7202970.0,
+      16000000.0,
+      11000000.0,
+      15000000.0,
+      14000000.0,
+      13000000.0,
+      13500000.0,
+      13200000.0,
+      13801000.0
+    ],
+    "partial": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true
     ],
     "pct": [
       null,
@@ -187,25 +254,11 @@
       94.95234072297276,
       -18.191635880570825,
       15.972222222222227,
-      -12.60366441658631,
-      3.0981053304572947,
-      6.543589743589748,
-      -7.955942622950818,
-      5.913945377945549
-    ],
-    "price": [
-      5800000.0,
-      8600000.0,
-      5800000.0,
-      7202970.0,
-      16000000.0,
-      11000000.0,
-      15000000.0,
-      14100000.0,
-      13000000.0,
-      13650000.0,
-      13082400.0,
-      13900000.0
+      -13.600000000000007,
+      4.286997817995118,
+      6.536930769230774,
+      -7.494218388649291,
+      5.391879185250132
     ],
     "psf": [
       4166.672222222222,
@@ -215,11 +268,11 @@
       8783.489096573208,
       7185.62874251497,
       8333.333333333334,
-      7283.027965284475,
+      7200.0,
       7508.6638428956485,
-      8000.0,
-      7363.524590163935,
-      7798.9994123178185
+      7999.5,
+      7400.0,
+      7798.99905970851
     ],
     "ranking": [
       "Ibrahimpatnam",
@@ -242,8 +295,8 @@
       "2023-07",
       "2023-08"
     ],
-    "total": 4537,
-    "yoy": -6.412007052186184
+    "total": 4533,
+    "yoy": -6.41201128349789
   },
   "trend::banded": {
     "counts": [
@@ -257,8 +310,50 @@
       36,
       95,
       210,
-      364,
-      1161
+      360,
+      1157
+    ],
+    "max_price": [
+      11600000.0,
+      5980250.0,
+      7250000.0,
+      9000000.0,
+      8075857.5,
+      12500000.0,
+      9050000.0,
+      10287400.0,
+      9994000.0,
+      10327800.0,
+      10174375.0,
+      10100006.0
+    ],
+    "min_price": [
+      11600000.0,
+      5980250.0,
+      7250000.0,
+      9000000.0,
+      8075857.5,
+      12500000.0,
+      9050000.0,
+      10287400.0,
+      9994000.0,
+      10327800.0,
+      10174375.0,
+      10100006.0
+    ],
+    "partial": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
     ],
     "pct": [
       null,
@@ -272,21 +367,7 @@
       -1.2911158930218216,
       3.9872788709998037,
       -2.4523702804651504,
-      -1.416765053128684
-    ],
-    "price": [
-      11600000.0,
-      5980250.0,
-      7250000.0,
-      9000000.0,
-      8075857.5,
-      12500000.0,
-      9050000.0,
-      10287400.0,
-      9994000.0,
-      10327800.0,
-      10174375.0,
-      10100005.0
+      -1.413567417431045
     ],
     "psf": [
       6870.229007633588,
@@ -300,7 +381,7 @@
       6500.0,
       6759.173126614987,
       6593.413173652694,
-      6500.0
+      6500.2108333333335
     ],
     "ranking": [
       "Ibrahimpatnam",
@@ -321,8 +402,8 @@
       "2023-06",
       "2023-07"
     ],
-    "total": 1948,
-    "yoy": 0.0
+    "total": 1940,
+    "yoy": 0.003243589743592915
   },
   "trend::bhk3": {
     "counts": [
@@ -335,9 +416,51 @@
       30,
       63,
       149,
-      262,
-      921,
-      758
+      259,
+      919,
+      763
+    ],
+    "max_price": [
+      5980250.0,
+      13736565.0,
+      21240000.0,
+      8800000.0,
+      17500000.0,
+      9300000.0,
+      15400000.0,
+      12740000.0,
+      14598175.0,
+      14100000.0,
+      14645000.0,
+      14591385.0
+    ],
+    "min_price": [
+      5980250.0,
+      13736565.0,
+      21240000.0,
+      8800000.0,
+      17500000.0,
+      9300000.0,
+      15400000.0,
+      12740000.0,
+      14598175.0,
+      14100000.0,
+      14645000.0,
+      14591385.0
+    ],
+    "partial": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true
     ],
     "pct": [
       null,
@@ -349,23 +472,9 @@
       15.572318007662828,
       -15.709342560553633,
       11.428571428571429,
-      -1.0677920283543034,
-      -2.181306237375293,
-      3.3200885842987473
-    ],
-    "price": [
-      5980250.0,
-      13736565.0,
-      21240000.0,
-      8800000.0,
-      17500000.0,
-      9300000.0,
-      15400000.0,
-      12740000.0,
-      14598175.0,
-      14120000.0,
-      14600000.0,
-      14609250.0
+      -2.065527065527068,
+      -0.8556149732620237,
+      2.9770873786407708
     ],
     "psf": [
       3528.5248683695227,
@@ -377,9 +486,9 @@
       8304.597701149425,
       7000.0,
       7800.0,
-      7716.712221788364,
-      7548.387096774193,
-      7799.000235072873
+      7638.888888888889,
+      7573.529411764706,
+      7799.0
     ],
     "ranking": [
       "Ibrahimpatnam",
@@ -402,7 +511,7 @@
       "2023-08"
     ],
     "total": 2234,
-    "yoy": 11.41428907246961
+    "yoy": 11.414285714285715
   },
   "trend::lakh": {
     "counts": [
@@ -413,11 +522,53 @@
       22,
       23,
       61,
-      162,
+      159,
       309,
-      552,
-      1712,
-      1580
+      544,
+      1711,
+      1588
+    ],
+    "max_price": [
+      58.00000000000001,
+      86.0,
+      58.00000000000001,
+      72.0297,
+      160.0,
+      110.00000000000001,
+      150.0,
+      140.0,
+      130.0,
+      135.0,
+      132.0,
+      138.01
+    ],
+    "min_price": [
+      58.00000000000001,
+      86.0,
+      58.00000000000001,
+      72.0297,
+      160.0,
+      110.00000000000001,
+      150.0,
+      140.0,
+      130.0,
+      135.0,
+      132.0,
+      138.01
+    ],
+    "partial": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true
     ],
     "pct": [
       null,
@@ -427,25 +578,11 @@
       94.95234072297278,
       -18.191635880570832,
       15.972222222222232,
-      -12.603664416586321,
-      3.098105330457309,
-      6.543589743589748,
-      -7.9559426229508245,
-      5.913945377945556
-    ],
-    "price": [
-      58.00000000000001,
-      86.0,
-      58.00000000000001,
-      72.0297,
-      160.0,
-      110.00000000000001,
-      150.0,
-      141.0,
-      130.0,
-      136.5,
-      130.824,
-      139.0
+      -13.600000000000012,
+      4.2869978179951245,
+      6.536930769230772,
+      -7.494218388649291,
+      5.391879185250132
     ],
     "psf": [
       0.4484968646616889,
@@ -455,11 +592,11 @@
       0.9454468963489098,
       0.7734546395209582,
       0.8969925333333335,
-      0.783938604590164,
+      0.7750015488,
       0.8082258482864845,
-      0.8611128320000001,
-      0.7926031891672132,
-      0.8394773088384166
+      0.8610590124480001,
+      0.7965293696000001,
+      0.8394772708838666
     ],
     "ranking": [
       "Ibrahimpatnam",
@@ -482,7 +619,7 @@
       "2023-07",
       "2023-08"
     ],
-    "total": 4537,
-    "yoy": -6.412007052186184
+    "total": 4533,
+    "yoy": -6.41201128349789
   }
 }

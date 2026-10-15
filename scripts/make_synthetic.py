@@ -108,6 +108,7 @@ def generate(seed: int = SEED) -> tuple[pd.DataFrame, dict]:
                 "listing_id": listing_id,
                 "month": month,
                 "price_inr": price,
+                "max_price_inr": price,   # one price per synthetic listing
                 "area_sqft": area,
                 "psf_inr": psf,
                 "bhk": float(bhk),
@@ -116,6 +117,13 @@ def generate(seed: int = SEED) -> tuple[pd.DataFrame, dict]:
                 "city": "Hyderabad",
                 "area_sqm_raw": area / 10.7639104,
                 "price_display_inr": price,
+                # Columns the canonical frame gained after this generator was
+                # written. No MR asserts on age; no synthetic listing is
+                # located, so radius queries correctly match none of them.
+                "age_on_site_days": float("nan"),
+                "latitude": float("nan"),
+                "longitude": float("nan"),
+                "description": "synthetic listing",
             })
 
     frame = pd.DataFrame(rows)[CANONICAL_COLUMNS]
@@ -230,13 +238,14 @@ def verify_ground_truth(frame: pd.DataFrame, truth: dict) -> pd.DataFrame:
 def main() -> int:
     frame, truth = generate()
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    frame.to_csv(OUT_PATH, index=False)
+    # Explicit "\n" so the file, and its recorded digest, match on Windows.
+    frame.to_csv(OUT_PATH, index=False, lineterminator="\n")
 
     digest = hashlib.sha256(OUT_PATH.read_bytes()).hexdigest()
     truth["sha256"] = digest
 
     import json
-    TRUTH_PATH.write_text(json.dumps(truth, indent=2))
+    TRUTH_PATH.write_text(json.dumps(truth, indent=2), newline="\n")
 
     print(f"wrote {OUT_PATH}  rows={len(frame):,}  sha256={digest[:16]}...")
     print(f"injected outliers: {truth['n_outliers_injected']} "

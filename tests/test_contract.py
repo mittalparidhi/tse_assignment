@@ -16,7 +16,8 @@ def _months(n=12, start=1):
 
 def _stats(months):
     return tuple(
-        MonthStat(m, 100, 7500.0, 1.3e7, 6000.0, 9000.0, 34.0, True)
+        MonthStat(m, 100, 7500.0, 1.3e7, 1.3e7, 6000.0, 9000.0, 34.0, True,
+                  False)
         for m in months
     )
 
@@ -62,7 +63,8 @@ def test_pct_change_series_is_scale_invariant():
 
     def build(values):
         return _report(months, monthly=tuple(
-            MonthStat(m, 100, v, v * 1500, None, None, None, True)
+            MonthStat(m, 100, v, v * 1500, v * 1500, None, None, None, True,
+                      False)
             for m, v in zip(months, values)
         ))
 

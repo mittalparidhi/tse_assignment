@@ -60,7 +60,8 @@ def _reports_identical(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
                        f"{dst.count_series()}")
     for name, a, b in (
         ("median_psf", src.psf_series(), dst.psf_series()),
-        ("median_price", src.price_series(), dst.price_series()),
+        ("median_min_price", src.min_price_series(), dst.min_price_series()),
+        ("median_max_price", src.max_price_series(), dst.max_price_series()),
         ("p25", [m.p25_psf for m in src.monthly], [m.p25_psf for m in dst.monthly]),
         ("p75", [m.p75_psf for m in src.monthly], [m.p75_psf for m in dst.monthly]),
     ):
@@ -187,9 +188,10 @@ def _check_duplicate(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
             continue
         if not _close(s.median_psf, d.median_psf):
             return False, f"{s.month}: median psf {s.median_psf} -> {d.median_psf}"
-        if not _close(s.median_price, d.median_price):
-            return False, (f"{s.month}: median price {s.median_price} -> "
-                           f"{d.median_price}")
+        for name in ("median_min_price_inr", "median_max_price_inr"):
+            a, b = getattr(s, name), getattr(d, name)
+            if not _close(a, b):
+                return False, f"{s.month}: {name} {a} -> {b}"
     if dst.n_listings_total != 2 * src.n_listings_total:
         return False, (f"total {src.n_listings_total} -> "
                        f"{dst.n_listings_total}, expected exactly 2x")
@@ -285,20 +287,22 @@ def _check_m1(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
     target = None
     if "|m1:" in str(dst.criteria.get("label", "")):
         target = str(dst.criteria["label"]).rsplit("|m1:", 1)[1]
+    # Both price bounds are shifted by the transform, so both medians must move
+    # by X in the target month and stay put elsewhere.
     for s, d in zip(src.monthly, dst.monthly):
-        if s.median_price is None or d.median_price is None:
-            continue
-        if s.month == target:
-            moved = d.median_price - s.median_price
-            if abs(moved - M1_DELTA_INR) > max(1e-6 * M1_DELTA_INR, 1e-6):
-                return False, (f"{s.month}: median price moved {moved:,.2f}, "
-                               f"expected {M1_DELTA_INR:,.2f}")
-        else:
-            if not _close(s.median_price, d.median_price):
-                return False, (f"{s.month}: untouched month moved "
-                               f"{s.median_price} -> {d.median_price}")
-        if d.median_price < s.median_price - 1e-6:
-            return False, f"{s.month}: median price decreased"
+        for name in ("median_min_price_inr", "median_max_price_inr"):
+            a, b = getattr(s, name), getattr(d, name)
+            if a is None or b is None:
+                continue
+            if s.month == target:
+                moved = b - a
+                if abs(moved - M1_DELTA_INR) > max(1e-6 * M1_DELTA_INR, 1e-6):
+                    return False, (f"{s.month}: {name} moved {moved:,.2f}, "
+                                   f"expected {M1_DELTA_INR:,.2f}")
+            elif not _close(a, b):
+                return False, f"{s.month}: untouched month {name} moved {a} -> {b}"
+            if b < a - 1e-6:
+                return False, f"{s.month}: {name} decreased"
     return True, ""
 
 
@@ -399,9 +403,10 @@ def _check_d1(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
                            f"across the shifted window")
         if not _close(a.median_psf, b.median_psf):
             return False, f"{month}: median psf {a.median_psf} != {b.median_psf}"
-        if not _close(a.median_price, b.median_price):
-            return False, (f"{month}: median price {a.median_price} != "
-                           f"{b.median_price}")
+        for name in ("median_min_price_inr", "median_max_price_inr"):
+            x, y = getattr(a, name), getattr(b, name)
+            if not _close(x, y):
+                return False, f"{month}: {name} {x} != {y}"
     return True, ""
 
 
@@ -438,13 +443,12 @@ def _check_d2(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
             ):
                 return False, (f"{s.month}: median psf {s.median_psf} did not "
                                f"scale by {D2_K} (got {d.median_psf})")
-        if s.median_price is not None or d.median_price is not None:
-            if not _close(
-                None if s.median_price is None else s.median_price * D2_K,
-                d.median_price, rel=1e-9
-            ):
-                return False, (f"{s.month}: median price did not scale by "
-                               f"{D2_K}")
+        for name in ("median_min_price_inr", "median_max_price_inr"):
+            a, b = getattr(s, name), getattr(d, name)
+            if a is not None or b is not None:
+                if not _close(None if a is None else a * D2_K, b, rel=1e-9):
+                    return False, (f"{s.month}: {name} did not scale by "
+                                   f"{D2_K} ({a} -> {b})")
     ok, why = _series_close(
         src.pct_change_series(), dst.pct_change_series(), rel=1e-9
     )

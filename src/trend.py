@@ -22,6 +22,7 @@ from .contract import (
     AREA_SCALE,
     CURRENCY_SCALE,
     MIN_SUFFICIENT_N,
+    PARTIAL_MONTH,
     AreaUnit,
     CurrencyUnit,
     LocalityStat,
@@ -197,21 +198,26 @@ def compute_trend(
         if group is None or group.empty:
             monthly.append(MonthStat(
                 month=month, n_active=0, median_psf=None,
-                median_price=None, p25_psf=None, p75_psf=None,
-                median_age_on_site_days=None, month_is_sufficient=False))
+                median_min_price_inr=None, median_max_price_inr=None,
+                p25_psf=None, p75_psf=None,
+                median_age_on_site_days=None, month_is_sufficient=False,
+                is_partial_month=(month == PARTIAL_MONTH)))
             continue
         psf = group["psf_inr"].to_numpy(dtype=float) * psf_scale
-        price = group["price_inr"].to_numpy(dtype=float) * price_scale
+        min_price = group["price_inr"].to_numpy(dtype=float) * price_scale
+        max_price = group["max_price_inr"].to_numpy(dtype=float) * price_scale
         monthly.append(MonthStat(
             month=month,
             n_active=int(len(group)),
             median_psf=_median(psf),
-            median_price=_median(price),
+            median_min_price_inr=_median(min_price),
+            median_max_price_inr=_median(max_price),
             p25_psf=_quantile(psf, 0.25),
             p75_psf=_quantile(psf, 0.75),
             median_age_on_site_days=_median(
                 group["age_on_site_days"].dropna().to_numpy(dtype=float)),
             month_is_sufficient=bool(len(group) >= min_sufficient_n),
+            is_partial_month=(month == PARTIAL_MONTH),
         ))
 
     rankings = _rank_localities(in_window, psf_scale, top_localities,
@@ -302,11 +308,13 @@ if __name__ == "__main__":
     print(f"median psf move: {report.yoy_median_psf_pct:+.2f}% "
           f"over {report.yoy_span_months} sufficient months "
           f"(window is 12)")
-    print("\n month     n   median_psf   median_price  sufficient")
+    print("\n month     n   median_psf  median_min_price  sufficient  partial")
     for m in report.monthly:
         psf = f"{m.median_psf:,.0f}" if m.median_psf else "-"
-        price = f"{m.median_price:,.0f}" if m.median_price else "-"
-        print(f" {m.month} {m.n_active:>5} {psf:>12} {price:>14}   {m.month_is_sufficient}")
+        price = (f"{m.median_min_price_inr:,.0f}"
+                 if m.median_min_price_inr else "-")
+        print(f" {m.month} {m.n_active:>5} {psf:>12} {price:>17}   "
+              f"{m.month_is_sufficient!s:<10}  {m.is_partial_month}")
     print("\n top localities by median psf")
     for r in report.locality_rankings:
         print(f"  {r.rank:>2}. {r.locality:<26} n={r.n_active:<5} {r.median_psf:>10,.0f}")

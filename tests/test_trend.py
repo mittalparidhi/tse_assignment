@@ -9,16 +9,17 @@ from src.trend import Criteria, apply_criteria, compute_trend, month_window
 
 def _frame(rows):
     return pd.DataFrame(rows, columns=[
-        "listing_id", "month", "price_inr", "area_sqft", "psf_inr",
-        "bhk", "locality", "property_type", "city",
+        "listing_id", "month", "price_inr", "max_price_inr", "area_sqft",
+        "psf_inr", "bhk", "locality", "property_type", "city",
         "area_sqm_raw", "price_display_inr", "age_on_site_days",
         "latitude", "longitude", "description",
     ])
 
 
-def _listing(lid, month, price, area, bhk=3, locality="A"):
-    return [str(lid), month, float(price), float(area), price / area,
-            bhk, locality, "Residential Apartment", "Hyderabad",
+def _listing(lid, month, price, area, bhk=3, locality="A", max_price=None):
+    return [str(lid), month, float(price),
+            float(price if max_price is None else max_price), float(area),
+            price / area, bhk, locality, "Residential Apartment", "Hyderabad",
             area / 10.7639104, float(price), 34.0, 17.44, 78.39, "test listing"]
 
 
@@ -103,3 +104,28 @@ def test_unit_change_scales_levels_but_not_percentages():
         inr.month_stat("2023-08").median_psf * 1e-5)
     for a, b in zip(inr.pct_change_series(), lakh.pct_change_series()):
         assert (a is None and b is None) or a == pytest.approx(b)
+
+
+def test_min_and_max_price_medians_are_reported_separately():
+    """Contract v2 decision 7: both bounds have their own median, and price
+    per sqft is computed from MIN_PRICE."""
+    frame = _frame([
+        _listing(1, "2023-07", 4e6, 1000, max_price=5e6),
+        _listing(2, "2023-07", 6e6, 1000, max_price=9e6),
+    ])
+    stat = compute_trend(frame, Criteria(window_end="2023-08")).month_stat("2023-07")
+    assert stat.median_min_price_inr == pytest.approx(5e6)
+    assert stat.median_max_price_inr == pytest.approx(7e6)
+    assert stat.median_psf == pytest.approx(5000)
+
+
+def test_only_the_snapshot_end_month_is_flagged_partial():
+    """August 2023 is observed only to the 26th; it is flagged, never
+    extrapolated, wherever it falls in the window."""
+    frame = _frame([_listing(1, "2023-08", 5e6, 1000)])
+    for end in ("2023-08", "2023-09"):
+        report = compute_trend(frame, Criteria(window_end=end))
+        partial = [m.month for m in report.monthly if m.is_partial_month]
+        assert partial == ["2023-08"]
+    earlier = compute_trend(frame, Criteria(window_end="2023-07"))
+    assert not any(m.is_partial_month for m in earlier.monthly)

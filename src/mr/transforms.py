@@ -83,10 +83,13 @@ def add_to_month_price(
     ``psf_inr`` is recomputed from the shifted price so the frame stays
     internally consistent. Leaving psf stale would make MR-M1 pass for the
     wrong reason -- the price series would move while the psf series did not.
+    ``max_price_inr`` moves by the same constant, so ``MIN_PRICE <= MAX_PRICE``
+    still holds and both reported medians shift by exactly ``delta_inr``.
     """
     out = frame.copy()
     mask = out["month"] == month
     out.loc[mask, "price_inr"] = out.loc[mask, "price_inr"] + delta_inr
+    out.loc[mask, "max_price_inr"] = out.loc[mask, "max_price_inr"] + delta_inr
     out.loc[mask, "psf_inr"] = (
         out.loc[mask, "price_inr"] / out.loc[mask, "area_sqft"]
     )
@@ -147,6 +150,7 @@ def scale_prices(frame: pd.DataFrame, k: float) -> pd.DataFrame:
     """Scale every asking price by k, keeping the frame self-consistent."""
     out = frame.copy()
     out["price_inr"] = out["price_inr"] * k
+    out["max_price_inr"] = out["max_price_inr"] * k
     out["psf_inr"] = out["psf_inr"] * k
     out["price_display_inr"] = out["price_display_inr"] * k
     return out

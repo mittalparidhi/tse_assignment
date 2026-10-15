@@ -7,8 +7,10 @@ behind the entire root-cause analysis -- were produced by it.
 
 The fixtures are pinned at the level of the reported *series*, not dataclass
 field names, so they survive the contract rename and still prove the numbers
-are identical. Captured once before any Phase A edit; regenerating them would
-defeat the purpose.
+are identical. They change only through ``scripts/regenerate_golden.py`` for a
+reviewed contract change, which records old and new values and the reason in
+``_corrections`` (``contracts/Golden.md`` §4). Regenerating them to make a
+failing test pass would defeat the purpose.
 """
 
 import json
@@ -60,7 +62,9 @@ def test_trend_computation_unchanged(frame, label):
     want = GOLDEN[f"trend::{label}"]
     got = compute_trend(frame, TREND_CASES[label])
     _series_eq(got.psf_series(), want["psf"], f"{label}.psf")
-    _series_eq(got.price_series(), want["price"], f"{label}.price")
+    _series_eq(got.min_price_series(), want["min_price"], f"{label}.min_price")
+    _series_eq(got.max_price_series(), want["max_price"], f"{label}.max_price")
+    assert [m.is_partial_month for m in got.monthly] == want["partial"]
     _series_eq(got.pct_change_series(), want["pct"], f"{label}.pct")
     assert got.count_series() == want["counts"]
     assert got.ranking_order() == want["ranking"]

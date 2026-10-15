@@ -3,7 +3,9 @@ raw rows,9487,
 sale only (PREFERENCE=S),7927,1560.0
 dwellings only,5085,2842.0
 parseable POSTING_DATE,4975,110.0
-price not zero/sentinel,4917,58.0
-parseable AREA (sqft),4578,339.0
-plausibility bounds DEFERRED to ScanAgent STRICT,4578,0.0
-canonical listings,4578,0.0
+not Price on Request,4914,61.0
+MIN_PRICE not zero/sentinel,4913,1.0
+MAX_PRICE valid and >= MIN_PRICE,4913,0.0
+parseable AREA (sqft),4574,339.0
+plausibility bounds DEFERRED to Analysis recomputation,4574,0.0
+canonical listings,4574,0.0
