@@ -14,7 +14,6 @@ from __future__ import annotations
 
 import argparse
 import collections
-import re
 import sys
 from pathlib import Path
 
@@ -83,7 +82,7 @@ def main() -> None:
         if not ok:
             # Keep the offending token for invented figures, so the cause is
             # visible ("invented figure '17.440'" vs "invented figure '16'").
-            why[(kind[0], "narrative: " + re.sub(r"\(.*\)", "(instruction)", reason))] += 1
+            why[(kind[0], "narrative: " + reason)] += 1
         return ok, reason
 
     llm.ask_json, llm.ask_text = counted_json, counted_text

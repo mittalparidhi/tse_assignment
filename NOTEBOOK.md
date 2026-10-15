@@ -657,6 +657,36 @@ C1 path diverged in 27 -> 42 runs; all 72 base inputs end LIMITED
   M1raw 26/36.
 - Runtime 1,037 s deterministic, 172 s synthetic (Windows).
 
+## Stage 21 — The v2 LLM sweep on Kaggle, and the narrative fallbacks (2026-10-16)
+
+The LLM sweep was run on a Kaggle T4 (Ollama, `qwen2.5:3b-instruct-q4_K_M`,
+digest `357c53fb…`). Three problems surfaced on the way:
+
+- **A silently mislabelled sweep.** Cancelling one notebook cell stopped the
+  first run; the restart made no model calls for over an hour while using a
+  full CPU core, and would have finished as a deterministic sweep labelled LLM.
+  The harness now makes one real call before starting, stops after 10 backend
+  errors in a row, and writes the reply cache every 50 replies (commit c8e6e85).
+- **A fallback rate of about 0.2**, against 0.087 for the pre-v2 LLM sweep.
+  `scripts/llm_fallback_breakdown.py` replays the 72 base inputs from the
+  cache (seed 11, 0 new model calls) and splits it by agent: critique 140/140
+  model replies used, listing review 79/87, **narrative 14/72**. Narrative
+  rejections: 49 instruction leaks, 9 "invented" figures.
+- **Why the narrative fails.** The leaks occur exactly where the move is
+  unavailable (deterministic run: 24/36 locality and 27/36 radius inputs, vs
+  22 and 27 leaks): asked for "the size and direction of the price change"
+  when there is none, the model copies the facts block. The pre-v2 cache shows
+  the same pattern (all 136 leaks of 654 replies begin "Price change in median
+  per sqft: unavailable"); it was rarer then because geography widening
+  reached the whole metro and a move was usually available. The 9 "invented"
+  figures were the radius scope itself (`within 6 km of 17.440, 78.348`),
+  which the guard did not count as supplied.
+- **Fix.** A no-trend prompt when the move is unavailable, and figures in the
+  scope count as supplied. The prompt with a move is byte-identical, so its
+  cached replies stay valid. No relation compares the narrative, so the
+  sweep's violation verdicts are unaffected; only the reported fallback rate
+  is.
+
 ## Threats to validity (carried into the report)
 
 1. **Single-point scrape.** The series is survivorship-biased: older months

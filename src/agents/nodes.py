@@ -881,6 +881,23 @@ area covered: {scope}
 listings analysed: {total}
 """
 
+#: Used when the price change is unavailable (fewer than two sufficient months).
+#: Asked to "mention the size and direction of the price change" when there is
+#: none, the 3B model copied the facts block instead of writing prose: 49 of the
+#: 51 such base inputs were rejected as instruction leaks. The template with a
+#: change is kept byte-identical so its cached replies remain valid.
+_NARRATIVE_PROMPT_NO_TREND = """Summarise this housing data in two short sentences
+of plain English for a home buyer. Use only the figures given. Do not add any
+other number, place or date. First say that no price trend could be measured
+because too few months had enough listings. Then say how many of the twelve
+months were reliable, the area covered, and how many listings were analysed.
+Output nothing but the two sentences.
+
+reliable months: {n_sufficient} out of 12
+area covered: {scope}
+listings analysed: {total}
+"""
+
 
 #: Numbers the narrative is allowed to contain. Anything else means the model
 #: invented a figure, which for a user-facing summary is a defect rather than a
@@ -945,12 +962,18 @@ def aggregator_agent(state: TrendState) -> TrendState:
         n_sufficient = len(report.sufficient_months())
         move_text = "unavailable" if move is None else f"{move:+.1f}%"
         total_text = f"{report.n_price_valid_total:,}"
-        prompt = _NARRATIVE_PROMPT.format(
+        template = (_NARRATIVE_PROMPT if move is not None
+                    else _NARRATIVE_PROMPT_NO_TREND)
+        prompt = template.format(
             scope=scope, n_sufficient=n_sufficient,
             move=move_text, total=total_text,
         )
         allowed = {"12", str(n_sufficient), total_text.replace(",", ""),
                    move_text.lstrip("+-").rstrip("%")}
+        # Figures in the scope are supplied facts too: a radius scope reads
+        # "within 6 km of 17.440, 78.348", and repeating it is not inventing.
+        allowed |= {token.rstrip(".").replace(",", "")
+                    for token in _NUMBER.findall(scope)}
         if move is not None:
             allowed.add(f"{abs(move):.1f}")
         deterministic = _deterministic_narrative(state, report)

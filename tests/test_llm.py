@@ -565,3 +565,36 @@ def test_a_dead_backend_stops_the_sweep_instead_of_falling_back_forever():
     client.ask_text("PING", seed=2, fallback="x")
     with pytest.raises(BackendUnavailable):
         client.ask_json("PING", seed=3, fallback={})
+
+
+def _narrative_run(frame, criteria, seen):
+    """Run the LLM pipeline with a model that repeats the area it is given."""
+    def narrate(prompt):
+        seen.append(prompt)
+        area = prompt.split("area covered: ")[1].splitlines()[0]
+        return f"Listings were analysed. The data covers {area}."
+    routes = {"Summarise this housing data": narrate,
+              "You check property listings": '{"suspect_numbers": []}',
+              "You review a twelve-month": '{"suspect_months": []}'}
+    client = LLMClient(backend=ScriptedBackend(routes), cache_path=None,
+                       model="scripted")
+    return run_pipeline(frame, criteria, seed=11,
+                        config=GraphConfig(agent_mode=AgentMode.LLM), llm=client)
+
+
+def test_radius_narrative_may_repeat_its_own_centre_and_radius(frame):
+    from src.mr.base_inputs import generate_radius_inputs
+    seen = []
+    state = _narrative_run(frame, generate_radius_inputs(frame)[0], seen)
+    assert "km of" in state["narrative"], state["narrative"]
+
+
+def test_narrative_without_a_trend_uses_the_no_trend_prompt(frame):
+    from src.agents.nodes import _NARRATIVE_PROMPT_NO_TREND
+    seen = []
+    state = _narrative_run(
+        frame, Criteria(window_end="2023-08", bhk=(1,), localities=("Kollur",)),
+        seen)
+    assert state["final_report"].yoy_median_psf_pct is None
+    assert seen and seen[-1].startswith(_NARRATIVE_PROMPT_NO_TREND.splitlines()[0])
+    assert "price change in median per sqft" not in seen[-1]
