@@ -108,6 +108,12 @@ if geo == "RADIUS":
                                          format="%.4f")
     center_lon = st.sidebar.number_input("Centre longitude", value=78.3489,
                                          format="%.4f")
+    if locality_choice:
+        # A radius search is defined by its centre; it cannot also take a
+        # locality list (contracts/Criteria.md rule 8). Say so, don't block.
+        st.sidebar.caption("The locality selection is ignored for a radius "
+                           "search.")
+        locality_choice = []
 
 request = {
     "window_end": window_end,
@@ -241,9 +247,15 @@ with mr_tab:
         if detail_path.exists():
             detail = pd.read_csv(detail_path)
             violated = detail[detail.violated]
+            applicable = detail[detail.applicable]
+            # The statistical unit is the base input (contracts/Testing.md
+            # §6); runs are shown alongside because each seed is listed below.
+            bases = applicable.groupby(["mr_id", "base_input"]).violated.any()
             st.markdown(
-                f"**{len(violated)} violating runs** of "
-                f"{len(detail[detail.applicable])} applicable."
+                f"**{int(bases.sum())} violating base inputs** of "
+                f"{len(bases)} applicable (relation, base input) pairs; "
+                f"{len(violated)} violating runs of {len(applicable)} "
+                f"across the seeds."
             )
             if not violated.empty:
                 st.dataframe(

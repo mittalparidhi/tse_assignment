@@ -19,6 +19,9 @@ __pycache__/
 # a sample against them, and results that cannot be reproduced score zero on
 # rigor.
 
+# Local smoke-test sweeps (python scripts/run_harness.py --tag quick --quick)
+results/quick/
+
 # Local patch backups and patch bundles
 *.bak
 *.zip

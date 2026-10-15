@@ -109,7 +109,8 @@ The contracts for every agent are in `contracts/` (v2.0.0-draft).
 
 Both are real conditional edges in the compiled graph, both are capped so
 termination is guaranteed, and both are asserted to fire by tests
-(`tests/test_agents.py`). A trace is in `results/after_fix/trace_example.txt`.
+(`tests/test_agents.py`). A trace from the contract-v2 sweep, showing both loops firing, is in
+`results/v2_deterministic/trace_example.txt`.
 
 ## Repository layout
 
