@@ -31,6 +31,7 @@ from ..trend import (
     Criteria,
     apply_criteria,
     compute_trend,
+    haversine_km,
     month_window,
 )
 from .state import (
@@ -237,7 +238,7 @@ def retrieval_merge(state: TrendState) -> TrendState:
 # 3. Coverage / Confidence Agent   (owns cycle 1)
 # ==========================================================================
 
-def _relax_price_band(c: Criteria) -> tuple[Criteria, str] | None:
+def _relax_price_band(c: Criteria, frame: pd.DataFrame) -> tuple[Criteria, str] | None:
     if c.price_min_inr is None and c.price_max_inr is None:
         return None
     lo = None if c.price_min_inr is None else c.price_min_inr * 0.75
@@ -245,7 +246,7 @@ def _relax_price_band(c: Criteria) -> tuple[Criteria, str] | None:
     return c.with_(price_min_inr=lo, price_max_inr=hi), "price band widened 25%"
 
 
-def _relax_bhk(c: Criteria) -> tuple[Criteria, str] | None:
+def _relax_bhk(c: Criteria, frame: pd.DataFrame) -> tuple[Criteria, str] | None:
     if not c.bhk:
         return None
     widened = tuple(sorted({b + d for b in c.bhk for d in (-1, 0, 1) if b + d >= 1}))
@@ -254,17 +255,59 @@ def _relax_bhk(c: Criteria) -> tuple[Criteria, str] | None:
     return c.with_(bhk=widened), f"BHK {list(c.bhk)} -> {list(widened)}"
 
 
-def _relax_geography(c: Criteria) -> tuple[Criteria, str] | None:
-    """Widen whichever geographic constraint ``query_mode`` selected."""
+def _locality_centres(frame: pd.DataFrame) -> pd.DataFrame:
+    """Median coordinate of each named locality that has located listings."""
+    located = frame.dropna(subset=["latitude", "longitude"])
+    located = located[located["locality"] != "Unknown"]
+    return located.groupby("locality")[["latitude", "longitude"]].median()
+
+
+def _relax_geography(c: Criteria, frame: pd.DataFrame) -> tuple[Criteria, str] | None:
+    """Widen whichever geographic constraint ``query_mode`` selected.
+
+    RADIUS doubles the radius. EXACT_LOCALITY adds the nearest unselected
+    localities -- by distance from the median of the selected localities'
+    centres, ties broken by name -- until the added localities hold at least
+    as many snapshot listings as the selected ones, so depth roughly doubles,
+    like the radius lever (contracts/Coverage.md §3). Depth is counted over
+    the whole frame, so row order, duplication and window shifts cannot
+    change which localities are added.
+
+    It never removes the locality constraint: dropping it made every run
+    collapse to the whole metro, so a locality subset (MR M3) was compared
+    with an identical whole-metro run and could not fail.
+    """
     if c.query_mode == "RADIUS":
         if not c.radius_km:
             return None
         return (c.with_(radius_km=c.radius_km * 2.0),
                 f"radius {c.radius_km:.1f}km -> {c.radius_km * 2.0:.1f}km")
-    if c.localities is None:
+    if not c.localities:
         return None
-    return c.with_(localities=None), (
-        f"locality filter dropped (was {list(c.localities)})"
+    centres = _locality_centres(frame)
+    selected = centres.loc[centres.index.isin(c.localities)]
+    others = centres.loc[~centres.index.isin(c.localities)]
+    if selected.empty or others.empty:
+        return None                 # nothing to measure from, or nothing left
+    distance = haversine_km(
+        float(selected["latitude"].median()), float(selected["longitude"].median()),
+        others["latitude"].to_numpy(dtype=float),
+        others["longitude"].to_numpy(dtype=float),
+    )
+    depth = frame["locality"].value_counts()
+    ranked = (pd.DataFrame({"locality": others.index, "km": distance})
+              .sort_values(["km", "locality"], kind="mergesort"))
+    target = int(depth.reindex(list(c.localities)).fillna(0).sum())
+    added: list[str] = []
+    gained = 0
+    for name in ranked["locality"]:
+        added.append(name)
+        gained += int(depth.get(name, 0))
+        if gained >= max(target, 1):
+            break
+    added = tuple(added)
+    return c.with_(localities=tuple(c.localities) + added), (
+        f"localities widened by the {len(added)} nearest: {list(added)}"
     )
 
 
@@ -317,7 +360,7 @@ def coverage_agent(state: TrendState) -> TrendState:
         # Advance through the levers, using each at most once, so a lever that
         # can always widen (BHK) does not starve the binding one (geography).
         while cursor < len(_RELAXATIONS):
-            result = _RELAXATIONS[cursor](spec)
+            result = _RELAXATIONS[cursor](spec, state["frame"])
             cursor += 1
             if result is not None:
                 widened, note = result

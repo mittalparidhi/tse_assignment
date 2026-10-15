@@ -378,8 +378,23 @@ def _base_input(frame):
     feedback loop) and would mask the prompt-content question these tests
     exist to ask.
     """
-    from src.mr.base_inputs import generate_base_inputs
-    return generate_base_inputs(frame)[0]
+    global _BASE_INPUT
+    if _BASE_INPUT is None:
+        from src.mr.base_inputs import generate_base_inputs
+        # The first generated input whose run actually issues a grey-zone
+        # review prompt. Since geography widening keeps the locality
+        # constraint (contracts/Coverage.md §3), input 0 no longer does, and
+        # the prompt-invariance tests would otherwise pass vacuously.
+        for candidate in generate_base_inputs(frame):
+            if any("data-entry errors" in p
+                   for p in _captured_prompts(frame, candidate)):
+                _BASE_INPUT = candidate
+                break
+        assert _BASE_INPUT is not None, "no base input issues a review prompt"
+    return _BASE_INPUT
+
+
+_BASE_INPUT = None
 
 
 def test_relabelling_ids_leaves_every_prompt_unchanged(frame):

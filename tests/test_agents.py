@@ -41,12 +41,27 @@ def test_cycle1_coverage_to_retrieval_fires(frame, graph):
     assert any("cycle 1" in str(e.get("decision", "")) for e in state["trace"])
 
 
-def test_cycle1_improves_coverage_until_target_met(frame, graph):
+def test_cycle1_improves_coverage_until_target_met_or_levers_exhausted(frame, graph):
+    """Coverage never goes backwards, and the loop stops only when the target
+    is met or no lever can widen further (contracts/Coverage.md §2). Since
+    geography widening keeps a locality constraint, a narrow query can end
+    below target: the answer stays about the place the user asked for."""
     state = run_pipeline(frame, NARROW, seed=7, graph=graph)
     scores = [e["coverage_score"] for e in state["trace"]
               if e["agent"] == "CoverageAgent"]
     assert scores == sorted(scores), f"coverage went backwards: {scores}"
-    assert scores[-1] >= GraphConfig().coverage_target
+    assert scores[-1] > scores[0], "widening did not add depth"
+    met = scores[-1] >= GraphConfig().coverage_target
+    exhausted = state["relax_levers"] == ["bhk", "geography"]
+    assert met or exhausted
+    assert "Gachibowli" in state["final_report"].criteria["localities"]
+
+
+def test_geography_widening_adds_nearest_localities_not_the_whole_metro(frame, graph):
+    state = run_pipeline(frame, NARROW, seed=7, graph=graph)
+    widened = state["final_report"].criteria["localities"]
+    assert widened[0] == "Gachibowli" and len(widened) > 1
+    assert state["final_report"].n_listings_total < len(frame) / 2
 
 
 def test_cycle1_relaxations_are_recorded_not_silent(frame, graph):

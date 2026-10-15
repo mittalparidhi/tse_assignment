@@ -1,13 +1,28 @@
 {
   "_corrections": {
+    "pipeline::base00.total": {
+      "now": 18,
+      "reason": "Contract v2 Phase 4 (Coverage.md section 3): the geography lever adds the nearest localities until listing depth at least doubles, instead of dropping the locality filter (which made every run collapse to the whole metro and MR M3 vacuous).",
+      "was": 184
+    },
     "pipeline::base00.widen_rounds": {
       "now": 2,
       "reason": "The pre-Phase-A coverage auditor incremented its round counter before checking whether any relaxation lever could actually be applied, so it counted one no-op iteration. base00 has only two applicable levers (price_band, geography) and its golden 'relaxations' list correctly holds two entries, which is what shows the counter was wrong rather than the behaviour. Every reported statistic -- psf series, counts, rankings, total, yoy, span, coverage, rejected -- is byte-identical before and after. Consequence for the report: the claim that cycle 1 'fired 3 rounds in all 1080 runs' was partly this over-count; the substantive statement is that cycle 1 exhausted its available levers in every run, which is what explains the zero control-path divergence.",
       "was": 3
     },
+    "pipeline::base05.total": {
+      "now": 105,
+      "reason": "Contract v2 Phase 4 (Coverage.md section 3): the geography lever adds the nearest localities until listing depth at least doubles, instead of dropping the locality filter (which made every run collapse to the whole metro and MR M3 vacuous).",
+      "was": 199
+    },
     "pipeline::narrow.total": {
       "now": 4141,
       "reason": "Contract v2.0.0-draft (Phase 3): months derived in Asia/Kolkata instead of UTC; 'Price on Request' rows excluded (4 canonical rows); MAX_PRICE must be valid and >= MIN_PRICE (drops none); min/max price medians and is_partial_month added. Canonical rows 4,578 -> 4,574.",
+      "was": 4141
+    },
+    "pipeline::narrow.total#2": {
+      "now": 632,
+      "reason": "Contract v2 Phase 4 (Coverage.md section 3): the geography lever adds the nearest localities until listing depth at least doubles, instead of dropping the locality filter (which made every run collapse to the whole metro and MR M3 vacuous).",
       "was": 4141
     },
     "trend::all.total": {
@@ -34,85 +49,76 @@
   "pipeline::base00": {
     "counts": [
       0,
-      8,
-      5,
-      17,
-      5,
-      23,
-      19,
-      18,
-      22,
-      15,
-      15,
-      37
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      3,
+      2,
+      10
     ],
     "coverage": 0.0,
     "critique_rounds": 1,
-    "n_rejected_outliers": 9,
+    "n_rejected_outliers": 0,
     "psf": [
       null,
-      5492.898913951545,
-      5511.111111111111,
-      4916.666666666667,
-      6870.229007633588,
-      4041.6666666666665,
-      4203.125,
-      3747.8395061728397,
-      4459.0,
-      6481.481481481482,
-      5853.658536585366,
-      6492.248062015504
+      null,
+      null,
+      null,
+      9280.0,
+      6599.0,
+      null,
+      null,
+      9932.885906040268,
+      8566.978193146417,
+      8338.103973490563,
+      9437.974573224537
     ],
-    "ranking": [
-      "Beeramguda",
-      "Kollur",
-      "Miyapur",
-      "Pragathi Nagar",
-      "Chandanagar",
-      "Muthangi",
-      "Kistareddypet",
-      "Isnapur"
-    ],
+    "ranking": [],
     "relaxations": [
       "price band widened 25%",
-      "locality filter dropped (was ['Kondapur', 'Gachibowli'])"
+      "localities widened by the 50 nearest: ['Gayathri Nagar Colony', 'Mouryas Ranga Prasad Avenue', 'Indira Nagar', 'East Anand Bagh', 'Sai Pruthvi Enclave', 'Laxmi Nagar', 'Masjid Banda', 'Anjaiah Nagar', 'Goutami Enclave', 'Gouthami Enclave', 'P Janardhan Reddy Nagar', 'Venkat Enclave', 'Hyderabad to Zaheerabad Highway', 'Whitefield', 'Rajarajeshwari Nagar', 'Konda Nagar', 'Telecom Nagar', 'Aditya Nagar', 'Diamond Hills', 'Nanakramguda', 'HITEC City', 'Raghavendra Colony', 'Kothaguda', 'Jayabheri Pine Valley', 'Shilpa Hills', 'Gowlidoddy', 'Hi Tech City', 'Patrika Nagar', 'Huda Layout', 'Serlingampally', 'financial district Hyderabad', 'Lanco Hills', 'Financial District', 'Vittal Rao Nagar', 'Madhura Nagar Colony', 'Izzat Nagar', 'Chaitanya Enclave', 'kolluru', 'Khajaguda', 'aditya nagar , nallagandla', 'Hafeezpet', 'Lothkunta', 'Madhapur', 'Muppas Panchavati Colony', 'Lingampally', 'Gulmohar Park Colony', 'Madinaguda', 'Chanda Naik Nagar', 'Janapriya Nagar', 'Nallagandla']"
     ],
     "span": 0,
-    "total": 184,
+    "total": 18,
     "widen_rounds": 2,
     "yoy": null
   },
   "pipeline::base05": {
     "counts": [
       0,
-      8,
-      6,
-      17,
-      5,
-      23,
+      2,
+      1,
+      11,
+      2,
       18,
-      22,
-      22,
-      17,
-      15,
-      46
+      7,
+      6,
+      6,
+      5,
+      9,
+      38
     ],
     "coverage": 0.0,
     "critique_rounds": 1,
-    "n_rejected_outliers": 9,
+    "n_rejected_outliers": 2,
     "psf": [
       null,
-      5492.898913951545,
-      5579.62962962963,
-      4916.666666666667,
-      6870.229007633588,
-      4166.672222222222,
-      4235.9375,
-      3759.920634920635,
-      4459.0,
-      7400.0,
-      6200.0,
-      7758.591515930895
+      8199.074074074073,
+      9517.485613103143,
+      8308.823529411764,
+      8806.666666666668,
+      4020.833333333333,
+      4761.9047619047615,
+      4877.130952380952,
+      5151.818181818182,
+      8566.978193146417,
+      7185.62874251497,
+      8304.597701149425
     ],
     "ranking": [
       "Gachibowli",
@@ -121,73 +127,65 @@
       "Kollur",
       "Miyapur",
       "Pragathi Nagar",
-      "Chandanagar",
-      "Muthangi",
-      "Kistareddypet",
-      "Isnapur"
+      "Chandanagar"
     ],
     "relaxations": [
       "price band widened 25%",
       "BHK [2, 3] -> [1, 2, 3, 4]",
-      "locality filter dropped (was ['Kondapur', 'Gachibowli', 'Kokapet', 'Narsingi', 'Kollur', 'Puppalaguda', 'Nallagandla', 'Tellapur'])"
+      "localities widened by the 162 nearest: ['Gayathri Nagar Colony', 'Indira Nagar', 'Mouryas Ranga Prasad Avenue', 'East Anand Bagh', 'Nanakramguda', 'Hyderabad to Zaheerabad Highway', 'Gowlidoddy', 'P Janardhan Reddy Nagar', 'Huda Layout', 'Anjaiah Nagar', 'Sai Pruthvi Enclave', 'Telecom Nagar', 'Masjid Banda', 'Laxmi Nagar', 'Venkat Enclave', 'Goutami Enclave', 'financial district Hyderabad', 'Gouthami Enclave', 'Diamond Hills', 'Jayabheri Pine Valley', 'Whitefield', 'Financial District', 'Rajarajeshwari Nagar', 'HITEC City', 'Aditya Nagar', 'Lanco Hills', 'Konda Nagar', 'Chaitanya Enclave', 'Khajaguda', 'Hi Tech City', 'kolluru', 'Patrika Nagar', 'Kothaguda', 'Madhura Nagar Colony', 'Raghavendra Colony', 'Shilpa Hills', 'Vittal Rao Nagar', 'aditya nagar , nallagandla', 'Serlingampally', 'Madhapur', 'Gopanpally', 'Raidurgam', 'Izzat Nagar', 'Gulmohar Park Colony', 'Tellpur Osmannagar', 'Lothkunta', 'Paparayadu Nagar', 'Panchavati Layout', 'Lingampally', 'KPR Colony', 'Chanda Naik Nagar', 'Manikonda', 'Secretariat Colony', 'Tirumala Hills', 'Hafeezpet', 'Vattinagulapally', 'Muppas Panchavati Colony', 'Madinaguda', 'Alkapoor Township', 'Janapriya Nagar', 'Neknampur', 'Kavuri Hills', 'Chandanagar', 'Tellapur, Gachibowli', 'Engineers Enclave', 'Gandipet', 'OU Colony', 'Sai Maruti Enclave', 'Tara Nagar', 'Rtc Officers Colony', '5th Phase KPHB', 'Shaikpet', 'Alkapur Twp', 'Osman Nagar', 'Deeptishree Nagar', 'Ambedkar Nagar', '6th Phase KPHB', 'Prakash Nagar', 'Senore Colony', 'Prasanth Nagar', 'Anand Nagar Colony', 'KPHB', 'Masab Tank', 'Jubilee Hills', 'PJR Layout', 'Bandam Kommu', 'Srinagar Colony', 'Anandbagh', '3rd Phase KPHB', 'Miyapur', 'BHEL', 'Manchirevula Village', 'Film Nagar', 'Moti Nagar', 'Mayuri Nagar', 'Manchirevulu', 'Hyder Nagar', 'JNTU', 'Alluri Seetaramaraju Nagar', 'Tolichowki', 'HMT Swarnapuri Colony', 'Kukatpally', 'Bairagiguda', 'on requiest', 'Anjaneya Nagar', 'Prasasan Nagar', 'Chandra Nagar', 'Addagutta', 'Bhagya Nagar Colony', 'Moosapet', 'AGI Colony', 'Sreenivasa Nagar', 'Beeramguda', 'Jawahar nagar', 'Mac Society', 'Sai Harsha Nagar', 'Vijaya Nagar Colony', 'YousufGuda', 'Gandhamguda', 'Langer House', 'Peeramcheru', 'kaali mandir', 'Ameenpur Village', 'Peeranchuruvu', 'Nizampet', 'Ramachandrapuram', 'Sri Nagar Colony', 'Sanath Nagar', 'RC Puram', 'Vengalarao Nagar', 'Aminpur', 'Balakrishna Nagar', 'Czech Colony', 'Anand Banjara Colony', 'Banjara hills', 'Appa Junction', 'Hydershakote', 'Huda colony, Mehdipatnam', 'Reti Bowli', 'Pragathi Nagar', 'alkapuri township', 'Ameerpet', 'Sanjeeva Reddy Nagar', 'Yellareddyguda', 'Zahra Nagar', 'Sun City', 'Sri Ram Nagar Colony', 'Sriram Nagar', 'P&T Colony', 'Velly View Enclave', 'Allauddin Basthi', 'Mehdipatnam', 'Santosh Nagar', 'Defence Colony', 'Attapur Ring Road', 'Balanagar', 'Panjagutta', 'Harithavanam Colony', 'Janachaitanya Colony', 'Kismathpur', 'Krishna Reddy Pet', 'Bachupally']"
     ],
     "span": 0,
-    "total": 199,
+    "total": 105,
     "widen_rounds": 3,
     "yoy": null
   },
   "pipeline::narrow": {
     "counts": [
-      24,
-      23,
-      23,
-      26,
-      21,
-      20,
-      57,
-      142,
-      287,
-      502,
-      1605,
-      1411
+      2,
+      0,
+      1,
+      2,
+      4,
+      1,
+      7,
+      11,
+      34,
+      49,
+      279,
+      242
     ],
-    "coverage": 0.5,
+    "coverage": 0.25,
     "critique_rounds": 1,
-    "n_rejected_outliers": 122,
+    "n_rejected_outliers": 17,
     "psf": [
-      4104.169444444445,
-      4503.105590062112,
-      3769.84126984127,
-      4505.045454545454,
-      8566.978193146417,
-      6746.6753236384375,
-      8333.333333333334,
-      6883.606557377049,
-      7105.263157894737,
-      7726.058375634518,
-      7207.206456456456,
-      7189.189189189189
+      7916.395874263261,
+      null,
+      9000.0,
+      10190.76005961252,
+      10352.842809364549,
+      9490.579204466156,
+      11038.635223281486,
+      10000.0,
+      10495.283018867925,
+      10790.884718498659,
+      10217.391304347826,
+      10145.896287944834
     ],
     "ranking": [
-      "Kismathpur",
-      "Jubilee Hills",
-      "Film Nagar",
-      "Gandipet",
-      "Raidurgam",
       "Nanakramguda",
-      "Diamond Hills",
-      "Kothaguda",
       "Gachibowli",
-      "Shilpa Hills"
+      "P Janardhan Reddy Nagar",
+      "Kondapur",
+      "Financial District"
     ],
     "relaxations": [
       "BHK [3] -> [2, 3, 4]",
-      "locality filter dropped (was ['Gachibowli'])"
+      "localities widened by the 15 nearest: ['Gayathri Nagar Colony', 'Indira Nagar', 'Nanakramguda', 'Mouryas Ranga Prasad Avenue', 'Gowlidoddy', 'Huda Layout', 'Hyderabad to Zaheerabad Highway', 'East Anand Bagh', 'financial district Hyderabad', 'Telecom Nagar', 'Financial District', 'P Janardhan Reddy Nagar', 'Anjaiah Nagar', 'Sai Pruthvi Enclave', 'Kondapur']"
     ],
-    "span": 6,
-    "total": 4141,
+    "span": 2,
+    "total": 632,
     "widen_rounds": 2,
-    "yoy": -13.729729729729737
+    "yoy": -0.6997384584122661
   },
   "trend::all": {
     "counts": [
