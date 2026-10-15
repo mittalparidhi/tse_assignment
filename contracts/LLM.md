@@ -2,7 +2,7 @@
 
 **Parent:** `CONTRACT.md` v2.0.0-draft. This file restricts model use and defines reproducible fallback behaviour.
 
-**Status:** Draft; implemented. The model identity record is fixed in Phase 4.
+**Status:** Draft; implemented. The committed LLM sweeps predate contract v2 (§6).
 
 ## 1. Modes
 
@@ -28,7 +28,7 @@ The model never reads or mutates the snapshot, computes or revises a statistic, 
 
 - Temperature 0, `top_k = 1`, `top_p = 1.0`, `repeat_penalty = 1.0`; the harness seed is passed on every call. Retry attempt *a* uses seed `seed + 1000·a`, so a retry re-rolls rather than replays.
 - Responses are cached by SHA-256 of (model, temperature, seed, attempt, prompt) in `data/llm_cache/responses.json`. The cache is committed and doubles as a replay artefact.
-- The model is the third reproducibility artefact with the snapshot and the seed list. **[P4]** Its identity is recorded as the real model digest reported by Ollama (`/api/show`), or `"unavailable"` when Ollama is not reachable. The current `model_tag_sha256` hashes the model **name**, so it does not pin the weights and must not be described as doing so.
+- The model is the third reproducibility artefact with the snapshot and the seed list. Its identity is recorded as `model_digest`, the weights digest Ollama reports (`/api/tags`), or `"unavailable"` when Ollama is not reachable; `model_name_sha256` hashes only the name. The committed LLM sweeps recorded only the name hash (as `model_tag_sha256`), so they do not pin the weights and must not be described as doing so.
 - A 20-repeat determinism probe (`results/llm/determinism_probe.json`) returned one distinct output; this is evidence, not a guarantee across hardware.
 
 ## 4. Prompt hygiene (each forced by a failing MR)
@@ -58,7 +58,7 @@ Whether a strict replay mode is required (a cache miss raises instead of calling
 | JSON extraction, retry re-roll, fallback counting, cache round-trip (`tests/test_llm.py`) | exist |
 | Both cycles fire in LLM mode; statistics identical in both modes | exist |
 | Prompt invariance under the five transformations in §4 | exist |
-| Model identity is the real digest or `"unavailable"` | **[P4]** |
+| Model identity is the real digest or `"unavailable"` (`test_unreachable_ollama_reports_no_digest_rather_than_a_guess`) | exists |
 
 ## 8. Traceability
 

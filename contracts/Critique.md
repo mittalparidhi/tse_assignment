@@ -2,7 +2,7 @@
 
 **Parent:** `CONTRACT.md` v2.0.0-draft. **Related:** `Analysis.md`, `LLM.md`. The parent wins on conflicts.
 
-**Status:** Draft; implemented. What the critique inspects changes in Phase 4.
+**Status:** Draft; implemented.
 
 ## 1. Role and boundary
 
@@ -27,7 +27,7 @@ A month is flagged when any holds:
 | Jump | month-on-month change in `median_psf` exceeds `jump_threshold_pct` (25%) in absolute value, and the month has listings |
 | Contextual outlier | some listing in the month has robust \|z\| of log ₹/sqft `> robust_z_threshold` (3.5) |
 
-**[P4]** The contextual-outlier rule is evaluated on the listings that remain after any rejection (currently it re-reads `raw_listings`, so it can never confirm a recomputation fixed anything).
+The contextual-outlier rule is evaluated on `analysed_listings`, the listings that remain after any rejection, so after a recomputation it checks whether the rejection cleaned the month.
 
 ## 3. LLM judgment (LLM mode only)
 
@@ -56,7 +56,7 @@ Change any number; reject listings itself (that is Analysis); remove determinist
 | Model adds flagged months (`test_critique_agent_adds_the_models_flagged_months`) | exists |
 | Model cannot switch off the deterministic floor (`test_llm_mode_cannot_switch_off_the_deterministic_floor`) | exists |
 | Critique prompt withholds counts (`test_critique_prompt_withholds_listing_counts`) | exists |
-| Outlier rule evaluated on post-rejection listings | **[P4]** |
+| Outlier rule evaluated on post-rejection listings (`test_critique_inspects_the_listings_the_report_was_built_from`) | exists |
 
 ## 7. Traceability
 

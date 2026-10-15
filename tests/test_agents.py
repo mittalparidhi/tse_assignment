@@ -243,3 +243,18 @@ def test_no_coordinate_count_respects_the_criteria(frame, graph):
     expected = int(window[window["bhk"].isin(spec.bhk)]["latitude"].isna().sum())
     assert state["n_no_coordinate"] == expected
     assert expected < int(window["latitude"].isna().sum())
+
+
+def test_merge_returns_exactly_the_current_rounds_matches(frame, graph):
+    """contracts/Retrieval.md §3: after cycle 1 widens the query, the merged
+    listings are exactly what the widened criteria select -- no leftovers
+    from an earlier, narrower round and no twins of a repeated PROP_ID."""
+    state = run_pipeline(frame, NARROW, seed=7, graph=graph)
+    assert state["retry_count"] > 0
+    spec = state["widened_filter_spec"]
+    expected = apply_criteria(frame, spec)
+    expected = expected[expected["month"].isin(
+        state["final_report"].window_months)]
+    merged = state["raw_listings"]
+    assert merged["listing_id"].is_unique
+    assert set(merged["listing_id"]) == set(expected["listing_id"])

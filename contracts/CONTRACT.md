@@ -4,7 +4,7 @@
 **Version:** 2.0.0-draft
 **Authority:** This file is the single source of truth for shared constants, the output contract, metric definitions, the agent graph, loop policies, failure semantics, and invariants. `Data.md`, the six agent contracts (`Criteria.md`, `Retrieval.md`, `Coverage.md`, `Analysis.md`, `Critique.md`, `Aggregator.md`), `LLM.md`, `Testing.md`, and `Golden.md` are subordinate. They may clarify implementation but must not redefine global rules. If one conflicts with this file, the global contract wins and the subordinate clause must be corrected.
 
-**Implementation status tags.** A clause marked **[P4]** is part of this contract but is not yet satisfied by the code; it is implemented in Phase 4 (harness and agent fixes). Phase 3 (porting the v1 data and validation rules) is complete and its tags have been removed. Untagged clauses describe current behaviour. A tag is removed only when code and a test satisfy the clause.
+**Implementation status.** Phases 3 (porting the v1 data and validation rules) and 4 (harness and agent fixes) are complete; every clause below describes current behaviour and is backed by code and a test. Open items that need resources this repository cannot provide (the LLM sweep needs Ollama) are listed in `README.md`.
 
 ## 1. Purpose and scope
 
@@ -73,7 +73,7 @@ A report covers exactly 12 consecutive calendar months ending at `window_end` (i
 
 ### 4.4 Identity
 
-**[P4]** `listing_id` is unique within the canonical frame. It is derived from `PROP_ID` plus the raw row position, because `PROP_ID` alone is not unique (one ID appears on two rows). Both rows are kept; a repeated `PROP_ID` is not evidence of a duplicate listing.
+`listing_id` is unique within the canonical frame. It is derived from `PROP_ID` plus the raw row position, because `PROP_ID` alone is not unique (one ID appears on two rows). Both rows are kept; a repeated `PROP_ID` is not evidence of a duplicate listing.
 
 ## 5. Output contract
 
@@ -152,14 +152,14 @@ The brief's three control-flow requirements:
 ### C1 — Coverage widening
 
 - `coverage_score = sufficient months / 12`. Proceed when `coverage_score >= coverage_target`.
-- Otherwise widen one lever per round, each lever at most once, in order: price band (×0.75 / ×1.25), BHK (±1), geography. **[P4]** Geography widening adds the nearest localities (by coordinate distance) or doubles the radius; it never removes the locality constraint entirely.
+- Otherwise widen one lever per round, each lever at most once, in order: price band (×0.75 / ×1.25), BHK (±1), geography. Geography widening doubles the radius, or adds the nearest localities until listing depth at least doubles (`Coverage.md` §3); it never removes the locality constraint. A narrow query can therefore end below the coverage target with its levers exhausted: the answer stays about the place asked for.
 - At most `max_retry_rounds` retries; stop early when no lever applies. Every relaxation is recorded in `relaxations` and shown to the user.
 
 ### C2 — Critique recomputation
 
 - At most `max_critique_rounds` rounds. A round fires only when the critique flags months not already flagged.
 - Recomputation may remove listings only within flagged months, by the rules in `Analysis.md`. It never adds listings or changes values.
-- **[P4]** The critique evaluates the post-rejection listings, and `n_rejected_outliers` reports the current round's rejections (not a running sum).
+- The critique evaluates the post-rejection listings, and `n_rejected_outliers` reports the current round's rejections (not a running sum).
 
 Both loops terminate by construction. Loop counts are recorded in `provenance` and every iteration appears in `trace`.
 
@@ -185,7 +185,7 @@ Both loops terminate by construction. Loop counts are recorded in `provenance` a
 5. Statistics are deterministic, `null` where undefined, and independent of LLM calls.
 6. Both loops terminate within their caps, and a committed trace shows each firing.
 7. At least 8 MRs cover invariance, monotonic and directional families; each states transformation, relation, subdomain, tolerance and the fault it exposes (`Testing.md`).
-8. Each MR has ≥ 30 distinct base inputs and k ≥ 3 recorded seeds; **[P4]** violation rates and Wilson 95% CIs are computed over base inputs.
+8. Each MR has ≥ 30 distinct base inputs and k ≥ 3 recorded seeds; violation rates and Wilson 95% CIs are computed over base inputs.
 9. The three most-violated MRs are diagnosed with evidence (`docs/DIAGNOSIS.md`).
 10. One-command reproduction, `NOTEBOOK.md`, `AI_USE.md`, the frozen snapshot and committed results are present.
 
@@ -209,7 +209,7 @@ Both loops terminate by construction. Loop counts are recorded in `provenance` a
 | 19 | Planner, Scanner, Validator, Anomaly, Diagnostic, Reporter | Criteria, Retrieval, Coverage, Analysis, Critique, Aggregator | Matches the implementation |
 | 20 | Coverage repair disabled | C1 with three levers, cap 3 | Brief requirement (b) |
 | 21 | Critique revision cap 2 | Cap 1 | Measured: 2/16 violations at two rounds, 0/16 at one |
-| 22 | — | Geography widening keeps a locality constraint | Otherwise MR M3 is vacuous |
+| 22 | — | Geography widening keeps a locality constraint (nearest localities until depth doubles) | Otherwise every run collapsed to the whole metro and MR M3 was vacuous |
 | 23 | Model modes off/replay/live | `DETERMINISTIC` / `LLM` with response cache | Matches the implementation |
 | 24 | CI over runs | CI over base inputs | Seeds are not independent samples |
 

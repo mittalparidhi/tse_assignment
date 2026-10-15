@@ -28,7 +28,7 @@ The v1 suite (fixed window, Planner/Scanner/Validator/Anomaly/Diagnostic/Reporte
 
 ## Implementation status tags
 
-**[P4]** marks a clause not yet satisfied by code, to be implemented in Phase 4 (harness and agent fixes). Phase 3 (porting the v1 data and validation rules) is complete and its tags have been removed. A tag is removed only when code and a test satisfy the clause. Untagged clauses describe current behaviour.
+Phases 3 and 4 are complete and their **[P3]**/**[P4]** tags have been removed: every clause describes current behaviour, backed by code and a test.
 
 ## Context-budget policy
 
@@ -42,8 +42,9 @@ The 8,000-token limit applies to each contract file individually. Keep each unde
 - `CITY` contains Hyderabad and Secunderabad; both are in scope.
 - There is no PIN-code column; locality is the geographic filter.
 
-## Open decisions
+## Open items
 
+- **The LLM sweeps predate contract v2.** `results/llm_before_promptfix/` and `results/llm/` were produced on Kaggle with the earlier code and population (4,578 rows, UTC months, whole-metro geography widening, per-run intervals). Re-running them needs Ollama with `qwen2.5:3b-instruct-q4_K_M` (`notebooks/kaggle_llm_sweep.ipynb`, or `python scripts/run_harness.py --tag v2_llm --llm`). Until then, report them as pre-v2 results and do not mix them with the v2 deterministic rates.
 - Whether a strict replay mode (cache miss = error, no network) is required for the LLM sweep (`LLM.md` §6).
-- Whether MR M3 is reformulated or kept with the revised geography widening (`Coverage.md` §3, `Testing.md` §4).
-- The exact radius base inputs added for Phase 4 (`Testing.md` §3).
+
+Resolved in Phase 4: M3 is kept, and is meaningful now that geography widening keeps a locality constraint (`Coverage.md` §3); the radius base inputs are defined in `Testing.md` §3.

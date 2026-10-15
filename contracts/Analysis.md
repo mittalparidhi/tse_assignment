@@ -51,7 +51,7 @@ The robust threshold is relative, so the filter is not shift-invariant: adding a
 
 ## 5. Accounting
 
-- **[P4]** `n_rejected_outliers` equals the number rejected in the current computation. Because each recomputation starts again from `raw_listings` with the cumulative flagged months, adding round totals double-counts; the current code does so when more than one round runs.
+- `n_rejected_outliers` equals the number rejected in the current computation. Each recomputation starts again from `raw_listings` with the cumulative flagged months, so adding round totals would double-count. The listings the report was computed from are kept as `analysed_listings` for the Critique agent.
 - Provenance records seed, agent mode, query mode, loop counts, relaxations, coverage score, rejected count, flagged months, `n_no_coordinate` and LLM accounting, `contract_version`, and `snapshot_sha256` (the snapshot the frame was derived from; `None` for frames not built by `load_canonical`, such as the synthetic snapshot).
 
 ## 6. Must not
@@ -68,7 +68,7 @@ Reject listings outside flagged months; add or modify listings; compute any stat
 | Median, sufficiency, empty months, yoy span, ranking ties, units (`tests/test_trend.py`) | exists |
 | Golden series unchanged (`tests/test_golden.py`) | exists; regenerated in Phase 3 |
 | Min/max price medians and partial-month flag (`test_min_and_max_price_medians_are_reported_separately`, `test_only_the_snapshot_end_month_is_flagged_partial`) | exists |
-| `n_rejected_outliers` not double-counted across rounds | **[P4]** |
+| `n_rejected_outliers` not double-counted across rounds (`test_rejected_count_is_not_summed_across_critique_rounds`) | exists |
 
 ## 8. Traceability
 

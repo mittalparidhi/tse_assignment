@@ -1,7 +1,7 @@
 # DATA SUBCONTRACT — Hyderabad Housing-Trends Application
 
 **Parent:** `CONTRACT.md` v2.0.0-draft
-**Status:** Draft. Source fingerprint and defects D1–D6 are verified and handled; D7 identity is completed in Phase 4.
+**Status:** Draft. Source fingerprint and defects D1–D6 are verified and handled; D7 is handled by a unique `listing_id`.
 **Scope:** Source freeze, defects, the canonical population and filter cascade, month derivation, identity, and reproducibility checks. The parent controls the output contract, window and loops. In a conflict, update this file rather than silently changing the parent.
 
 ## 1. Source and frozen input
@@ -30,7 +30,7 @@ This is a single-point scrape: older months contain only listings still live on 
 | D4 | `BEDROOM_NUM` missing on 2,814 rows, 2,806 of them `Residential Land` (structural, not missing data) | Dwellings only (§3, filter 2) |
 | D5 | Area-entry errors in the tail (a 27 sq ft villa at ₹2.15 cr = ₹796,296/sq ft; a 285,599 sq ft one) | **Deliberately kept** in the canonical frame. Detecting them is the Analysis agent's targeted recomputation (loop C2); filtering them here would make C2 decorative. Plausibility bounds remain available via `apply_plausibility=True` for ablation only |
 | D6 | `PRICE` text "Price on Request" on 87 raw rows; their numeric bounds are placeholders. 61 reach this filter; 4 would otherwise have entered the canonical frame | Excluded (§3, filter 4) |
-| D7 | `PROP_ID` is not unique (one ID on two canonical rows) | Both rows kept; **[P4]** `listing_id` made unique (§5) |
+| D7 | `PROP_ID` is not unique (one ID on two canonical rows) | Both rows kept; `listing_id` made unique (§5) |
 
 `TRANSACT_TYPE` code meanings are not verified and the field is not used.
 
@@ -51,7 +51,7 @@ Filters run in this order. Each stage's remaining and dropped counts are written
 
 Dwelling types: `Residential Apartment`, `Independent House/Villa`, `Independent/Builder Floor`, `Studio Apartment`, `Serviced Apartments`.
 
-The counts in the table are audit baselines, not constants: code recomputes them on every load. Every canonical listing has `MIN_PRICE == MAX_PRICE`, so filter 5b drops nothing here; it guards against range listings. **[P4]** The reject log's stale stage name ("DEFERRED to ScanAgent STRICT") is replaced by the current one ("DEFERRED to Analysis recomputation").
+The counts in the table are audit baselines, not constants: code recomputes them on every load. Every canonical listing has `MIN_PRICE == MAX_PRICE`, so filter 5b drops nothing here; it guards against range listings.
 
 Rows that fail a filter are not deleted from the raw file; they are simply absent from the derived canonical frame and counted in the log.
 
@@ -59,7 +59,7 @@ Rows that fail a filter are not deleted from the raw file; they are simply absen
 
 | Field | Derivation |
 |---|---|
-| `listing_id` | currently `PROP_ID`; **[P4]** `PROP_ID` + raw row position, unique |
+| `listing_id` | `PROP_ID` + `#` + raw row position; unique |
 | `month` | `POSTING_DATE` (ms) → instant → `Asia/Kolkata` → `YYYY-MM` (18 rows would land in a different month under UTC) |
 | `price_inr` | `MIN_PRICE` |
 | `max_price_inr` | `MAX_PRICE` |
@@ -79,7 +79,7 @@ No value is imputed. A field that cannot be parsed is `null` (or `"Unknown"` for
 ## 5. Identity rules
 
 - `PROP_ID` alone does not identify a listing; a repeated ID is not evidence of a duplicate.
-- **[P4]** `listing_id` is unique within the canonical frame and stable across runs on the same snapshot.
+- `listing_id` is unique within the canonical frame and stable across runs on the same snapshot.
 - No row is deduplicated. MR I3 (duplicate every listing) creates distinct IDs for the copies (`#dup` suffix), so it tests replication, not deduplication.
 
 ## 6. Startup integrity
@@ -97,7 +97,7 @@ No value is imputed. A field that cannot be parsed is `null` (or `"Unknown"` for
 | R2 — Shape | 9,487 rows, 55 columns |
 | R3 — Cascade | Each stage count in §3 is reproduced by `load_canonical()` |
 | R4 — Canonical freeze | `listings_canonical.csv` SHA-256 equals `data/snapshot/CHECKSUMS.txt`, and a freshly rebuilt frame serialises to the same digest (`test_frozen_canonical_snapshot_matches_a_fresh_rebuild`) |
-| R5 — Identity | **[P4]** `listing_id` unique |
+| R5 — Identity | `listing_id` unique and traceable to its raw row (`test_listing_id_is_unique_and_traceable_to_the_raw_row`) |
 | R6 — Month rule | months derived in `Asia/Kolkata` (`test_month_is_derived_in_india_time_not_utc`) |
 | R7 — No mutation | Raw SHA-256 unchanged after a run |
 

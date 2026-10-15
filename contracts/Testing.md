@@ -2,7 +2,7 @@
 
 **Parent:** `CONTRACT.md` v2.0.0-draft. This file defines the MR catalogue, base inputs, seeds, the harness, statistics and diagnosis. Shared values come from the parent.
 
-**Status:** Draft; harness implemented. Statistical unit, M3 and radius inputs change in Phase 4.
+**Status:** Draft; implemented.
 
 ## 1. Test layers
 
@@ -24,7 +24,7 @@ Constructed fixtures are never merged into the real snapshot or reported as obse
 ## 3. Base inputs and seeds
 
 - **36 distinct base inputs** (`src/mr/base_inputs.py`), above the required 30: a strided sample of window end (5 months) × BHK (5 options) × price band (4) × locality set (4), deterministic given the frame. Every input sets a band and ≥ 2 localities so M2 and M3 apply; window ends exclude the last month so D1 applies.
-- **[P4]** Add base inputs that use `RADIUS` (centred on the top localities' median coordinates, radius 3–5 km) so the radius algorithm is exercised by the MRs. M3 does not apply to them (no locality list); M4 is their monotonic relation. Together with the existing inputs, M4 must still reach ≥ 30 distinct applicable base inputs, so at least 30 radius inputs are needed.
+- **36 radius base inputs** (`generate_radius_inputs`) use `RADIUS` (centred on the top localities' median coordinates, radius 3–5 km) so the radius algorithm is exercised by the MRs; they are strided over window end × BHK × band × (centre, radius), centres at the six deepest localities. M3 does not apply to them (no locality list); M4 is their monotonic relation. The real-snapshot sweep uses 36 locality + 36 radius inputs; the synthetic snapshot has no coordinates and keeps the locality inputs only.
 - Every base input passes request validation (`Criteria.md` §3).
 - **Seeds** `(11, 23, 47)` are used for both source and follow-up runs. Changing them changes the published numbers.
 - Repeating a base input with another seed does not create a new base input.
@@ -50,8 +50,8 @@ Constructed fixtures are never merged into the real snapshot or reported as obse
 | M1 | add ₹500,000 to every price in the densest window month | that month's `median_min_price_inr` and `median_max_price_inr` rise by ₹500,000; other months unchanged; none decreases | band-free projection of each input (`prepare` removes the band from both runs) | \|Δ − X\| ≤ 1e-6·X; others 1e-9 | month bucketing leaks; filters applied after the transform |
 | M1raw | as M1 with the band left in place | as M1 | **does not hold** — retained as the documented ill-conceived relation | as M1 | none: listings cross the band, changing the population |
 | M2 | widen the price band 25% each side | each month's count ≥ before | inputs with a band | exact inequality | filter inversion; bound off-by-one; stale cached criteria |
-| M3 | keep the first half of the locality list | each month's count ≤ before | inputs with ≥ 2 localities; **[P4]** meaningful only once geography widening keeps a locality constraint (`Coverage.md` §3) | exact inequality | leakage between shards; merging a previous criteria set |
-| M4 | **[P4]** halve `radius_km` | each month's count ≤ before | `RADIUS` inputs; reported over the control-path-stable subdomain, since C1 may double either radius | exact inequality | wrong distance formula; unlocated rows leaking into a radius query; radius widening not applied consistently |
+| M3 | keep the first half of the locality list | each month's count ≤ before | inputs with ≥ 2 localities; meaningful because geography widening keeps a locality constraint (`Coverage.md` §3) | exact inequality | leakage between shards; merging a previous criteria set |
+| M4 | halve `radius_km` | each month's count ≤ before | `RADIUS` inputs; reported over the control-path-stable subdomain, since C1 may double either radius | exact inequality | wrong distance formula; unlocated rows leaking into a radius query; radius widening not applied consistently |
 
 ### Directional
 
@@ -62,7 +62,7 @@ Constructed fixtures are never merged into the real snapshot or reported as obse
 
 **Transforms keep both price bounds consistent.** `add_to_month_price` (M1) adds X to both `price_inr` and `max_price_inr`, and `scale_prices` (D2) multiplies both by k, so `MIN_PRICE <= MAX_PRICE` still holds and both medians move as the relation states.
 
-M1 and D2 assume no listing crosses a plausibility bound. The harness currently assumes this precondition; **[P4]** it checks it per run and reports how often it binds. Control-flow termination (both loops capped) is tested separately in `tests/test_agents.py` and is not counted as a data MR.
+M1 and D2 were stated as assuming that no listing crosses a plausibility bound. That precondition is vacuous here: the loader does not apply plausibility bounds (`Data.md` D5). What can change the analysed population is cycle 2's outlier rejection, so every run records `source_rejected` and `follow_rejected`, and the report states how often they differ. Control-flow termination (both loops capped) is tested separately in `tests/test_agents.py` and is not counted as a data MR.
 
 ## 5. Control-path stability
 
@@ -72,7 +72,7 @@ Coverage depends on counts, so a transformation that changes counts can change w
 
 - Violation rate = violated / applicable. Inapplicable runs are skipped with a reason and excluded from the denominator.
 - **95% Wilson score interval**, chosen because rates sit near 0 and 1, where the normal approximation fails.
-- **[P4] Statistical unit = base input.** A base input counts as violated if any of its seeds violates. Wilson intervals are computed over the 36 (or more) base inputs, not the 108 runs: in the deterministic sweep the seeds give identical outcomes, so per-run intervals overstate precision (0/108 gives an upper bound of 0.034; 0/36 gives 0.096). The per-run rate and the seed-disagreement count are still reported.
+- **Statistical unit = base input.** A base input counts as violated if any of its seeds violates. Wilson intervals are computed over base inputs, not runs: in the deterministic sweep the seeds give identical outcomes, so per-run intervals overstate precision (0/108 gives an upper bound of 0.034; 0/36 gives 0.096). The per-run rate and the seed-disagreement count are still reported.
 - Report per MR: seed list, base-input count, run count, violations, rate, CI, diverged runs.
 
 ## 7. Configurations and outputs
@@ -84,7 +84,7 @@ Coverage depends on counts, so a transformation that changes counts can change w
 | `before_fix` / `after_fix` | deterministic sweeps before/after the first round of fixes diagnosed in `docs/DIAGNOSIS.md` (per-shard outlier threshold, M1 refinement) |
 | `synthetic` | synthetic snapshot, oracle check |
 
-Each `results/<tag>/` holds `base_inputs.csv`, `mr_runs.csv`, `mr_summary.csv`, `headline.txt`, `run_meta.json` (snapshot SHA, seeds, counts, model record) and `trace_example.txt`. **[P4]** All tables are regenerated after the Phase 3 and 4 changes.
+Each `results/<tag>/` holds `base_inputs.csv`, `mr_runs.csv`, `mr_summary.csv`, `headline.txt`, `run_meta.json` (snapshot SHA, seeds, counts, model record) and `trace_example.txt`. The contract-v2 sweeps are `results/v2_deterministic/` and `results/v2_synthetic/`. The other tags are earlier sweeps, kept as the record behind `docs/DIAGNOSIS.md`; they predate contract v2. The LLM sweeps (`llm_before_promptfix`, `llm`) need Ollama and were not re-run (`README.md` open items).
 
 ## 8. Harness self-tests
 
@@ -92,8 +92,9 @@ Each `results/<tag>/` holds `base_inputs.csv`, `mr_runs.csv`, `mr_summary.csv`, 
 |---|---|
 | Three families represented; ≥ 8 relations; unique IDs; every relation documents subdomain, tolerance, fault | exist (`tests/test_harness.py`) |
 | Wilson interval inside [0, 1], non-zero width at 0, contains the estimate, narrows with n, NaN on empty | exist |
-| Per-base-input aggregation | **[P4]** |
-| A deliberately faulty test double is detected by at least one MR | **[P4]** |
+| Per-base-input aggregation and the 36-vs-108 interval (`test_seeds_collapse_into_one_outcome_per_base_input`, `test_zero_violations_over_36_bases_is_not_reported_as_108_trials`) | exists |
+| Planted faults are detected: order-dependent median by I1, non-linear median by D2 | exists |
+| Radius inputs give M4 ≥ 30 applicable bases (`test_radius_inputs_exercise_m4_on_at_least_thirty_bases`) | exists |
 
 ## 9. Diagnosis
 

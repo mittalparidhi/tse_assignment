@@ -49,7 +49,7 @@ The full agent graph, deterministic mode:
 | `base00` | harness base input 0 | 11 |
 | `base05` | harness base input 5 | 23 |
 
-Each stores counts, ₹/sqft series, rankings, total, yoy move and span, coverage score, relaxations, widening rounds (`widen_rounds`), critique rounds and rejected-listing count. **[P4]** The last two are stored under the stale names `strict_rounds` and `n_rejected_strict` (from the removed "STRICT mode"); rename them to `critique_rounds` and `n_rejected_outliers`. **[P4]** `base00`/`base05` change when radius base inputs are added or geography widening changes; regenerate them in the same commit.
+Each stores counts, ₹/sqft series, rankings, total, yoy move and span, coverage score, relaxations, widening rounds (`widen_rounds`), critique rounds (`critique_rounds`) and rejected-listing count (`n_rejected_outliers`; renamed from the stale `strict_rounds`/`n_rejected_strict`). The pipeline vectors were regenerated when geography widening changed (`narrow` 4,141 → 632 listings).
 
 ### 2.3 Corrections log
 

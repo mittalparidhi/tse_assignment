@@ -2,7 +2,7 @@
 
 **Parent:** `CONTRACT.md` v2.0.0-draft. **Related:** `Criteria.md`, `Coverage.md`, `Data.md`. The parent wins on conflicts.
 
-**Status:** Draft; implemented. Phase 4 items are tagged.
+**Status:** Draft; implemented.
 
 ## 1. Role and boundary
 
@@ -33,13 +33,13 @@ Both apply the same BHK, property-type and price-band filters (`src/trend.py::ap
 3. **Merge** collects the `listing_ids` from the current round's entries only (selected by `round == retry_count`), and returns those rows from `frame` in canonical index order.
 4. The result must not depend on row order, worker completion order, the number of agents, or the seed.
 
-**[P4]** Merge selects rows by `listing_id`, so it relies on `listing_id` being unique (`Data.md` §5). Until then, the one duplicated `PROP_ID` returns both rows whenever either matches.
+Merge selects rows by `listing_id`, which is unique (`Data.md` §5); before that fix, the one repeated `PROP_ID` returned both rows whenever either matched.
 
 ## 4. Responsibilities
 
 - A zero-row selection is valid, not an error; it is passed on and the trace records it.
 - Every round is logged per agent (`retrieved`, `retry_round`) and at merge (`listings`, `agents`, `excluded_no_coordinate`).
-- **[P4]** `n_no_coordinate` counts only rows that match the non-geographic criteria and window but lack coordinates (currently it counts every in-window row without coordinates).
+- `n_no_coordinate` counts only rows that match the non-geographic criteria and window but lack coordinates.
 
 ## 5. Must not
 
@@ -57,9 +57,8 @@ Each agent currently filters the whole frame and then keeps its shard, so parall
 | `query_mode` selects a different algorithm | exists (`test_agents.py::test_query_mode_selects_a_different_algorithm`) |
 | Radius excludes unlocated rows; monotone in radius; haversine correct | exists (`test_agents.py`: `test_radius_excludes_rows_without_coordinates`, `test_radius_retrieval_is_monotone_in_radius`, `test_haversine_against_known_distance`) |
 | Shard assignment stable across processes | exists (`test_agents.py::test_shard_assignment_is_stable_across_processes`) |
-| Merge uses only the current round's shards | **[P4]** |
-| `n_no_coordinate` respects the criteria | **[P4]** |
-| Merge with unique `listing_id` returns exactly the matched rows | **[P4]** |
+| Merge returns exactly the current round's matches, IDs unique (`test_merge_returns_exactly_the_current_rounds_matches`) | exists |
+| `n_no_coordinate` respects the criteria (`test_no_coordinate_count_respects_the_criteria`) | exists |
 
 MRs that exercise this contract: I1 (row order), I4 (ID relabel), M2, M3 (`Testing.md`).
 
