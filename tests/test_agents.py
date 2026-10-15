@@ -258,3 +258,33 @@ def test_merge_returns_exactly_the_current_rounds_matches(frame, graph):
     merged = state["raw_listings"]
     assert merged["listing_id"].is_unique
     assert set(merged["listing_id"]) == set(expected["listing_id"])
+
+
+def test_geography_widening_preserves_set_inclusion(frame):
+    """contracts/Coverage.md §3: if A is a subset of B, widen(A) must be a
+    subset of widen(B). The shared-centre rule broke this and MR M3 caught it
+    (9/36 base inputs); each locality now brings its own neighbourhood."""
+    from src.agents.nodes import _relax_geography
+    from src.mr.base_inputs import generate_base_inputs
+    checked = 0
+    for base in generate_base_inputs(frame):
+        full = base.localities
+        half = full[: max(1, len(full) // 2)]
+        big = _relax_geography(base, frame)
+        small = _relax_geography(base.with_(localities=half), frame)
+        assert big is not None and small is not None
+        assert set(small[0].localities) <= set(big[0].localities), base.label
+        checked += 1
+    assert checked >= 30
+
+    # Beyond the M3 halves: arbitrary subsets of a deep-locality set.
+    import random
+    rng = random.Random(11)
+    pool = frame["locality"].value_counts().index[:12].tolist()
+    for _ in range(40):
+        big_set = tuple(rng.sample(pool, rng.randint(2, 8)))
+        small_set = tuple(rng.sample(big_set, rng.randint(1, len(big_set))))
+        spec = Criteria(window_end="2023-08", localities=big_set)
+        big = _relax_geography(spec, frame)
+        small = _relax_geography(spec.with_(localities=small_set), frame)
+        assert set(small[0].localities) <= set(big[0].localities)

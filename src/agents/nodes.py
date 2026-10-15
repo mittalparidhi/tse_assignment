@@ -262,20 +262,58 @@ def _locality_centres(frame: pd.DataFrame) -> pd.DataFrame:
     return located.groupby("locality")[["latitude", "longitude"]].median()
 
 
+def _neighbourhood(name: str, centres: pd.DataFrame, depth: pd.Series,
+                   selected: set[str]) -> list[str]:
+    """Walk the localities nearest ``name`` (ties by name), skipping ones
+    already ``selected``, until the new ones hold at least as many snapshot
+    listings as ``name`` itself; return the new ones.
+
+    Skipping selected localities is what lets a clustered selection still
+    double its depth, and it keeps inclusion: the walk order depends on
+    ``name`` alone, and a larger selection skips more, so it only ever walks
+    further along the same ranking (see ``_relax_geography``)."""
+    if name not in centres.index:
+        return []                     # no coordinates: nothing to measure from
+    others = centres.drop(index=name)
+    distance = haversine_km(
+        float(centres.at[name, "latitude"]), float(centres.at[name, "longitude"]),
+        others["latitude"].to_numpy(dtype=float),
+        others["longitude"].to_numpy(dtype=float),
+    )
+    ranked = (pd.DataFrame({"locality": others.index, "km": distance})
+              .sort_values(["km", "locality"], kind="mergesort"))
+    target = max(int(depth.get(name, 0)), 1)
+    out, gained = [], 0
+    for other in ranked["locality"]:
+        if other in selected:
+            continue
+        out.append(other)
+        gained += int(depth.get(other, 0))
+        if gained >= target:
+            break
+    return out
+
+
 def _relax_geography(c: Criteria, frame: pd.DataFrame) -> tuple[Criteria, str] | None:
     """Widen whichever geographic constraint ``query_mode`` selected.
 
-    RADIUS doubles the radius. EXACT_LOCALITY adds the nearest unselected
-    localities -- by distance from the median of the selected localities'
-    centres, ties broken by name -- until the added localities hold at least
-    as many snapshot listings as the selected ones, so depth roughly doubles,
-    like the radius lever (contracts/Coverage.md §3). Depth is counted over
-    the whole frame, so row order, duplication and window shifts cannot
-    change which localities are added.
+    RADIUS doubles the radius. EXACT_LOCALITY adds, for each selected
+    locality, its own neighbourhood: the nearest unselected localities, taken
+    until they hold at least as many snapshot listings as it does, so depth
+    roughly doubles, like the radius lever (contracts/Coverage.md §3).
+
+    Widening preserves set inclusion: if A is a subset of B, widen(A) is a
+    subset of widen(B). Each locality walks its own fixed nearest-first
+    ranking; B skips at least the localities A skips, so for every locality
+    in A, B's walk covers A's walk, and whatever B skips is in B already.
+    The previous rule widened around the selection's shared centre
+    and broke that -- a 2-locality subset gained localities its 4-locality
+    superset did not, and MR M3 caught it (9/36 base inputs). Depth is
+    counted over the whole frame, so row order, duplication and window shifts
+    cannot change the result.
 
     It never removes the locality constraint: dropping it made every run
-    collapse to the whole metro, so a locality subset (MR M3) was compared
-    with an identical whole-metro run and could not fail.
+    collapse to the whole metro, so MR M3 could not fail at all.
     """
     if c.query_mode == "RADIUS":
         if not c.radius_km:
@@ -285,29 +323,18 @@ def _relax_geography(c: Criteria, frame: pd.DataFrame) -> tuple[Criteria, str] |
     if not c.localities:
         return None
     centres = _locality_centres(frame)
-    selected = centres.loc[centres.index.isin(c.localities)]
-    others = centres.loc[~centres.index.isin(c.localities)]
-    if selected.empty or others.empty:
-        return None                 # nothing to measure from, or nothing left
-    distance = haversine_km(
-        float(selected["latitude"].median()), float(selected["longitude"].median()),
-        others["latitude"].to_numpy(dtype=float),
-        others["longitude"].to_numpy(dtype=float),
-    )
     depth = frame["locality"].value_counts()
-    ranked = (pd.DataFrame({"locality": others.index, "km": distance})
-              .sort_values(["km", "locality"], kind="mergesort"))
-    target = int(depth.reindex(list(c.localities)).fillna(0).sum())
+    selected = set(c.localities)
     added: list[str] = []
-    gained = 0
-    for name in ranked["locality"]:
-        added.append(name)
-        gained += int(depth.get(name, 0))
-        if gained >= max(target, 1):
-            break
-    added = tuple(added)
-    return c.with_(localities=tuple(c.localities) + added), (
-        f"localities widened by the {len(added)} nearest: {list(added)}"
+    for name in c.localities:
+        for other in _neighbourhood(name, centres, depth, selected):
+            if other not in selected and other not in added:
+                added.append(other)
+    if not added:
+        return None                 # nothing to measure from, or nothing left
+    return c.with_(localities=tuple(c.localities) + tuple(added)), (
+        f"localities widened by {len(added)} neighbouring localities: "
+        f"{added[:8]}{' ...' if len(added) > 8 else ''}"
     )
 
 
