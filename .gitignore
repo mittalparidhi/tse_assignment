@@ -1,0 +1,24 @@
+# Environment
+.venv/
+venv/
+*.egg-info/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+
+# NOTE: data/ and results/ are deliberately NOT ignored. The frozen snapshot
+# and the committed result sets are graded artefacts -- the instructor re-runs
+# a sample against them, and results that cannot be reproduced score zero on
+# rigor.
+
+# Local patch backups and patch bundles
+*.bak
+*.zip

@@ -1,0 +1,207 @@
+{
+  "source_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+  "window_start": "2022-09",
+  "window_end": "2023-08",
+  "rule_thresholds": {
+    "AN-01": "absolute price-median change > 0.12",
+    "AN-02": "observed count ratio <= 0.50",
+    "AN-03": "observed count ratio >= 2.0",
+    "AN-04": "final-two-month share >= 0.70"
+  },
+  "flag_count": 17,
+  "counts_by_rule": {
+    "AN-01": 14,
+    "AN-03": 2,
+    "AN-04": 1
+  },
+  "flags": [
+    {
+      "rule_id": "AN-01",
+      "month": "2022-10",
+      "metric": "median_max_price_inr",
+      "message": "Increase of 32.76% from 2022-09 to 2022-10.",
+      "previous_month": "2022-09",
+      "previous_value": 5800000.0,
+      "current_value": 7700000.0,
+      "change_fraction": 0.3275862068965517,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-10",
+      "metric": "median_min_price_inr",
+      "message": "Increase of 32.76% from 2022-09 to 2022-10.",
+      "previous_month": "2022-09",
+      "previous_value": 5800000.0,
+      "current_value": 7700000.0,
+      "change_fraction": 0.3275862068965517,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-11",
+      "metric": "median_max_price_inr",
+      "message": "Decrease of 35.07% from 2022-10 to 2022-11.",
+      "previous_month": "2022-10",
+      "previous_value": 7700000.0,
+      "current_value": 4999500.0,
+      "change_fraction": -0.3507142857142857,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-11",
+      "metric": "median_min_price_inr",
+      "message": "Decrease of 35.07% from 2022-10 to 2022-11.",
+      "previous_month": "2022-10",
+      "previous_value": 7700000.0,
+      "current_value": 4999500.0,
+      "change_fraction": -0.3507142857142857,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-12",
+      "metric": "median_max_price_inr",
+      "message": "Increase of 27.04% from 2022-11 to 2022-12.",
+      "previous_month": "2022-11",
+      "previous_value": 4999500.0,
+      "current_value": 6351485.0,
+      "change_fraction": 0.27042404240424045,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-12",
+      "metric": "median_min_price_inr",
+      "message": "Increase of 27.04% from 2022-11 to 2022-12.",
+      "previous_month": "2022-11",
+      "previous_value": 4999500.0,
+      "current_value": 6351485.0,
+      "change_fraction": 0.27042404240424045,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-01",
+      "metric": "median_max_price_inr",
+      "message": "Increase of 112.55% from 2022-12 to 2023-01.",
+      "previous_month": "2022-12",
+      "previous_value": 6351485.0,
+      "current_value": 13500000.0,
+      "change_fraction": 1.12548718921638,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-01",
+      "metric": "median_min_price_inr",
+      "message": "Increase of 112.55% from 2022-12 to 2023-01.",
+      "previous_month": "2022-12",
+      "previous_value": 6351485.0,
+      "current_value": 13500000.0,
+      "change_fraction": 1.12548718921638,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-02",
+      "metric": "median_max_price_inr",
+      "message": "Decrease of 32.22% from 2023-01 to 2023-02.",
+      "previous_month": "2023-01",
+      "previous_value": 13500000.0,
+      "current_value": 9150000.0,
+      "change_fraction": -0.32222222222222224,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-02",
+      "metric": "median_min_price_inr",
+      "message": "Decrease of 32.22% from 2023-01 to 2023-02.",
+      "previous_month": "2023-01",
+      "previous_value": 13500000.0,
+      "current_value": 9150000.0,
+      "change_fraction": -0.32222222222222224,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-03",
+      "metric": "median_max_price_inr",
+      "message": "Decrease of 27.87% from 2023-02 to 2023-03.",
+      "previous_month": "2023-02",
+      "previous_value": 9150000.0,
+      "current_value": 6600000.0,
+      "change_fraction": -0.2786885245901639,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-03",
+      "metric": "median_min_price_inr",
+      "message": "Decrease of 28.96% from 2023-02 to 2023-03.",
+      "previous_month": "2023-02",
+      "previous_value": 9150000.0,
+      "current_value": 6500000.0,
+      "change_fraction": -0.2896174863387978,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-03",
+      "month": "2023-03",
+      "metric": "observed_listing_count",
+      "message": "Observed count reached 4.82x the previous month.",
+      "previous_month": "2023-02",
+      "previous_value": 45,
+      "current_value": 217,
+      "ratio": 4.822222222222222,
+      "threshold": 2.0
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-04",
+      "metric": "median_max_price_inr",
+      "message": "Increase of 60.07% from 2023-03 to 2023-04.",
+      "previous_month": "2023-03",
+      "previous_value": 6600000.0,
+      "current_value": 10564500.0,
+      "change_fraction": 0.6006818181818182,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-04",
+      "metric": "median_min_price_inr",
+      "message": "Increase of 57.46% from 2023-03 to 2023-04.",
+      "previous_month": "2023-03",
+      "previous_value": 6500000.0,
+      "current_value": 10235001.5,
+      "change_fraction": 0.5746156153846154,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-03",
+      "month": "2023-07",
+      "metric": "observed_listing_count",
+      "message": "Observed count reached 3.64x the previous month.",
+      "previous_month": "2023-06",
+      "previous_value": 947,
+      "current_value": 3447,
+      "ratio": 3.6399155227032733,
+      "threshold": 2.0
+    },
+    {
+      "rule_id": "AN-04",
+      "month": "2023-08",
+      "metric": "final_two_month_concentration",
+      "message": "The final two months account for 76.16% of all observed rows.",
+      "window_start": "2023-07",
+      "window_end": "2023-08",
+      "numerator": 6978,
+      "denominator": 9162,
+      "fraction": 0.7616240995415848,
+      "threshold": 0.7
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+﻿Project: C:\Users\parid\Desktop\assignment_tse
+Timestamp: 2026-10-12 00:43:50
+Python: Python 3.12.2
+
+=== UNIT_TESTS ===
+test_concentration_uses_final_two_months (test_anomaly_detector.AnomalyDetectorTests.test_concentration_uses_final_two_months) ... ok
+test_count_spikes_are_march_and_july (test_anomaly_detector.AnomalyDetectorTests.test_count_spikes_are_march_and_july) ... ok
+test_expected_counts_by_rule (test_anomaly_detector.AnomalyDetectorTests.test_expected_counts_by_rule) ... ok
+test_expected_total_flag_count (test_anomaly_detector.AnomalyDetectorTests.test_expected_total_flag_count) ... ok
+test_output_is_deterministic (test_anomaly_detector.AnomalyDetectorTests.test_output_is_deterministic) ... ok
+test_price_flags_use_only_verified_price_bounds (test_anomaly_detector.AnomalyDetectorTests.test_price_flags_use_only_verified_price_bounds) ... ok
+test_unsorted_months_are_rejected (test_anomaly_detector.AnomalyDetectorTests.test_unsorted_months_are_rejected) ... ok
+test_coverage_does_not_retry_without_permitted_repair (test_execution_graph.ExecutionGraphTests.test_coverage_does_not_retry_without_permitted_repair) ... ok
+test_coverage_feedback_edge_executes_in_controlled_fixture (test_execution_graph.ExecutionGraphTests.test_coverage_feedback_edge_executes_in_controlled_fixture) ... ok
+test_coverage_retries_stop_at_cap (test_execution_graph.ExecutionGraphTests.test_coverage_retries_stop_at_cap) ... ok
+test_critique_feedback_edge_can_pass_after_one_revision (test_execution_graph.ExecutionGraphTests.test_critique_feedback_edge_can_pass_after_one_revision) ... ok
+test_critique_revisions_stop_at_cap_then_use_fallback (test_execution_graph.ExecutionGraphTests.test_critique_revisions_stop_at_cap_then_use_fallback) ... ok
+test_no_flags_skip_diagnostic_writer_and_critique (test_execution_graph.ExecutionGraphTests.test_no_flags_skip_diagnostic_writer_and_critique) ... ok
+test_no_retry_when_coverage_passes (test_execution_graph.ExecutionGraphTests.test_no_retry_when_coverage_passes) ... ok
+test_trace_loop_event_counts_match_counters (test_execution_graph.ExecutionGraphTests.test_trace_loop_event_counts_match_counters) ... ok
+test_aggregate_counts_reconcile (test_hyderabad_golden.HyderabadGoldenTests.test_aggregate_counts_reconcile) ... ok
+test_coverage_is_complete_and_august_is_partial (test_hyderabad_golden.HyderabadGoldenTests.test_coverage_is_complete_and_august_is_partial) ... ok
+test_price_per_sqft_remains_unverified (test_hyderabad_golden.HyderabadGoldenTests.test_price_per_sqft_remains_unverified) ... ok
+test_twelve_months_match_golden_vector (test_hyderabad_golden.HyderabadGoldenTests.test_twelve_months_match_golden_vector) ... ok
+test_city_filter_is_rejected (test_runtime_schemas.RuntimeSchemaTests.test_city_filter_is_rejected) ... ok
+test_coverage_flags_must_match_counts (test_runtime_schemas.RuntimeSchemaTests.test_coverage_flags_must_match_counts) ... ok
+test_default_request_is_valid (test_runtime_schemas.RuntimeSchemaTests.test_default_request_is_valid) ... ok
+test_empty_month_cannot_have_zero_medians (test_runtime_schemas.RuntimeSchemaTests.test_empty_month_cannot_have_zero_medians) ... ok
+test_empty_month_has_null_medians (test_runtime_schemas.RuntimeSchemaTests.test_empty_month_has_null_medians) ... ok
+test_inverted_price_range_is_rejected (test_runtime_schemas.RuntimeSchemaTests.test_inverted_price_range_is_rejected) ... ok
+test_month_counts_must_be_coherent (test_runtime_schemas.RuntimeSchemaTests.test_month_counts_must_be_coherent) ... ok
+test_natural_language_mode_is_rejected_until_parser_exists (test_runtime_schemas.RuntimeSchemaTests.test_natural_language_mode_is_rejected_until_parser_exists) ... ok
+test_requested_and_effective_filters_must_match (test_runtime_schemas.RuntimeSchemaTests.test_requested_and_effective_filters_must_match) ... ok
+test_retry_caps_are_enforced (test_runtime_schemas.RuntimeSchemaTests.test_retry_caps_are_enforced) ... ok
+test_runtime_fingerprint_is_deterministic (test_runtime_schemas.RuntimeSchemaTests.test_runtime_fingerprint_is_deterministic) ... ok
+test_runtime_state_starts_valid (test_runtime_schemas.RuntimeSchemaTests.test_runtime_state_starts_valid) ... ok
+test_source_period_has_exactly_12_months (test_runtime_schemas.RuntimeSchemaTests.test_source_period_has_exactly_12_months) ... ok
+test_unsupported_locality_filter_is_rejected (test_runtime_schemas.RuntimeSchemaTests.test_unsupported_locality_filter_is_rejected) ... ok
+test_wrong_source_period_is_rejected (test_runtime_schemas.RuntimeSchemaTests.test_wrong_source_period_is_rejected) ... ok
+test_coverage_flag_serializes_contract_count_name (test_schema_contract_completion.SchemaContractCompletionTests.test_coverage_flag_serializes_contract_count_name) ... ok
+test_price_sqft_count_cannot_exceed_sale_count (test_schema_contract_completion.SchemaContractCompletionTests.test_price_sqft_count_cannot_exceed_sale_count) ... ok
+test_price_sqft_count_equal_to_sale_count_is_valid (test_schema_contract_completion.SchemaContractCompletionTests.test_price_sqft_count_equal_to_sale_count_is_valid) ... ok
+test_filter_relaxation_is_rejected_under_contract_v1 (test_typed_report_schemas.TypedReportSchemaTests.test_filter_relaxation_is_rejected_under_contract_v1) ... ok
+test_loop_counters_must_match_events (test_typed_report_schemas.TypedReportSchemaTests.test_loop_counters_must_match_events) ... ok
+test_matching_loop_counter_is_valid (test_typed_report_schemas.TypedReportSchemaTests.test_matching_loop_counter_is_valid) ... ok
+test_monthly_report_uses_contract_count_names (test_typed_report_schemas.TypedReportSchemaTests.test_monthly_report_uses_contract_count_names) ... ok
+test_public_report_has_required_metadata_and_exact_record_fields (test_typed_report_schemas.TypedReportSchemaTests.test_public_report_has_required_metadata_and_exact_record_fields) ... ok
+test_report_has_exactly_twelve_ordered_months (test_typed_report_schemas.TypedReportSchemaTests.test_report_has_exactly_twelve_ordered_months) ... ok
+test_report_rejects_missing_month (test_typed_report_schemas.TypedReportSchemaTests.test_report_rejects_missing_month) ... ok
+test_runtime_state_converts_to_typed_report (test_typed_report_schemas.TypedReportSchemaTests.test_runtime_state_converts_to_typed_report) ... ok
+test_trace_indices_must_be_consecutive (test_typed_report_schemas.TypedReportSchemaTests.test_trace_indices_must_be_consecutive) ... ok
+
+----------------------------------------------------------------------
+Ran 46 tests in 0.020s
+
+OK
+UNIT_TESTS_EXIT_CODE=0
+
+=== RUNTIME_BUILD ===
+Runtime state built successfully.
+Raw rows: 9,487; columns: 55
+Valid posting dates: 9,245
+In-window observed rows: 9,162
+In-window sale rows: 7,633
+Valid coherent sale-price ranges: 7,555
+Covered months: 12/12
+Coverage score: 1.000000
+Overall status: ok
+Report: audit\runtime_state.json
+RUNTIME_BUILD_EXIT_CODE=0
+
+FINAL_STATUS=PASS

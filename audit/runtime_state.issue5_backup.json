@@ -1,0 +1,1411 @@
+{
+  "status": "ok",
+  "contract_version": "1.0.0-draft",
+  "snapshot_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+  "run_id": "hyderabad-2022-09_2023-08-9e816983",
+  "window_start": "2022-09",
+  "window_end": "2023-08",
+  "timezone": "Asia/Kolkata",
+  "seed": 0,
+  "llm_mode": "disabled",
+  "logic_version": "hyderabad-runtime-v1",
+  "coverage_score": 1.0,
+  "coverage_decision": "accept",
+  "topology": "consolidated",
+  "loop_counters": {
+    "coverage_repair": 0,
+    "critique_revision": 0
+  },
+  "trace": [
+    {
+      "i": 0,
+      "agent": "planner",
+      "kind": "step",
+      "msg": "Execution plan created",
+      "data": {
+        "action": "plan",
+        "outcome": "ok",
+        "reason": "Planner returned an execution plan"
+      },
+      "loop": null
+    },
+    {
+      "i": 1,
+      "agent": "scanner",
+      "kind": "step",
+      "msg": "Snapshot scan completed",
+      "data": {
+        "attempt": 1,
+        "action": "scan",
+        "outcome": "completed",
+        "reason": "Initial scan"
+      },
+      "loop": null
+    },
+    {
+      "i": 2,
+      "agent": "aggregator",
+      "kind": "step",
+      "msg": "Monthly aggregation completed",
+      "data": {
+        "action": "aggregate",
+        "outcome": "completed",
+        "reason": "Aggregator returned its result"
+      },
+      "loop": null
+    },
+    {
+      "i": 3,
+      "agent": "validator",
+      "kind": "decision",
+      "msg": "Coverage decision evaluated",
+      "data": {
+        "action": "validate_coverage",
+        "outcome": "accepted",
+        "reason": "All 12 calendar months have valid coherent INR price-bound metrics",
+        "coverage_score": 1.0
+      },
+      "loop": null
+    },
+    {
+      "i": 4,
+      "agent": "anomaly",
+      "kind": "step",
+      "msg": "Anomaly analysis completed",
+      "data": {
+        "action": "detect_anomalies",
+        "outcome": "completed",
+        "reason": "Anomaly detector returned ordered flags",
+        "flag_count": 17
+      },
+      "loop": null
+    },
+    {
+      "i": 5,
+      "agent": "diagnostic",
+      "kind": "step",
+      "msg": "Initial diagnostic draft completed",
+      "data": {
+        "action": "draft_diagnostics",
+        "outcome": "completed",
+        "reason": "Initial diagnostic draft returned",
+        "diagnostic_count": 17
+      },
+      "loop": null
+    },
+    {
+      "i": 6,
+      "agent": "reporter",
+      "kind": "step",
+      "msg": "Final report assembly started",
+      "data": {
+        "action": "assemble_report",
+        "outcome": "started",
+        "reason": "Validated outputs and execution trace are ready"
+      },
+      "loop": null
+    }
+  ],
+  "filter_relaxation_history": [],
+  "loop_events": [],
+  "data_quality": {
+    "raw_rows": 9487,
+    "raw_columns": 55,
+    "valid_posting_dates": 9245,
+    "missing_or_invalid_posting_dates": 242,
+    "valid_dated_rows_outside_window": 83,
+    "in_window_observed_rows": 9162,
+    "in_window_sale_rows": 7633,
+    "in_window_valid_price_ranges": 7555,
+    "in_window_valid_price_sqft_numeric_values": 7559,
+    "in_window_sale_rows_without_valid_coherent_range": 78,
+    "exact_duplicate_rows_detected": 0,
+    "exact_duplicate_rows_removed": 0,
+    "repeated_prop_id_groups": 1,
+    "repeated_prop_id_rows": 2
+  },
+  "records": [
+    {
+      "month": "2022-09",
+      "observed_listing_count": 35,
+      "sale_listing_count": 33,
+      "valid_price_range_count": 33,
+      "median_min_price_inr": 5800000.0,
+      "median_max_price_inr": 5800000.0,
+      "valid_price_sqft_count": 33,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2022-10",
+      "observed_listing_count": 51,
+      "sale_listing_count": 43,
+      "valid_price_range_count": 43,
+      "median_min_price_inr": 7700000.0,
+      "median_max_price_inr": 7700000.0,
+      "valid_price_sqft_count": 43,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2022-11",
+      "observed_listing_count": 41,
+      "sale_listing_count": 35,
+      "valid_price_range_count": 35,
+      "median_min_price_inr": 4999500.0,
+      "median_max_price_inr": 4999500.0,
+      "valid_price_sqft_count": 35,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2022-12",
+      "observed_listing_count": 46,
+      "sale_listing_count": 42,
+      "valid_price_range_count": 42,
+      "median_min_price_inr": 6351485.0,
+      "median_max_price_inr": 6351485.0,
+      "valid_price_sqft_count": 42,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-01",
+      "observed_listing_count": 32,
+      "sale_listing_count": 30,
+      "valid_price_range_count": 30,
+      "median_min_price_inr": 13500000.0,
+      "median_max_price_inr": 13500000.0,
+      "valid_price_sqft_count": 30,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-02",
+      "observed_listing_count": 45,
+      "sale_listing_count": 38,
+      "valid_price_range_count": 38,
+      "median_min_price_inr": 9150000.0,
+      "median_max_price_inr": 9150000.0,
+      "valid_price_sqft_count": 38,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-03",
+      "observed_listing_count": 217,
+      "sale_listing_count": 169,
+      "valid_price_range_count": 169,
+      "median_min_price_inr": 6500000.0,
+      "median_max_price_inr": 6600000.0,
+      "valid_price_sqft_count": 169,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-04",
+      "observed_listing_count": 288,
+      "sale_listing_count": 270,
+      "valid_price_range_count": 270,
+      "median_min_price_inr": 10235001.5,
+      "median_max_price_inr": 10564500.0,
+      "valid_price_sqft_count": 270,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-05",
+      "observed_listing_count": 482,
+      "sale_listing_count": 437,
+      "valid_price_range_count": 433,
+      "median_min_price_inr": 10600000.0,
+      "median_max_price_inr": 10944000.0,
+      "valid_price_sqft_count": 434,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-06",
+      "observed_listing_count": 947,
+      "sale_listing_count": 817,
+      "valid_price_range_count": 801,
+      "median_min_price_inr": 10000000.0,
+      "median_max_price_inr": 10623200.0,
+      "valid_price_sqft_count": 802,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-07",
+      "observed_listing_count": 3447,
+      "sale_listing_count": 2808,
+      "valid_price_range_count": 2776,
+      "median_min_price_inr": 9255500.0,
+      "median_max_price_inr": 9400000.0,
+      "valid_price_sqft_count": 2776,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-08",
+      "observed_listing_count": 3531,
+      "sale_listing_count": 2911,
+      "valid_price_range_count": 2885,
+      "median_min_price_inr": 9452000.0,
+      "median_max_price_inr": 9800000.0,
+      "valid_price_sqft_count": 2887,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "partial_month",
+      "metric_status": "unverified_metric"
+    }
+  ],
+  "monthly_records": [
+    {
+      "month": "2022-09",
+      "observed_listing_count": 35,
+      "sale_listing_count": 33,
+      "valid_price_range_count": 33,
+      "valid_price_sqft_count": 33,
+      "median_min_price_inr": 5800000.0,
+      "median_max_price_inr": 5800000.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2022-10",
+      "observed_listing_count": 51,
+      "sale_listing_count": 43,
+      "valid_price_range_count": 43,
+      "valid_price_sqft_count": 43,
+      "median_min_price_inr": 7700000.0,
+      "median_max_price_inr": 7700000.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2022-11",
+      "observed_listing_count": 41,
+      "sale_listing_count": 35,
+      "valid_price_range_count": 35,
+      "valid_price_sqft_count": 35,
+      "median_min_price_inr": 4999500.0,
+      "median_max_price_inr": 4999500.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2022-12",
+      "observed_listing_count": 46,
+      "sale_listing_count": 42,
+      "valid_price_range_count": 42,
+      "valid_price_sqft_count": 42,
+      "median_min_price_inr": 6351485.0,
+      "median_max_price_inr": 6351485.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-01",
+      "observed_listing_count": 32,
+      "sale_listing_count": 30,
+      "valid_price_range_count": 30,
+      "valid_price_sqft_count": 30,
+      "median_min_price_inr": 13500000.0,
+      "median_max_price_inr": 13500000.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-02",
+      "observed_listing_count": 45,
+      "sale_listing_count": 38,
+      "valid_price_range_count": 38,
+      "valid_price_sqft_count": 38,
+      "median_min_price_inr": 9150000.0,
+      "median_max_price_inr": 9150000.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-03",
+      "observed_listing_count": 217,
+      "sale_listing_count": 169,
+      "valid_price_range_count": 169,
+      "valid_price_sqft_count": 169,
+      "median_min_price_inr": 6500000.0,
+      "median_max_price_inr": 6600000.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-04",
+      "observed_listing_count": 288,
+      "sale_listing_count": 270,
+      "valid_price_range_count": 270,
+      "valid_price_sqft_count": 270,
+      "median_min_price_inr": 10235001.5,
+      "median_max_price_inr": 10564500.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-05",
+      "observed_listing_count": 482,
+      "sale_listing_count": 437,
+      "valid_price_range_count": 433,
+      "valid_price_sqft_count": 434,
+      "median_min_price_inr": 10600000.0,
+      "median_max_price_inr": 10944000.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-06",
+      "observed_listing_count": 947,
+      "sale_listing_count": 817,
+      "valid_price_range_count": 801,
+      "valid_price_sqft_count": 802,
+      "median_min_price_inr": 10000000.0,
+      "median_max_price_inr": 10623200.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-07",
+      "observed_listing_count": 3447,
+      "sale_listing_count": 2808,
+      "valid_price_range_count": 2776,
+      "valid_price_sqft_count": 2776,
+      "median_min_price_inr": 9255500.0,
+      "median_max_price_inr": 9400000.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-08",
+      "observed_listing_count": 3531,
+      "sale_listing_count": 2911,
+      "valid_price_range_count": 2885,
+      "valid_price_sqft_count": 2887,
+      "median_min_price_inr": 9452000.0,
+      "median_max_price_inr": 9800000.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "partial_month",
+      "metric_status": "unverified_metric"
+    }
+  ],
+  "runtime_state": {
+    "run_id": "hyderabad-2022-09_2023-08-9e816983",
+    "request": {
+      "query_mode": "structured",
+      "requested_filters": {
+        "city": [],
+        "locality": [],
+        "property_type": [],
+        "min_price_inr": null,
+        "max_price_inr": null,
+        "min_area": null,
+        "max_area": null,
+        "geo_radius_km": null
+      },
+      "request_id": null,
+      "include_diagnostics": true
+    },
+    "plan": {
+      "contract_version": "1.0.0-draft",
+      "source_period": {
+        "start_month": "2022-09",
+        "end_month": "2023-08",
+        "timezone": "Asia/Kolkata",
+        "months": [
+          "2022-09",
+          "2022-10",
+          "2022-11",
+          "2022-12",
+          "2023-01",
+          "2023-02",
+          "2023-03",
+          "2023-04",
+          "2023-05",
+          "2023-06",
+          "2023-07",
+          "2023-08"
+        ]
+      },
+      "requested_filters": {
+        "city": [],
+        "locality": [],
+        "property_type": [],
+        "min_price_inr": null,
+        "max_price_inr": null,
+        "min_area": null,
+        "max_area": null,
+        "geo_radius_km": null
+      },
+      "effective_filters": {
+        "city": [],
+        "locality": [],
+        "property_type": [],
+        "min_price_inr": null,
+        "max_price_inr": null,
+        "min_area": null,
+        "max_area": null,
+        "geo_radius_km": null
+      },
+      "query_mode": "structured",
+      "topology": "consolidated",
+      "required_metrics": [
+        "observed_listing_count",
+        "sale_listing_count",
+        "valid_price_count",
+        "median_min_price_inr",
+        "median_max_price_inr"
+      ],
+      "filter_relaxation_history": []
+    },
+    "retries": {
+      "coverage_repair_retries": 0,
+      "critique_revisions": 0,
+      "llm_retries_by_purpose": {}
+    },
+    "coverage_flags": [
+      {
+        "month": "2022-09",
+        "observed_listing_count": 35,
+        "sale_listing_count": 33,
+        "valid_price_count": 33,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2022-10",
+        "observed_listing_count": 51,
+        "sale_listing_count": 43,
+        "valid_price_count": 43,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2022-11",
+        "observed_listing_count": 41,
+        "sale_listing_count": 35,
+        "valid_price_count": 35,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2022-12",
+        "observed_listing_count": 46,
+        "sale_listing_count": 42,
+        "valid_price_count": 42,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2023-01",
+        "observed_listing_count": 32,
+        "sale_listing_count": 30,
+        "valid_price_count": 30,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2023-02",
+        "observed_listing_count": 45,
+        "sale_listing_count": 38,
+        "valid_price_count": 38,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2023-03",
+        "observed_listing_count": 217,
+        "sale_listing_count": 169,
+        "valid_price_count": 169,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2023-04",
+        "observed_listing_count": 288,
+        "sale_listing_count": 270,
+        "valid_price_count": 270,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2023-05",
+        "observed_listing_count": 482,
+        "sale_listing_count": 437,
+        "valid_price_count": 433,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2023-06",
+        "observed_listing_count": 947,
+        "sale_listing_count": 817,
+        "valid_price_count": 801,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2023-07",
+        "observed_listing_count": 3447,
+        "sale_listing_count": 2808,
+        "valid_price_count": 2776,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      },
+      {
+        "month": "2023-08",
+        "observed_listing_count": 3531,
+        "sale_listing_count": 2911,
+        "valid_price_count": 2885,
+        "coverage_status": "partial_month",
+        "is_partial_month": true,
+        "has_observed_listings": true,
+        "has_valid_prices": true
+      }
+    ],
+    "months": [
+      {
+        "month": "2022-09",
+        "status": "ok",
+        "observed_listing_count": 35,
+        "sale_listing_count": 33,
+        "valid_price_count": 33,
+        "median_min_price_inr": 5800000.0,
+        "median_max_price_inr": 5800000.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 33,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2022-10",
+        "status": "ok",
+        "observed_listing_count": 51,
+        "sale_listing_count": 43,
+        "valid_price_count": 43,
+        "median_min_price_inr": 7700000.0,
+        "median_max_price_inr": 7700000.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 43,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2022-11",
+        "status": "ok",
+        "observed_listing_count": 41,
+        "sale_listing_count": 35,
+        "valid_price_count": 35,
+        "median_min_price_inr": 4999500.0,
+        "median_max_price_inr": 4999500.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 35,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2022-12",
+        "status": "ok",
+        "observed_listing_count": 46,
+        "sale_listing_count": 42,
+        "valid_price_count": 42,
+        "median_min_price_inr": 6351485.0,
+        "median_max_price_inr": 6351485.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 42,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2023-01",
+        "status": "ok",
+        "observed_listing_count": 32,
+        "sale_listing_count": 30,
+        "valid_price_count": 30,
+        "median_min_price_inr": 13500000.0,
+        "median_max_price_inr": 13500000.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 30,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2023-02",
+        "status": "ok",
+        "observed_listing_count": 45,
+        "sale_listing_count": 38,
+        "valid_price_count": 38,
+        "median_min_price_inr": 9150000.0,
+        "median_max_price_inr": 9150000.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 38,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2023-03",
+        "status": "ok",
+        "observed_listing_count": 217,
+        "sale_listing_count": 169,
+        "valid_price_count": 169,
+        "median_min_price_inr": 6500000.0,
+        "median_max_price_inr": 6600000.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 169,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2023-04",
+        "status": "ok",
+        "observed_listing_count": 288,
+        "sale_listing_count": 270,
+        "valid_price_count": 270,
+        "median_min_price_inr": 10235001.5,
+        "median_max_price_inr": 10564500.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 270,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2023-05",
+        "status": "ok",
+        "observed_listing_count": 482,
+        "sale_listing_count": 437,
+        "valid_price_count": 433,
+        "median_min_price_inr": 10600000.0,
+        "median_max_price_inr": 10944000.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 434,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2023-06",
+        "status": "ok",
+        "observed_listing_count": 947,
+        "sale_listing_count": 817,
+        "valid_price_count": 801,
+        "median_min_price_inr": 10000000.0,
+        "median_max_price_inr": 10623200.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 802,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2023-07",
+        "status": "ok",
+        "observed_listing_count": 3447,
+        "sale_listing_count": 2808,
+        "valid_price_count": 2776,
+        "median_min_price_inr": 9255500.0,
+        "median_max_price_inr": 9400000.0,
+        "coverage_status": "observed",
+        "is_partial_month": false,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 2776,
+        "median_price_per_sqft_inr": null
+      },
+      {
+        "month": "2023-08",
+        "status": "partial_month",
+        "observed_listing_count": 3531,
+        "sale_listing_count": 2911,
+        "valid_price_count": 2885,
+        "median_min_price_inr": 9452000.0,
+        "median_max_price_inr": 9800000.0,
+        "coverage_status": "partial_month",
+        "is_partial_month": true,
+        "error_code": null,
+        "metric_status": "unverified_metric",
+        "valid_price_sqft_count": 2887,
+        "median_price_per_sqft_inr": null
+      }
+    ],
+    "trace": [
+      {
+        "i": 0,
+        "agent": "planner",
+        "kind": "step",
+        "msg": "Execution plan created",
+        "data": {
+          "action": "plan",
+          "outcome": "ok",
+          "reason": "Planner returned an execution plan"
+        },
+        "loop": null
+      },
+      {
+        "i": 1,
+        "agent": "scanner",
+        "kind": "step",
+        "msg": "Snapshot scan completed",
+        "data": {
+          "attempt": 1,
+          "action": "scan",
+          "outcome": "completed",
+          "reason": "Initial scan"
+        },
+        "loop": null
+      },
+      {
+        "i": 2,
+        "agent": "aggregator",
+        "kind": "step",
+        "msg": "Monthly aggregation completed",
+        "data": {
+          "action": "aggregate",
+          "outcome": "completed",
+          "reason": "Aggregator returned its result"
+        },
+        "loop": null
+      },
+      {
+        "i": 3,
+        "agent": "validator",
+        "kind": "decision",
+        "msg": "Coverage decision evaluated",
+        "data": {
+          "action": "validate_coverage",
+          "outcome": "accepted",
+          "reason": "All 12 calendar months have valid coherent INR price-bound metrics",
+          "coverage_score": 1.0
+        },
+        "loop": null
+      },
+      {
+        "i": 4,
+        "agent": "anomaly",
+        "kind": "step",
+        "msg": "Anomaly analysis completed",
+        "data": {
+          "action": "detect_anomalies",
+          "outcome": "completed",
+          "reason": "Anomaly detector returned ordered flags",
+          "flag_count": 17
+        },
+        "loop": null
+      },
+      {
+        "i": 5,
+        "agent": "diagnostic",
+        "kind": "step",
+        "msg": "Initial diagnostic draft completed",
+        "data": {
+          "action": "draft_diagnostics",
+          "outcome": "completed",
+          "reason": "Initial diagnostic draft returned",
+          "diagnostic_count": 17
+        },
+        "loop": null
+      },
+      {
+        "i": 6,
+        "agent": "reporter",
+        "kind": "step",
+        "msg": "Final report assembly started",
+        "data": {
+          "action": "assemble_report",
+          "outcome": "started",
+          "reason": "Validated outputs and execution trace are ready"
+        },
+        "loop": null
+      }
+    ],
+    "source_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a"
+  },
+  "anomalies": [
+    {
+      "rule_id": "AN-01",
+      "month": "2022-10",
+      "metric": "median_max_price_inr",
+      "message": "Increase of 32.76% from 2022-09 to 2022-10.",
+      "previous_month": "2022-09",
+      "previous_value": 5800000.0,
+      "current_value": 7700000.0,
+      "change_fraction": 0.3275862068965517,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-10",
+      "metric": "median_min_price_inr",
+      "message": "Increase of 32.76% from 2022-09 to 2022-10.",
+      "previous_month": "2022-09",
+      "previous_value": 5800000.0,
+      "current_value": 7700000.0,
+      "change_fraction": 0.3275862068965517,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-11",
+      "metric": "median_max_price_inr",
+      "message": "Decrease of 35.07% from 2022-10 to 2022-11.",
+      "previous_month": "2022-10",
+      "previous_value": 7700000.0,
+      "current_value": 4999500.0,
+      "change_fraction": -0.3507142857142857,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-11",
+      "metric": "median_min_price_inr",
+      "message": "Decrease of 35.07% from 2022-10 to 2022-11.",
+      "previous_month": "2022-10",
+      "previous_value": 7700000.0,
+      "current_value": 4999500.0,
+      "change_fraction": -0.3507142857142857,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-12",
+      "metric": "median_max_price_inr",
+      "message": "Increase of 27.04% from 2022-11 to 2022-12.",
+      "previous_month": "2022-11",
+      "previous_value": 4999500.0,
+      "current_value": 6351485.0,
+      "change_fraction": 0.27042404240424045,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-12",
+      "metric": "median_min_price_inr",
+      "message": "Increase of 27.04% from 2022-11 to 2022-12.",
+      "previous_month": "2022-11",
+      "previous_value": 4999500.0,
+      "current_value": 6351485.0,
+      "change_fraction": 0.27042404240424045,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-01",
+      "metric": "median_max_price_inr",
+      "message": "Increase of 112.55% from 2022-12 to 2023-01.",
+      "previous_month": "2022-12",
+      "previous_value": 6351485.0,
+      "current_value": 13500000.0,
+      "change_fraction": 1.12548718921638,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-01",
+      "metric": "median_min_price_inr",
+      "message": "Increase of 112.55% from 2022-12 to 2023-01.",
+      "previous_month": "2022-12",
+      "previous_value": 6351485.0,
+      "current_value": 13500000.0,
+      "change_fraction": 1.12548718921638,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-02",
+      "metric": "median_max_price_inr",
+      "message": "Decrease of 32.22% from 2023-01 to 2023-02.",
+      "previous_month": "2023-01",
+      "previous_value": 13500000.0,
+      "current_value": 9150000.0,
+      "change_fraction": -0.32222222222222224,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-02",
+      "metric": "median_min_price_inr",
+      "message": "Decrease of 32.22% from 2023-01 to 2023-02.",
+      "previous_month": "2023-01",
+      "previous_value": 13500000.0,
+      "current_value": 9150000.0,
+      "change_fraction": -0.32222222222222224,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-03",
+      "metric": "median_max_price_inr",
+      "message": "Decrease of 27.87% from 2023-02 to 2023-03.",
+      "previous_month": "2023-02",
+      "previous_value": 9150000.0,
+      "current_value": 6600000.0,
+      "change_fraction": -0.2786885245901639,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-03",
+      "metric": "median_min_price_inr",
+      "message": "Decrease of 28.96% from 2023-02 to 2023-03.",
+      "previous_month": "2023-02",
+      "previous_value": 9150000.0,
+      "current_value": 6500000.0,
+      "change_fraction": -0.2896174863387978,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-03",
+      "month": "2023-03",
+      "metric": "observed_listing_count",
+      "message": "Observed count reached 4.82x the previous month.",
+      "previous_month": "2023-02",
+      "previous_value": 45,
+      "current_value": 217,
+      "ratio": 4.822222222222222,
+      "threshold": 2.0
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-04",
+      "metric": "median_max_price_inr",
+      "message": "Increase of 60.07% from 2023-03 to 2023-04.",
+      "previous_month": "2023-03",
+      "previous_value": 6600000.0,
+      "current_value": 10564500.0,
+      "change_fraction": 0.6006818181818182,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-04",
+      "metric": "median_min_price_inr",
+      "message": "Increase of 57.46% from 2023-03 to 2023-04.",
+      "previous_month": "2023-03",
+      "previous_value": 6500000.0,
+      "current_value": 10235001.5,
+      "change_fraction": 0.5746156153846154,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-03",
+      "month": "2023-07",
+      "metric": "observed_listing_count",
+      "message": "Observed count reached 3.64x the previous month.",
+      "previous_month": "2023-06",
+      "previous_value": 947,
+      "current_value": 3447,
+      "ratio": 3.6399155227032733,
+      "threshold": 2.0
+    },
+    {
+      "rule_id": "AN-04",
+      "month": "2023-08",
+      "metric": "final_two_month_concentration",
+      "message": "The final two months account for 76.16% of all observed rows.",
+      "window_start": "2023-07",
+      "window_end": "2023-08",
+      "numerator": 6978,
+      "denominator": 9162,
+      "fraction": 0.7616240995415848,
+      "threshold": 0.7
+    }
+  ],
+  "diagnostics": [
+    {
+      "rule_id": "AN-01",
+      "month": "2022-10",
+      "metric": "median_max_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Increase of 32.76% from 2022-09 to 2022-10.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2022-10",
+        "metric": "median_max_price_inr",
+        "previous_month": "2022-09",
+        "previous_value": 5800000.0,
+        "current_value": 7700000.0,
+        "change_fraction": 0.3275862068965517,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-10",
+      "metric": "median_min_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Increase of 32.76% from 2022-09 to 2022-10.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2022-10",
+        "metric": "median_min_price_inr",
+        "previous_month": "2022-09",
+        "previous_value": 5800000.0,
+        "current_value": 7700000.0,
+        "change_fraction": 0.3275862068965517,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-11",
+      "metric": "median_max_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Decrease of 35.07% from 2022-10 to 2022-11.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2022-11",
+        "metric": "median_max_price_inr",
+        "previous_month": "2022-10",
+        "previous_value": 7700000.0,
+        "current_value": 4999500.0,
+        "change_fraction": -0.3507142857142857,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-11",
+      "metric": "median_min_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Decrease of 35.07% from 2022-10 to 2022-11.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2022-11",
+        "metric": "median_min_price_inr",
+        "previous_month": "2022-10",
+        "previous_value": 7700000.0,
+        "current_value": 4999500.0,
+        "change_fraction": -0.3507142857142857,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-12",
+      "metric": "median_max_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Increase of 27.04% from 2022-11 to 2022-12.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2022-12",
+        "metric": "median_max_price_inr",
+        "previous_month": "2022-11",
+        "previous_value": 4999500.0,
+        "current_value": 6351485.0,
+        "change_fraction": 0.27042404240424045,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2022-12",
+      "metric": "median_min_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Increase of 27.04% from 2022-11 to 2022-12.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2022-12",
+        "metric": "median_min_price_inr",
+        "previous_month": "2022-11",
+        "previous_value": 4999500.0,
+        "current_value": 6351485.0,
+        "change_fraction": 0.27042404240424045,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-01",
+      "metric": "median_max_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Increase of 112.55% from 2022-12 to 2023-01.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2023-01",
+        "metric": "median_max_price_inr",
+        "previous_month": "2022-12",
+        "previous_value": 6351485.0,
+        "current_value": 13500000.0,
+        "change_fraction": 1.12548718921638,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-01",
+      "metric": "median_min_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Increase of 112.55% from 2022-12 to 2023-01.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2023-01",
+        "metric": "median_min_price_inr",
+        "previous_month": "2022-12",
+        "previous_value": 6351485.0,
+        "current_value": 13500000.0,
+        "change_fraction": 1.12548718921638,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-02",
+      "metric": "median_max_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Decrease of 32.22% from 2023-01 to 2023-02.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2023-02",
+        "metric": "median_max_price_inr",
+        "previous_month": "2023-01",
+        "previous_value": 13500000.0,
+        "current_value": 9150000.0,
+        "change_fraction": -0.32222222222222224,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-02",
+      "metric": "median_min_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Decrease of 32.22% from 2023-01 to 2023-02.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2023-02",
+        "metric": "median_min_price_inr",
+        "previous_month": "2023-01",
+        "previous_value": 13500000.0,
+        "current_value": 9150000.0,
+        "change_fraction": -0.32222222222222224,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-03",
+      "metric": "median_max_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Decrease of 27.87% from 2023-02 to 2023-03.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2023-03",
+        "metric": "median_max_price_inr",
+        "previous_month": "2023-02",
+        "previous_value": 9150000.0,
+        "current_value": 6600000.0,
+        "change_fraction": -0.2786885245901639,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-03",
+      "metric": "median_min_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Decrease of 28.96% from 2023-02 to 2023-03.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2023-03",
+        "metric": "median_min_price_inr",
+        "previous_month": "2023-02",
+        "previous_value": 9150000.0,
+        "current_value": 6500000.0,
+        "change_fraction": -0.2896174863387978,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-03",
+      "month": "2023-03",
+      "metric": "observed_listing_count",
+      "diagnosis": "Observed posting count rose sharply versus the previous month. Check listing ingestion, scrape concentration, and month coverage.",
+      "evidence": "Observed count reached 4.82x the previous month.",
+      "evidence_fields": {
+        "rule_id": "AN-03",
+        "month": "2023-03",
+        "metric": "observed_listing_count",
+        "previous_month": "2023-02",
+        "previous_value": 45,
+        "current_value": 217,
+        "ratio": 4.822222222222222,
+        "threshold": 2.0
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-04",
+      "metric": "median_max_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Increase of 60.07% from 2023-03 to 2023-04.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2023-04",
+        "metric": "median_max_price_inr",
+        "previous_month": "2023-03",
+        "previous_value": 6600000.0,
+        "current_value": 10564500.0,
+        "change_fraction": 0.6006818181818182,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-04",
+      "metric": "median_min_price_inr",
+      "diagnosis": "The reported median price bound changed materially between adjacent snapshot months. This is a listing-snapshot signal, not proof of a market-wide price movement.",
+      "evidence": "Increase of 57.46% from 2023-03 to 2023-04.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2023-04",
+        "metric": "median_min_price_inr",
+        "previous_month": "2023-03",
+        "previous_value": 6500000.0,
+        "current_value": 10235001.5,
+        "change_fraction": 0.5746156153846154,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-03",
+      "month": "2023-07",
+      "metric": "observed_listing_count",
+      "diagnosis": "Observed posting count rose sharply versus the previous month. Check listing ingestion, scrape concentration, and month coverage.",
+      "evidence": "Observed count reached 3.64x the previous month.",
+      "evidence_fields": {
+        "rule_id": "AN-03",
+        "month": "2023-07",
+        "metric": "observed_listing_count",
+        "previous_month": "2023-06",
+        "previous_value": 947,
+        "current_value": 3447,
+        "ratio": 3.6399155227032733,
+        "threshold": 2.0
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-04",
+      "month": "2023-08",
+      "metric": "final_two_month_concentration",
+      "diagnosis": "The final two months contain a high share of rows; the last month is partial. Do not treat snapshot concentration as market share or extrapolate August.",
+      "evidence": "The final two months account for 76.16% of all observed rows.",
+      "evidence_fields": {
+        "rule_id": "AN-04",
+        "month": "2023-08",
+        "metric": "final_two_month_concentration",
+        "window_start": "2023-07",
+        "window_end": "2023-08",
+        "numerator": 6978,
+        "denominator": 9162,
+        "fraction": 0.7616240995415848,
+        "threshold": 0.7
+      },
+      "method": "deterministic_rule_based"
+    }
+  ],
+  "execution_graph": {
+    "stage_order": [
+      "planner",
+      "scanner",
+      "aggregator",
+      "validator",
+      "anomaly",
+      "diagnostic",
+      "reporter"
+    ],
+    "topology": "consolidated",
+    "coverage": {
+      "score": 1.0,
+      "accepted": true,
+      "decision": "accept",
+      "reason": "All 12 calendar months have valid coherent INR price-bound metrics"
+    },
+    "loop_counters": {
+      "coverage_repair": 0,
+      "critique_revision": 0
+    },
+    "trace_event_count": 7
+  }
+}

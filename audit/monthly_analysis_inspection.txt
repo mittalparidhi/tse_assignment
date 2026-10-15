@@ -1,0 +1,1415 @@
+﻿=== FILTERED EXECUTION ===
+"""Run Criteria -> Retrieval -> Aggregation through the existing execution graph.
+
+The default full-snapshot reporting path remains separate. This pipeline executes a
+verified filtered request against the same frozen CSV and reports the resulting
+12-month POSTING_DATE view, while Retrieval Agent's inclusive filter bounds use
+REGISTER_DATE__U as specified by the retrieval contract.
+"""
+from __future__ import annotations
+
+import hashlib
+import math
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Mapping
+
+import numpy as np
+import pandas as pd
+
+from app.anomaly_detector import detect_anomalies
+from app.criteria_agent import CriteriaResult, run_criteria_agent
+from app.execution_graph import CritiqueDecision, CoverageDecision, GraphResult, run_execution_graph
+from app.retrieval_agent import RetrievalAgent, RetrievalError, RetrievalResult
+from app.schemas import EXPECTED_MONTHS, LOCAL_TIMEZONE, WINDOW_END, WINDOW_START
+
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_SOURCE_PATH = ROOT / "data" / "raw" / "hyderabad.csv"
+PRICE_SENTINEL = 2147483647
+LOGIC_VERSION = "filtered-agent-graph-v1"
+
+
+@dataclass(frozen=True)
+class FilteredRunPlan:
+    request: dict[str, Any]
+    criteria_result: CriteriaResult
+    topology: str = "consolidated"
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "request": dict(self.request),
+            "criteria_result": self.criteria_result.to_dict(),
+            "topology": self.topology,
+        }
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _aggregate_selected(plan: FilteredRunPlan, retrieved: RetrievalResult) -> dict[str, Any]:
+    del plan
+    rows = retrieved.rows.copy()
+    required = {"POSTING_DATE", "PREFERENCE", "MIN_PRICE", "MAX_PRICE", "PRICE_SQFT", "PROP_ID"}
+    missing = sorted(required - set(rows.columns))
+    if missing:
+        raise RetrievalError("source_schema_error", f"Filtered aggregation requires columns: {missing}")
+
+    raw_ts = pd.to_numeric(rows["POSTING_DATE"], errors="coerce")
+    finite_ts = raw_ts.notna() & np.isfinite(raw_ts)
+    posting_local = pd.Series(pd.NaT, index=rows.index, dtype=f"datetime64[ns, {LOCAL_TIMEZONE}]")
+    parsed_utc = pd.to_datetime(raw_ts.loc[finite_ts], unit="ms", utc=True, errors="coerce")
+    posting_local.loc[parsed_utc.index] = parsed_utc.dt.tz_convert(LOCAL_TIMEZONE)
+    rows["_posting_date_local"] = posting_local
+    rows["_report_month"] = posting_local.dt.strftime("%Y-%m")
+
+    valid_date = posting_local.notna()
+    in_window = valid_date & rows["_report_month"].isin(EXPECTED_MONTHS)
+    report_rows = rows.loc[in_window].copy()
+    pref = report_rows["PREFERENCE"].astype("string").str.strip().str.upper()
+    report_rows["_is_sale"] = pref.eq("S").fillna(False)
+    lo = pd.to_numeric(report_rows["MIN_PRICE"], errors="coerce")
+    hi = pd.to_numeric(report_rows["MAX_PRICE"], errors="coerce")
+    valid_lo = lo.notna() & np.isfinite(lo) & lo.gt(0) & lo.ne(PRICE_SENTINEL)
+    valid_hi = hi.notna() & np.isfinite(hi) & hi.gt(0) & hi.ne(PRICE_SENTINEL)
+    report_rows["_min_price_numeric"] = lo
+    report_rows["_max_price_numeric"] = hi
+    report_rows["_valid_price_range"] = report_rows["_is_sale"] & valid_lo & valid_hi & lo.le(hi)
+    psf = pd.to_numeric(report_rows["PRICE_SQFT"], errors="coerce")
+    report_rows["_valid_price_sqft"] = (
+        report_rows["_is_sale"] & psf.notna() & np.isfinite(psf) & psf.gt(0)
+    )
+
+    monthly_records: list[dict[str, Any]] = []
+    for month in EXPECTED_MONTHS:
+        month_rows = report_rows.loc[report_rows["_report_month"] == month]
+        valid_prices = month_rows.loc[month_rows["_valid_price_range"]]
+        observed = int(len(month_rows))
+        sales = int(month_rows["_is_sale"].sum())
+        valid_count = int(month_rows["_valid_price_range"].sum())
+        sqft_count = int(month_rows["_valid_price_sqft"].sum())
+        med_min = float(valid_prices["_min_price_numeric"].median()) if valid_count else None
+        med_max = float(valid_prices["_max_price_numeric"].median()) if valid_count else None
+        partial = month == "2023-08"
+        if observed == 0:
+            coverage_status, metric_status = "no_listings", "no_listings"
+        elif sales == 0:
+            coverage_status, metric_status = ("partial_month" if partial else "observed"), "no_sale_listings"
+        elif valid_count == 0:
+            coverage_status, metric_status = ("partial_month" if partial else "observed"), "no_valid_prices"
+        else:
+            coverage_status, metric_status = ("partial_month" if partial else "observed"), "unverified_metric"
+        monthly_records.append({
+            "month": month,
+            "observed_listing_count": observed,
+            "sale_listing_count": sales,
+            "valid_price_range_count": valid_count,
+            "valid_price_sqft_count": sqft_count,
+            "median_min_price_inr": med_min,
+            "median_max_price_inr": med_max,
+            "median_price_per_sqft_inr": None,
+            "coverage_status": coverage_status,
+            "metric_status": metric_status,
+        })
+
+    covered_months = sum(
+        r["valid_price_range_count"] > 0
+        and r["median_min_price_inr"] is not None
+        and r["median_max_price_inr"] is not None
+        for r in monthly_records
+    )
+    data_quality = {
+        "retrieved_row_count": int(retrieved.selected_row_count),
+        "invalid_registration_date_rows_in_source": int(retrieved.invalid_registration_date_rows),
+        "malformed_location_rows_in_source": int(retrieved.malformed_location_rows),
+        "invalid_coordinate_rows_in_source": int(retrieved.invalid_coordinate_rows),
+        "rows_with_invalid_posting_date_in_retrieved_subset": int((~valid_date).sum()),
+        "valid_posting_date_rows_outside_reporting_window": int((valid_date & ~rows["_report_month"].isin(EXPECTED_MONTHS)).sum()),
+        "rows_eligible_for_reporting_window": int(len(report_rows)),
+        "reporting_sale_rows": int(report_rows["_is_sale"].sum()),
+        "reporting_valid_price_ranges": int(report_rows["_valid_price_range"].sum()),
+        "exact_duplicates_removed": 0,
+    }
+    return {
+        "source_sha256": retrieved.source_sha256,
+        "retrieval": retrieved,
+        "monthly_records": monthly_records,
+        "covered_months": int(covered_months),
+        "coverage_score": float(covered_months / 12.0),
+        "data_quality": data_quality,
+    }
+
+
+def _coverage_validator(plan: FilteredRunPlan, aggregate: dict[str, Any]) -> CoverageDecision:
+    del plan
+    score = float(aggregate["coverage_score"])
+    accepted = score == 1.0
+    return CoverageDecision(
+        score=score,
+        accepted=accepted,
+        reason=(
+            "All 12 reporting months have valid coherent sale-price metrics"
+            if accepted else f"Filtered subset has valid price coverage in {aggregate['covered_months']}/12 reporting months"
+        ),
+        issue="" if accepted else "filtered_monthly_price_coverage_incomplete",
+        repairable=False,
+    )
+
+
+def _write_diagnostics(anomalies: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    interpretations = {
+        "AN-01": "The selected listing subset's median price bound changed between adjacent reporting months; this is not proof of a market-wide price movement.",
+        "AN-02": "Observed posting count fell sharply in this filtered subset; check subset size and coverage before interpreting the change.",
+        "AN-03": "Observed posting count rose sharply in this filtered subset; check source coverage and listing composition.",
+        "AN-04": "The final two months contain a large share of this subset; August is partial and must not be extrapolated.",
+    }
+    return [{
+        "rule_id": str(flag.get("rule_id", "unknown")),
+        "month": str(flag.get("month", "")),
+        "metric": str(flag.get("metric", "")),
+        "diagnosis": interpretations.get(str(flag.get("rule_id")), "Inspect the deterministic rule evidence before interpreting this flag."),
+        "evidence": str(flag.get("message", flag)),
+        "evidence_fields": {k: v for k, v in flag.items() if isinstance(v, (str, int, float, bool, type(None)))},
+        "method": "deterministic_rule_based",
+    } for flag in anomalies]
+
+
+def _critique(diagnostics: list[dict[str, Any]], anomalies: list[dict[str, Any]]) -> CritiqueDecision:
+    expected = sorted((str(a.get("rule_id")), str(a.get("month", "")), str(a.get("metric", ""))) for a in anomalies)
+    observed = sorted((str(d.get("rule_id")), str(d.get("month", "")), str(d.get("metric", ""))) for d in diagnostics)
+    valid = len(expected) == len(observed) and expected == observed and all(
+        d.get("diagnosis") and d.get("evidence") and d.get("method") == "deterministic_rule_based"
+        for d in diagnostics
+    )
+    return CritiqueDecision(
+        passed=valid,
+        reason="Each anomaly has a matching evidence-backed diagnostic" if valid else "Diagnostics are incomplete or do not match anomalies",
+        issue="diagnostic_evidence_incomplete" if not valid else "",
+    )
+
+
+def run_filtered_execution_graph(
+    request: Mapping[str, Any],
+    *,
+    source_path: str | Path = DEFAULT_SOURCE_PATH,
+) -> GraphResult:
+    """Execute typed Criteria -> Retrieval -> Aggregator on the existing graph."""
+    source = Path(source_path)
+    interactions: list[dict[str, Any]] = []
+    retrieval_agent = RetrievalAgent(source)
+
+    def planner(raw_request: Mapping[str, Any]) -> FilteredRunPlan:
+        criteria_result = run_criteria_agent(raw_request, source_path=source)
+        interactions.append({
+            "sequence": len(interactions),
+            "agent": "criteria_agent",
+            "invoked_by": "planner",
+            "outcome": "validated",
+            "query_mode": criteria_result.query_mode.value,
+            "filter_spec": criteria_result.filter_spec.to_dict(),
+        })
+        return FilteredRunPlan(request=dict(raw_request), criteria_result=criteria_result)
+
+    def scanner(plan: FilteredRunPlan, repair: Any | None) -> RetrievalResult:
+        if repair is not None:
+            raise RuntimeError("Filtered Retrieval Agent does not permit implicit filter-relaxation repairs")
+        retrieved = retrieval_agent.retrieve(plan.criteria_result)
+        interactions.append({
+            "sequence": len(interactions),
+            "agent": "retrieval_agent",
+            "invoked_by": "scanner",
+            "outcome": "selected",
+            "query_mode": retrieved.query_mode.value,
+            "selected_row_count": retrieved.selected_row_count,
+            "source_sha256": retrieved.source_sha256,
+            "source_period_start": retrieved.source_period_start,
+            "source_period_end": retrieved.source_period_end,
+            "invalid_registration_date_rows": retrieved.invalid_registration_date_rows,
+            "malformed_location_rows": retrieved.malformed_location_rows,
+            "invalid_coordinate_rows": retrieved.invalid_coordinate_rows,
+        })
+        return retrieved
+
+    def aggregator(plan: FilteredRunPlan, retrieved: RetrievalResult) -> dict[str, Any]:
+        aggregate = _aggregate_selected(plan, retrieved)
+        interactions.append({
+            "sequence": len(interactions),
+            "agent": "aggregator",
+            "invoked_by": "execution_graph",
+            "outcome": "aggregated",
+            "reporting_month_count": len(aggregate["monthly_records"]),
+            "covered_months": aggregate["covered_months"],
+        })
+        return aggregate
+
+    def reporter(payload: dict[str, Any]) -> dict[str, Any]:
+        plan: FilteredRunPlan = payload["plan"]
+        retrieved: RetrievalResult = payload["selected_rows"]
+        aggregate: dict[str, Any] = payload["aggregate"]
+        graph_trace = payload["trace"]
+        return {
+            "status": payload["status"],
+            "analysis_scope": "filtered_listing_subset",
+            "logic_version": LOGIC_VERSION,
+            "source_sha256": retrieved.source_sha256,
+            "window_start": WINDOW_START,
+            "window_end": WINDOW_END,
+            "timezone": LOCAL_TIMEZONE,
+            "request": dict(plan.request),
+            "criteria_result": plan.criteria_result.to_dict(),
+            "retrieval": retrieved.to_dict(),
+            "monthly_records": aggregate["monthly_records"],
+            "data_quality": aggregate["data_quality"],
+            "coverage_score": aggregate["coverage_score"],
+            "anomalies": payload["anomalies"],
+            "diagnostics": payload["diagnostics"],
+            "loop_counters": dict(payload["loop_counters"]),
+            "loop_events": payload["loop_events"],
+            "trace": graph_trace,
+            "agent_interaction_trace": list(interactions),
+            "execution_graph": {
+                "topology": plan.topology,
+                "stage_order": [
+                    "planner (calls Criteria Agent)",
+                    "scanner (calls Retrieval Agent)",
+                    "aggregator",
+                    "validator",
+                    "anomaly",
+                    "diagnostic",
+                    "reporter",
+                ],
+                "coverage": payload["coverage"],
+                "loop_counters": dict(payload["loop_counters"]),
+                "trace_event_count": len(graph_trace),
+                "agent_interaction_count": len(interactions),
+            },
+        }
+
+    def fallback(anomalies: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        return _write_diagnostics(anomalies)
+
+    graph = run_execution_graph(
+        request=dict(request),
+        planner=planner,
+        scanner=scanner,
+        aggregator=aggregator,
+        coverage_validator=_coverage_validator,
+        anomaly_detector=lambda aggregate: detect_anomalies(aggregate["monthly_records"]),
+        diagnostic_writer=_write_diagnostics,
+        critique_gate=_critique,
+        reporter=reporter,
+        diagnostic_reviser=lambda diagnostics, critique, anomalies: _write_diagnostics(anomalies),
+        diagnostic_fallback=fallback,
+        repair_provider=None,
+    )
+    return graph
+
+=== RETRIEVAL AGENT ===
+"""Deterministic retrieval for the frozen Hyderabad housing snapshot.
+
+Supported behavior:
+* exact locality matching by parsed LOCALITY_NAME or LOCALITY_ID;
+* GEO_RADIUS using validated LATITUDE/LONGITUDE values in MAP_DETAILS;
+* inclusive calendar-month bounds from REGISTER_DATE__U;
+* source-derived city, BHK, property type, and INR price-band filters.
+
+Only ``json.loads`` and ``ast.literal_eval`` are used for parsing dict-like CSV
+cells. The raw CSV is never modified. ``source_row_id`` is a zero-based raw-row
+ordinal attached to returned copies for stable traceability.
+"""
+from __future__ import annotations
+
+import ast
+import hashlib
+import json
+import math
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Mapping
+
+import numpy as np
+import pandas as pd
+
+from app.criteria_agent import CriteriaResult, FilterSpec, QueryMode
+from app.schemas import FROZEN_SOURCE_SHA256, SourcePeriod
+
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_SOURCE_PATH = ROOT / "data" / "raw" / "hyderabad.csv"
+PRICE_SENTINEL = 2147483647
+EARTH_RADIUS_KM = 6371.0088
+
+
+class RetrievalError(ValueError):
+    """Stable retrieval-layer error with a machine-readable code."""
+
+    def __init__(self, code: str, message: str) -> None:
+        self.code = code
+        self.message = message
+        super().__init__(f"{code}: {message}")
+
+    def to_dict(self) -> dict[str, str]:
+        return {"status": "error", "error_code": self.code, "message": self.message}
+
+
+def _norm(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, float) and math.isnan(value):
+        return ""
+    return " ".join(str(value).strip().split()).casefold()
+
+
+def _safe_dict(value: Any) -> dict[str, Any]:
+    """Safely parse a dict cell; reject all non-dict or malformed payloads."""
+    if isinstance(value, Mapping):
+        return dict(value)
+    if not isinstance(value, str) or not value.strip():
+        return {}
+    text = value.strip()
+    # Most source cells use Python-dict repr (single quotes / None); some may
+    # be valid JSON. Neither parser executes expressions or statements.
+    try:
+        parsed = json.loads(text)
+        if isinstance(parsed, dict):
+            return parsed
+    except (json.JSONDecodeError, TypeError, ValueError):
+        pass
+    try:
+        parsed = ast.literal_eval(text)
+        if isinstance(parsed, dict):
+            return parsed
+    except (ValueError, SyntaxError, TypeError, MemoryError, RecursionError):
+        pass
+    return {}
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _coordinate_pair(value: Any) -> tuple[float, float] | None:
+    payload = _safe_dict(value)
+    if not payload:
+        return None
+    try:
+        lat = float(payload.get("LATITUDE"))
+        lon = float(payload.get("LONGITUDE"))
+    except (TypeError, ValueError, OverflowError):
+        return None
+    if not math.isfinite(lat) or not math.isfinite(lon):
+        return None
+    if not (-90.0 <= lat <= 90.0 and -180.0 <= lon <= 180.0):
+        return None
+    return lat, lon
+
+
+def _valid_price_bounds(frame: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
+    lo = pd.to_numeric(frame["MIN_PRICE"], errors="coerce")
+    hi = pd.to_numeric(frame["MAX_PRICE"], errors="coerce")
+    valid = (
+        np.isfinite(lo)
+        & np.isfinite(hi)
+        & lo.gt(0)
+        & hi.gt(0)
+        & lo.ne(PRICE_SENTINEL)
+        & hi.ne(PRICE_SENTINEL)
+        & lo.le(hi)
+    )
+    return lo.where(valid), hi.where(valid)
+
+
+def _month_number(value: str) -> int:
+    if not isinstance(value, str) or len(value) != 7 or value[4] != "-":
+        raise RetrievalError("invalid_source_period", f"Invalid calendar month: {value!r}")
+    try:
+        year, month = int(value[:4]), int(value[5:7])
+    except ValueError:
+        raise RetrievalError("invalid_source_period", f"Invalid calendar month: {value!r}") from None
+    if year < 1 or not 1 <= month <= 12:
+        raise RetrievalError("invalid_source_period", f"Invalid calendar month: {value!r}")
+    return year * 100 + month
+
+
+def _registration_months(series: pd.Series) -> tuple[pd.Series, pd.Series]:
+    dates = pd.to_datetime(series, errors="coerce")
+    valid = dates.notna()
+    month_numbers = (dates.dt.year * 100 + dates.dt.month).where(valid)
+    return month_numbers, valid
+
+
+def _haversine_km(lat1: float, lon1: float, lat2: np.ndarray, lon2: np.ndarray) -> np.ndarray:
+    """Vectorized great-circle distances for valid lat/lon arrays."""
+    p1 = math.radians(lat1)
+    p2 = np.radians(lat2)
+    dlat = p2 - p1
+    dlon = np.radians(lon2 - lon1)
+    a = np.sin(dlat / 2.0) ** 2 + math.cos(p1) * np.cos(p2) * np.sin(dlon / 2.0) ** 2
+    a = np.clip(a, 0.0, 1.0)
+    return 2.0 * EARTH_RADIUS_KM * np.arcsin(np.sqrt(a))
+
+
+@dataclass(frozen=True)
+class RetrievalResult:
+    """Selected source rows plus reproducibility and parsing diagnostics."""
+
+    rows: pd.DataFrame
+    query_mode: QueryMode
+    source_sha256: str
+    raw_row_count: int
+    invalid_registration_date_rows: int
+    malformed_location_rows: int
+    invalid_coordinate_rows: int
+    source_period_start: str
+    source_period_end: str
+    center_latitude: float | None = None
+    center_longitude: float | None = None
+
+    @property
+    def selected_row_count(self) -> int:
+        return int(len(self.rows))
+
+    def to_dict(self, *, include_rows: bool = False) -> dict[str, Any]:
+        result: dict[str, Any] = {
+            "status": "ok",
+            "query_mode": self.query_mode.value,
+            "source_sha256": self.source_sha256,
+            "raw_row_count": self.raw_row_count,
+            "selected_row_count": self.selected_row_count,
+            "invalid_registration_date_rows": self.invalid_registration_date_rows,
+            "malformed_location_rows": self.malformed_location_rows,
+            "invalid_coordinate_rows": self.invalid_coordinate_rows,
+            "source_period_start": self.source_period_start,
+            "source_period_end": self.source_period_end,
+            "center_coordinates": (
+                {"latitude": self.center_latitude, "longitude": self.center_longitude}
+                if self.center_latitude is not None and self.center_longitude is not None
+                else None
+            ),
+        }
+        if include_rows:
+            result["rows"] = self.rows.replace({np.nan: None}).to_dict(orient="records")
+        return result
+
+
+class RetrievalAgent:
+    """Apply a typed Criteria Agent result to the pinned canonical snapshot."""
+
+    REQUIRED_COLUMNS = {
+        "CITY", "PROPERTY_TYPE", "BEDROOM_NUM", "MIN_PRICE", "MAX_PRICE",
+        "REGISTER_DATE__U", "MAP_DETAILS", "location", "PROP_ID",
+    }
+
+    def __init__(
+        self,
+        source_path: str | Path = DEFAULT_SOURCE_PATH,
+        *,
+        expected_sha256: str | None = FROZEN_SOURCE_SHA256,
+    ) -> None:
+        self.source_path = Path(source_path)
+        self.expected_sha256 = expected_sha256
+
+    def retrieve(
+        self,
+        criteria: CriteriaResult | FilterSpec,
+        query_mode: QueryMode | str | None = None,
+    ) -> RetrievalResult:
+        spec, mode = self._unwrap(criteria, query_mode)
+        if not self.source_path.is_file():
+            raise RetrievalError("source_missing", f"Frozen source CSV not found: {self.source_path}")
+        digest = _sha256(self.source_path)
+        if self.expected_sha256 is not None and digest != self.expected_sha256:
+            raise RetrievalError(
+                "snapshot_integrity_error",
+                "Raw CSV digest differs from the pinned frozen snapshot SHA-256.",
+            )
+
+        frame = pd.read_csv(self.source_path, low_memory=False)
+        missing = sorted(self.REQUIRED_COLUMNS - set(frame.columns))
+        if missing:
+            raise RetrievalError("source_schema_error", f"Frozen source lacks required columns: {missing}")
+        frame = frame.copy()
+        frame.insert(0, "source_row_id", np.arange(len(frame), dtype=np.int64))
+
+        start_month = getattr(spec.source_period, "start_month", None)
+        end_month = getattr(spec.source_period, "end_month", None)
+        start_n = _month_number(start_month)
+        end_n = _month_number(end_month)
+        if start_n > end_n:
+            raise RetrievalError("invalid_source_period", "start_month must not be after end_month")
+
+        registration_month_n, registration_valid = _registration_months(frame["REGISTER_DATE__U"])
+        in_period = registration_valid & registration_month_n.ge(start_n) & registration_month_n.le(end_n)
+
+        location_payloads = frame["location"].map(_safe_dict)
+        malformed_location = location_payloads.map(lambda item: not bool(item))
+        locality_names = location_payloads.map(lambda item: _norm(item.get("LOCALITY_NAME")))
+        locality_ids = location_payloads.map(lambda item: _norm(item.get("LOCALITY_ID")))
+        embedded_cities = location_payloads.map(lambda item: _norm(item.get("CITY_NAME")))
+        top_cities = frame["CITY"].map(_norm)
+        row_cities = top_cities.where(top_cities.ne(""), embedded_cities)
+
+        map_payloads = frame["MAP_DETAILS"].map(_coordinate_pair)
+        coord_valid = map_payloads.map(lambda pair: pair is not None)
+        latitudes = map_payloads.map(lambda pair: pair[0] if pair is not None else np.nan).astype(float)
+        longitudes = map_payloads.map(lambda pair: pair[1] if pair is not None else np.nan).astype(float)
+
+        mask = in_period.copy()
+        mask &= row_cities.eq(_norm(spec.city))
+
+        if mode is QueryMode.EXACT_LOCALITY and spec.geo_radius_km is not None:
+            raise RetrievalError(
+                "query_mode_mismatch",
+                "EXACT_LOCALITY cannot be used when geo_radius_km is specified.",
+            )
+        if mode is QueryMode.GEO_RADIUS and spec.geo_radius_km is None:
+            raise RetrievalError("invalid_geo_radius", "GEO_RADIUS requires geo_radius_km")
+
+        center_lat: float | None = None
+        center_lon: float | None = None
+        if mode is QueryMode.EXACT_LOCALITY:
+            tokens = tuple(_norm(item) for item in spec.localities)
+            if not tokens:
+                raise RetrievalError("missing_locality", "Exact-locality retrieval requires at least one locality name or ID")
+            locality_match = locality_names.isin(tokens) | locality_ids.isin(tokens)
+            mask &= locality_match
+        elif mode is QueryMode.GEO_RADIUS:
+            if spec.geo_radius_km is None or isinstance(spec.geo_radius_km, bool):
+                raise RetrievalError("invalid_geo_radius", "GEO_RADIUS requires geo_radius_km")
+            radius = float(spec.geo_radius_km)
+            if not math.isfinite(radius) or radius <= 0 or radius > 100:
+                raise RetrievalError("invalid_geo_radius", "geo_radius_km must be finite, > 0, and <= 100")
+            if len(spec.localities) != 1:
+                raise RetrievalError("ambiguous_geo_radius_center", "GEO_RADIUS requires exactly one centre locality or ID")
+            center_token = _norm(spec.localities[0])
+            center_rows = (
+                row_cities.eq(_norm(spec.city))
+                & (locality_names.eq(center_token) | locality_ids.eq(center_token))
+                & coord_valid
+            )
+            if not bool(center_rows.any()):
+                raise RetrievalError(
+                    "center_coordinates_unavailable",
+                    "No valid MAP_DETAILS coordinates are available for the centre locality in the selected city.",
+                )
+            # Deterministic locality anchor: independent medians of valid source
+            # coordinates for the selected centre locality.
+            center_lat = float(latitudes.loc[center_rows].median())
+            center_lon = float(longitudes.loc[center_rows].median())
+            distances = np.full(len(frame), np.inf, dtype=float)
+            valid_idx = np.flatnonzero(coord_valid.to_numpy())
+            if len(valid_idx):
+                distances[valid_idx] = _haversine_km(
+                    center_lat,
+                    center_lon,
+                    latitudes.iloc[valid_idx].to_numpy(dtype=float),
+                    longitudes.iloc[valid_idx].to_numpy(dtype=float),
+                )
+            mask &= coord_valid & pd.Series(distances <= radius, index=frame.index)
+        else:
+            raise RetrievalError("unsupported_query_mode", f"Unsupported query mode: {mode!r}")
+
+        if spec.property_types:
+            allowed_types = {_norm(item) for item in spec.property_types}
+            mask &= frame["PROPERTY_TYPE"].map(_norm).isin(allowed_types)
+
+        if spec.bhk:
+            bedrooms = pd.to_numeric(frame["BEDROOM_NUM"], errors="coerce")
+            bhk_values = set(int(item) for item in spec.bhk)
+            mask &= bedrooms.isin(bhk_values)
+
+        lo, hi = _valid_price_bounds(frame)
+        if spec.min_price_inr is not None:
+            if isinstance(spec.min_price_inr, bool):
+                raise RetrievalError("invalid_price", "min_price_inr must be numeric, not boolean")
+            minimum = float(spec.min_price_inr)
+            if not math.isfinite(minimum) or minimum <= 0:
+                raise RetrievalError("invalid_price", "min_price_inr must be finite and > 0")
+            # Inclusive interval overlap: the listing's upper bound must be >=
+            # requested lower bound. Invalid price ranges never match a price filter.
+            mask &= hi.notna() & hi.ge(minimum)
+        if spec.max_price_inr is not None:
+            if isinstance(spec.max_price_inr, bool):
+                raise RetrievalError("invalid_price", "max_price_inr must be numeric, not boolean")
+            maximum = float(spec.max_price_inr)
+            if not math.isfinite(maximum) or maximum <= 0:
+                raise RetrievalError("invalid_price", "max_price_inr must be finite and > 0")
+            mask &= lo.notna() & lo.le(maximum)
+        if spec.min_price_inr is not None and spec.max_price_inr is not None:
+            if float(spec.min_price_inr) > float(spec.max_price_inr):
+                raise RetrievalError("invalid_price_range", "min_price_inr cannot exceed max_price_inr")
+
+        selected = frame.loc[mask].copy().reset_index(drop=True)
+        return RetrievalResult(
+            rows=selected,
+            query_mode=mode,
+            source_sha256=digest,
+            raw_row_count=len(frame),
+            invalid_registration_date_rows=int((~registration_valid).sum()),
+            malformed_location_rows=int(malformed_location.sum()),
+            invalid_coordinate_rows=int((~coord_valid).sum()),
+            source_period_start=start_month,
+            source_period_end=end_month,
+            center_latitude=center_lat,
+            center_longitude=center_lon,
+        )
+
+    @staticmethod
+    def _unwrap(
+        criteria: CriteriaResult | FilterSpec,
+        mode: QueryMode | str | None,
+    ) -> tuple[FilterSpec, QueryMode]:
+        if isinstance(criteria, CriteriaResult):
+            spec = criteria.filter_spec
+            inferred = criteria.query_mode
+            if mode is not None and RetrievalAgent._parse_mode(mode) is not inferred:
+                raise RetrievalError("query_mode_mismatch", "Explicit query mode conflicts with CriteriaResult.query_mode")
+            return spec, inferred
+        if not isinstance(criteria, FilterSpec):
+            raise TypeError("criteria must be a CriteriaResult or FilterSpec")
+        inferred_mode = QueryMode.GEO_RADIUS if criteria.geo_radius_km is not None else QueryMode.EXACT_LOCALITY
+        return criteria, RetrievalAgent._parse_mode(mode) if mode is not None else inferred_mode
+
+    @staticmethod
+    def _parse_mode(mode: QueryMode | str) -> QueryMode:
+        if isinstance(mode, QueryMode):
+            return mode
+        try:
+            return QueryMode(str(mode).upper())
+        except ValueError:
+            raise RetrievalError("unsupported_query_mode", f"Unsupported query mode: {mode!r}") from None
+
+
+def retrieve_rows(
+    criteria: CriteriaResult | FilterSpec,
+    *,
+    source_path: str | Path = DEFAULT_SOURCE_PATH,
+    query_mode: QueryMode | str | None = None,
+) -> pd.DataFrame:
+    """Convenience API returning selected rows only."""
+    return RetrievalAgent(source_path).retrieve(criteria, query_mode).rows
+
+=== MONTHLY REPORT SCHEMAS ===
+
+  app\schemas.py:54:REPORT_STATUSES = {"ok", "partial", "error"}
+  app\schemas.py:55:COVERAGE_DECISIONS = {"accept", "partial", "fail"}
+  app\schemas.py:56:# Backward-compatible name for callers that imported the old constant.
+> app\schemas.py:57:COVERAGE_STATUSES = REPORT_STATUSES
+  app\schemas.py:58:
+> app\schemas.py:59:MONTH_COVERAGE_STATUSES = {"observed", "partial_month", "no_listings"}
+  app\schemas.py:60:
+  app\schemas.py:61:MONTH_METRIC_STATUSES = {
+  app\schemas.py:62:    "ok",
+  app\schemas.py:63:    "no_listings",
+  app\schemas.py:64:    "no_sale_listings",
+  app\schemas.py:65:    "no_valid_prices",
+  app\schemas.py:66:    "unverified_metric",
+  app\schemas.py:67:}
+  app\schemas.py:68:
+  app\schemas.py:69:TRACE_AGENTS = {
+  app\schemas.py:70:    "planner",
+  app\schemas.py:71:    "scanner",
+  app\schemas.py:72:    "aggregator",
+  app\schemas.py:73:    "validator",
+  app\schemas.py:326:
+  app\schemas.py:327:
+  app\schemas.py:328:@dataclass
+> app\schemas.py:329:class CoverageFlag:
+  app\schemas.py:330:    """Month-level availability and valid price-bound coverage metadata."""
+  app\schemas.py:331:
+  app\schemas.py:332:    month: str
+  app\schemas.py:333:    observed_listing_count: int
+  app\schemas.py:334:    sale_listing_count: int
+> app\schemas.py:335:    valid_price_count: int
+> app\schemas.py:336:    coverage_status: str
+  app\schemas.py:337:    is_partial_month: bool = False
+  app\schemas.py:338:    has_observed_listings: bool = False
+  app\schemas.py:339:    has_valid_prices: bool = False
+  app\schemas.py:340:
+  app\schemas.py:341:    def validate(self) -> None:
+  app\schemas.py:342:        _require(self.month in EXPECTED_MONTHS, "Unknown coverage month")
+  app\schemas.py:343:        for name in (
+  app\schemas.py:344:            "observed_listing_count",
+  app\schemas.py:345:            "sale_listing_count",
+> app\schemas.py:346:            "valid_price_count",
+  app\schemas.py:347:        ):
+  app\schemas.py:348:            _require_nonnegative_int(getattr(self, name), name)
+  app\schemas.py:349:
+  app\schemas.py:350:        _require(
+  app\schemas.py:351:            self.sale_listing_count <= self.observed_listing_count,
+  app\schemas.py:352:            "sale_listing_count cannot exceed observed_listing_count",
+  app\schemas.py:353:        )
+  app\schemas.py:354:        _require(
+> app\schemas.py:355:            self.valid_price_count <= self.sale_listing_count,
+> app\schemas.py:356:            "valid_price_count cannot exceed sale_listing_count",
+  app\schemas.py:357:        )
+  app\schemas.py:358:        _require(
+> app\schemas.py:359:            self.coverage_status in MONTH_COVERAGE_STATUSES,
+> app\schemas.py:360:            f"Invalid month coverage status: {self.coverage_status}",
+  app\schemas.py:361:        )
+  app\schemas.py:362:        _require(isinstance(self.is_partial_month, bool),
+  app\schemas.py:363:                 "is_partial_month must be boolean")
+  app\schemas.py:364:        _require(
+  app\schemas.py:365:            self.is_partial_month == (self.month == WINDOW_END),
+  app\schemas.py:366:            "Only 2023-08 is marked as the partial source month",
+  app\schemas.py:367:        )
+  app\schemas.py:368:        _require(
+  app\schemas.py:369:            self.has_observed_listings == (self.observed_listing_count > 0),
+  app\schemas.py:370:            "has_observed_listings conflicts with observed_listing_count",
+  app\schemas.py:371:        )
+  app\schemas.py:372:        _require(
+> app\schemas.py:373:            self.has_valid_prices == (self.valid_price_count > 0),
+> app\schemas.py:374:            "has_valid_prices conflicts with valid_price_count",
+  app\schemas.py:375:        )
+  app\schemas.py:376:
+  app\schemas.py:377:        expected_coverage = _expected_month_coverage(
+  app\schemas.py:378:            self.month, self.observed_listing_count
+  app\schemas.py:379:        )
+  app\schemas.py:380:        _require(
+> app\schemas.py:381:            self.coverage_status == expected_coverage,
+> app\schemas.py:382:            f"coverage_status for {self.month} must be {expected_coverage!r}",
+  app\schemas.py:383:        )
+  app\schemas.py:384:
+  app\schemas.py:385:    @property
+  app\schemas.py:386:    def valid_price_range_count(self) -> int:
+  app\schemas.py:387:        """Contract name for the count of valid coherent price ranges."""
+> app\schemas.py:388:        return self.valid_price_count
+  app\schemas.py:389:
+  app\schemas.py:390:    def to_dict(self) -> dict[str, Any]:
+  app\schemas.py:391:        result = _json_ready(self)
+> app\schemas.py:392:        result["valid_price_range_count"] = self.valid_price_count
+  app\schemas.py:393:        return result
+  app\schemas.py:394:
+  app\schemas.py:395:
+  app\schemas.py:396:def _expected_month_coverage(month: str, observed_count: int) -> str:
+  app\schemas.py:397:    """Use no_listings before the partial-month label for an empty month."""
+  app\schemas.py:398:    if observed_count == 0:
+  app\schemas.py:399:        return "no_listings"
+  app\schemas.py:400:    if month == WINDOW_END:
+  app\schemas.py:401:        return "partial_month"
+  app\schemas.py:402:    return "observed"
+  app\schemas.py:403:
+  app\schemas.py:404:
+  app\schemas.py:405:def _expected_metric_status(
+> app\schemas.py:406:    observed_count: int, sale_count: int, valid_price_count: int
+  app\schemas.py:407:) -> str:
+  app\schemas.py:408:    if observed_count == 0:
+  app\schemas.py:409:        return "no_listings"
+  app\schemas.py:410:    if sale_count == 0:
+  app\schemas.py:411:        return "no_sale_listings"
+> app\schemas.py:412:    if valid_price_count == 0:
+  app\schemas.py:413:        return "no_valid_prices"
+  app\schemas.py:414:    # PRICE_SQFT's semantic/unit verification is unresolved in this snapshot.
+  app\schemas.py:415:    return "unverified_metric"
+  app\schemas.py:416:
+  app\schemas.py:417:
+  app\schemas.py:418:@dataclass
+> app\schemas.py:419:class MonthState:
+  app\schemas.py:420:    """Validated per-month processing status, metrics, and coverage."""
+  app\schemas.py:421:
+  app\schemas.py:422:    month: str
+  app\schemas.py:423:    status: str
+  app\schemas.py:424:    observed_listing_count: int
+  app\schemas.py:425:    sale_listing_count: int
+> app\schemas.py:426:    valid_price_count: int
+  app\schemas.py:427:    median_min_price_inr: float | None = None
+  app\schemas.py:428:    median_max_price_inr: float | None = None
+> app\schemas.py:429:    coverage_status: str = "observed"
+  app\schemas.py:430:    is_partial_month: bool = False
+  app\schemas.py:431:    error_code: str | None = None
+  app\schemas.py:432:    metric_status: str | None = None
+  app\schemas.py:433:    valid_price_sqft_count: int = 0
+> app\schemas.py:434:    median_price_per_sqft_inr: float | None = None
+  app\schemas.py:435:
+  app\schemas.py:436:    @property
+  app\schemas.py:437:    def valid_price_range_count(self) -> int:
+  app\schemas.py:438:        """Contract name for the count of valid coherent price ranges."""
+> app\schemas.py:439:        return self.valid_price_count
+  app\schemas.py:440:
+  app\schemas.py:441:    def validate(self) -> None:
+  app\schemas.py:442:        _require(self.month in EXPECTED_MONTHS, "Unknown month")
+  app\schemas.py:443:        _require(self.status in MONTH_STATUSES, f"Invalid month status: {self.status}")
+  app\schemas.py:444:        _require(
+> app\schemas.py:445:            self.coverage_status in MONTH_COVERAGE_STATUSES,
+> app\schemas.py:446:            f"Invalid month coverage status: {self.coverage_status}",
+  app\schemas.py:447:        )
+  app\schemas.py:448:
+  app\schemas.py:449:        for name in (
+  app\schemas.py:450:            "observed_listing_count",
+  app\schemas.py:451:            "sale_listing_count",
+> app\schemas.py:452:            "valid_price_count",
+  app\schemas.py:453:        ):
+  app\schemas.py:454:            _require_nonnegative_int(getattr(self, name), name)
+  app\schemas.py:455:
+  app\schemas.py:456:        _require(
+  app\schemas.py:457:            self.sale_listing_count <= self.observed_listing_count,
+  app\schemas.py:458:            "sale_listing_count cannot exceed observed_listing_count",
+  app\schemas.py:459:        )
+  app\schemas.py:460:        _require(
+> app\schemas.py:461:            self.valid_price_count <= self.sale_listing_count,
+> app\schemas.py:462:            "valid_price_count cannot exceed sale_listing_count",
+  app\schemas.py:463:        )
+  app\schemas.py:464:        _require_nonnegative_int(
+  app\schemas.py:465:            self.valid_price_sqft_count, "valid_price_sqft_count"
+  app\schemas.py:466:        )
+  app\schemas.py:467:        _require(
+  app\schemas.py:468:            self.valid_price_sqft_count <= self.sale_listing_count,
+  app\schemas.py:469:            "valid_price_sqft_count cannot exceed sale_listing_count",
+  app\schemas.py:470:        )
+  app\schemas.py:471:        _require(
+> app\schemas.py:472:            self.median_price_per_sqft_inr is None,
+  app\schemas.py:473:            "PRICE_SQFT median must remain null while its semantics are unverified",
+  app\schemas.py:474:        )
+  app\schemas.py:475:        _require(isinstance(self.is_partial_month, bool),
+  app\schemas.py:476:                 "is_partial_month must be boolean")
+  app\schemas.py:477:        _require(
+  app\schemas.py:478:            self.is_partial_month == (self.month == WINDOW_END),
+  app\schemas.py:479:            "Only 2023-08 is marked as the partial source month",
+  app\schemas.py:480:        )
+  app\schemas.py:481:
+  app\schemas.py:482:        expected_coverage = _expected_month_coverage(
+  app\schemas.py:483:            self.month, self.observed_listing_count
+  app\schemas.py:484:        )
+  app\schemas.py:485:        _require(
+> app\schemas.py:486:            self.coverage_status == expected_coverage,
+> app\schemas.py:487:            f"coverage_status for {self.month} must be {expected_coverage!r}",
+  app\schemas.py:488:        )
+  app\schemas.py:489:
+  app\schemas.py:490:        if self.observed_listing_count == 0:
+  app\schemas.py:491:            _require(self.status == "no_listings",
+  app\schemas.py:492:                     "Empty month must have status='no_listings'")
+> app\schemas.py:493:        elif self.valid_price_count == 0 and self.status not in {"no_valid_prices", "error"}:
+  app\schemas.py:494:            _require(
+  app\schemas.py:495:                self.status == "insufficient_price_coverage",
+  app\schemas.py:496:                "A month without valid prices must be marked no_valid_prices, "
+  app\schemas.py:497:                "insufficient_price_coverage, or error",
+  app\schemas.py:498:            )
+> app\schemas.py:499:        elif self.valid_price_count > 0 and self.status not in {"ok", "partial_month", "error"}:
+  app\schemas.py:500:            _require(
+  app\schemas.py:501:                self.status == "insufficient_price_coverage",
+  app\schemas.py:502:                "A month with valid prices must be ok, partial_month, or error",
+  app\schemas.py:503:            )
+  app\schemas.py:504:
+> app\schemas.py:505:        if self.valid_price_count == 0:
+  app\schemas.py:506:            _require(
+  app\schemas.py:507:                self.median_min_price_inr is None
+  app\schemas.py:508:                and self.median_max_price_inr is None,
+  app\schemas.py:509:                "No valid price ranges means both price medians must be null",
+  app\schemas.py:510:            )
+  app\schemas.py:511:        else:
+  app\schemas.py:512:            _require(
+  app\schemas.py:513:                self.median_min_price_inr is not None
+  app\schemas.py:514:                and self.median_max_price_inr is not None,
+  app\schemas.py:515:                "Valid price ranges require both INR price-bound medians",
+  app\schemas.py:516:            )
+  app\schemas.py:517:
+  app\schemas.py:518:        for name in ("median_min_price_inr", "median_max_price_inr"):
+  app\schemas.py:519:            value = getattr(self, name)
+  app\schemas.py:533:        expected_metric = _expected_metric_status(
+  app\schemas.py:534:            self.observed_listing_count,
+  app\schemas.py:535:            self.sale_listing_count,
+> app\schemas.py:536:            self.valid_price_count,
+  app\schemas.py:537:        )
+  app\schemas.py:538:        if self.metric_status is None:
+  app\schemas.py:539:            self.metric_status = expected_metric
+  app\schemas.py:540:        _require(
+  app\schemas.py:541:            self.metric_status in MONTH_METRIC_STATUSES,
+  app\schemas.py:542:            f"Invalid metric_status: {self.metric_status}",
+  app\schemas.py:543:        )
+  app\schemas.py:544:        _require(
+  app\schemas.py:545:            self.metric_status == expected_metric,
+  app\schemas.py:546:            f"metric_status must be {expected_metric!r} for these counts",
+  app\schemas.py:547:        )
+  app\schemas.py:548:
+  app\schemas.py:549:        if self.status == "error":
+  app\schemas.py:550:            _require(
+  app\schemas.py:558:    def to_dict(self) -> dict[str, Any]:
+  app\schemas.py:559:        self.validate()
+  app\schemas.py:560:        result = _json_ready(self)
+> app\schemas.py:561:        result["valid_price_range_count"] = self.valid_price_count
+> app\schemas.py:562:        result["median_price_per_sqft_inr"] = None
+  app\schemas.py:563:        return result
+  app\schemas.py:564:
+  app\schemas.py:565:
+  app\schemas.py:566:
+  app\schemas.py:567:@dataclass
+  app\schemas.py:568:class FilterRelaxationEvent:
+  app\schemas.py:569:    """Auditable record of a permitted filter or partition repair."""
+  app\schemas.py:570:
+  app\schemas.py:571:    attempt: int
+  app\schemas.py:572:    filter_name: str
+  app\schemas.py:573:    before: Any
+  app\schemas.py:574:    after: Any
+  app\schemas.py:575:    reason: str
+  app\schemas.py:576:    action: str
+  app\schemas.py:681:
+  app\schemas.py:682:
+  app\schemas.py:683:@dataclass
+> app\schemas.py:684:class MonthlyReportRecord:
+  app\schemas.py:685:    """Public monthly record backed by validated MonthState."""
+  app\schemas.py:686:
+  app\schemas.py:687:    state: MonthState
+  app\schemas.py:688:
+  app\schemas.py:689:    def validate(self) -> None:
+  app\schemas.py:690:        _require(
+  app\schemas.py:691:            isinstance(self.state, MonthState),
+  app\schemas.py:692:            "Monthly report record requires MonthState",
+  app\schemas.py:693:        )
+  app\schemas.py:694:        self.state.validate()
+  app\schemas.py:695:
+  app\schemas.py:696:    def to_dict(self) -> dict[str, Any]:
+  app\schemas.py:697:        self.validate()
+  app\schemas.py:698:        state = self.state
+  app\schemas.py:700:            "month": state.month,
+  app\schemas.py:701:            "observed_listing_count": state.observed_listing_count,
+  app\schemas.py:702:            "sale_listing_count": state.sale_listing_count,
+> app\schemas.py:703:            "valid_price_range_count": state.valid_price_count,
+  app\schemas.py:704:            "median_min_price_inr": state.median_min_price_inr,
+  app\schemas.py:705:            "median_max_price_inr": state.median_max_price_inr,
+  app\schemas.py:706:            "valid_price_sqft_count": state.valid_price_sqft_count,
+> app\schemas.py:707:            "median_price_per_sqft_inr": None,
+> app\schemas.py:708:            "coverage_status": state.coverage_status,
+  app\schemas.py:709:            "metric_status": state.metric_status,
+  app\schemas.py:710:        }
+  app\schemas.py:711:
+  app\schemas.py:712:
+  app\schemas.py:713:
+  app\schemas.py:714:@dataclass
+> app\schemas.py:715:class AnalysisReport:
+  app\schemas.py:716:    """Contract-aligned public report and typed execution history."""
+  app\schemas.py:717:
+  app\schemas.py:718:    run_id: str
+  app\schemas.py:719:    months: list[MonthlyReportRecord]
+  app\schemas.py:720:    contract_version: str = CONTRACT_VERSION
+  app\schemas.py:721:    snapshot_sha256: str = FROZEN_SOURCE_SHA256
+  app\schemas.py:722:    window_start: str = WINDOW_START
+  app\schemas.py:723:    window_end: str = WINDOW_END
+  app\schemas.py:724:    timezone: str = LOCAL_TIMEZONE
+  app\schemas.py:725:    seed: int = 0
+  app\schemas.py:726:    llm_mode: str = "disabled"
+  app\schemas.py:727:    logic_version: str = "hyderabad-runtime-v1"
+  app\schemas.py:728:    coverage_score: float = 1.0
+  app\schemas.py:729:    topology: str = "consolidated"
+  app\schemas.py:894:    required_metrics: tuple[str, ...] = (
+  app\schemas.py:895:        "observed_listing_count",
+  app\schemas.py:896:        "sale_listing_count",
+> app\schemas.py:897:        "valid_price_count",
+  app\schemas.py:898:        "median_min_price_inr",
+  app\schemas.py:899:        "median_max_price_inr",
+  app\schemas.py:900:    )
+  app\schemas.py:901:    filter_relaxation_history: list[FilterRelaxationEvent] = field(
+  app\schemas.py:902:        default_factory=list
+  app\schemas.py:903:    )
+  app\schemas.py:904:
+  app\schemas.py:905:    def validate(self) -> None:
+  app\schemas.py:906:        _require(self.contract_version == CONTRACT_VERSION,
+  app\schemas.py:907:                 "Contract version mismatch")
+  app\schemas.py:908:        _require(isinstance(self.source_period, SourcePeriod),
+  app\schemas.py:909:                 "source_period must be a SourcePeriod")
+  app\schemas.py:910:        # SourcePeriod is immutable and validates itself when constructed.
+  app\schemas.py:911:        _require(isinstance(self.requested_filters, AnalysisFilters),
+  app\schemas.py:1067:                _require(
+  app\schemas.py:1068:                    month.observed_listing_count == flag.observed_listing_count
+  app\schemas.py:1069:                    and month.sale_listing_count == flag.sale_listing_count
+> app\schemas.py:1070:                    and month.valid_price_count == flag.valid_price_count
+> app\schemas.py:1071:                    and month.coverage_status == flag.coverage_status
+  app\schemas.py:1072:                    and month.is_partial_month == flag.is_partial_month,
+  app\schemas.py:1073:                    f"MonthState and CoverageFlag disagree for {month.month}",
+  app\schemas.py:1074:                )
+  app\schemas.py:1075:
+  app\schemas.py:1076:        _require(
+  app\schemas.py:1077:            isinstance(self.source_sha256, (str, type(None))),
+  app\schemas.py:1078:            "source_sha256 must be a string or null",
+  app\schemas.py:1079:        )
+  app\schemas.py:1080:        if self.source_sha256 is not None:
+  app\schemas.py:1081:            _require(
+  app\schemas.py:1082:                bool(re.fullmatch(r"[0-9a-f]{64}", self.source_sha256)),
+  app\schemas.py:1083:                "source_sha256 must be a lowercase SHA-256 hex digest",
+  app\schemas.py:1084:            )
+  app\schemas.py:1085:        self._validate_trace()
+  app\schemas.py:1104:        self.validate()
+  app\schemas.py:1105:
+  app\schemas.py:1106:        covered_months = sum(
+> app\schemas.py:1107:            month.valid_price_count > 0
+  app\schemas.py:1108:            and month.median_min_price_inr is not None
+  app\schemas.py:1109:            and month.median_max_price_inr is not None
+  app\schemas.py:1110:            for month in self.months
+  app\schemas.py:1111:        )
+  app\schemas.py:1112:        computed_score = covered_months / 12.0
+  app\schemas.py:1113:        score = computed_score if coverage_score is None else coverage_score
+  app\schemas.py:1114:
+  app\schemas.py:1115:        if status is None:
+  app\schemas.py:1116:            status = "ok" if score == 1.0 else "partial"
+  app\schemas.py:1117:        if coverage_decision is None:
+  app\schemas.py:1118:            coverage_decision = (
+  app\schemas.py:1119:                "accept" if score == 1.0
+  app\schemas.py:1120:                else "partial" if score > 0
+  app\schemas.py:1121:                else "fail"
+
+
+
+
+=== EXISTING MONTHLY ANALYSIS TESTS ===
+from app.criteria_agent import CriteriaValidationError
+from app.filtered_execution import run_filtered_execution_graph
+
+
+def test_criteria_retrieval_aggregator_are_connected_through_graph():
+    request = {
+        "city": "Hyderabad",
+        "locality": "Gachibowli",
+        "bhk": 2,
+        "property_type": "Residential Apartment",
+        "min_price_inr": 5_000_000,
+        "max_price_inr": 10_000_000,
+        "start_month": "2022-09",
+        "end_month": "2023-08",
+    }
+    result = run_filtered_execution_graph(request)
+    report = result.report
+
+    assert report["retrieval"]["selected_row_count"] == 24
+    assert len(report["monthly_records"]) == 12
+    assert report["criteria_result"]["query_mode"] == "EXACT_LOCALITY"
+    assert report["agent_interaction_trace"][0]["agent"] == "criteria_agent"
+    assert report["agent_interaction_trace"][1]["agent"] == "retrieval_agent"
+    assert report["agent_interaction_trace"][2]["agent"] == "aggregator"
+    assert report["trace"]
+    assert report["loop_counters"] == {"coverage_repair": 0, "critique_revision": 0}
+    assert report["source_sha256"] == "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a"
+
+
+def test_locality_id_request_uses_criteria_and_retrieval():
+    result = run_filtered_execution_graph({"city": "Hyderabad", "locality": "5561"})
+    assert result.report["retrieval"]["selected_row_count"] == 38
+    assert result.report["criteria_result"]["filter_spec"]["localities"] == ["5561"]
+
+
+def test_geo_radius_request_uses_retrieval_coordinates():
+    request = {
+        "city": "Hyderabad",
+        "locality": "Kondapur",
+        "geo_radius_km": 2,
+        "property_type": "Residential Apartment",
+        "bhk": 2,
+    }
+    result = run_filtered_execution_graph(request)
+    assert result.report["criteria_result"]["query_mode"] == "GEO_RADIUS"
+    assert result.report["retrieval"]["selected_row_count"] == 112
+    assert result.report["retrieval"]["center_coordinates"] is not None
+
+
+def test_unsupported_locality_fails_before_retrieval():
+    try:
+        run_filtered_execution_graph({"city": "Hyderabad", "locality": "Not A Real Locality"})
+    except CriteriaValidationError as exc:
+        assert exc.code == "unsupported_locality"
+    else:
+        raise AssertionError("unsupported locality unexpectedly passed Criteria Agent")
+
+import json
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+REPORT = ROOT / "audit" / "runtime_state.json"
+
+EXPECTED = [
+    ("2022-09", 35, 33, 33, 5800000.0, 5800000.0, "observed"),
+    ("2022-10", 51, 43, 43, 7700000.0, 7700000.0, "observed"),
+    ("2022-11", 41, 35, 35, 4999500.0, 4999500.0, "observed"),
+    ("2022-12", 46, 42, 42, 6351485.0, 6351485.0, "observed"),
+    ("2023-01", 32, 30, 30, 13500000.0, 13500000.0, "observed"),
+    ("2023-02", 45, 38, 38, 9150000.0, 9150000.0, "observed"),
+    ("2023-03", 217, 169, 169, 6500000.0, 6600000.0, "observed"),
+    ("2023-04", 288, 270, 270, 10235001.5, 10564500.0, "observed"),
+    ("2023-05", 482, 437, 433, 10600000.0, 10944000.0, "observed"),
+    ("2023-06", 947, 817, 801, 10000000.0, 10623200.0, "observed"),
+    ("2023-07", 3447, 2808, 2776, 9255500.0, 9400000.0, "observed"),
+    ("2023-08", 3531, 2911, 2885, 9452000.0, 9800000.0, "partial_month"),
+]
+
+
+class HyderabadGoldenTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        if not REPORT.is_file():
+            raise FileNotFoundError(
+                f"{REPORT} does not exist. Run scripts/build_runtime_state.py first."
+            )
+        cls.data = json.loads(REPORT.read_text(encoding="utf-8"))
+
+    def test_twelve_months_match_golden_vector(self):
+        records = self.data["records"]
+        self.assertEqual(len(records), 12)
+
+        for actual, expected in zip(records, EXPECTED):
+            month, observed, sales, valid, median_min, median_max, status = expected
+
+            with self.subTest(month=month):
+                self.assertEqual(actual["month"], month)
+                self.assertEqual(actual["observed_listing_count"], observed)
+                self.assertEqual(actual["sale_listing_count"], sales)
+                self.assertEqual(actual["valid_price_range_count"], valid)
+                self.assertAlmostEqual(
+                    actual["median_min_price_inr"], median_min, delta=0.01
+                )
+                self.assertAlmostEqual(
+                    actual["median_max_price_inr"], median_max, delta=0.01
+                )
+                self.assertEqual(actual["coverage_status"], status)
+
+    def test_aggregate_counts_reconcile(self):
+        records = self.data["records"]
+        quality = self.data["data_quality"]
+
+        self.assertEqual(
+            sum(r["observed_listing_count"] for r in records), 9162
+        )
+        self.assertEqual(
+            sum(r["sale_listing_count"] for r in records), 7633
+        )
+        self.assertEqual(
+            sum(r["valid_price_range_count"] for r in records), 7555
+        )
+        self.assertEqual(quality["raw_rows"], 9487)
+        self.assertEqual(quality["valid_posting_dates"], 9245)
+        self.assertEqual(quality["valid_dated_rows_outside_window"], 83)
+        self.assertEqual(
+            quality["missing_or_invalid_posting_dates"], 242
+        )
+
+    def test_price_per_sqft_remains_unverified(self):
+        for record in self.data["records"]:
+            self.assertIsNone(record["median_price_per_sqft_inr"])
+
+    def test_coverage_is_complete_and_august_is_partial(self):
+        self.assertEqual(self.data["coverage_score"], 1.0)
+        self.assertEqual(self.data["coverage_decision"], "accept")
+        self.assertEqual(self.data["status"], "ok")
+        self.assertEqual(
+            self.data["records"][-1]["coverage_status"], "partial_month"
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()
+import unittest
+
+from app.schemas import (
+    AnalysisReport,
+    ContractValidationError,
+    EXPECTED_MONTHS,
+    FilterRelaxationEvent,
+    LoopEvent,
+    MonthState,
+    MonthlyReportRecord,
+    TraceEvent,
+)
+
+
+def make_month(month):
+    is_august = month == "2023-08"
+    return MonthState(
+        month=month,
+        status="partial_month" if is_august else "ok",
+        observed_listing_count=10,
+        sale_listing_count=8,
+        valid_price_count=7,
+        median_min_price_inr=5_000_000.0,
+        median_max_price_inr=6_000_000.0,
+        coverage_status="partial_month" if is_august else "observed",
+        is_partial_month=is_august,
+        metric_status="unverified_metric",
+        valid_price_sqft_count=0,
+        median_price_per_sqft_inr=None,
+    )
+
+
+class TypedReportSchemaTests(unittest.TestCase):
+
+    def make_report(self):
+        return AnalysisReport(
+            run_id="test-run",
+            months=[
+                MonthlyReportRecord(state=make_month(month))
+                for month in EXPECTED_MONTHS
+            ],
+        )
+
+    def test_report_has_exactly_twelve_ordered_months(self):
+        report = self.make_report()
+        report.validate()
+        self.assertEqual(
+            [item.state.month for item in report.months],
+            EXPECTED_MONTHS,
+        )
+
+    def test_monthly_report_uses_contract_count_names(self):
+        result = MonthlyReportRecord(
+            state=make_month("2023-08")
+        ).to_dict()
+        self.assertEqual(result["valid_price_range_count"], 7)
+        self.assertEqual(result["valid_price_sqft_count"], 0)
+        self.assertIsNone(result["median_price_per_sqft_inr"])
+        self.assertEqual(result["coverage_status"], "partial_month")
+
+    def test_report_rejects_missing_month(self):
+        report = self.make_report()
+        report.months.pop()
+        with self.assertRaises(ContractValidationError):
+            report.validate()
+
+    def test_trace_indices_must_be_consecutive(self):
+        report = self.make_report()
+        report.trace = [
+            TraceEvent(
+                i=1,
+                agent="planner",
+                kind="message",
+                msg="Planning completed",
+            )
+        ]
+        with self.assertRaises(ContractValidationError):
+            report.validate()
+
+    def test_loop_counters_must_match_events(self):
+        report = self.make_report()
+        report.loop_events = [
+            LoopEvent(
+                loop="coverage_repair",
+                attempt=1,
+                issue="Coverage gap",
+                action="Retry scan",
+                outcome="completed",
+                reason="Coverage check requested another scan",
+                before_coverage=0.8,
+                after_coverage=0.9,
+            )
+        ]
+        with self.assertRaises(ContractValidationError):
+            report.validate()
+
+    def test_matching_loop_counter_is_valid(self):
+        report = self.make_report()
+        report.loop_events = [
+            LoopEvent(
+                loop="coverage_repair",
+                attempt=1,
+                issue="Coverage gap",
+                action="Retry scan",
+                outcome="completed",
+                reason="Coverage check requested another scan",
+                before_coverage=0.8,
+                after_coverage=0.9,
+            )
+        ]
+        report.loop_counters["coverage_repair"] = 1
+        report.validate()
+
+    def test_filter_relaxation_is_rejected_under_contract_v1(self):
+        report = self.make_report()
+        report.filter_relaxation_history = [
+            FilterRelaxationEvent(
+                attempt=1,
+                filter_name="locality",
+                before="A",
+                after="B",
+                reason="Illustrative test",
+                action="relax",
+                outcome="applied",
+            )
+        ]
+        with self.assertRaises(ContractValidationError):
+            report.validate()
+
+
+    def test_public_report_has_required_metadata_and_exact_record_fields(self):
+        report = self.make_report()
+        payload = report.to_dict()
+
+        required_metadata = {
+            "contract_version", "snapshot_sha256", "run_id",
+            "window_start", "window_end", "timezone", "seed",
+            "llm_mode", "logic_version", "coverage_score", "topology",
+            "loop_counters", "trace", "data_quality", "status",
+        }
+        self.assertTrue(required_metadata.issubset(payload))
+        self.assertEqual(len(payload["records"]), 12)
+
+        expected_month_fields = {
+            "month", "observed_listing_count", "sale_listing_count",
+            "valid_price_range_count", "median_min_price_inr",
+            "median_max_price_inr", "valid_price_sqft_count",
+            "median_price_per_sqft_inr", "coverage_status", "metric_status",
+        }
+        self.assertEqual(set(payload["records"][0]), expected_month_fields)
+
+    def test_runtime_state_converts_to_typed_report(self):
+        from app.schemas import (
+            AnalysisRequest, CoverageFlag, RuntimeState, RunPlan,
+            RetryCounters, SourcePeriod,
+        )
+
+        months = [make_month(month) for month in EXPECTED_MONTHS]
+        flags = [
+            CoverageFlag(
+                month=month.month,
+                observed_listing_count=month.observed_listing_count,
+                sale_listing_count=month.sale_listing_count,
+                valid_price_count=month.valid_price_count,
+                coverage_status=month.coverage_status,
+                is_partial_month=month.is_partial_month,
+                has_observed_listings=True,
+                has_valid_prices=True,
+            )
+            for month in months
+        ]
+        request = AnalysisRequest()
+        plan = RunPlan(
+            source_period=SourcePeriod(),
+            requested_filters=request.requested_filters,
+            effective_filters=request.requested_filters,
+        )
+        runtime = RuntimeState(
+            run_id="integration-test",
+            request=request,
+            plan=plan,
+            retries=RetryCounters(),
+            coverage_flags=flags,
+            months=months,
+            trace=[
+                {
+                    "i": 0,
+                    "agent": "planner",
+                    "kind": "step",
+                    "loop": None,
+                    "msg": "Test planning step",
+                    "data": {},
+                }
+            ],
+            source_sha256="9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+        )
+        report = runtime.to_analysis_report(
+            data_quality={"raw_rows": 100},
+            coverage_score=1.0,
+            status="ok",
+            coverage_decision="accept",
+        )
+        result = report.to_dict()
+        self.assertEqual(result["run_id"], "integration-test")
+        self.assertEqual(len(result["records"]), 12)
+        self.assertEqual(result["trace"][0]["agent"], "planner")
+        self.assertEqual(result["data_quality"]["raw_rows"], 100)
+
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

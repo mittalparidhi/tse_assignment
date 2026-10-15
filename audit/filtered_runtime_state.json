@@ -1,0 +1,581 @@
+{
+  "status": "partial",
+  "analysis_scope": "filtered_listing_subset",
+  "logic_version": "filtered-agent-graph-v1",
+  "source_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+  "window_start": "2022-09",
+  "window_end": "2023-08",
+  "timezone": "Asia/Kolkata",
+  "request": {
+    "city": "Hyderabad",
+    "locality": "Gachibowli",
+    "bhk": 2,
+    "property_type": "Residential Apartment",
+    "min_price_inr": 5000000,
+    "max_price_inr": 10000000,
+    "start_month": "2022-09",
+    "end_month": "2023-08"
+  },
+  "criteria_result": {
+    "filter_spec": {
+      "city": "Hyderabad",
+      "localities": [
+        "Gachibowli"
+      ],
+      "bhk": [
+        2
+      ],
+      "property_types": [
+        "Residential Apartment"
+      ],
+      "min_price_inr": 5000000,
+      "max_price_inr": 10000000,
+      "geo_radius_km": null,
+      "source_period": {
+        "start_month": "2022-09",
+        "end_month": "2023-08",
+        "timezone": "Asia/Kolkata",
+        "months": [
+          "2022-09",
+          "2022-10",
+          "2022-11",
+          "2022-12",
+          "2023-01",
+          "2023-02",
+          "2023-03",
+          "2023-04",
+          "2023-05",
+          "2023-06",
+          "2023-07",
+          "2023-08"
+        ]
+      }
+    },
+    "query_mode": "EXACT_LOCALITY"
+  },
+  "retrieval": {
+    "status": "ok",
+    "query_mode": "EXACT_LOCALITY",
+    "source_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+    "raw_row_count": 9487,
+    "selected_row_count": 24,
+    "invalid_registration_date_rows": 0,
+    "malformed_location_rows": 0,
+    "invalid_coordinate_rows": 0,
+    "source_period_start": "2022-09",
+    "source_period_end": "2023-08",
+    "center_coordinates": null
+  },
+  "monthly_records": [
+    {
+      "month": "2022-09",
+      "observed_listing_count": 1,
+      "sale_listing_count": 1,
+      "valid_price_range_count": 1,
+      "valid_price_sqft_count": 1,
+      "median_min_price_inr": 8512710.0,
+      "median_max_price_inr": 8512710.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2022-10",
+      "observed_listing_count": 0,
+      "sale_listing_count": 0,
+      "valid_price_range_count": 0,
+      "valid_price_sqft_count": 0,
+      "median_min_price_inr": null,
+      "median_max_price_inr": null,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "no_listings",
+      "metric_status": "no_listings"
+    },
+    {
+      "month": "2022-11",
+      "observed_listing_count": 0,
+      "sale_listing_count": 0,
+      "valid_price_range_count": 0,
+      "valid_price_sqft_count": 0,
+      "median_min_price_inr": null,
+      "median_max_price_inr": null,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "no_listings",
+      "metric_status": "no_listings"
+    },
+    {
+      "month": "2022-12",
+      "observed_listing_count": 0,
+      "sale_listing_count": 0,
+      "valid_price_range_count": 0,
+      "valid_price_sqft_count": 0,
+      "median_min_price_inr": null,
+      "median_max_price_inr": null,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "no_listings",
+      "metric_status": "no_listings"
+    },
+    {
+      "month": "2023-01",
+      "observed_listing_count": 0,
+      "sale_listing_count": 0,
+      "valid_price_range_count": 0,
+      "valid_price_sqft_count": 0,
+      "median_min_price_inr": null,
+      "median_max_price_inr": null,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "no_listings",
+      "metric_status": "no_listings"
+    },
+    {
+      "month": "2023-02",
+      "observed_listing_count": 0,
+      "sale_listing_count": 0,
+      "valid_price_range_count": 0,
+      "valid_price_sqft_count": 0,
+      "median_min_price_inr": null,
+      "median_max_price_inr": null,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "no_listings",
+      "metric_status": "no_listings"
+    },
+    {
+      "month": "2023-03",
+      "observed_listing_count": 0,
+      "sale_listing_count": 0,
+      "valid_price_range_count": 0,
+      "valid_price_sqft_count": 0,
+      "median_min_price_inr": null,
+      "median_max_price_inr": null,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "no_listings",
+      "metric_status": "no_listings"
+    },
+    {
+      "month": "2023-04",
+      "observed_listing_count": 0,
+      "sale_listing_count": 0,
+      "valid_price_range_count": 0,
+      "valid_price_sqft_count": 0,
+      "median_min_price_inr": null,
+      "median_max_price_inr": null,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "no_listings",
+      "metric_status": "no_listings"
+    },
+    {
+      "month": "2023-05",
+      "observed_listing_count": 2,
+      "sale_listing_count": 2,
+      "valid_price_range_count": 2,
+      "valid_price_sqft_count": 2,
+      "median_min_price_inr": 8650015.0,
+      "median_max_price_inr": 9311602.5,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-06",
+      "observed_listing_count": 0,
+      "sale_listing_count": 0,
+      "valid_price_range_count": 0,
+      "valid_price_sqft_count": 0,
+      "median_min_price_inr": null,
+      "median_max_price_inr": null,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "no_listings",
+      "metric_status": "no_listings"
+    },
+    {
+      "month": "2023-07",
+      "observed_listing_count": 11,
+      "sale_listing_count": 11,
+      "valid_price_range_count": 11,
+      "valid_price_sqft_count": 11,
+      "median_min_price_inr": 8350000.0,
+      "median_max_price_inr": 8350000.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "observed",
+      "metric_status": "unverified_metric"
+    },
+    {
+      "month": "2023-08",
+      "observed_listing_count": 9,
+      "sale_listing_count": 9,
+      "valid_price_range_count": 9,
+      "valid_price_sqft_count": 9,
+      "median_min_price_inr": 9800000.0,
+      "median_max_price_inr": 9800000.0,
+      "median_price_per_sqft_inr": null,
+      "coverage_status": "partial_month",
+      "metric_status": "unverified_metric"
+    }
+  ],
+  "data_quality": {
+    "retrieved_row_count": 24,
+    "invalid_registration_date_rows_in_source": 0,
+    "malformed_location_rows_in_source": 0,
+    "invalid_coordinate_rows_in_source": 0,
+    "rows_with_invalid_posting_date_in_retrieved_subset": 1,
+    "valid_posting_date_rows_outside_reporting_window": 0,
+    "rows_eligible_for_reporting_window": 23,
+    "reporting_sale_rows": 23,
+    "reporting_valid_price_ranges": 23,
+    "exact_duplicates_removed": 0
+  },
+  "coverage_score": 0.3333333333333333,
+  "anomalies": [
+    {
+      "rule_id": "AN-02",
+      "month": "2022-10",
+      "metric": "observed_listing_count",
+      "message": "Observed count fell to 0.00x the previous month.",
+      "previous_month": "2022-09",
+      "previous_value": 1,
+      "current_value": 0,
+      "ratio": 0.0,
+      "threshold": 0.5
+    },
+    {
+      "rule_id": "AN-02",
+      "month": "2023-06",
+      "metric": "observed_listing_count",
+      "message": "Observed count fell to 0.00x the previous month.",
+      "previous_month": "2023-05",
+      "previous_value": 2,
+      "current_value": 0,
+      "ratio": 0.0,
+      "threshold": 0.5
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-08",
+      "metric": "median_max_price_inr",
+      "message": "Increase of 17.37% from 2023-07 to 2023-08.",
+      "previous_month": "2023-07",
+      "previous_value": 8350000.0,
+      "current_value": 9800000.0,
+      "change_fraction": 0.17365269461077845,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-08",
+      "metric": "median_min_price_inr",
+      "message": "Increase of 17.37% from 2023-07 to 2023-08.",
+      "previous_month": "2023-07",
+      "previous_value": 8350000.0,
+      "current_value": 9800000.0,
+      "change_fraction": 0.17365269461077845,
+      "threshold": 0.12
+    },
+    {
+      "rule_id": "AN-04",
+      "month": "2023-08",
+      "metric": "final_two_month_concentration",
+      "message": "The final two months account for 86.96% of all observed rows.",
+      "window_start": "2023-07",
+      "window_end": "2023-08",
+      "numerator": 20,
+      "denominator": 23,
+      "fraction": 0.8695652173913043,
+      "threshold": 0.7
+    }
+  ],
+  "diagnostics": [
+    {
+      "rule_id": "AN-02",
+      "month": "2022-10",
+      "metric": "observed_listing_count",
+      "diagnosis": "Observed posting count fell sharply in this filtered subset; check subset size and coverage before interpreting the change.",
+      "evidence": "Observed count fell to 0.00x the previous month.",
+      "evidence_fields": {
+        "rule_id": "AN-02",
+        "month": "2022-10",
+        "metric": "observed_listing_count",
+        "message": "Observed count fell to 0.00x the previous month.",
+        "previous_month": "2022-09",
+        "previous_value": 1,
+        "current_value": 0,
+        "ratio": 0.0,
+        "threshold": 0.5
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-02",
+      "month": "2023-06",
+      "metric": "observed_listing_count",
+      "diagnosis": "Observed posting count fell sharply in this filtered subset; check subset size and coverage before interpreting the change.",
+      "evidence": "Observed count fell to 0.00x the previous month.",
+      "evidence_fields": {
+        "rule_id": "AN-02",
+        "month": "2023-06",
+        "metric": "observed_listing_count",
+        "message": "Observed count fell to 0.00x the previous month.",
+        "previous_month": "2023-05",
+        "previous_value": 2,
+        "current_value": 0,
+        "ratio": 0.0,
+        "threshold": 0.5
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-08",
+      "metric": "median_max_price_inr",
+      "diagnosis": "The selected listing subset's median price bound changed between adjacent reporting months; this is not proof of a market-wide price movement.",
+      "evidence": "Increase of 17.37% from 2023-07 to 2023-08.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2023-08",
+        "metric": "median_max_price_inr",
+        "message": "Increase of 17.37% from 2023-07 to 2023-08.",
+        "previous_month": "2023-07",
+        "previous_value": 8350000.0,
+        "current_value": 9800000.0,
+        "change_fraction": 0.17365269461077845,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-01",
+      "month": "2023-08",
+      "metric": "median_min_price_inr",
+      "diagnosis": "The selected listing subset's median price bound changed between adjacent reporting months; this is not proof of a market-wide price movement.",
+      "evidence": "Increase of 17.37% from 2023-07 to 2023-08.",
+      "evidence_fields": {
+        "rule_id": "AN-01",
+        "month": "2023-08",
+        "metric": "median_min_price_inr",
+        "message": "Increase of 17.37% from 2023-07 to 2023-08.",
+        "previous_month": "2023-07",
+        "previous_value": 8350000.0,
+        "current_value": 9800000.0,
+        "change_fraction": 0.17365269461077845,
+        "threshold": 0.12
+      },
+      "method": "deterministic_rule_based"
+    },
+    {
+      "rule_id": "AN-04",
+      "month": "2023-08",
+      "metric": "final_two_month_concentration",
+      "diagnosis": "The final two months contain a large share of this subset; August is partial and must not be extrapolated.",
+      "evidence": "The final two months account for 86.96% of all observed rows.",
+      "evidence_fields": {
+        "rule_id": "AN-04",
+        "month": "2023-08",
+        "metric": "final_two_month_concentration",
+        "message": "The final two months account for 86.96% of all observed rows.",
+        "window_start": "2023-07",
+        "window_end": "2023-08",
+        "numerator": 20,
+        "denominator": 23,
+        "fraction": 0.8695652173913043,
+        "threshold": 0.7
+      },
+      "method": "deterministic_rule_based"
+    }
+  ],
+  "loop_counters": {
+    "coverage_repair": 0,
+    "critique_revision": 0
+  },
+  "loop_events": [],
+  "trace": [
+    {
+      "i": 0,
+      "agent": "planner",
+      "kind": "step",
+      "msg": "Execution plan created",
+      "data": {
+        "action": "plan",
+        "outcome": "ok",
+        "reason": "Planner returned an execution plan"
+      },
+      "loop": null
+    },
+    {
+      "i": 1,
+      "agent": "scanner",
+      "kind": "step",
+      "msg": "Snapshot scan completed",
+      "data": {
+        "attempt": 1,
+        "action": "scan",
+        "outcome": "completed",
+        "reason": "Initial scan"
+      },
+      "loop": null
+    },
+    {
+      "i": 2,
+      "agent": "aggregator",
+      "kind": "step",
+      "msg": "Monthly aggregation completed",
+      "data": {
+        "action": "aggregate",
+        "outcome": "completed",
+        "reason": "Aggregator returned its result"
+      },
+      "loop": null
+    },
+    {
+      "i": 3,
+      "agent": "validator",
+      "kind": "decision",
+      "msg": "Coverage decision evaluated",
+      "data": {
+        "action": "validate_coverage",
+        "outcome": "not_accepted",
+        "reason": "Filtered subset has valid price coverage in 4/12 reporting months",
+        "coverage_score": 0.3333333333333333
+      },
+      "loop": null
+    },
+    {
+      "i": 4,
+      "agent": "validator",
+      "kind": "decision",
+      "msg": "Coverage repair stopped",
+      "data": {
+        "action": "stop",
+        "outcome": "repair_not_permitted",
+        "reason": "No permitted repair is available"
+      },
+      "loop": null
+    },
+    {
+      "i": 5,
+      "agent": "anomaly",
+      "kind": "step",
+      "msg": "Anomaly analysis completed",
+      "data": {
+        "action": "detect_anomalies",
+        "outcome": "completed",
+        "reason": "Anomaly detector returned ordered flags",
+        "flag_count": 5
+      },
+      "loop": null
+    },
+    {
+      "i": 6,
+      "agent": "diagnostic",
+      "kind": "step",
+      "msg": "Initial diagnostic draft completed",
+      "data": {
+        "action": "draft_diagnostics",
+        "outcome": "completed",
+        "reason": "Initial diagnostic draft returned",
+        "diagnostic_count": 5
+      },
+      "loop": null
+    },
+    {
+      "i": 7,
+      "agent": "reporter",
+      "kind": "step",
+      "msg": "Final report assembly started",
+      "data": {
+        "action": "assemble_report",
+        "outcome": "started",
+        "reason": "Validated outputs and execution trace are ready"
+      },
+      "loop": null
+    }
+  ],
+  "agent_interaction_trace": [
+    {
+      "sequence": 0,
+      "agent": "criteria_agent",
+      "invoked_by": "planner",
+      "outcome": "validated",
+      "query_mode": "EXACT_LOCALITY",
+      "filter_spec": {
+        "city": "Hyderabad",
+        "localities": [
+          "Gachibowli"
+        ],
+        "bhk": [
+          2
+        ],
+        "property_types": [
+          "Residential Apartment"
+        ],
+        "min_price_inr": 5000000,
+        "max_price_inr": 10000000,
+        "geo_radius_km": null,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      }
+    },
+    {
+      "sequence": 1,
+      "agent": "retrieval_agent",
+      "invoked_by": "scanner",
+      "outcome": "selected",
+      "query_mode": "EXACT_LOCALITY",
+      "selected_row_count": 24,
+      "source_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+      "source_period_start": "2022-09",
+      "source_period_end": "2023-08",
+      "invalid_registration_date_rows": 0,
+      "malformed_location_rows": 0,
+      "invalid_coordinate_rows": 0
+    },
+    {
+      "sequence": 2,
+      "agent": "aggregator",
+      "invoked_by": "execution_graph",
+      "outcome": "aggregated",
+      "reporting_month_count": 12,
+      "covered_months": 4
+    }
+  ],
+  "execution_graph": {
+    "topology": "consolidated",
+    "stage_order": [
+      "planner (calls Criteria Agent)",
+      "scanner (calls Retrieval Agent)",
+      "aggregator",
+      "validator",
+      "anomaly",
+      "diagnostic",
+      "reporter"
+    ],
+    "coverage": {
+      "score": 0.3333333333333333,
+      "accepted": false,
+      "decision": "partial",
+      "reason": "Filtered subset has valid price coverage in 4/12 reporting months"
+    },
+    "loop_counters": {
+      "coverage_repair": 0,
+      "critique_revision": 0
+    },
+    "trace_event_count": 8,
+    "agent_interaction_count": 3
+  },
+  "snapshot_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a"
+}
