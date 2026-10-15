@@ -4,3 +4,4 @@
 data/** -text
 results/** -text
 tests/golden/** -text
+legacy/data/** -text

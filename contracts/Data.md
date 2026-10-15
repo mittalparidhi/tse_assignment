@@ -84,7 +84,7 @@ No value is imputed. A field that cannot be parsed is `null` (or `"Unknown"` for
 ## 6. Startup integrity
 
 1. The raw SHA-256 is computed and compared with §1 before loading (`verify_snapshot`). Mismatch → `snapshot_integrity_error`.
-2. The frozen canonical CSV's SHA-256 is recorded in `data/snapshot/CHECKSUMS.txt` and regenerated only by `freeze_canonical`, as a reviewed change.
+2. The frozen canonical CSV's SHA-256 is recorded in `data/snapshot/CHECKSUMS.txt` and regenerated only by `freeze_canonical`, as a reviewed change. The application does not read this file; it rebuilds the frame from the raw snapshot on every run. The frozen copy is therefore a published record of the population, and **[P3]** a test rebuilds the frame, serialises it exactly as `freeze_canonical` does, and checks the result against `CHECKSUMS.txt`, so a loader change cannot leave the frozen copy silently out of date.
 3. `.gitattributes` keeps `data/`, `results/` and `tests/golden/` byte-exact across platforms (`core.autocrlf` previously broke the canonical checksum on Windows).
 4. Agents receive the frame in memory; they do not read files.
 
@@ -95,7 +95,7 @@ No value is imputed. A field that cannot be parsed is `null` (or `"Unknown"` for
 | R1 — Raw integrity | SHA-256 equals §1 |
 | R2 — Shape | 9,487 rows, 55 columns |
 | R3 — Cascade | Each stage count in §3 is reproduced by `load_canonical()` |
-| R4 — Canonical freeze | `listings_canonical.csv` SHA-256 equals `data/snapshot/CHECKSUMS.txt` |
+| R4 — Canonical freeze | `listings_canonical.csv` SHA-256 equals `data/snapshot/CHECKSUMS.txt`, and **[P3]** a freshly rebuilt frame serialises to the same digest |
 | R5 — Identity | **[P4]** `listing_id` unique |
 | R6 — Month rule | **[P3]** months derived in `Asia/Kolkata` |
 | R7 — No mutation | Raw SHA-256 unchanged after a run |

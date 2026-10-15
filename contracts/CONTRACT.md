@@ -15,7 +15,8 @@ The application reports **asking prices of active sale listings of dwellings obs
 ## 2. Dataset and provenance
 
 - Raw input: `data/raw/hyderabad.csv`, 9,487 rows × 55 columns, SHA-256 `9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a`. Read-only.
-- Canonical derived frame: built in memory by `src/loading.py::load_canonical()` and frozen to `data/snapshot/listings_canonical.csv` with its SHA-256 in `data/snapshot/CHECKSUMS.txt`. Every dropped row is accounted for in `data/snapshot/canonical_reject_log.csv`.
+- Canonical derived frame: rebuilt in memory from the raw file on every run by `src/loading.py::load_canonical()`. A copy is frozen to `data/snapshot/listings_canonical.csv` with its SHA-256 in `data/snapshot/CHECKSUMS.txt` as a published record; the application does not read it, and **[P3]** a test checks that a rebuilt frame still matches it (`Data.md` §6). Every dropped row is accounted for in `data/snapshot/canonical_reject_log.csv`.
+- The v1 cleaned file (`data/processed/hyderabad_clean.csv`) and its cleaning and audit scripts are not part of v2; they are kept for reference under `legacy/`.
 - Source: 99acres.com Hyderabad slice via Kaggle (`arvanshul/gurgaon-real-estate-99acres-com`, licence CDLA-Sharing-1.0; the slug is misleading, the dataset covers Gurgaon, Hyderabad, Mumbai and Kolkata). Scraped ≈ 26 Aug 2023.
 - Verify the raw SHA-256 before every run. On mismatch, stop with `snapshot_integrity_error`; never update the expected digest automatically.
 - `data/`, `results/` and `tests/golden/` are byte-exact artefacts: `.gitattributes` disables line-ending conversion for them.

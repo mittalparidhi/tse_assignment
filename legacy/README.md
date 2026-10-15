@@ -9,12 +9,17 @@ collected by pytest (`pytest.ini` points at `tests/`).
 |---|---|
 | `app/` | Criteria agent, retrieval agent, execution graph, anomaly detector, typed schemas |
 | `tests/` | Tests for `app/` (plus `.bak` patch backups, ignored by git) |
-| `scripts/` | Scripts that import `app/`, and the issue 2–5 patch installers |
+| `scripts/` | Scripts that import `app/`, the issue 2–5 patch installers, and the v1 cleaning/audit scripts (`clean_hyderabad.py`, `build_processed_snapshot.py`, `finalize_snapshot_audits.py`, `audit_*.py`, `inspect_*.py`) |
+| `data/processed/` | v1 cleaned dataset (all 9,487 rows, flagged rather than dropped) and its SHA-256 |
+| `audit/` | v1 cleaning audit, snapshot manifest, anomaly investigation, runtime states and test-run logs |
+| `contracts/`, `docs/` | v1 contract suite (fixed window; Planner/Scanner/Validator/Anomaly/Diagnostic/Reporter) and v1 design docs, superseded by `contracts/` v2 |
 | `examples/`, `*.json` | Example requests and outputs for the criteria/retrieval agents |
 | `ISSUE4_INSTALL.md`, `PATCH_INSTRUCTIONS.md`, `README.txt` | Patch instructions for `app/` |
 
 Paths inside this code resolve relative to the old project root, so it does not
 run from here unchanged.
+
+The v1 audit evidence in `audit/` (for example the anomaly investigation and the month-concentration audit) remains citable in the report; cite it as v1 evidence.
 
 Rules being carried over into `src/`:
 

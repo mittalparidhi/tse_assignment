@@ -11,6 +11,16 @@ All work on the Hyderabad slice of the 99acres snapshot
 
 ## Dataset decisions (Paridhi)
 
+> **2026-10-15 — partly superseded by contract v2.0.0-draft** (`contracts/CONTRACT.md` §11).
+> Still in force: the real snapshot is the headline dataset; missing months are
+> never synthesised or interpolated; August 2023 is partial; synthetic data is a
+> separately labelled oracle check only; counts are not a market census.
+> Changed: the canonical dataset is now the frame built by `src/loading.py`
+> (sale dwellings only), not `data/processed/hyderabad_clean.csv`, which moved to
+> `legacy/data/processed/`. ₹/sqft is now a verified metric (price ÷ area parsed
+> from `AREA`; `Data.md` D1), so the "unverified metric" rule below no longer
+> applies to it. The original text is kept as the record of the v1 decision.
+
 ### Primary dataset
 The headline run uses the supplied real Hyderabad property-listing snapshot. The raw source remains under `data/raw/`, and the deterministic cleaned dataset is `data/processed/hyderabad_clean.csv`.
 

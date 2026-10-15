@@ -24,7 +24,7 @@ Constructed fixtures are never merged into the real snapshot or reported as obse
 ## 3. Base inputs and seeds
 
 - **36 distinct base inputs** (`src/mr/base_inputs.py`), above the required 30: a strided sample of window end (5 months) × BHK (5 options) × price band (4) × locality set (4), deterministic given the frame. Every input sets a band and ≥ 2 localities so M2 and M3 apply; window ends exclude the last month so D1 applies.
-- **[P4]** Add base inputs that use `RADIUS` (centred on the top localities' median coordinates, radius 3–5 km) so the radius algorithm is exercised by the MRs.
+- **[P4]** Add base inputs that use `RADIUS` (centred on the top localities' median coordinates, radius 3–5 km) so the radius algorithm is exercised by the MRs. M3 does not apply to them (no locality list); M4 is their monotonic relation. Together with the existing inputs, M4 must still reach ≥ 30 distinct applicable base inputs, so at least 30 radius inputs are needed.
 - **[P3]** Every base input passes request validation (`Criteria.md` §3).
 - **Seeds** `(11, 23, 47)` are used for both source and follow-up runs. Changing them changes the published numbers.
 - Repeating a base input with another seed does not create a new base input.
@@ -51,6 +51,7 @@ Constructed fixtures are never merged into the real snapshot or reported as obse
 | M1raw | as M1 with the band left in place | as M1 | **does not hold** — retained as the documented ill-conceived relation | as M1 | none: listings cross the band, changing the population |
 | M2 | widen the price band 25% each side | each month's count ≥ before | inputs with a band | exact inequality | filter inversion; bound off-by-one; stale cached criteria |
 | M3 | keep the first half of the locality list | each month's count ≤ before | inputs with ≥ 2 localities; **[P4]** meaningful only once geography widening keeps a locality constraint (`Coverage.md` §3) | exact inequality | leakage between shards; merging a previous criteria set |
+| M4 | **[P4]** halve `radius_km` | each month's count ≤ before | `RADIUS` inputs; reported over the control-path-stable subdomain, since C1 may double either radius | exact inequality | wrong distance formula; unlocated rows leaking into a radius query; radius widening not applied consistently |
 
 ### Directional
 
@@ -58,6 +59,8 @@ Constructed fixtures are never merged into the real snapshot or reported as obse
 |---|---|---|---|---|---|
 | D1 | shift the window forward one month | the 11 overlapping months' counts and medians match exactly | both windows inside the observed data | counts exact; floats 1e-9 | window off-by-one; bucketing drift; state carried between runs |
 | D2 | scale all prices by k = 1.5 (band scaled too) | `median_psf` and price medians scale by exactly k; % changes and rankings unchanged | k such that no listing crosses a bound | 1e-9 | unit mishandling; non-linear aggregation |
+
+**[P3] Transforms keep both price bounds consistent.** `add_to_month_price` (M1) adds X to both `price_inr` and `max_price_inr`, and `scale_prices` (D2) multiplies both by k, so `MIN_PRICE <= MAX_PRICE` still holds and both medians move as the relation states. Today both transforms change `price_inr` only, which would make M1 and D2 fail on `median_max_price_inr` for a harness reason once that field exists.
 
 M1 and D2 assume no listing crosses a plausibility bound. The harness currently assumes this precondition; **[P4]** it checks it per run and reports how often it binds. Control-flow termination (both loops capped) is tested separately in `tests/test_agents.py` and is not counted as a data MR.
 
