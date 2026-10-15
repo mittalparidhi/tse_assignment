@@ -62,6 +62,9 @@ def test_trend_computation_unchanged(frame, label):
     want = GOLDEN[f"trend::{label}"]
     got = compute_trend(frame, TREND_CASES[label])
     _series_eq(got.psf_series(), want["psf"], f"{label}.psf")
+    _series_eq(got.listing_price_series(), want["listing_price"], f"{label}.listing_price")
+    assert got.valid_count_series() == want["valid_counts"]
+    assert got.coverage_series() == want["coverage"]
     _series_eq(got.min_price_series(), want["min_price"], f"{label}.min_price")
     _series_eq(got.max_price_series(), want["max_price"], f"{label}.max_price")
     assert [m.is_partial_month for m in got.monthly] == want["partial"]
@@ -118,3 +121,6 @@ def test_agent_pipeline_unchanged(frame, graph, label):
     assert state["n_rejected_outliers"] == want["n_rejected_outliers"]
     assert state["coverage_score"] == pytest.approx(want["coverage"], rel=1e-12)
     assert state["relaxations"] == want["relaxations"]
+    assert report.valid_count_series() == want["valid_counts"]
+    assert report.provenance["review_status"] == want["review_status"]
+    assert state["coverage_verdict"] == want["coverage_verdict"]

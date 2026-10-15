@@ -62,6 +62,8 @@ class SourceCatalog:
     bhk_values: tuple[int, ...]
     localities: dict[str, str]          # normalised -> canonical spelling
     property_types: tuple[str, ...]
+    locality_ids: frozenset[str] = frozenset()
+    cities: dict[str, str] = None       # normalised -> canonical spelling
 
     @classmethod
     def from_frame(cls, frame: pd.DataFrame) -> "SourceCatalog":
@@ -75,6 +77,9 @@ class SourceCatalog:
             localities={_norm(n): n for n in names},
             property_types=tuple(sorted(
                 set(frame["property_type"].dropna()) & set(DWELLING_TYPES))),
+            locality_ids=frozenset(str(i) for i in frame["locality_id"].dropna())
+            if "locality_id" in frame.columns else frozenset(),
+            cities={_norm(c): c for c in frame["city"].dropna().unique()},
         )
 
 
@@ -153,13 +158,30 @@ def validate_request(request: Mapping[str, Any],
     if localities is not None:
         canon = []
         for name in _string_list(localities, "localities"):
+            # A locality name (any case/spacing) or a source LOCALITY_ID.
             match = catalog.localities.get(_norm(name))
+            if match is None and name.strip() in catalog.locality_ids:
+                match = name.strip()
             if match is None:
                 raise CriteriaValidationError(
                     "unsupported_locality",
                     f"locality {name!r} is not in the snapshot")
             canon.append(match)
         localities = tuple(canon) or None
+
+    # Rule 4b -- city scope (design note §3: user-selectable; both by default).
+    cities = request.get("cities")
+    if cities is not None:
+        canon = []
+        for name in _string_list(cities, "cities"):
+            match = (catalog.cities or {}).get(_norm(name))
+            if match is None:
+                raise CriteriaValidationError(
+                    "unsupported_city",
+                    f"city {name!r} is not in the snapshot "
+                    f"{sorted((catalog.cities or {}).values())}")
+            canon.append(match)
+        cities = tuple(canon) or None
 
     # Rule 5 -- property types.
     property_types = request.get("property_types")
@@ -196,9 +218,12 @@ def validate_request(request: Mapping[str, Any],
     lat, lon = request.get("center_lat"), request.get("center_lon")
     inferred = "RADIUS" if radius is not None else "EXACT_LOCALITY"
     mode = request.get("query_mode", inferred)
+    if mode == "GEO_RADIUS":            # the design note's name for RADIUS
+        mode = "RADIUS"
     if mode not in ("EXACT_LOCALITY", "RADIUS"):
         raise CriteriaValidationError(
-            "query_mode_mismatch", "query_mode must be EXACT_LOCALITY or RADIUS")
+            "query_mode_mismatch",
+            "query_mode must be EXACT_LOCALITY or GEO_RADIUS (alias RADIUS)")
     if mode != inferred:
         raise CriteriaValidationError(
             "query_mode_mismatch",
@@ -236,7 +261,7 @@ def validate_request(request: Mapping[str, Any],
         raise CriteriaValidationError("invalid_request", "label must be a string")
 
     return Criteria(
-        window_end=window_end, bhk=bhk, localities=localities,
+        window_end=window_end, bhk=bhk, localities=localities, cities=cities,
         property_types=property_types, price_min_inr=lo, price_max_inr=hi,
         currency_unit=currency, area_unit=area, query_mode=mode,
         center_lat=lat, center_lon=lon, radius_km=radius, label=label,

@@ -58,7 +58,7 @@ def test_d5_contamination_is_deliberately_retained(canonical):
 def test_plausibility_bounds_remove_it_when_asked():
     frame, _ = loading.load_canonical(apply_plausibility=True)
     lo, hi = loading.PSF_INR_BOUNDS
-    assert frame["psf_inr"].between(lo, hi).all()
+    assert frame["psf_inr"].dropna().between(lo, hi).all()
 
 
 def test_reject_log_accounts_for_every_dropped_row(canonical):
@@ -110,15 +110,18 @@ def test_month_is_derived_in_india_time_not_utc(tmp_path):
 
 def test_price_on_request_is_excluded_even_with_numeric_bounds(tmp_path):
     """Contract v2 decision 5 (D6): the numeric bounds of a Price on Request
-    listing are placeholders, so the row never reaches the statistics."""
+    listing are placeholders, so it never reaches the price statistics. It is
+    still a listing (design note §2: listing_count includes invalid prices)."""
     frame, log = _load_fixture(tmp_path, [
         _raw_row("A", _NEAR_MIDNIGHT_MS),
         _raw_row("B", _NEAR_MIDNIGHT_MS, price_text="Price on Request"),
         _raw_row("C", _NEAR_MIDNIGHT_MS, price_text="  price ON request "),
     ])
-    assert frame["listing_id"].str.split("#").str[0].tolist() == ["A"]
-    stages = log.as_frame().set_index("stage")
-    assert stages.loc["not Price on Request", "rows_dropped"] == 2
+    valid = frame[frame["price_valid"]]
+    assert valid["listing_id"].str.split("#").str[0].tolist() == ["A"]
+    assert len(frame) == 3 and frame.loc[~frame["price_valid"], "price_inr"].isna().all()
+    flags = log.flags_frame().set_index("check")
+    assert flags.loc["not Price on Request", "flagged_invalid"] == 2
 
 
 def test_max_price_must_be_valid_and_not_below_min_price(tmp_path):
@@ -129,17 +132,21 @@ def test_max_price_must_be_valid_and_not_below_min_price(tmp_path):
         _raw_row("sentinel", _NEAR_MIDNIGHT_MS, max_price=loading.INT32_SENTINEL),
         _raw_row("zero", _NEAR_MIDNIGHT_MS, max_price=0),
     ])
-    assert frame["listing_id"].str.split("#").str[0].tolist() == ["ok"]
-    assert frame["max_price_inr"].tolist() == [6e6]
+    valid = frame[frame["price_valid"]]
+    assert valid["listing_id"].str.split("#").str[0].tolist() == ["ok"]
+    assert valid["max_price_inr"].tolist() == [6e6]
+    assert valid["listing_price_inr"].tolist() == [5.5e6]       # the midpoint
+    assert len(frame) == 4                    # the others still count as listings
 
 
 def test_real_snapshot_has_no_price_on_request_or_inverted_range(canonical):
     frame, _ = canonical
-    assert (frame["price_inr"] <= frame["max_price_inr"]).all()
+    valid = frame[frame["price_valid"]]
+    assert (valid["price_inr"] <= valid["max_price_inr"]).all()
     raw = pd.read_csv(loading.RAW_PATH, low_memory=False)
     on_request = raw["PRICE"].astype("string").str.contains(
         loading.PRICE_ON_REQUEST_RE, case=False, regex=True, na=False)
-    raw_rows = set(frame["listing_id"].str.split("#").str[1].astype(int))
+    raw_rows = set(valid["listing_id"].str.split("#").str[1].astype(int))
     assert not set(raw.index[on_request]) & raw_rows
 
 

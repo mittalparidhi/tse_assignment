@@ -26,7 +26,7 @@ import json
 import numpy as np
 import pandas as pd
 
-from ..contract import CONTRACT_VERSION, MIN_SUFFICIENT_N
+from ..contract import CONTRACT_VERSION, MIN_SUFFICIENT_N, coverage_status
 from ..trend import (
     Criteria,
     apply_criteria,
@@ -338,11 +338,15 @@ def _relax_geography(c: Criteria, frame: pd.DataFrame) -> tuple[Criteria, str] |
     )
 
 
-_RELAXATIONS = (_relax_price_band, _relax_bhk, _relax_geography)
+#: Design note §4.3.4: widen locality scope/radius first, then BHK, then the
+#: price band -- geography first because a thin locality query is answered
+#: best by its neighbours, and the band last because it changes which homes
+#: count at all.
+_RELAXATIONS = (_relax_geography, _relax_bhk, _relax_price_band)
 
 #: Canonical lever names, aligned with _RELAXATIONS. Used for the control-path
 #: signature, which must not depend on the criteria values themselves.
-_LEVER_NAMES = ("price_band", "bhk", "geography")
+_LEVER_NAMES = ("geography", "bhk", "price_band")
 
 
 def _geographic_spread(listings: pd.DataFrame) -> int:
@@ -364,21 +368,25 @@ def coverage_agent(state: TrendState) -> TrendState:
     listings: pd.DataFrame = state["raw_listings"]
     window = month_window(spec.window_end)
 
-    counts = listings["month"].value_counts() if not listings.empty else {}
-    sufficient = [m for m in window
-                  if (counts.get(m, 0) if hasattr(counts, "get") else 0)
-                  >= MIN_SUFFICIENT_N]
-    score = len(sufficient) / len(window)
+    # Design note §4.3.3: a month is covered with at least ``adequate_n``
+    # usable price-and-area records; the score is the covered share of 12.
+    usable = listings[listings["price_valid"].astype(bool)] if not listings.empty else listings
+    counts = usable["month"].value_counts() if not usable.empty else pd.Series(dtype=int)
+    covered = [m for m in window if int(counts.get(m, 0)) >= cfg.adequate_n]
+    score = len(covered) / len(window)
     spread = _geographic_spread(listings)
+
+    # The best any widening could do: months the whole snapshot can cover.
+    # If the slice already covers all of them, more widening cannot add
+    # historical records, so stop and report the gap (note §4.3.4).
+    frame: pd.DataFrame = state["frame"]
+    snapshot = frame[frame["price_valid"].astype(bool)]["month"].value_counts()
+    attainable = [m for m in window if int(snapshot.get(m, 0)) >= cfg.adequate_n]
+    exhausted = set(attainable) <= set(covered)
 
     state["coverage_score"] = score
     enough = score >= cfg.coverage_target
-    state["coverage_verdict"] = (
-        CoverageVerdict.SUFFICIENT.value if enough
-        else CoverageVerdict.INSUFFICIENT.value
-    )
-
-    will_retry = (not enough
+    will_retry = (not enough and not exhausted
                   and state.get("retry_count", 0) < cfg.max_retry_rounds)
 
     if will_retry:
@@ -405,10 +413,18 @@ def coverage_agent(state: TrendState) -> TrendState:
         # consumes, so incrementing it is what makes the next pass fresh.
         state["retry_count"] = state.get("retry_count", 0) + 1
 
+    # Note §4.3.3: accept, retry, or proceed with LIMITED coverage.
+    state["coverage_verdict"] = (
+        CoverageVerdict.ACCEPT.value if enough
+        else CoverageVerdict.RETRY.value if will_retry
+        else CoverageVerdict.LIMITED.value
+    )
+
     log_step(state, "CoverageAgent",
              coverage_score=round(score, 4),
              target=cfg.coverage_target,
-             sufficient_months=len(sufficient),
+             covered_months=len(covered),
+             attainable_months=len(attainable),
              geographic_spread=spread,
              verdict=state["coverage_verdict"],
              decision=("WIDEN and re-retrieve (cycle 1)" if will_retry
@@ -590,6 +606,17 @@ def _outlier_mask(group: pd.DataFrame, cfg: GraphConfig) -> pd.Series:
     return pd.Series(outlier | area_bad | price_bad, index=group.index)
 
 
+def _mark_rejected(listings: pd.DataFrame, drop: set) -> pd.DataFrame:
+    """Rejected outliers stay listings but lose their price (design note §2:
+    ``listing_count`` includes listings whose price is unusable). They leave
+    ``price_valid_count`` and both medians, not ``listing_count``."""
+    if not drop:
+        return listings
+    out = listings.copy()
+    out.loc[out.index.isin(drop), "price_valid"] = False
+    return out
+
+
 def analysis_agent(state: TrendState) -> TrendState:
     """Compute the output contract. On a critique complaint, recompute only the
     flagged months, rejecting contextual outliers within them.
@@ -607,7 +634,9 @@ def analysis_agent(state: TrendState) -> TrendState:
     rejected = 0
     working = listings
     if complaint and flagged and not listings.empty:
-        candidates = listings[listings["month"].isin(flagged)]
+        # Only listings with a price can be outliers in price per sqft.
+        candidates = listings[listings["month"].isin(flagged)
+                              & listings["price_valid"].astype(bool)]
         if cfg.group_outliers_by_month:
             drop: set = set()
             for _, group in candidates.groupby("month"):
@@ -618,7 +647,7 @@ def analysis_agent(state: TrendState) -> TrendState:
                 # the clear-cut cases.
                 drop |= _llm_review_rejections(state, candidates, cfg)
             rejected = len(drop)
-            working = listings[~listings.index.isin(drop)]
+            working = _mark_rejected(listings, drop)
         else:
             # Original behaviour: the threshold is computed per (retrieval
             # shard, month), so the accepted set depends on how many retrieval
@@ -635,7 +664,7 @@ def analysis_agent(state: TrendState) -> TrendState:
                     mask = _outlier_mask(group, cfg)
                     drop |= set(group.index[mask.to_numpy()])
             rejected = len(drop)
-            working = listings[~listings.index.isin(drop)]
+            working = _mark_rejected(listings, drop)
 
     # Every computation starts again from raw_listings with the cumulative
     # flagged months, so this pass's count IS the total; adding it to the
@@ -711,11 +740,23 @@ def critique_agent(state: TrendState) -> TrendState:
     flagged: set[str] = set()
     reasons: list[str] = []
 
-    # Structural check: a month with listings but no computable statistic.
+    # Coherence checks (design note §4.3.6): each names the invariant broken.
     for stat in report.monthly:
-        if stat.n_active and stat.median_psf is None:
+        broken = None
+        has_median = stat.median_price_per_sqft_inr is not None
+        if stat.price_valid_count > stat.listing_count:
+            broken = "price_valid_count exceeds listing_count"
+        elif bool(stat.price_valid_count) != has_median:
+            broken = "median present iff price_valid_count > 0"
+        elif has_median and not (stat.median_price_per_sqft_inr > 0
+                                 and (stat.median_listing_price_inr or 0) > 0):
+            broken = "medians must be positive"
+        elif stat.coverage_status != coverage_status(
+                stat.listing_count, stat.price_valid_count, cfg.adequate_n):
+            broken = "coverage_status disagrees with the counts"
+        if broken:
             flagged.add(stat.month)
-            reasons.append(f"{stat.month}: listings present but no median")
+            reasons.append(f"{stat.month}: invariant broken: {broken}")
 
     # The deterministic checks ALWAYS run. In LLM mode the model adds its
     # judgment on top; it does not get to switch the floor off.
@@ -729,11 +770,12 @@ def critique_agent(state: TrendState) -> TrendState:
     for month, change in zip(report.window_months, report.pct_change_series()):
         if change is not None and abs(change) > cfg.jump_threshold_pct:
             stat = report.month_stat(month)
-            if stat and stat.n_active:
+            if stat and stat.price_valid_count:
                 flagged.add(month)
                 reasons.append(f"{month}: {change:+.1f}% month-on-month")
-    if not listings.empty:
-        for month, group in listings.groupby("month"):
+    priced = listings[listings["price_valid"].astype(bool)] if not listings.empty else listings
+    if not priced.empty:
+        for month, group in priced.groupby("month"):
             z = _robust_z(group["psf_inr"].to_numpy(dtype=float))
             if np.any(np.abs(z) > cfg.robust_z_threshold):
                 flagged.add(str(month))
@@ -766,7 +808,7 @@ def critique_agent(state: TrendState) -> TrendState:
         # the two modes comparable.
         rows = "\n".join(
             f"  {s.month}  median="
-            f"{0 if s.median_psf is None else round(s.median_psf * to_canonical)}"
+            f"{0 if s.median_price_per_sqft_inr is None else round(s.median_price_per_sqft_inr * to_canonical)}"
             for s in report.monthly
         )
         decision, used_fallback = state["llm"].ask_json(
@@ -789,8 +831,11 @@ def critique_agent(state: TrendState) -> TrendState:
     will_recompute = (bool(new_flags)
                       and state.get("critique_rounds", 0) < cfg.max_critique_rounds)
 
+    # Something new is wrong but the recomputation cap is spent: say so
+    # (NEEDS_REVIEW) rather than approve it silently (design note §4.3.7).
     state["critique_verdict"] = (
         CritiqueVerdict.REJECTED.value if will_recompute
+        else CritiqueVerdict.NEEDS_REVIEW.value if new_flags
         else CritiqueVerdict.APPROVED.value
     )
     state["critique_complaint"] = (
@@ -802,7 +847,9 @@ def critique_agent(state: TrendState) -> TrendState:
              flagged=sorted(flagged), new_flags=sorted(new_flags),
              verdict=state["critique_verdict"],
              decision=("REJECT -> recompute flagged months (cycle 2)"
-                       if will_recompute else "APPROVE"),
+                       if will_recompute
+                       else "NEEDS_REVIEW (cap reached)" if new_flags
+                       else "APPROVE"),
              critique_round=state.get("critique_rounds", 0),
              reason=reasons[0] if reasons else None)
 
@@ -867,6 +914,14 @@ def aggregator_agent(state: TrendState) -> TrendState:
     """Assemble the approved trend and render the user-facing summary."""
     report = state["trend_stats"]
     assert report is not None
+    # Approved, or NEEDS_REVIEW when the critique's cap was spent with a new
+    # problem outstanding (design note §4.3.7). ``provenance`` is a plain dict
+    # on the frozen report, so recording the outcome does not touch a statistic.
+    report.provenance["review_status"] = (
+        CritiqueVerdict.NEEDS_REVIEW.value
+        if state.get("critique_verdict") == CritiqueVerdict.NEEDS_REVIEW.value
+        else CritiqueVerdict.APPROVED.value)
+    report.provenance["coverage_verdict"] = state.get("coverage_verdict")
     state["final_report"] = report
 
     first, last = report.window_months[0], report.window_months[-1]
@@ -889,7 +944,7 @@ def aggregator_agent(state: TrendState) -> TrendState:
             scope = "the whole Hyderabad metro area"
         n_sufficient = len(report.sufficient_months())
         move_text = "unavailable" if move is None else f"{move:+.1f}%"
-        total_text = f"{report.n_listings_total:,}"
+        total_text = f"{report.n_price_valid_total:,}"
         prompt = _NARRATIVE_PROMPT.format(
             scope=scope, n_sufficient=n_sufficient,
             move=move_text, total=total_text,
@@ -956,8 +1011,17 @@ def _deterministic_narrative(state: TrendState, report) -> str:
 
     lines = [
         f"Hyderabad asking-price trend, {first} to {last}.",
-        f"{report.n_listings_total:,} listings matched the criteria.",
+        f"{report.n_listings_total:,} listings matched the criteria, "
+        f"{report.n_price_valid_total:,} of them with a usable price and area.",
     ]
+    statuses = report.coverage_series()
+    adequate = statuses.count("ADEQUATE")
+    no_data = statuses.count("NO_DATA_IN_SNAPSHOT")
+    lines.append(
+        f"Coverage: {adequate} of 12 months ADEQUATE, "
+        f"{12 - adequate - no_data} LIMITED, {no_data} with no data in the "
+        f"snapshot."
+    )
     if move is None:
         lines.append(
             "Too few months met the sufficiency threshold to state a trend."
@@ -965,8 +1029,8 @@ def _deterministic_narrative(state: TrendState, report) -> str:
     else:
         lines.append(
             f"Median asking price per sqft has {direction} {abs(move):.1f}% "
-            f"across the {report.yoy_span_months} months with adequate "
-            f"listing depth (the window spans 12)."
+            f"across the {report.yoy_span_months} months with at least "
+            f"{MIN_SUFFICIENT_N} usable listings (the window spans 12)."
         )
     caveat = _partial_month_caveat(report)
     if caveat:
@@ -975,7 +1039,7 @@ def _deterministic_narrative(state: TrendState, report) -> str:
         top = report.locality_rankings[0]
         lines.append(
             f"Most expensive locality by median: {top.locality} "
-            f"({top.median_psf:,.0f} per sqft, n={top.n_active})."
+            f"({top.median_price_per_sqft_inr:,.0f} per sqft, n={top.price_valid_count})."
         )
     if report.provenance.get("relaxations"):
         lines.append(
@@ -988,4 +1052,8 @@ def _deterministic_narrative(state: TrendState, report) -> str:
             f"{report.provenance['n_rejected_outliers']} suspect listings in "
             f"{len(report.provenance['flagged_months'])} flagged months."
         )
+    if report.provenance.get("review_status") == "NEEDS_REVIEW":
+        lines.append("Validation is incomplete: the critique still flagged a "
+                     "month after its last permitted recomputation "
+                     "(NEEDS_REVIEW).")
     return " ".join(lines)

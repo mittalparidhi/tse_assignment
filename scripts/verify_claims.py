@@ -57,7 +57,11 @@ def main() -> int:
         ("snapshot sha256 prefix", verify_snapshot()[:16], "9e81698322606c86"),
         ("raw rows", len(raw), 9487),
         ("raw columns", len(raw.columns), 55),
-        ("canonical rows", len(frame), 4574),
+        # Design note §2: listing_count includes listings without a valid
+        # price, so the canonical frame keeps them (flagged); the price
+        # statistics, and the figures below, use the price-valid ones.
+        ("canonical listings", len(frame), 4975),
+        ("price-valid listings", int(frame.price_valid.sum()), 4574),
         ("int32 sentinel value", 2**31 - 1, 2_147_483_647),
         ("PREFERENCE S/R/P", tuple(raw.PREFERENCE.value_counts()[["S","R","P"]]), (7927, 1467, 93)),
         ("missing BEDROOM_NUM", int(raw.BEDROOM_NUM.isna().sum()), 2814),
@@ -78,7 +82,9 @@ def main() -> int:
         ("model name hash (committed LLM sweep)", meta["llm"]["model_tag_sha256"], "d7f5d340f8953384"),
     ]
 
-    # Coordinate coverage and age-on-site, as quoted in DESIGN/REPORT.
+    # Coordinate coverage, age-on-site and concentration, as quoted in
+    # DESIGN/REPORT, are stated over price-valid listings.
+    frame = frame[frame.price_valid]
     checks.append(("coordinate coverage %",
                    round(frame.latitude.notna().mean() * 100, 1), 94.7))
     checks.append(("median age on site (days)",

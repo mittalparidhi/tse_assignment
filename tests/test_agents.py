@@ -51,9 +51,13 @@ def test_cycle1_improves_coverage_until_target_met_or_levers_exhausted(frame, gr
               if e["agent"] == "CoverageAgent"]
     assert scores == sorted(scores), f"coverage went backwards: {scores}"
     assert scores[-1] > scores[0], "widening did not add depth"
-    met = scores[-1] >= GraphConfig().coverage_target
-    exhausted = state["relax_levers"] == ["bhk", "geography"]
-    assert met or exhausted
+    # Design note §4.3.4: at most two retries; below target the run proceeds
+    # with LIMITED coverage instead of looping or inventing data.
+    cfg = GraphConfig()
+    assert state["retry_count"] <= cfg.max_retry_rounds == 2
+    met = scores[-1] >= cfg.coverage_target
+    assert state["coverage_verdict"] == ("ACCEPT" if met else "LIMITED")
+    assert state["relax_levers"][0] == "geography"      # note's lever order
     assert "Gachibowli" in state["final_report"].criteria["localities"]
 
 
@@ -219,8 +223,10 @@ def test_rejected_count_is_not_summed_across_critique_rounds(frame):
                          config=config, graph=build_graph())
     report = state["final_report"]
     assert state["critique_rounds"] >= 1
-    assert state["n_rejected_outliers"] == (
-        len(state["raw_listings"]) - report.n_listings_total)
+    # Rejected listings lose their price but stay listings (note §2).
+    raw_valid = int(state["raw_listings"]["price_valid"].sum())
+    assert state["n_rejected_outliers"] == raw_valid - report.n_price_valid_total
+    assert report.n_listings_total == len(state["raw_listings"])
 
 
 def test_critique_inspects_the_listings_the_report_was_built_from(frame, graph):
@@ -228,7 +234,8 @@ def test_critique_inspects_the_listings_the_report_was_built_from(frame, graph):
                          graph=graph)
     analysed = state["analysed_listings"]
     assert len(analysed) == state["final_report"].n_listings_total
-    assert len(analysed) == len(state["raw_listings"]) - state["n_rejected_outliers"]
+    assert int(analysed["price_valid"].sum()) == (
+        int(state["raw_listings"]["price_valid"].sum()) - state["n_rejected_outliers"])
 
 
 def test_no_coordinate_count_respects_the_criteria(frame, graph):

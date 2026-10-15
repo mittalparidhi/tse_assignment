@@ -30,7 +30,10 @@ GOLDEN_PATH = ROOT / "tests" / "golden" / "deterministic_baseline.json"
 def trend_vector(report) -> dict:
     return {
         "counts": report.count_series(),
+        "valid_counts": report.valid_count_series(),
+        "coverage": report.coverage_series(),
         "psf": report.psf_series(),
+        "listing_price": report.listing_price_series(),
         "min_price": report.min_price_series(),
         "max_price": report.max_price_series(),
         "partial": [m.is_partial_month for m in report.monthly],
@@ -47,9 +50,12 @@ def pipeline_vector(state) -> dict:
     report = state["final_report"]
     return {
         "counts": report.count_series(),
+        "valid_counts": report.valid_count_series(),
         "psf": report.psf_series(),
         "ranking": report.ranking_order(),
         "total": report.n_listings_total,
+        "review_status": report.provenance.get("review_status"),
+        "coverage_verdict": state["coverage_verdict"],
         "span": report.yoy_span_months,
         "yoy": report.yoy_median_psf_pct,
         "coverage": state["coverage_score"],

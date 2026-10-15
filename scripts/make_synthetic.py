@@ -107,12 +107,15 @@ def generate(seed: int = SEED) -> tuple[pd.DataFrame, dict]:
             rows.append({
                 "listing_id": listing_id,
                 "month": month,
+                "price_valid": True,      # every synthetic listing has a price
                 "price_inr": price,
                 "max_price_inr": price,   # one price per synthetic listing
+                "listing_price_inr": price,
                 "area_sqft": area,
                 "psf_inr": psf,
                 "bhk": float(bhk),
                 "locality": locality,
+                "locality_id": None,
                 "property_type": "Residential Apartment",
                 "city": "Hyderabad",
                 "area_sqm_raw": area / 10.7639104,
@@ -218,15 +221,15 @@ def verify_ground_truth(frame: pd.DataFrame, truth: dict) -> pd.DataFrame:
         # uncorrected 3-SE bound the chance that at least one of twelve months
         # trips is about 3%, so a passing system fails the oracle roughly one
         # run in thirty -- which is a property of the test, not the code.
-        tol = (_bonferroni_z(12, 0.01) * median_rel_stderr(stat.n_active) * 100
-               if stat.n_active else None)
-        err = (None if not stat.median_psf
-               else (stat.median_psf - expected) / expected * 100)
+        tol = (_bonferroni_z(12, 0.01) * median_rel_stderr(stat.price_valid_count) * 100
+               if stat.price_valid_count else None)
+        err = (None if not stat.median_price_per_sqft_inr
+               else (stat.median_price_per_sqft_inr - expected) / expected * 100)
         rows.append({
             "month": stat.month,
-            "n_active": stat.n_active,
+            "n_active": stat.price_valid_count,
             "expected_median_psf": expected,
-            "observed_median_psf": stat.median_psf,
+            "observed_median_psf": stat.median_price_per_sqft_inr,
             "rel_error_pct": err,
             "tolerance_bonf_pct": tol,
             "within_tolerance": (None if err is None or tol is None

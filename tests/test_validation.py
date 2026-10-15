@@ -122,3 +122,18 @@ def test_every_harness_base_input_passes_validation(catalog, frame):
     """Testing.md §3: base inputs must be requests a user could make."""
     for base in generate_all_base_inputs(frame):
         assert validate_request(criteria_as_request(base), catalog) == base
+
+
+def test_city_scope_is_a_validated_filter(catalog):
+    """Design note §3: city is user-selectable; both cities by default."""
+    assert validate_request({}, catalog).cities is None
+    assert validate_request({"cities": ["secunderabad"]}, catalog).cities == ("Secunderabad",)
+    assert _code(catalog, {"cities": ["Mumbai"]}) == "unsupported_city"
+
+
+def test_locality_ids_and_the_geo_radius_name_are_accepted(catalog, frame):
+    some_id = frame["locality_id"].dropna().iloc[0]
+    assert validate_request({"localities": [some_id]}, catalog).localities == (some_id,)
+    geo = validate_request({"query_mode": "GEO_RADIUS", "radius_km": 5,
+                            "center_lat": 17.44, "center_lon": 78.35}, catalog)
+    assert geo.query_mode == "RADIUS"

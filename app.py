@@ -65,6 +65,9 @@ window_end = st.sidebar.selectbox(
     "Window ends", months, index=len(months) - 1,
     help="The 12-month window ends at and includes this month.",
 )
+city_choice = st.sidebar.multiselect(
+    "City", sorted(frame["city"].dropna().unique()), default=[],
+    help="Leave empty for both Hyderabad and Secunderabad.")
 bhk_choice = st.sidebar.multiselect("BHK", [1, 2, 3, 4, 5], default=[])
 locality_choice = st.sidebar.multiselect(
     "Localities", locality_counts.index.tolist()[:40], default=[],
@@ -98,11 +101,11 @@ seed = st.sidebar.number_input("Seed", value=11, step=1)
 
 st.sidebar.divider()
 geo = st.sidebar.radio(
-    "Retrieval algorithm (query_mode)", ["EXACT_LOCALITY", "RADIUS"],
+    "Retrieval algorithm (query_mode)", ["EXACT_LOCALITY", "GEO_RADIUS"],
     help="The Criteria agent sets this and the Retrieval agents run a "
          "different algorithm as a result.")
 center_lat = center_lon = radius_km = None
-if geo == "RADIUS":
+if geo == "GEO_RADIUS":
     radius_km = st.sidebar.slider("Radius (km)", 1.0, 40.0, 5.0, 0.5)
     center_lat = st.sidebar.number_input("Centre latitude", value=17.4401,
                                          format="%.4f")
@@ -119,6 +122,7 @@ request = {
     "window_end": window_end,
     "bhk": sorted(bhk_choice) or None,
     "localities": list(locality_choice) or None,
+    "cities": list(city_choice) or None,
     "price_min_inr": None if lo_lakh is None else lo_lakh * 1e5,
     "price_max_inr": None if hi_lakh is None else hi_lakh * 1e5,
     "query_mode": geo,
@@ -161,8 +165,11 @@ with trend_tab:
              f"adequate depth; the window spans 12.",
     )
     c2.metric("Listings in window", f"{report.n_listings_total:,}")
-    c3.metric("Months with depth",
-              f"{len(report.sufficient_months())} / 12")
+    c3.metric("Months ADEQUATE",
+              f"{report.coverage_series().count('ADEQUATE')} / 12",
+              help="At least 30 usable price-and-area listings (design "
+                   "note). Review status: "
+                   f"{report.provenance.get('review_status')}.")
     c4.metric("Suspect listings rejected",
               f"{report.provenance.get('n_rejected_outliers', 0):,}",
               help="Removed by the Analysis agent's targeted recomputation "
@@ -185,13 +192,16 @@ with trend_tab:
     if st.checkbox("Show the numbers as a table", value=False,
                    help="Every chart here has a table equivalent."):
         st.dataframe(pd.DataFrame([{
-            "month": m.month, "active_listings": m.n_active,
-            "median_psf": m.median_psf,
+            "month": m.month, "listing_count": m.listing_count,
+            "price_valid_count": m.price_valid_count,
+            "median_listing_price_inr": m.median_listing_price_inr,
+            "median_price_per_sqft_inr": m.median_price_per_sqft_inr,
+            "coverage_status": m.coverage_status,
             "median_min_price_inr": m.median_min_price_inr,
             "median_max_price_inr": m.median_max_price_inr,
             "partial_month": m.is_partial_month,
             "p25_psf": m.p25_psf, "p75_psf": m.p75_psf,
-            "adequate_depth": m.month_is_sufficient,
+            "headline_month (n>=50)": m.month_is_sufficient,
         } for m in report.monthly]), width='stretch', hide_index=True)
 
     with st.expander(

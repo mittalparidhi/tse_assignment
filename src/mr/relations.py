@@ -51,15 +51,34 @@ def _series_close(
     return True, ""
 
 
+#: The design note's price fields plus the min/max extensions.
+PRICE_FIELDS = ("median_listing_price_inr", "median_min_price_inr",
+                "median_max_price_inr")
+
+
+def _counts_and_status_equal(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
+    """listing_count, price_valid_count and coverage_status, month by month."""
+    for name, a, b in (("listing_count", src.count_series(), dst.count_series()),
+                       ("price_valid_count", src.valid_count_series(),
+                        dst.valid_count_series()),
+                       ("coverage_status", src.coverage_series(),
+                        dst.coverage_series())):
+        if a != b:
+            return False, f"{name} differs: {a} vs {b}"
+    return True, ""
+
+
 def _reports_identical(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
     """Full-report equality, used by the two pure-invariance relations."""
     if src.window_months != dst.window_months:
         return False, "window months differ"
-    if src.count_series() != dst.count_series():
-        return False, (f"count series differ: {src.count_series()} vs "
-                       f"{dst.count_series()}")
+    ok, why = _counts_and_status_equal(src, dst)
+    if not ok:
+        return False, why
     for name, a, b in (
-        ("median_psf", src.psf_series(), dst.psf_series()),
+        ("median_price_per_sqft_inr", src.psf_series(), dst.psf_series()),
+        ("median_listing_price", src.listing_price_series(),
+         dst.listing_price_series()),
         ("median_min_price", src.min_price_series(), dst.min_price_series()),
         ("median_max_price", src.max_price_series(), dst.max_price_series()),
         ("p25", [m.p25_psf for m in src.monthly], [m.p25_psf for m in dst.monthly]),
@@ -138,8 +157,9 @@ MR_I4 = MR(
 
 def _check_units(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
     """Percentages, rankings and counts identical; levels scale exactly."""
-    if src.count_series() != dst.count_series():
-        return False, "counts changed under a display-unit change"
+    ok, why = _counts_and_status_equal(src, dst)
+    if not ok:
+        return False, f"under a display-unit change, {why}"
     if src.ranking_order() != dst.ranking_order():
         return False, "ranking order changed under a display-unit change"
     ok, why = _series_close(
@@ -181,14 +201,15 @@ def _check_duplicate(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
     -- doubling flips the ``sufficient`` flag for months holding 25-49
     listings, which legitimately changes which months the headline spans."""
     for s, d in zip(src.monthly, dst.monthly):
-        if d.n_active != 2 * s.n_active:
-            return False, (f"{s.month}: count {s.n_active} -> {d.n_active}, "
-                           f"expected exactly 2x")
+        for name in ("listing_count", "price_valid_count"):
+            a, b = getattr(s, name), getattr(d, name)
+            if b != 2 * a:
+                return False, f"{s.month}: {name} {a} -> {b}, expected exactly 2x"
         if not s.month_is_sufficient:
             continue
-        if not _close(s.median_psf, d.median_psf):
-            return False, f"{s.month}: median psf {s.median_psf} -> {d.median_psf}"
-        for name in ("median_min_price_inr", "median_max_price_inr"):
+        if not _close(s.median_price_per_sqft_inr, d.median_price_per_sqft_inr):
+            return False, f"{s.month}: median psf {s.median_price_per_sqft_inr} -> {d.median_price_per_sqft_inr}"
+        for name in PRICE_FIELDS:
             a, b = getattr(s, name), getattr(d, name)
             if not _close(a, b):
                 return False, f"{s.month}: {name} {a} -> {b}"
@@ -287,10 +308,11 @@ def _check_m1(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
     target = None
     if "|m1:" in str(dst.criteria.get("label", "")):
         target = str(dst.criteria["label"]).rsplit("|m1:", 1)[1]
-    # Both price bounds are shifted by the transform, so both medians must move
-    # by X in the target month and stay put elsewhere.
+    # Both price endpoints, and so their midpoint, are shifted by the transform:
+    # every price median must move by X in the target month and stay put
+    # elsewhere. Counts and coverage status must not change at all (note MR4).
     for s, d in zip(src.monthly, dst.monthly):
-        for name in ("median_min_price_inr", "median_max_price_inr"):
+        for name in PRICE_FIELDS:
             a, b = getattr(s, name), getattr(d, name)
             if a is None or b is None:
                 continue
@@ -303,7 +325,7 @@ def _check_m1(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
                 return False, f"{s.month}: untouched month {name} moved {a} -> {b}"
             if b < a - 1e-6:
                 return False, f"{s.month}: {name} decreased"
-    return True, ""
+    return _counts_and_status_equal(src, dst)
 
 
 MR_M1 = MR(
@@ -323,9 +345,9 @@ MR_M1 = MR(
 
 def _check_m2(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
     for s, d in zip(src.monthly, dst.monthly):
-        if d.n_active < s.n_active:
+        if d.listing_count < s.listing_count:
             return False, (f"{s.month}: widened band gave fewer listings "
-                           f"({s.n_active} -> {d.n_active})")
+                           f"({s.listing_count} -> {d.listing_count})")
     return True, ""
 
 
@@ -361,9 +383,9 @@ MR_M2 = MR(
 
 def _check_m3(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
     for s, d in zip(src.monthly, dst.monthly):
-        if d.n_active > s.n_active:
+        if d.listing_count > s.listing_count:
             return False, (f"{s.month}: locality subset gave MORE listings "
-                           f"({s.n_active} -> {d.n_active})")
+                           f"({s.listing_count} -> {d.listing_count})")
     return True, ""
 
 
@@ -391,9 +413,9 @@ MR_M3 = MR(
 
 def _check_m4(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
     for s, d in zip(src.monthly, dst.monthly):
-        if d.n_active > s.n_active:
+        if d.listing_count > s.listing_count:
             return False, (f"{s.month}: half the radius gave MORE listings "
-                           f"({s.n_active} -> {d.n_active})")
+                           f"({s.listing_count} -> {d.listing_count})")
     return True, ""
 
 
@@ -423,12 +445,15 @@ def _check_d1(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
         a, b = src.month_stat(month), dst.month_stat(month)
         if a is None or b is None:
             return False, f"{month}: missing from one report"
-        if a.n_active != b.n_active:
-            return False, (f"{month}: count {a.n_active} != {b.n_active} "
-                           f"across the shifted window")
-        if not _close(a.median_psf, b.median_psf):
-            return False, f"{month}: median psf {a.median_psf} != {b.median_psf}"
-        for name in ("median_min_price_inr", "median_max_price_inr"):
+        # Note MR7: counts, nulls and coverage status all match.
+        for name in ("listing_count", "price_valid_count", "coverage_status"):
+            x, y = getattr(a, name), getattr(b, name)
+            if x != y:
+                return False, (f"{month}: {name} {x} != {y} across the "
+                               f"shifted window")
+        if not _close(a.median_price_per_sqft_inr, b.median_price_per_sqft_inr):
+            return False, f"{month}: median psf {a.median_price_per_sqft_inr} != {b.median_price_per_sqft_inr}"
+        for name in PRICE_FIELDS:
             x, y = getattr(a, name), getattr(b, name)
             if not _close(x, y):
                 return False, f"{month}: {name} {x} != {y}"
@@ -461,14 +486,14 @@ D2_K = 1.5
 
 def _check_d2(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
     for s, d in zip(src.monthly, dst.monthly):
-        if s.median_psf is not None or d.median_psf is not None:
+        if s.median_price_per_sqft_inr is not None or d.median_price_per_sqft_inr is not None:
             if not _close(
-                None if s.median_psf is None else s.median_psf * D2_K,
-                d.median_psf, rel=1e-9
+                None if s.median_price_per_sqft_inr is None else s.median_price_per_sqft_inr * D2_K,
+                d.median_price_per_sqft_inr, rel=1e-9
             ):
-                return False, (f"{s.month}: median psf {s.median_psf} did not "
-                               f"scale by {D2_K} (got {d.median_psf})")
-        for name in ("median_min_price_inr", "median_max_price_inr"):
+                return False, (f"{s.month}: median psf {s.median_price_per_sqft_inr} did not "
+                               f"scale by {D2_K} (got {d.median_price_per_sqft_inr})")
+        for name in PRICE_FIELDS:
             a, b = getattr(s, name), getattr(d, name)
             if a is not None or b is not None:
                 if not _close(None if a is None else a * D2_K, b, rel=1e-9):
@@ -481,7 +506,8 @@ def _check_d2(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
         return False, f"pct-change shape not invariant under scaling: {why}"
     if src.ranking_order() != dst.ranking_order():
         return False, "locality ranking order changed under price scaling"
-    return True, ""
+    # Note MR8: counts, valid counts and coverage status are unchanged.
+    return _counts_and_status_equal(src, dst)
 
 
 MR_D2 = MR(

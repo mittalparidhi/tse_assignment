@@ -8,19 +8,27 @@ from src.trend import Criteria, apply_criteria, compute_trend, month_window
 
 
 def _frame(rows):
-    return pd.DataFrame(rows, columns=[
-        "listing_id", "month", "price_inr", "max_price_inr", "area_sqft",
-        "psf_inr", "bhk", "locality", "property_type", "city",
-        "area_sqm_raw", "price_display_inr", "age_on_site_days",
-        "latitude", "longitude", "description",
-    ])
+    return pd.DataFrame(rows)
 
 
-def _listing(lid, month, price, area, bhk=3, locality="A", max_price=None):
-    return [str(lid), month, float(price),
-            float(price if max_price is None else max_price), float(area),
-            price / area, bhk, locality, "Residential Apartment", "Hyderabad",
-            area / 10.7639104, float(price), 34.0, 17.44, 78.39, "test listing"]
+def _listing(lid, month, price, area, bhk=3, locality="A", max_price=None,
+             valid=True, city="Hyderabad"):
+    """One canonical row, shaped as src/loading.py builds it."""
+    hi = float(price if max_price is None else max_price)
+    rep = (float(price) + hi) / 2.0
+    nan = float("nan")
+    return {
+        "listing_id": str(lid), "month": month, "price_valid": valid,
+        "price_inr": float(price) if valid else nan,
+        "max_price_inr": hi if valid else nan,
+        "listing_price_inr": rep if valid else nan,
+        "area_sqft": float(area), "psf_inr": rep / area if valid else nan,
+        "bhk": bhk, "locality": locality, "locality_id": f"id-{locality}",
+        "property_type": "Residential Apartment", "city": city,
+        "area_sqm_raw": area / 10.7639104, "price_display_inr": float(price),
+        "age_on_site_days": 34.0, "latitude": 17.44, "longitude": 78.39,
+        "description": "test listing",
+    }
 
 
 def test_window_is_twelve_months_ending_inclusive():
@@ -38,7 +46,7 @@ def test_median_is_the_middle_value_not_the_mean():
     rows.append(_listing(99, "2023-08", 10_000_000_000, 1000))
     report = compute_trend(_frame(rows), Criteria(window_end="2023-08"))
     stat = report.month_stat("2023-08")
-    assert stat.median_psf == pytest.approx(3500.0)
+    assert stat.median_price_per_sqft_inr == pytest.approx(3500.0)
 
 
 def test_sufficiency_flag_tracks_the_threshold():
@@ -58,7 +66,7 @@ def test_empty_month_reports_zero_not_a_gap():
     report = compute_trend(_frame(rows), Criteria(window_end="2023-08"))
     assert len(report.monthly) == 12
     empty = report.month_stat("2022-09")
-    assert empty.n_active == 0 and empty.median_psf is None
+    assert empty.listing_count == 0 and empty.coverage_status == "NO_DATA_IN_SNAPSHOT" and empty.median_price_per_sqft_inr is None
 
 
 def test_yoy_span_is_reported_and_can_be_under_twelve():
@@ -100,15 +108,15 @@ def test_unit_change_scales_levels_but_not_percentages():
     inr = compute_trend(frame, Criteria(window_end="2023-08"))
     lakh = compute_trend(frame, Criteria(window_end="2023-08",
                                          currency_unit="INR_LAKH"))
-    assert lakh.month_stat("2023-08").median_psf == pytest.approx(
-        inr.month_stat("2023-08").median_psf * 1e-5)
+    assert lakh.month_stat("2023-08").median_price_per_sqft_inr == pytest.approx(
+        inr.month_stat("2023-08").median_price_per_sqft_inr * 1e-5)
     for a, b in zip(inr.pct_change_series(), lakh.pct_change_series()):
         assert (a is None and b is None) or a == pytest.approx(b)
 
 
 def test_min_and_max_price_medians_are_reported_separately():
-    """Contract v2 decision 7: both bounds have their own median, and price
-    per sqft is computed from MIN_PRICE."""
+    """Design note §2: the representative price is the (MIN + MAX) midpoint
+    and price per sqft uses it; decision 7 keeps both bounds' medians too."""
     frame = _frame([
         _listing(1, "2023-07", 4e6, 1000, max_price=5e6),
         _listing(2, "2023-07", 6e6, 1000, max_price=9e6),
@@ -116,7 +124,8 @@ def test_min_and_max_price_medians_are_reported_separately():
     stat = compute_trend(frame, Criteria(window_end="2023-08")).month_stat("2023-07")
     assert stat.median_min_price_inr == pytest.approx(5e6)
     assert stat.median_max_price_inr == pytest.approx(7e6)
-    assert stat.median_psf == pytest.approx(5000)
+    assert stat.median_listing_price_inr == pytest.approx(6e6)   # 4.5M, 7.5M
+    assert stat.median_price_per_sqft_inr == pytest.approx(6000)
 
 
 def test_only_the_snapshot_end_month_is_flagged_partial():
@@ -129,3 +138,42 @@ def test_only_the_snapshot_end_month_is_flagged_partial():
         assert partial == ["2023-08"]
     earlier = compute_trend(frame, Criteria(window_end="2023-07"))
     assert not any(m.is_partial_month for m in earlier.monthly)
+
+
+def test_invalid_price_listings_count_but_stay_out_of_the_medians():
+    """Design note §2: listing_count includes listings with an invalid price;
+    price_valid_count and both medians use only the valid ones."""
+    rows = [_listing(i, "2023-07", 5e6, 1000) for i in range(30)]
+    rows += [_listing(100 + i, "2023-07", 9e9, 1, valid=False) for i in range(5)]
+    stat = compute_trend(_frame(rows), Criteria(window_end="2023-08")).month_stat("2023-07")
+    assert (stat.listing_count, stat.price_valid_count) == (35, 30)
+    assert stat.median_listing_price_inr == pytest.approx(5e6)
+    assert stat.coverage_status == "ADEQUATE"
+
+
+def test_coverage_status_distinguishes_no_data_from_limited():
+    rows = [_listing(i, "2023-07", 5e6, 1000) for i in range(29)]
+    rows += [_listing(99, "2023-06", 5e6, 1000, valid=False)]
+    report = compute_trend(_frame(rows), Criteria(window_end="2023-08"))
+    assert report.month_stat("2023-07").coverage_status == "LIMITED"
+    assert report.month_stat("2023-06").coverage_status == "LIMITED"
+    assert report.month_stat("2023-06").median_listing_price_inr is None
+    assert report.month_stat("2023-05").coverage_status == "NO_DATA_IN_SNAPSHOT"
+
+
+def test_city_and_locality_id_filters():
+    rows = [_listing(1, "2023-07", 5e6, 1000, locality="A"),
+            _listing(2, "2023-07", 5e6, 1000, locality="B", city="Secunderabad")]
+    frame = _frame(rows)
+    assert len(apply_criteria(frame, Criteria(window_end="2023-08",
+                                              cities=("Secunderabad",)))) == 1
+    assert apply_criteria(frame, Criteria(window_end="2023-08",
+                                          localities=("id-A",)))["locality"].tolist() == ["A"]
+
+
+def test_price_band_uses_the_listing_range_overlap_rule():
+    """Design note MR5: a listing counts if [MIN, MAX] overlaps the band."""
+    frame = _frame([_listing(1, "2023-07", 4e6, 1000, max_price=6e6)])
+    band = Criteria(window_end="2023-08", price_min_inr=5e6, price_max_inr=8e6)
+    assert len(apply_criteria(frame, band)) == 1
+    assert len(apply_criteria(frame, band.with_(price_min_inr=7e6))) == 0

@@ -16,8 +16,12 @@ def _months(n=12, start=1):
 
 def _stats(months):
     return tuple(
-        MonthStat(m, 100, 7500.0, 1.3e7, 1.3e7, 6000.0, 9000.0, 34.0, True,
-                  False)
+        MonthStat(month=m, listing_count=100, price_valid_count=100,
+                  median_listing_price_inr=1.3e7, median_price_per_sqft_inr=7500.0,
+                  coverage_status="ADEQUATE", median_min_price_inr=1.3e7,
+                  median_max_price_inr=1.3e7, p25_psf=None, p75_psf=None,
+                  median_age_on_site_days=None, month_is_sufficient=True,
+                  is_partial_month=False)
         for m in months
     )
 
@@ -25,7 +29,7 @@ def _stats(months):
 def _report(months, **kw):
     defaults = dict(
         window_months=months, monthly=_stats(months), locality_rankings=(),
-        yoy_median_psf_pct=1.0, yoy_span_months=12, n_listings_total=1200,
+        yoy_median_psf_pct=1.0, yoy_span_months=12, n_listings_total=1200, n_price_valid_total=1200,
         currency_unit="INR", area_unit="SQFT",
     )
     defaults.update(kw)
@@ -63,8 +67,12 @@ def test_pct_change_series_is_scale_invariant():
 
     def build(values):
         return _report(months, monthly=tuple(
-            MonthStat(m, 100, v, v * 1500, v * 1500, None, None, None, True,
-                      False)
+            MonthStat(month=m, listing_count=100, price_valid_count=100,
+                  median_listing_price_inr=v * 1500, median_price_per_sqft_inr=v,
+                  coverage_status="ADEQUATE", median_min_price_inr=v * 1500,
+                  median_max_price_inr=v * 1500, p25_psf=None, p75_psf=None,
+                  median_age_on_site_days=None, month_is_sufficient=True,
+                  is_partial_month=False)
             for m, v in zip(months, values)
         ))
 

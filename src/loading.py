@@ -113,8 +113,16 @@ _PRICE_RE = re.compile(r"^([\d.,]+)\s*(L|Cr|K)?$", re.IGNORECASE)
 _PRICE_SUFFIX = {"l": 1e5, "cr": 1e7, "k": 1e3, "": 1.0}
 
 CANONICAL_COLUMNS = [
-    "listing_id", "month", "price_inr", "max_price_inr", "area_sqft",
-    "psf_inr", "bhk", "locality", "property_type", "city",
+    "listing_id", "month",
+    # True when MIN_PRICE and MAX_PRICE are real, ordered prices, the price is
+    # not "Price on Request" and the area parses. Price fields are NaN
+    # otherwise; such listings count in listing_count but not in medians.
+    "price_valid",
+    "price_inr", "max_price_inr",
+    # The design note's representative asking price: (MIN + MAX) / 2.
+    "listing_price_inr",
+    "area_sqft", "psf_inr", "bhk", "locality", "locality_id",
+    "property_type", "city",
     # Independent restatements of price and area, kept for the Analysis
     # agent's targeted recomputation to cross-check against. Never used by
     # the deterministic statistics.
@@ -134,9 +142,24 @@ class RejectLog:
     """How many rows each rule removed, and why. Printed into the report."""
 
     stages: dict[str, int] = field(default_factory=dict)
+    #: Price-validity cascade over the canonical listings. These rows are
+    #: flagged, not dropped (they still count in listing_count), so they are
+    #: kept apart from the drop cascade above.
+    flags: dict[str, int] = field(default_factory=dict)
 
     def record(self, stage: str, remaining: int) -> None:
         self.stages[stage] = remaining
+
+    def flag(self, stage: str, still_valid: int) -> None:
+        self.flags[stage] = still_valid
+
+    def flags_frame(self) -> pd.DataFrame:
+        rows, prev = [], self.stages.get("parseable POSTING_DATE")
+        for stage, valid in self.flags.items():
+            rows.append({"check": stage, "price_valid_remaining": valid,
+                         "flagged_invalid": None if prev is None else prev - valid})
+            prev = valid
+        return pd.DataFrame(rows)
 
     def as_frame(self) -> pd.DataFrame:
         rows, prev = [], None
@@ -257,6 +280,22 @@ def _parse_locality(value: object) -> str:
     return "Unknown"
 
 
+def _parse_locality_id(value: object) -> str | None:
+    """LOCALITY_ID from the embedded ``location`` field; ``None`` for the
+    empty or ``0`` placeholders, which identify nothing."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    for parser in (json.loads, ast.literal_eval):
+        try:
+            parsed = parser(value)
+        except (ValueError, SyntaxError):
+            continue
+        if isinstance(parsed, dict):
+            lid = str(parsed.get("LOCALITY_ID") or "").strip()
+            return lid if lid and lid != "0" else None
+    return None
+
+
 def load_canonical(
     path: Path = RAW_PATH,
     *,
@@ -288,44 +327,48 @@ def load_canonical(
     df = df.assign(_posted=posted).dropna(subset=["_posted"])
     log.record("parseable POSTING_DATE", len(df))
 
+    # Every listing that qualifies so far is kept: the design note's
+    # ``listing_count`` counts qualifying listings *including* those with an
+    # invalid price or area. Price validity is a flag, not a filter, and only
+    # flagged-valid listings enter the price statistics (``price_valid_count``).
     on_request = df["PRICE"].astype("string").str.contains(   # D6
         PRICE_ON_REQUEST_RE, case=False, regex=True, na=False)
-    df = df[~on_request]
-    log.record("not Price on Request", len(df))
 
     # D2. A price range is usable only if both bounds are real prices and
-    # coherent; MIN_PRICE is the asking price, MAX_PRICE its upper bound.
+    # coherent. The representative asking price is their midpoint.
     price = pd.to_numeric(df["MIN_PRICE"], errors="coerce")
     max_price = pd.to_numeric(df["MAX_PRICE"], errors="coerce")
-    df = df.assign(_price=price, _max_price=max_price)
-    df = df[df["_price"].notna()
-            & (df["_price"] > 0)
-            & (df["_price"] < INT32_SENTINEL)]
-    log.record("MIN_PRICE not zero/sentinel", len(df))
-    df = df[df["_max_price"].notna()
-            & (df["_max_price"] > 0)
-            & (df["_max_price"] < INT32_SENTINEL)
-            & (df["_price"] <= df["_max_price"])]
-    log.record("MAX_PRICE valid and >= MIN_PRICE", len(df))
-
+    min_ok = price.notna() & (price > 0) & (price < INT32_SENTINEL)
+    max_ok = (max_price.notna() & (max_price > 0)
+              & (max_price < INT32_SENTINEL) & (price <= max_price))
     area = df["AREA"].map(_parse_area_sqft)                  # D1
-    df = df.assign(_area=area).dropna(subset=["_area"])
-    df = df[df["_area"] > 0]
-    log.record("parseable AREA (sqft)", len(df))
+    area_ok = area.notna() & (area > 0)
 
-    df = df.assign(_psf=df["_price"] / df["_area"])
+    valid = ~on_request & min_ok & max_ok & area_ok
+    log.flag("not Price on Request", int((~on_request).sum()))
+    log.flag("MIN_PRICE not zero/sentinel", int((~on_request & min_ok).sum()))
+    log.flag("MAX_PRICE valid and >= MIN_PRICE",
+             int((~on_request & min_ok & max_ok).sum()))
+    log.flag("parseable AREA (sqft)", int(valid.sum()))
+
+    df = df.assign(
+        _price=price.where(valid), _max_price=max_price.where(valid),
+        _area=area.where(area_ok),
+    )
+    df = df.assign(_rep=(df["_price"] + df["_max_price"]) / 2.0)
+    df = df.assign(_psf=df["_rep"] / df["_area"])
 
     if apply_plausibility:                                   # D5, off by default
+        # Ablation only: bounds drop price-valid listings outside them; listings
+        # without a valid price are unaffected (they carry no price to test).
         lo, hi = AREA_SQFT_BOUNDS
-        df = df[df["_area"].between(lo, hi)]
+        df = df[~valid.reindex(df.index) | df["_area"].between(lo, hi)]
         log.record(f"area in [{lo:,.0f}, {hi:,.0f}] sqft", len(df))
-
-        lo, hi = PRICE_INR_BOUNDS
-        df = df[df["_price"].between(lo, hi)]
+        keep = df["_price"].isna() | df["_price"].between(*PRICE_INR_BOUNDS)
+        df = df[keep]
         log.record("price within plausibility bounds", len(df))
-
         lo, hi = PSF_INR_BOUNDS
-        df = df[df["_psf"].between(lo, hi)]
+        df = df[df["_psf"].isna() | df["_psf"].between(lo, hi)]
         log.record(f"psf in [{lo:,.0f}, {hi:,.0f}] INR/sqft", len(df))
     else:
         log.record("plausibility bounds DEFERRED to Analysis recomputation", len(df))
@@ -345,12 +388,15 @@ def load_canonical(
         "listing_id": (df["PROP_ID"].astype(str) + "#"
                        + df.index.astype(str)).to_numpy(),
         "month": df["_posted"].dt.strftime("%Y-%m").to_numpy(),
+        "price_valid": df["_rep"].notna().to_numpy(),
         "price_inr": df["_price"].astype(float).to_numpy(),
         "max_price_inr": df["_max_price"].astype(float).to_numpy(),
+        "listing_price_inr": df["_rep"].astype(float).to_numpy(),
         "area_sqft": df["_area"].astype(float).to_numpy(),
         "psf_inr": df["_psf"].astype(float).to_numpy(),
         "bhk": bhk.to_numpy(),
         "locality": df["location"].map(_parse_locality).to_numpy(),
+        "locality_id": df["location"].map(_parse_locality_id).to_numpy(),
         "property_type": df["PROPERTY_TYPE"].astype(str).to_numpy(),
         "city": df["CITY"].astype(str).to_numpy(),
         "area_sqm_raw": df["SECONDARY_AREA"].map(_parse_sqm).to_numpy(),
@@ -385,6 +431,10 @@ def freeze_canonical(
     # Explicit "\n" so the files, and the digest, are identical on Windows.
     log.as_frame().to_csv(
         out_path.with_name("canonical_reject_log.csv"), index=False,
+        lineterminator="\n",
+    )
+    log.flags_frame().to_csv(
+        out_path.with_name("canonical_price_validity.csv"), index=False,
         lineterminator="\n",
     )
     digest = hashlib.sha256(out_path.read_bytes()).hexdigest()

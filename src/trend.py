@@ -21,8 +21,10 @@ from typing import Literal
 from .contract import (
     AREA_SCALE,
     CURRENCY_SCALE,
+    ADEQUATE_N,
     MIN_SUFFICIENT_N,
     PARTIAL_MONTH,
+    coverage_status,
     AreaUnit,
     CurrencyUnit,
     LocalityStat,
@@ -65,7 +67,9 @@ class Criteria:
 
     window_end: str                                  # 'YYYY-MM', inclusive
     bhk: tuple[int, ...] | None = None               # e.g. (2, 3)
-    localities: tuple[str, ...] | None = None        # None = all
+    localities: tuple[str, ...] | None = None        # names or LOCALITY_IDs; None = all
+    #: City scope (design note §3): Hyderabad and/or Secunderabad. None = both.
+    cities: tuple[str, ...] | None = None
     property_types: tuple[str, ...] | None = None
     price_min_inr: float | None = None
     price_max_inr: float | None = None
@@ -88,6 +92,7 @@ class Criteria:
             "window_end": self.window_end,
             "bhk": list(self.bhk) if self.bhk else None,
             "localities": list(self.localities) if self.localities else None,
+            "cities": list(self.cities) if self.cities else None,
             "property_types": (
                 list(self.property_types) if self.property_types else None
             ),
@@ -154,11 +159,21 @@ def apply_criteria(frame: pd.DataFrame, criteria: Criteria) -> pd.DataFrame:
     if criteria.query_mode == "RADIUS":
         out = apply_geo_filter(out, criteria)
     elif criteria.localities is not None:
-        out = out[out["locality"].isin(list(criteria.localities))]
+        # A locality may be named or given by its LOCALITY_ID (design note §4.3).
+        wanted = list(criteria.localities)
+        hit = out["locality"].isin(wanted)
+        if "locality_id" in out.columns:
+            hit |= out["locality_id"].isin(wanted)
+        out = out[hit]
+    if criteria.cities is not None:
+        out = out[out["city"].isin(list(criteria.cities))]
     if criteria.property_types is not None:
         out = out[out["property_type"].isin(list(criteria.property_types))]
+    # Price band, listing-range overlap rule (design note MR5): a listing's
+    # [MIN_PRICE, MAX_PRICE] must overlap the band. Listings without a valid
+    # price cannot be placed in a band and are excluded when one is set.
     if criteria.price_min_inr is not None:
-        out = out[out["price_inr"] >= criteria.price_min_inr]
+        out = out[out["max_price_inr"] >= criteria.price_min_inr]
     if criteria.price_max_inr is not None:
         out = out[out["price_inr"] <= criteria.price_max_inr]
     return out
@@ -177,6 +192,7 @@ def compute_trend(
     criteria: Criteria,
     *,
     min_sufficient_n: int = MIN_SUFFICIENT_N,
+    adequate_n: int = ADEQUATE_N,
     top_localities: int = 10,
     provenance: dict | None = None,
 ) -> TrendReport:
@@ -195,32 +211,43 @@ def compute_trend(
     monthly: list[MonthStat] = []
     for month in window:
         group = grouped.get(month)
+        partial = month == PARTIAL_MONTH
         if group is None or group.empty:
             monthly.append(MonthStat(
-                month=month, n_active=0, median_psf=None,
+                month=month, listing_count=0, price_valid_count=0,
+                median_listing_price_inr=None, median_price_per_sqft_inr=None,
+                coverage_status=coverage_status(0, 0, adequate_n),
                 median_min_price_inr=None, median_max_price_inr=None,
                 p25_psf=None, p75_psf=None,
                 median_age_on_site_days=None, month_is_sufficient=False,
-                is_partial_month=(month == PARTIAL_MONTH)))
+                is_partial_month=partial))
             continue
-        psf = group["psf_inr"].to_numpy(dtype=float) * psf_scale
-        min_price = group["price_inr"].to_numpy(dtype=float) * price_scale
-        max_price = group["max_price_inr"].to_numpy(dtype=float) * price_scale
+        # Both medians use one common eligible set (design note §4.3.5).
+        valid = group[group["price_valid"].astype(bool)]
+        psf = valid["psf_inr"].to_numpy(dtype=float) * psf_scale
+        rep = valid["listing_price_inr"].to_numpy(dtype=float) * price_scale
+        min_price = valid["price_inr"].to_numpy(dtype=float) * price_scale
+        max_price = valid["max_price_inr"].to_numpy(dtype=float) * price_scale
+        n_listings, n_valid = int(len(group)), int(len(valid))
         monthly.append(MonthStat(
             month=month,
-            n_active=int(len(group)),
-            median_psf=_median(psf),
+            listing_count=n_listings,
+            price_valid_count=n_valid,
+            median_listing_price_inr=_median(rep),
+            median_price_per_sqft_inr=_median(psf),
+            coverage_status=coverage_status(n_listings, n_valid, adequate_n),
             median_min_price_inr=_median(min_price),
             median_max_price_inr=_median(max_price),
             p25_psf=_quantile(psf, 0.25),
             p75_psf=_quantile(psf, 0.75),
             median_age_on_site_days=_median(
                 group["age_on_site_days"].dropna().to_numpy(dtype=float)),
-            month_is_sufficient=bool(len(group) >= min_sufficient_n),
-            is_partial_month=(month == PARTIAL_MONTH),
+            month_is_sufficient=bool(n_valid >= min_sufficient_n),
+            is_partial_month=partial,
         ))
 
-    rankings = _rank_localities(in_window, psf_scale, top_localities,
+    rankings = _rank_localities(in_window[in_window["price_valid"].astype(bool)],
+                                psf_scale, top_localities,
                                min_n=max(5, min_sufficient_n // 10))
     yoy, yoy_span = _yoy_pct(monthly)
 
@@ -231,6 +258,7 @@ def compute_trend(
         yoy_median_psf_pct=yoy,
         yoy_span_months=yoy_span,
         n_listings_total=int(len(in_window)),
+        n_price_valid_total=int(in_window["price_valid"].astype(bool).sum()),
         currency_unit=criteria.currency_unit,
         area_unit=criteria.area_unit,
         criteria=criteria.describe(),
@@ -255,21 +283,21 @@ def _rank_localities(
         return []
     agg = (
         in_window.groupby("locality")["psf_inr"]
-        .agg(n_active="size", median_psf="median")
+        .agg(price_valid_count="size", median_price_per_sqft_inr="median")
         .reset_index()
     )
-    agg = agg[agg["n_active"] >= min_n]
+    agg = agg[agg["price_valid_count"] >= min_n]
     if agg.empty:
         return []
-    agg["median_psf"] = agg["median_psf"] * psf_scale
+    agg["median_price_per_sqft_inr"] = agg["median_price_per_sqft_inr"] * psf_scale
     agg = agg.sort_values(
-        ["median_psf", "locality"], ascending=[False, True], kind="mergesort"
+        ["median_price_per_sqft_inr", "locality"], ascending=[False, True], kind="mergesort"
     ).head(top_n)
     return [
         LocalityStat(
             locality=str(row.locality),
-            n_active=int(row.n_active),
-            median_psf=float(row.median_psf),
+            price_valid_count=int(row.price_valid_count),
+            median_price_per_sqft_inr=float(row.median_price_per_sqft_inr),
             rank=position,
         )
         for position, row in enumerate(agg.itertuples(index=False), start=1)
@@ -283,15 +311,15 @@ def _yoy_pct(monthly: Sequence[MonthStat]) -> tuple[float | None, int]:
     flip on this snapshot, so thin months are skipped -- but then the span is
     no longer twelve and the caller must be told. Returns (pct, span_months).
     """
-    usable = [m for m in monthly if m.month_is_sufficient and m.median_psf]
+    usable = [m for m in monthly if m.month_is_sufficient and m.median_price_per_sqft_inr]
     if len(usable) < 2:
         return None, 0
     first, last = usable[0], usable[-1]
-    if not first.median_psf:
+    if not first.median_price_per_sqft_inr:
         return None, 0
     span = (pd.Period(last.month, freq="M")
             - pd.Period(first.month, freq="M")).n + 1
-    pct = (last.median_psf - first.median_psf) / first.median_psf * 100.0
+    pct = (last.median_price_per_sqft_inr - first.median_price_per_sqft_inr) / first.median_price_per_sqft_inr * 100.0
     return pct, int(span)
 
 
@@ -308,13 +336,13 @@ if __name__ == "__main__":
     print(f"median psf move: {report.yoy_median_psf_pct:+.2f}% "
           f"over {report.yoy_span_months} sufficient months "
           f"(window is 12)")
-    print("\n month     n   median_psf  median_min_price  sufficient  partial")
+    print("\n month     n   median_price_per_sqft_inr  median_min_price  sufficient  partial")
     for m in report.monthly:
-        psf = f"{m.median_psf:,.0f}" if m.median_psf else "-"
+        psf = f"{m.median_price_per_sqft_inr:,.0f}" if m.median_price_per_sqft_inr else "-"
         price = (f"{m.median_min_price_inr:,.0f}"
                  if m.median_min_price_inr else "-")
-        print(f" {m.month} {m.n_active:>5} {psf:>12} {price:>17}   "
+        print(f" {m.month} {m.listing_count:>5} {psf:>12} {price:>17}   "
               f"{m.month_is_sufficient!s:<10}  {m.is_partial_month}")
     print("\n top localities by median psf")
     for r in report.locality_rankings:
-        print(f"  {r.rank:>2}. {r.locality:<26} n={r.n_active:<5} {r.median_psf:>10,.0f}")
+        print(f"  {r.rank:>2}. {r.locality:<26} n={r.price_valid_count:<5} {r.median_price_per_sqft_inr:>10,.0f}")

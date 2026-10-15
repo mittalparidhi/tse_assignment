@@ -90,8 +90,13 @@ def add_to_month_price(
     mask = out["month"] == month
     out.loc[mask, "price_inr"] = out.loc[mask, "price_inr"] + delta_inr
     out.loc[mask, "max_price_inr"] = out.loc[mask, "max_price_inr"] + delta_inr
+    # The representative price is the midpoint, so it moves by delta too, and
+    # price per sqft is recomputed from it (design note MR4). Listings without
+    # a valid price stay NaN: there is no price to shift.
+    out.loc[mask, "listing_price_inr"] = (
+        out.loc[mask, "price_inr"] + out.loc[mask, "max_price_inr"]) / 2.0
     out.loc[mask, "psf_inr"] = (
-        out.loc[mask, "price_inr"] / out.loc[mask, "area_sqft"]
+        out.loc[mask, "listing_price_inr"] / out.loc[mask, "area_sqft"]
     )
     out.loc[mask, "price_display_inr"] = out.loc[mask, "price_inr"]
     return out
@@ -156,6 +161,7 @@ def scale_prices(frame: pd.DataFrame, k: float) -> pd.DataFrame:
     out = frame.copy()
     out["price_inr"] = out["price_inr"] * k
     out["max_price_inr"] = out["max_price_inr"] * k
+    out["listing_price_inr"] = out["listing_price_inr"] * k
     out["psf_inr"] = out["psf_inr"] * k
     out["price_display_inr"] = out["price_display_inr"] * k
     return out

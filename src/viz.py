@@ -130,12 +130,12 @@ def locality_bars(report: TrendReport, top_n: int = 10) -> go.Figure:
         return go.Figure(layout=_base_layout("No locality has enough depth"))
     rows = list(reversed(rows))        # plotly draws bottom-up
     fig = go.Figure(go.Bar(
-        x=[r.median_psf for r in rows], y=[r.locality for r in rows],
+        x=[r.median_price_per_sqft_inr for r in rows], y=[r.locality for r in rows],
         orientation="h",
         marker=dict(color=SERIES_1, line=dict(color=SURFACE, width=2)),
-        text=[f"{r.median_psf:,.0f}" for r in rows], textposition="outside",
+        text=[f"{r.median_price_per_sqft_inr:,.0f}" for r in rows], textposition="outside",
         textfont=dict(color=TEXT_SECONDARY, size=11),
-        customdata=[r.n_active for r in rows],
+        customdata=[r.price_valid_count for r in rows],
         hovertemplate="%{y}<br>%{x:,.0f} per unit area<br>"
                       "n=%{customdata}<extra></extra>",
     ))

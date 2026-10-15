@@ -1,0 +1,5 @@
+check,price_valid_remaining,flagged_invalid
+not Price on Request,4914,61
+MIN_PRICE not zero/sentinel,4913,1
+MAX_PRICE valid and >= MIN_PRICE,4913,0
+parseable AREA (sqft),4574,339

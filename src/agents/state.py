@@ -36,13 +36,18 @@ class AgentMode(str, Enum):
 
 
 class CoverageVerdict(str, Enum):
-    SUFFICIENT = "SUFFICIENT"
-    INSUFFICIENT = "INSUFFICIENT"
+    """Design note §4.3.3: accept, retry, or proceed with limited coverage."""
+    ACCEPT = "ACCEPT"
+    RETRY = "RETRY"
+    LIMITED = "LIMITED"
 
 
 class CritiqueVerdict(str, Enum):
     APPROVED = "APPROVED"
     REJECTED = "REJECTED"
+    #: Design note §4.3.7: the critique still flags something new but its
+    #: recomputation cap is spent. Reported as such, never silently accepted.
+    NEEDS_REVIEW = "NEEDS_REVIEW"
 
 
 @dataclass(frozen=True)
@@ -53,8 +58,13 @@ class GraphConfig:
     #: the Coverage agent stops widening.
     coverage_target: float = 0.50
 
-    #: Cap on cycle 1 (Coverage -> Retrieval).
-    max_retry_rounds: int = 3
+    #: Usable price-and-area records a month needs to count as covered
+    #: (design note §4.3.3; ``contract.ADEQUATE_N``).
+    adequate_n: int = 30
+
+    #: Cap on cycle 1 (Coverage -> Retrieval): at most two retries after the
+    #: initial query (design note §4.3.4).
+    max_retry_rounds: int = 2
 
     #: Cap on cycle 2 (Critique -> Analysis). One round, deliberately.
     #:
@@ -189,7 +199,7 @@ def new_state(
         retrieval_report=[],
         n_no_coordinate=0,
         coverage_score=0.0,
-        coverage_verdict=CoverageVerdict.INSUFFICIENT.value,
+        coverage_verdict=CoverageVerdict.RETRY.value,
         widened_filter_spec=None,
         retry_count=0,
         relaxations=[],
