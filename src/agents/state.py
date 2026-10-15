@@ -142,6 +142,9 @@ class TrendState(TypedDict, total=False):
 
     # --- Analysis agent ----------------------------------------------
     trend_stats: TrendReport | None
+    #: The listings ``trend_stats`` was computed from (raw_listings minus any
+    #: rejected outliers); what the Critique agent inspects.
+    analysed_listings: pd.DataFrame
     flagged_months: list[str]
     n_rejected_outliers: int
 
@@ -193,6 +196,7 @@ def new_state(
         relax_levers=[],
         relax_cursor=0,
         trend_stats=None,
+        analysed_listings=frame.iloc[0:0],
         flagged_months=[],
         n_rejected_outliers=0,
         critique_verdict=CritiqueVerdict.REJECTED.value,

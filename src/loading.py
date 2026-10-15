@@ -340,7 +340,10 @@ def load_canonical(
     coords = df["MAP_DETAILS"].map(_parse_latlon)
 
     canonical = pd.DataFrame({
-        "listing_id": df["PROP_ID"].astype(str).to_numpy(),
+        # PROP_ID alone is not unique (D7: one ID on two canonical rows), and
+        # retrieval selects rows by ID, so the raw row position is appended.
+        "listing_id": (df["PROP_ID"].astype(str) + "#"
+                       + df.index.astype(str)).to_numpy(),
         "month": df["_posted"].dt.strftime("%Y-%m").to_numpy(),
         "price_inr": df["_price"].astype(float).to_numpy(),
         "max_price_inr": df["_max_price"].astype(float).to_numpy(),

@@ -57,8 +57,8 @@ locality_counts = frame["locality"].value_counts()
 st.sidebar.title("Search criteria")
 st.sidebar.caption(
     "The agents scan the frozen snapshot against these. If a slice is too "
-    "thin to support a trend, the CoverageAuditor sends work back upstream "
-    "and the CriteriaPlanner relaxes it - you will see that in the trace."
+    "thin to support a trend, the Coverage agent widens one criterion and "
+    "sends work back to the Retrieval agents - you will see that in the trace."
 )
 
 window_end = st.sidebar.selectbox(
@@ -83,7 +83,7 @@ st.sidebar.subheader("Agent control")
 coverage_target = st.sidebar.slider(
     "Coverage target", 0.0, 1.0, 0.50, 0.05,
     help="Share of the 12 months that must have adequate depth before the "
-         "CoverageAuditor stops iterating.")
+         "Coverage agent stops widening.")
 max_retry = st.sidebar.slider(
     "Max retrieval retries (cycle 1)", 0, 5, 3,
     help="Coverage agent -> Retrieval agents.")
@@ -195,8 +195,10 @@ with trend_tab:
         expanded=False,
     ):
         st.caption(
-            "The graph is cyclic. Rows marked ITERATE or ESCALATE are the "
-            "back-edges firing: a downstream agent sending work upstream."
+            "The graph is cyclic. Rows whose decision reads 'WIDEN and "
+            "re-retrieve (cycle 1)' or 'REJECT -> recompute flagged months "
+            "(cycle 2)' are the back-edges firing: a downstream agent sending "
+            "work upstream."
         )
         trace_rows = []
         for entry in state["trace"]:

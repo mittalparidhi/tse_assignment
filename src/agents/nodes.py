@@ -214,9 +214,13 @@ def retrieval_merge(state: TrendState) -> TrendState:
 
     n_missing_coord = 0
     if spec.query_mode == "RADIUS":
+        # Rows that match every non-geographic criterion and the window but
+        # cannot be placed on the map: exactly what the radius query excluded.
         window = month_window(spec.window_end)
-        in_window = frame[frame["month"].isin(window)]
-        n_missing_coord = int(in_window["latitude"].isna().sum())
+        candidates = apply_criteria(
+            frame, spec.with_(query_mode="EXACT_LOCALITY", localities=None))
+        candidates = candidates[candidates["month"].isin(window)]
+        n_missing_coord = int(candidates["latitude"].isna().sum())
 
     state["raw_listings"] = merged
     state["n_no_coordinate"] = n_missing_coord
@@ -563,7 +567,12 @@ def analysis_agent(state: TrendState) -> TrendState:
             rejected = len(drop)
             working = listings[~listings.index.isin(drop)]
 
-    state["n_rejected_outliers"] = state.get("n_rejected_outliers", 0) + rejected
+    # Every computation starts again from raw_listings with the cumulative
+    # flagged months, so this pass's count IS the total; adding it to the
+    # previous pass's count double-counted when more than one round ran.
+    state["n_rejected_outliers"] = rejected
+    # The critique judges the listings the statistics were computed from.
+    state["analysed_listings"] = working
 
     provenance = {
         "contract_version": CONTRACT_VERSION,
@@ -624,7 +633,9 @@ def critique_agent(state: TrendState) -> TrendState:
     """
     cfg: GraphConfig = state["config"]
     report = state["trend_stats"]
-    listings: pd.DataFrame = state["raw_listings"]
+    # The listings the report was computed from, so after a recomputation the
+    # critique checks whether the rejection actually cleaned the month.
+    listings: pd.DataFrame = state.get("analysed_listings", state["raw_listings"])
     assert report is not None
 
     flagged: set[str] = set()

@@ -5,6 +5,12 @@ this file is the full log, with every controlled experiment's table and the
 order in which hypotheses were raised and discarded. Where the two differ in
 detail, the numbers here are the primary record.
 
+**Naming.** This log was written while cycle 2's outlier rejection was called
+"STRICT mode" (a retrieval-side scan mode). It now lives in the Analysis
+agent's targeted recomputation, triggered by the Critique agent
+(`contracts/Analysis.md` §3); "STRICT round" below means one round of that
+recomputation. The experiments are unchanged.
+
 # Findings
 
 The brief requires each top violation to be attributed, with evidence, to one

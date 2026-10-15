@@ -55,9 +55,8 @@ def pipeline_vector(state) -> dict:
         "coverage": state["coverage_score"],
         "relaxations": list(state["relaxations"]),
         "widen_rounds": state["retry_count"],
-        # Stale names kept until Phase 4 (contracts/Golden.md §2.2).
-        "strict_rounds": state["critique_rounds"],
-        "n_rejected_strict": state["n_rejected_outliers"],
+        "critique_rounds": state["critique_rounds"],
+        "n_rejected_outliers": state["n_rejected_outliers"],
     }
 
 

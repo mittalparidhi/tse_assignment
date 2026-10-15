@@ -71,24 +71,31 @@ python scripts/run_harness.py --tag quick --quick     # 3 base inputs, fast
 Six agents over a shared state, in a graph with **two cycles**:
 
 ```
-Criteria agent ──> Retrieval agents ──> Coverage agent ──┐
-      ^                 ^                           │ coverage < target?
-      │ (C1) relax      │ (C2) scan_mode=STRICT     │
-      └─────────────────┼───────────────────────────┘
-                        │                     ↓ ok
-                        │              Analysis agent
-                        │                     ↓
-                        └────────────  Critique agent ──> Aggregator agent
+Criteria agent ──> Retrieval agents (x4, parallel) ──> Coverage agent
+                          ^                                  │
+                          └──── (C1) widen one criterion ────┤ coverage < target
+                                                             ↓ ok
+                   Analysis agent <──── (C2) recompute ──── Critique agent
+                          │            flagged months             ^
+                          └───────────────────────────────────────┘
+                                                             ↓ approved
+                                                      Aggregator agent
 ```
 
-- **C1** — `Coverage agent`, downstream of the scanner, sends work back
-  *upstream* to `Criteria agent`, which relaxes the query and records what it
-  gave up. Forced by the data: "3 BHK in Gachibowli over 12 months" yields
-  months with n < 50, so most of the trend is otherwise undefined.
-- **C2** — `Critique agent` flips `scan_mode` to `STRICT`, changing the
-  scanner's **validation logic**, not the rows it receives. It rejects 125
-  suspect listings on the demo query and moves the headline from −10.9% to
-  −13.6%.
+- **C1** — `Coverage agent`, downstream of retrieval, scores how many of the
+  12 months have enough listings and, if too few, widens one criterion (price
+  band, then BHK, then geography) and sends work back to the Retrieval
+  agents, recording what it gave up. Forced by the data: "3 BHK in Gachibowli
+  over 12 months" yields months with n < 50, so most of the trend is
+  otherwise undefined.
+- **C2** — `Critique agent` checks the computed trend and, when a month looks
+  wrong, sends a complaint naming those months back to the `Analysis agent`,
+  which recomputes only them with contextual outliers removed.
+- **Dependency** — the `Criteria agent` sets `query_mode`, and the Retrieval
+  agents then run a different algorithm (locality set membership or haversine
+  radius search).
+
+The contracts for every agent are in `contracts/` (v2.0.0-draft).
 
 Both are real conditional edges in the compiled graph, both are capped so
 termination is guaranteed, and both are asserted to fire by tests

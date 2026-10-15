@@ -114,7 +114,7 @@ def test_agent_pipeline_unchanged(frame, graph, label):
     # fixture keys keep their original names and the VALUES must match, which
     # is the whole point of the comparison.
     assert state["retry_count"] == want["widen_rounds"]
-    assert state["critique_rounds"] == want["strict_rounds"]
-    assert state["n_rejected_outliers"] == want["n_rejected_strict"]
+    assert state["critique_rounds"] == want["critique_rounds"]
+    assert state["n_rejected_outliers"] == want["n_rejected_outliers"]
     assert state["coverage_score"] == pytest.approx(want["coverage"], rel=1e-12)
     assert state["relaxations"] == want["relaxations"]

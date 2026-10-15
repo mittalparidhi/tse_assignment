@@ -57,14 +57,14 @@ def experiment_a_and_b(frame, inputs, graph) -> pd.DataFrame:
     conditions = {
         # Baseline reproduces the original implementation exactly.
         "baseline (C2 on, group=shard+month)":
-            GraphConfig(max_strict_rounds=1, strict_group_by_month=False),
+            GraphConfig(max_critique_rounds=1, group_outliers_by_month=False),
         # A: remove cycle 2 entirely. If violations vanish, cycle 2 is the locus.
         "A: C2 disabled":
-            GraphConfig(max_strict_rounds=0, strict_group_by_month=False),
+            GraphConfig(max_critique_rounds=0, group_outliers_by_month=False),
         # B: keep C2, change only the grouping. If violations vanish, the
         #    grouping is the mechanism.
         "B: C2 on, group=month":
-            GraphConfig(max_strict_rounds=1, strict_group_by_month=True),
+            GraphConfig(max_critique_rounds=1, group_outliers_by_month=True),
     }
     return pd.concat([sweep(frame, inputs, graph, name, cfg)
                       for name, cfg in conditions.items()], ignore_index=True)
@@ -80,8 +80,12 @@ def experiment_c(frame, inputs, graph) -> pd.DataFrame:
     rows = []
     for n_shards in (1, 2, 4, 8):
         for group_by_month in (False, True):
-            cfg = GraphConfig(n_shards=n_shards, max_strict_rounds=1,
-                              strict_group_by_month=group_by_month)
+            cfg = GraphConfig(n_retrieval_agents=n_shards,
+                              max_critique_rounds=1,
+                              group_outliers_by_month=group_by_month)
+            # Retrieval fan-out is fixed when the graph is compiled, so each
+            # agent count needs its own graph (src/agents/graph.py).
+            graph = build_graph(n_shards)
             totals = []
             for criteria in inputs[:6]:
                 r = run_relation(BY_ID["I1"], frame, criteria, 11,
@@ -96,13 +100,13 @@ def experiment_c(frame, inputs, graph) -> pd.DataFrame:
                 "grouping": "month" if group_by_month else "shard+month",
                 "I1_violations": int(sum(totals)),
                 "I1_runs": len(totals),
-                "listings_total": state["report"].n_listings_total,
-                "rejected": state["n_rejected_strict"],
+                "listings_total": state["final_report"].n_listings_total,
+                "rejected": state["n_rejected_outliers"],
             })
             print(f"  [C] shards={n_shards} grouping="
                   f"{'month' if group_by_month else 'shard+month'} "
-                  f"listings={state['report'].n_listings_total} "
-                  f"rejected={state['n_rejected_strict']}", flush=True)
+                  f"listings={state['final_report'].n_listings_total} "
+                  f"rejected={state['n_rejected_outliers']}", flush=True)
     return pd.DataFrame(rows)
 
 

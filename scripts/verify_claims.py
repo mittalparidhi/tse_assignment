@@ -202,7 +202,9 @@ def main() -> int:
                        r"|CoverageAuditor|NarrativeAgent|cycle C[12]")
     print("\nStale agent/cycle names in documents:")
     bad = 0
-    for doc in DOCS:
+    # The UI text is user-facing too: app.py carried "CoverageAuditor" and
+    # "CriteriaPlanner" after the rename because only DOCS were scanned.
+    for doc in DOCS + ["app.py"]:
         hits = len(stale.findall(Path(doc).read_text(encoding="utf-8")))
         bad += hits
         print(f"  {doc:<22}{hits}")

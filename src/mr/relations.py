@@ -368,7 +368,9 @@ def _check_m3(src: TrendReport, dst: TrendReport) -> tuple[bool, str]:
 
 
 def _m3_transform(frame, criteria, rng):
-    assert criteria.localities
+    # An explicit check, not ``assert``: assertions vanish under ``python -O``.
+    if not criteria.localities or len(criteria.localities) < 2:
+        raise ValueError("MR-M3 needs a criteria set naming >= 2 localities")
     keep = tuple(criteria.localities[: max(1, len(criteria.localities) // 2)])
     return frame, tf.restrict_localities(criteria, keep)
 

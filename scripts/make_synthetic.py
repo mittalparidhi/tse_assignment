@@ -24,8 +24,8 @@ Deliberate contamination
 ------------------------
 A controlled fraction of listings carry an implausible price-per-sqft, so
 cycle 2 has something real to catch. Their ids are prefixed ``OUT`` and the
-count is recorded, which means the diagnosis can check whether STRICT mode
-caught exactly the injected rows rather than merely "some" rows.
+count is recorded, which means the diagnosis can check whether the targeted
+recomputation (cycle 2) caught exactly the injected rows rather than merely "some" rows.
 
     python scripts/make_synthetic.py
 """

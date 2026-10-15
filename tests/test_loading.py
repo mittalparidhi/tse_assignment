@@ -116,7 +116,7 @@ def test_price_on_request_is_excluded_even_with_numeric_bounds(tmp_path):
         _raw_row("B", _NEAR_MIDNIGHT_MS, price_text="Price on Request"),
         _raw_row("C", _NEAR_MIDNIGHT_MS, price_text="  price ON request "),
     ])
-    assert frame["listing_id"].tolist() == ["A"]
+    assert frame["listing_id"].str.split("#").str[0].tolist() == ["A"]
     stages = log.as_frame().set_index("stage")
     assert stages.loc["not Price on Request", "rows_dropped"] == 2
 
@@ -129,7 +129,7 @@ def test_max_price_must_be_valid_and_not_below_min_price(tmp_path):
         _raw_row("sentinel", _NEAR_MIDNIGHT_MS, max_price=loading.INT32_SENTINEL),
         _raw_row("zero", _NEAR_MIDNIGHT_MS, max_price=0),
     ])
-    assert frame["listing_id"].tolist() == ["ok"]
+    assert frame["listing_id"].str.split("#").str[0].tolist() == ["ok"]
     assert frame["max_price_inr"].tolist() == [6e6]
 
 
@@ -139,8 +139,8 @@ def test_real_snapshot_has_no_price_on_request_or_inverted_range(canonical):
     raw = pd.read_csv(loading.RAW_PATH, low_memory=False)
     on_request = raw["PRICE"].astype("string").str.contains(
         loading.PRICE_ON_REQUEST_RE, case=False, regex=True, na=False)
-    assert not set(raw.loc[on_request, "PROP_ID"].astype(str)) & set(
-        frame["listing_id"])
+    raw_rows = set(frame["listing_id"].str.split("#").str[1].astype(int))
+    assert not set(raw.index[on_request]) & raw_rows
 
 
 def test_frozen_canonical_snapshot_matches_a_fresh_rebuild(canonical):
@@ -164,3 +164,15 @@ def test_partial_month_constant_agrees_with_the_latest_posting():
     latest = pd.to_datetime(pd.to_numeric(raw["POSTING_DATE"], errors="coerce"),
                             unit="ms", utc=True).max()
     assert latest.tz_convert(loading.LOCAL_TIMEZONE) == loading.LATEST_POSTING
+
+
+def test_listing_id_is_unique_and_traceable_to_the_raw_row(canonical):
+    """Data.md D7/§5: PROP_ID is not unique, so the raw row position is part
+    of the ID; retrieval selects rows by ID and must never pick up a twin."""
+    frame, _ = canonical
+    assert frame["listing_id"].is_unique
+    raw = pd.read_csv(loading.RAW_PATH, usecols=["PROP_ID"])
+    parts = frame["listing_id"].str.rsplit("#", n=1)
+    prop, row = parts.str[0], parts.str[1]
+    assert (raw.loc[row.astype(int), "PROP_ID"].astype(str).to_numpy()
+            == prop.to_numpy()).all()

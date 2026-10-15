@@ -193,3 +193,38 @@ def test_narrative_flags_the_partial_month_only_when_in_window(frame, graph):
     assert "partial month" not in without["narrative"]
     assert with_aug["final_report"].provenance["contract_version"] == "2.0.0-draft"
     assert with_aug["final_report"].provenance["snapshot_sha256"].startswith("9e8169")
+
+
+def test_rejected_count_is_not_summed_across_critique_rounds(frame):
+    """contracts/Analysis.md §5: each recomputation starts from raw_listings,
+    so the reported count is that pass's count, and it must equal the
+    listings actually missing from the report."""
+    config = GraphConfig(max_critique_rounds=2)
+    state = run_pipeline(frame, Criteria(window_end="2023-08"), seed=11,
+                         config=config, graph=build_graph())
+    report = state["final_report"]
+    assert state["critique_rounds"] >= 1
+    assert state["n_rejected_outliers"] == (
+        len(state["raw_listings"]) - report.n_listings_total)
+
+
+def test_critique_inspects_the_listings_the_report_was_built_from(frame, graph):
+    state = run_pipeline(frame, Criteria(window_end="2023-08"), seed=11,
+                         graph=graph)
+    analysed = state["analysed_listings"]
+    assert len(analysed) == state["final_report"].n_listings_total
+    assert len(analysed) == len(state["raw_listings"]) - state["n_rejected_outliers"]
+
+
+def test_no_coordinate_count_respects_the_criteria(frame, graph):
+    """contracts/Retrieval.md §4: only rows a radius query had to exclude."""
+    radius = Criteria(window_end="2023-08", bhk=(3,), query_mode="RADIUS",
+                      center_lat=17.44, center_lon=78.35, radius_km=5.0)
+    state = run_pipeline(frame, radius, seed=11, graph=graph)
+    # Cycle 1 may have widened BHK; the count follows the effective criteria.
+    spec = state["widened_filter_spec"] or radius
+    window = frame[frame["month"].isin(
+        state["final_report"].window_months)]
+    expected = int(window[window["bhk"].isin(spec.bhk)]["latitude"].isna().sum())
+    assert state["n_no_coordinate"] == expected
+    assert expected < int(window["latitude"].isna().sum())
