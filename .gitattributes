@@ -1,0 +1,6 @@
+# Checksum-pinned and graded artefacts must be byte-identical on every
+# platform. Disable line-ending conversion (core.autocrlf) for them so a
+# Windows checkout does not rewrite LF to CRLF and break the SHA-256 checks.
+data/** -text
+results/** -text
+tests/golden/** -text
