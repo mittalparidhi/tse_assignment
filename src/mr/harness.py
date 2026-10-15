@@ -66,6 +66,11 @@ class MRResult:
     same_control_path: bool
     source_relaxations: str
     follow_relaxations: str
+    #: Listings rejected by cycle 2's targeted recomputation in each run.
+    #: A transformation that changes this changed the analysed population,
+    #: which is the mechanism behind M1's residual violations (Analysis.md §3).
+    source_rejected: int
+    follow_rejected: int
     seconds: float
 
 
@@ -95,6 +100,7 @@ def _run_one(
         "c2": state.get("critique_rounds", 0),
         "relaxations": list(state.get("relaxations", [])),
         "levers": list(state.get("relax_levers", [])),
+        "rejected": int(state.get("n_rejected_outliers", 0)),
     }
 
 
@@ -120,7 +126,7 @@ def run_relation(
     if not mr.applicable(frame, criteria):
         return MRResult(mr.mr_id, mr.family, criteria.label, seed,
                         False, False, "outside subdomain", 0, 0, 0, 0,
-                        True, "", "", time.perf_counter() - started)
+                        True, "", "", 0, 0, time.perf_counter() - started)
 
     rng = np.random.default_rng(seed)
     source_report, src_loops = _run_one(frame, criteria, seed, graph, config, llm)
@@ -144,6 +150,8 @@ def run_relation(
         same_control_path=(src_relax == dst_relax
                            and src_loops["c2"] == dst_loops["c2"]),
         source_relaxations=src_relax, follow_relaxations=dst_relax,
+        source_rejected=src_loops["rejected"],
+        follow_rejected=dst_loops["rejected"],
         seconds=time.perf_counter() - started,
     )
 
@@ -184,67 +192,107 @@ def run_all(
     return pd.DataFrame(rows)
 
 
-def summarise(results: pd.DataFrame) -> pd.DataFrame:
-    """Per-MR violation rate with a 95% Wilson interval.
+def per_base_input(runs: pd.DataFrame) -> pd.DataFrame:
+    """Collapse the seeds of each (relation, base input) into one outcome.
 
-    Reported both unconditionally and over the relaxation-stable subdomain
-    (runs where source and follow-up took the same path through cycle 1).
+    The statistical unit is the base input, not the run (contracts/Testing.md
+    §6). The seeds of one base input are repeated measurements of the same
+    input, not independent samples: in the deterministic sweep they agree
+    every time, and treating 3 x 36 runs as 108 independent trials makes a
+    zero-violation interval look three times tighter than the evidence
+    supports (0/108 -> upper 0.034; 0/36 -> upper 0.096).
+
+    A base input is *violated* if any of its seeds violated, and *stable* if
+    every seed took the same control path in source and follow-up.
     """
+    applicable = runs[runs.applicable]
+    if applicable.empty:
+        return pd.DataFrame(columns=["mr_id", "base_input", "violated",
+                                     "stable", "seeds", "seeds_violated"])
+    grouped = applicable.groupby(["mr_id", "base_input"], sort=False)
+    return grouped.agg(
+        violated=("violated", "any"),
+        stable=("same_control_path", "all"),
+        seeds=("seed", "nunique"),
+        seeds_violated=("violated", "sum"),
+    ).reset_index()
+
+
+def summarise(results: pd.DataFrame) -> pd.DataFrame:
+    """Per-MR violation rate with a 95% Wilson interval over base inputs.
+
+    Reported over all applicable base inputs and over the relaxation-stable
+    subdomain (every seed took the same path through cycle 1 in both runs).
+    Per-run counts are kept alongside for comparison with earlier sweeps, and
+    ``seed_disagreements`` counts base inputs whose seeds did not all agree.
+    """
+    bases = per_base_input(results)
     rows = []
     for mr in ALL_RELATIONS:
-        subset = results[(results.mr_id == mr.mr_id) & results.applicable]
-        trials = len(subset)
-        violations = int(subset.violated.sum())
-        lo, hi = wilson_ci(violations, trials)
-
-        stable = subset[subset.same_control_path] if trials else subset
-        s_trials = len(stable)
-        s_violations = int(stable.violated.sum()) if s_trials else 0
-        s_lo, s_hi = wilson_ci(s_violations, s_trials)
-
+        runs = results[(results.mr_id == mr.mr_id) & results.applicable]
+        b = bases[bases.mr_id == mr.mr_id]
+        n, k = len(b), int(b.violated.sum())
+        lo, hi = wilson_ci(k, n)
+        stable = b[b.stable]
+        sn, sk = len(stable), int(stable.violated.sum())
+        s_lo, s_hi = wilson_ci(sk, sn)
+        run_k = int(runs.violated.sum())
+        run_lo, run_hi = wilson_ci(run_k, len(runs))
+        disagree = int(((b.seeds_violated > 0)
+                        & (b.seeds_violated < b.seeds)).sum())
         rows.append({
             "mr_id": mr.mr_id,
             "family": mr.family,
             "relation": mr.name,
-            "base_inputs": int(subset.base_input.nunique()),
-            "runs": trials,
-            "violations": violations,
-            "violation_rate": (violations / trials) if trials else float("nan"),
+            "base_inputs": n,
+            "violations": k,
+            "violation_rate": (k / n) if n else float("nan"),
             "ci95_low": lo,
             "ci95_high": hi,
-            "path_diverged": trials - s_trials,
-            "stable_runs": s_trials,
-            "stable_violations": s_violations,
-            "stable_rate": (s_violations / s_trials) if s_trials else float("nan"),
+            "path_diverged": n - sn,
+            "stable_base_inputs": sn,
+            "stable_violations": sk,
+            "stable_rate": (sk / sn) if sn else float("nan"),
             "stable_ci95_low": s_lo,
             "stable_ci95_high": s_hi,
+            "seed_disagreements": disagree,
+            "runs": len(runs),
+            "run_violations": run_k,
+            "run_rate": (run_k / len(runs)) if len(runs) else float("nan"),
+            "run_ci95_low": run_lo,
+            "run_ci95_high": run_hi,
         })
     return pd.DataFrame(rows)
 
 
 def headline_table(results: pd.DataFrame) -> str:
-    """The report's headline results table."""
+    """The report's headline results table. Unit: base input."""
     summary = summarise(results)
     lines = [
-        "All applicable runs                          | Relaxation-stable subdomain",
-        f"{'MR':<6}{'family':<12}{'runs':>5}{'viol':>5}{'rate':>7}"
-        f"{'95% CI':>18}  | {'runs':>5}{'viol':>5}{'rate':>7}{'95% CI':>18}",
-        "-" * 97,
+        "Unit = base input (violated if any seed violates)  | Relaxation-stable subdomain",
+        f"{'MR':<6}{'family':<12}{'bases':>6}{'viol':>5}{'rate':>7}"
+        f"{'95% CI':>18}{'seed≠':>6}  | {'bases':>6}{'viol':>5}{'rate':>7}{'95% CI':>18}",
+        "-" * 106,
     ]
     for row in summary.itertuples(index=False):
+        if row.base_inputs == 0:
+            continue
         ci = f"[{row.ci95_low:.3f},{row.ci95_high:.3f}]"
-        sci = ("[  n/a  ]" if row.stable_runs == 0
+        sci = ("[  n/a  ]" if row.stable_base_inputs == 0
                else f"[{row.stable_ci95_low:.3f},{row.stable_ci95_high:.3f}]")
-        srate = "  n/a" if row.stable_runs == 0 else f"{row.stable_rate:>7.3f}"
+        srate = ("  n/a" if row.stable_base_inputs == 0
+                 else f"{row.stable_rate:>7.3f}")
         lines.append(
-            f"{row.mr_id:<6}{row.family:<12}{row.runs:>5}{row.violations:>5}"
-            f"{row.violation_rate:>7.3f}{ci:>18}  | "
-            f"{row.stable_runs:>5}{row.stable_violations:>5}{srate}{sci:>18}"
+            f"{row.mr_id:<6}{row.family:<12}{row.base_inputs:>6}"
+            f"{row.violations:>5}{row.violation_rate:>7.3f}{ci:>18}"
+            f"{row.seed_disagreements:>6}  | {row.stable_base_inputs:>6}"
+            f"{row.stable_violations:>5}{srate}{sci:>18}"
         )
-    lines.append("-" * 97)
+    lines.append("-" * 106)
     diverged = int((~results[results.applicable].same_control_path).sum())
     lines.append(
         f"seeds: {list(SEEDS)}   total runs: {len(results)}   "
-        f"runs where the C1 relaxation path diverged: {diverged}"
+        f"runs where the C1 relaxation path diverged: {diverged}   "
+        f"seed≠ = base inputs whose seeds disagreed"
     )
     return "\n".join(lines)

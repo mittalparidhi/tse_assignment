@@ -136,7 +136,16 @@ def test_stats_are_reportable():
 def test_model_fingerprint_records_identity():
     fp = model_fingerprint("qwen2.5:3b", ScriptedBackend({}))
     assert fp["model"] == "qwen2.5:3b" and fp["backend"] == "scripted"
-    assert len(fp["model_tag_sha256"]) == 16
+    assert len(fp["model_name_sha256"]) == 16
+    # No model is behind a scripted backend, so no digest is claimed.
+    assert fp["model_digest"] == "unavailable"
+
+
+def test_unreachable_ollama_reports_no_digest_rather_than_a_guess():
+    from src.llm import OllamaBackend
+    fp = model_fingerprint("qwen2.5:3b",
+                           OllamaBackend(host="http://127.0.0.1:9", timeout=1))
+    assert fp["model_digest"] == "unavailable"
 
 
 # ------------------------------------------------- graph wiring, LLM mode

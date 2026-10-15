@@ -301,10 +301,38 @@ class LLMClient:
         return text
 
 
+def ollama_model_digest(model: str, host: str = DEFAULT_HOST,
+                        timeout: float = 5.0) -> str:
+    """The digest Ollama reports for ``model`` (``/api/tags``), which
+    identifies the actual weights. ``"unavailable"`` if Ollama cannot be
+    reached or does not have the model -- never a made-up value."""
+    import urllib.error
+    import urllib.request
+    try:
+        with urllib.request.urlopen(f"{host.rstrip('/')}/api/tags",
+                                    timeout=timeout) as response:
+            tags = json.loads(response.read().decode("utf-8"))
+    except (urllib.error.URLError, OSError, ValueError):
+        return "unavailable"
+    for entry in tags.get("models", []):
+        if model in (entry.get("name"), entry.get("model")):
+            return str(entry.get("digest") or "unavailable")
+    return "unavailable"
+
+
 def model_fingerprint(model: str, backend: Backend) -> dict[str, str]:
-    """Identity of the model used, for the reproducibility record."""
+    """Identity of the model used, for the reproducibility record.
+
+    ``model_digest`` pins the weights. ``model_name_sha256`` hashes only the
+    model *name*: earlier result sets recorded that as ``model_tag_sha256``
+    and described it as a digest, which it is not -- the same name can point
+    at different weights after a re-pull.
+    """
+    digest = (ollama_model_digest(model, backend.host)
+              if isinstance(backend, OllamaBackend) else "unavailable")
     return {
         "model": model,
         "backend": backend.name,
-        "model_tag_sha256": hashlib.sha256(model.encode()).hexdigest()[:16],
+        "model_digest": digest,
+        "model_name_sha256": hashlib.sha256(model.encode()).hexdigest()[:16],
     }

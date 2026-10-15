@@ -155,7 +155,11 @@ def violation_ci_chart(summary: pd.DataFrame) -> go.Figure:
     A dot-and-interval plot rather than bars: the quantity is an estimate with
     uncertainty, and a bar implies a count anchored at zero.
     """
-    data = summary.iloc[::-1]
+    # Summaries written since contract v2 count base inputs; older committed
+    # sweeps counted runs. Label the denominator with whichever unit it is.
+    unit = "base_inputs" if "base_inputs" in summary and "run_rate" in summary else "runs"
+    data = summary[summary[unit] > 0].iloc[::-1]
+    unit_label = "base inputs" if unit == "base_inputs" else "runs"
     fig = go.Figure(go.Scatter(
         x=data["violation_rate"], y=data["mr_id"], mode="markers",
         error_x=dict(type="data", symmetric=False,
@@ -165,9 +169,10 @@ def violation_ci_chart(summary: pd.DataFrame) -> go.Figure:
         marker=dict(color=[SERIES_2 if r > 0 else SERIES_1
                            for r in data["violation_rate"]],
                     size=11, line=dict(color=SURFACE, width=2)),
-        customdata=data[["relation", "violations", "runs"]].to_numpy(),
+        customdata=data[["relation", "violations", unit]].to_numpy(),
         hovertemplate="<b>%{y}</b> %{customdata[0]}<br>"
-                      "rate %{x:.3f} (%{customdata[1]}/%{customdata[2]} runs)"
+                      "rate %{x:.3f} (%{customdata[1]}/%{customdata[2]} "
+                      f"{unit_label})"
                       "<extra></extra>",
     ))
     layout = _base_layout("Violation rate by relation, 95% Wilson interval",

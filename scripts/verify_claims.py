@@ -75,7 +75,7 @@ def main() -> int:
         ("determinism distinct outputs", probe["distinct_outputs"], 1),
         ("LLM calls (post-fix)", meta["llm"]["llm_calls"], 14209),
         ("LLM fallback rate (post-fix)", meta["llm"]["llm_fallback_rate"], 0.0874),
-        ("model digest", meta["llm"]["model_tag_sha256"], "d7f5d340f8953384"),
+        ("model name hash (committed LLM sweep)", meta["llm"]["model_tag_sha256"], "d7f5d340f8953384"),
     ]
 
     # Coordinate coverage and age-on-site, as quoted in DESIGN/REPORT.
