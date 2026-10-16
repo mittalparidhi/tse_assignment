@@ -234,6 +234,33 @@ deviations — for example months from `POSTING_DATE` rather than
 `REGISTER_DATE__U`, which leaves 4 instead of 7 months coverable — are listed
 with evidence in `contracts/CONTRACT.md` §13.
 
+### 4.5 The interface
+
+The application is a Streamlit dashboard (`streamlit run app.py`) that runs
+the agent pipeline live on the frozen snapshot for whatever the user chooses:
+
+- **Criteria panel:** city, BHK, localities, price band, window end, the
+  retrieval algorithm (exact locality or a radius around a centre — the
+  genuine dependency, made a user choice), and the agent controls (coverage
+  target, retry and critique caps, number of retrieval agents, seed). Every
+  request is validated against what the snapshot contains before an agent runs.
+- **Trend tab:** the headline cards, the monthly median ₹/sqft and listing-count
+  charts, the most expensive localities, and three views of the agents at work:
+  *Show before critique* overlays the first analysis pass on the final one,
+  shading the months cycle 2 changed (3 BHK Gachibowli: −4.45% → −0.70%);
+  *How sure is the headline?* recomputes the yearly move at twelve sufficiency
+  thresholds against the RESIDEX reference (§9); and *Watch the loops fire*
+  steps through the run's trace beside a diagram that highlights the active
+  agent and each cycle as it fires, with the answer as it stood at that step.
+- **Relations tab:** the catalogue and every sweep's violation rates with their
+  intervals; **Data tab:** the snapshot, its filter cascade and the defects.
+
+Typography is Newsreader for headings with IBM Plex Sans and Plex Mono, in
+both light and dark themes. `tests/test_app.py` drives the dashboard headless,
+including all three agent views. An optional presentation dashboard over eight
+exported queries (`scripts/export_ui_data.py`, `results/ui/`) was also built;
+it shows saved results only, so the Streamlit app is the submitted application.
+
 ## 5. The metamorphic relation catalogue
 
 Twelve relations across the three families (the minimum is eight), each a
@@ -557,6 +584,7 @@ recorded in `AI_USE.md`.
 
 ```bash
 pip install -r requirements.txt
+streamlit run app.py                                           # §4.5, the application
 python scripts/headline_table.py --v2 --check                  # §7.1 from the run records, checked against this report
 python scripts/headline_table.py --v2 --tag v2_llm --check     # §7.2 likewise
 python scripts/replay_llm_sweep.py                             # §7.2 replayed offline, no GPU
@@ -577,3 +605,6 @@ diagnoses are described in `docs/DIAGNOSIS.md`. Shipped with them: the frozen
 snapshot and its checksum, the seeds `[11, 23, 47]`, and the model reply cache
 in `data/llm_cache/`. Contracts for every agent: `contracts/` (v2.1.0-draft).
 Every issue found, with how it was caught and fixed: `docs/ISSUE_LOG.md`.
+Each check run is logged in `audit/test_logs/`; the full set — tests,
+`verify_claims.py`, the three table checks and the offline LLM replay — also
+passed on a fresh clone with a new environment built from `requirements.txt`.
