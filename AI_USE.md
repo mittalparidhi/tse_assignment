@@ -8,7 +8,8 @@ Per the brief's ground rules: all substantive AI use is disclosed here,
 | Context | Use |
 |---------|-----|
 | **Building the project** | Claude (Anthropic), via the Claude Code CLI, wrote most of the application code, the MR catalogue, the harness and the dashboard, and drafted `DESIGN.md`, `REPORT.md` and `docs/DIAGNOSIS.md`. It ran the data audits, the controlled experiments and the diagnostic analyses. |
-| **Merging the two implementations (contract v2)** | Claude Opus 5.5, via the Claude Code desktop app, used by Paridhi: compared the two codebases, wrote the v2 contract suite, ported the first implementation's data and validation rules, fixed the harness and the agents, and updated the documents (§5). The v2 sweeps were run by Paridhi. |
+| **Merging the two implementations (contract v2)** | Claude Opus 5.5, via the Claude Code desktop app, used by Paridhi: compared the two codebases, wrote the v2 contract suite, ported the first implementation's data and validation rules, fixed the harness and the agents, and updated the documents (§5). The deterministic v2 sweeps were run by Paridhi. |
+| **Aligning with the design note, the v2 LLM sweep, the report cut (§6)** | The same assistant adopted the team's design note as contract v2.1, diagnosed and fixed the LLM-mode faults, wrote the Kaggle notebook cells and later pushed the final notebook through the Kaggle API, verified every result by offline replay, and cut REPORT.md to the brief's length. A second Claude session, run by Paridhi in parallel, made one commit (`2edd7bf`, §6.4). Paridhi ran the first Kaggle sessions, created the Kaggle credentials and approved every upload. |
 | **Inside the application, at run time** | **Qwen2.5-3B-Instruct (Q4_K_M) served locally by Ollama**, used by four of the six agents. |
 
 ## 2. The local model inside the application
@@ -32,20 +33,26 @@ to the model on every call, so the model is a **third pinned artifact**
 alongside the frozen snapshot and the seed list — recorded as
 `qwen2.5:3b-instruct-q4_K_M` with `d7f5d340f8953384`, which was described as
 the model digest but is a hash of the model *name* (§5.6); the code now records
-the weights digest Ollama reports. A determinism probe
+the weights digest Ollama reports, and the v2 LLM sweep records `357c53fb…`.
+A determinism probe
 (20 repeats, same prompt, same seed) returned **20/20 identical replies on a
-Kaggle T4**, so the recorded seeds genuinely pin behaviour. Responses are
-cached by `(prompt, seed, model)` hash and the cache is shipped, so the sweep
-replays without a GPU.
+Kaggle T4**, so the recorded seeds genuinely pin behaviour. Replies are cached
+under a hash of model, temperature, seed, attempt and the full prompt, and the
+cache is shipped: `scripts/replay_llm_sweep.py` replays the v2 LLM sweep with
+no model at all, treating any missing reply as an error, and reproduces every
+run record.
 
 **Honesty about failure.** Calls that never yield parseable, valid output fall
 back to a recorded default, and **every fallback is counted and reported**.
-Measured over 14,209 calls: **fallback rate 0.0874**. Separately, the
-Aggregator's summary is rejected by a faithfulness guard whenever it contains a
-figure not present in the supplied facts — that happened on **35% of runs**
-(826 of 2,376), and those runs show the deterministic template instead. So the
-honest statement is that three agents use the model and the fourth is
-overridden about a third of the time.
+Pre-v2, over 14,209 calls: **fallback rate 0.0874**, and the Aggregator's
+summary was rejected by a faithfulness guard (a figure not in the supplied
+facts) on **35% of runs** (826 of 2,376). In the v2 LLM sweep the fallback rate
+is **0.0383** over 17,164 requests. The summary is now requested only when
+there is a price change (§6.4): replaying all 72 base inputs at seed 11, 21
+summaries come from the model and none is rejected, the other 51 use the
+template, and the remaining fallbacks are 8 listing-review replies that were
+not valid JSON. In the harness the Criteria agent is not asked (the requests
+are structured, not free text), so three agents use the model there.
 
 ### Why a small model, and why not a bigger one
 
@@ -306,7 +313,96 @@ checksum failed), two checking scripts crashed reading "₹" as cp1252, and a
 reproduction commands on the Windows machine itself rather than assuming they
 worked because they had worked elsewhere.
 
-## 6. Human responsibility
+## 6. Aligning with the design note and the v2 LLM sweep (15–16 October 2026)
 
-The authors reviewed all code and all numerical claims. Errors that remain are
-the authors'.
+Paridhi asked the assistant to adopt the team's design note (*Agent
+Architecture – Hyderabad Refined*), keep the choices it argued for, and
+document each deviation; then to run the LLM sweep under the new contract,
+which had not been possible on the Windows laptop. The first Kaggle sessions
+were run by Paridhi from cells the assistant wrote; the final one was pushed by
+the assistant through the Kaggle API after Paridhi created the credentials
+and approved the upload of a private dataset and a private notebook.
+The assistant never read the credentials file. Errors, in order:
+
+### 6.1 A changed set of base inputs, noticed late
+
+After the alignment the sweep reported M1raw over 71 base inputs instead of
+72. Locality depth now counted all 4,975 listings, so 9 of the 36 locality
+inputs had silently changed their fourth locality, and 9 more their order.
+`base_inputs.csv` records only how many localities an input has, not which,
+so comparing the two files showed no difference. **Caught by** regenerating
+both input sets from their own commits and comparing them; the report states
+the change and measures M1raw on the 63 inputs common to both sweeps.
+
+### 6.2 A wrong diagnosis of a stalled run
+
+When a Kaggle run made no model calls, the assistant concluded that the Ollama
+server had died. The evidence was weaker than presented: the process listing it
+relied on was cut to its first lines and showed only 8 of 12 processes, and a
+later run reached a server on the same port. The safeguards added in response
+are sound regardless (the harness now makes one real call before starting,
+stops after ten backend errors in a row instead of falling back for hours, and
+saves replies every 50), but the cause of that stall was not established.
+
+### 6.3 Two statements about the upload that were not checked
+
+The assistant said that `git archive` would give the zip Linux line endings.
+That held for the data files, which the repository stores as-is, but with
+`core.autocrlf=true` the code files came out with Windows line endings.
+**Caught by** a patch cell's own assertion failing on Kaggle; the cell was
+corrected and later archives were built with `core.autocrlf=false`.
+Separately, it estimated that the final re-run would need 358 new model calls;
+it needed 86. The estimate came from an offline replay in which every missing
+reply fell back, which changed the later prompts.
+
+### 6.4 A first explanation that covered part of the fallbacks, and a fix that failed
+
+The first v2 LLM run had a fallback rate near 0.2. The assistant found a real
+fault (the narrative guard rejected the radius figures it had itself supplied)
+and guessed that the rest came from the model writing a count of the widened
+localities. Measuring per agent (`scripts/llm_fallback_breakdown.py`) showed
+otherwise: 49 of the 58 rejected summaries were the model copying the facts
+block when there was no price change. The assistant's fix, a dedicated no-trend
+prompt (`45c8d13`), was then tested on Kaggle by a second Claude session run by
+Paridhi, which measured a fallback rate of 0.277 after 50 runs and replaced it
+by not asking the model when there is no change (`2edd7bf`). That commit is
+that session's, not this assistant's; the assistant learned of it only when it
+found it in the history while verifying the results.
+
+### 6.5 Results verified by replay, which exposed which code had run
+
+The assistant did not take the Kaggle numbers on trust. The run record showed
+almost no model time, so it replayed all 2,592 runs on the laptop from the
+saved replies with any missing reply treated as an error. The replay matched
+exactly with the code of `2edd7bf`, not the patch the assistant had sent,
+which is how the second session's change was discovered (§6.4). The final
+sweep was verified the same way, and the replay became
+`scripts/replay_llm_sweep.py`.
+
+### 6.6 A fault in the original code, found by the LLM sweep
+
+The LLM sweep violated I3 on 8 of 72 inputs. Capturing the review prompts
+showed the model 10 distinct listings in the source run and 8 after
+duplication: the review cut its batch before removing duplicates. The line had
+been in the code since the first implementation, and the pre-v2 report had
+recorded its effect as an open defect, "localised, not isolated". Fixed and
+re-measured on Kaggle (I3 0/72); the test that had been pinned as an expected
+failure now passes. This was the relations working as intended rather than an
+assistant error, but the assistant had read that code during the merge
+without seeing the fault.
+
+### 6.7 The report cut
+
+REPORT.md was cut from 11,558 to about 5,300 words to meet the brief's 10–12
+pages, after Paridhi approved an outline, including the choice of the LLM
+sweep's three most-violated relations for the root-cause analysis. The pre-v2
+results and diagnoses moved unchanged into `docs/DIAGNOSIS.md`, and the
+scripts that check the published tables were pointed at their new locations.
+
+## 7. Human responsibility
+
+Decisions were Paridhi's throughout: which implementation to build on, which
+of the design note's choices to keep, fixing faults rather than only reporting
+them, re-running the LLM sweep after the I3 fix, and every action on the Kaggle
+account. The authors reviewed all code and all numerical claims. Errors that
+remain are the authors'.
