@@ -639,11 +639,35 @@ exclusion alone moves it more than 0.2 points, together 1.24). The "+6.24% on a
 3 km IT-corridor radius slice" figure has no recorded centre, and the plausible
 centres give −3% to −9%; it is withdrawn.
 
+### Finding 11 — I3 under the model: the review batch was cut before de-duplication (v2)
+
+The v2 LLM sweep (`results/v2_llm_before_reviewfix/`) violated I3 on 8 of 72
+base inputs (0.111). *Symptom:* `2023-06: price_valid_count 141 -> 283, expected
+exactly 2x`. *Evidence:* all 23 violating runs kept the same control path and
+changed cycle 2's rejected count; deterministic I3 is 0, so only model-path
+code can be responsible. Capturing the review prompts on `base23` showed 10
+distinct listings in the source run and 8 in the duplicated run. *Cause:*
+`_llm_review_rejections` took the 12 highest-₹/sqft grey-zone rows and only
+then removed duplicates; doubling the rows left fewer distinct listings in the
+cut, and a verdict reached only the twins inside it (2 × 141 + 1). *Fix:*
+de-duplicate, then cut, and apply each verdict to every row with that content
+(`90ceaac`). *Re-measured* on Kaggle (`results/v2_llm/`): I3 **0/72**, D2
+20 → 19, nothing else changed. This closes the pre-v2 residual (0.176) that
+was pinned as a strict xfail "not fully isolated".
+**Verdict: genuine agent fault.**
+
+In the same sweep D1 (0.069), D2 (0.264) and M1's excess over the
+deterministic 0.194 (0.375) repeat Findings 6–7's mechanism: the transformation
+changes what the model is shown. The narrative agent's rejections (58 of 72,
+from the model echoing the facts when there is no trend and from radius
+figures the guard did not count as supplied) were fixed without affecting any
+verdict (`NOTEBOOK.md` Stage 21).
+
 ## Categories, final
 
 | Category | Instances |
 |----------|-----------|
-| **Genuine agent fault** | per-`(shard, month)` threshold (I3, I4, M2, D1); four prompt-contamination faults (I4, I3, I2, I1); geography widening that broke set inclusion (M3, v2) |
+| **Genuine agent fault** | per-`(shard, month)` threshold (I3, I4, M2, D1); four prompt-contamination faults (I4, I3, I2, I1); geography widening that broke set inclusion (M3, v2); the LLM review batch cut before de-duplication (I3, v2 LLM); the narrative guard rejecting supplied radius figures |
 | **Ill-conceived MR** | M1 with the band in place (retained as `M1raw`) |
 | **Data artifact** | M1's deterministic residual (0.139 pre-v2, 0.167 v2) — real listings near the relative outlier boundary |
 | **Harness bug** | the control-path signature comparing message text; M3 passing only because widening made it unable to fail |

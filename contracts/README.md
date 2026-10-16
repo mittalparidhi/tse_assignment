@@ -44,7 +44,6 @@ The 8,000-token limit applies to each contract file individually. Keep each unde
 
 ## Open items
 
-- **The LLM sweeps predate contract v2.** `results/llm_before_promptfix/` and `results/llm/` were produced on Kaggle with the earlier code and population (4,578 rows, UTC months, whole-metro geography widening, per-run intervals). Re-running them needs Ollama with `qwen2.5:3b-instruct-q4_K_M` (`notebooks/kaggle_llm_sweep.ipynb`, or `python scripts/run_harness.py --tag v2_llm --llm`). Until then, report them as pre-v2 results and do not mix them with the v2 deterministic rates.
-- Whether a strict replay mode (cache miss = error, no network) is required for the LLM sweep (`LLM.md` §6).
+- None for the sweeps. Resolved: the LLM sweep was re-run under contract v2 (`results/v2_llm/`, Kaggle T4; the before-fix run is `results/v2_llm_before_reviewfix/`), and `scripts/replay_llm_sweep.py` is the strict replay mode (a cache miss is an error, no network) that reproduces it exactly. `results/llm_before_promptfix/` and `results/llm/` remain pre-v2 results and are not mixed with v2 rates.
 
 Resolved in Phase 4: M3 is kept, and is meaningful because geography widening keeps a locality constraint and preserves set inclusion (a subset widens to a subset; `Coverage.md` §3). M3 found the inclusion fault before it was fixed (9/36 bases, `results/v2_before_m3fix/`). The radius base inputs are defined in `Testing.md` §3.

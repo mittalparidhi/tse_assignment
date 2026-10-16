@@ -65,15 +65,16 @@ def main() -> int:
                         help="verify the rebuilt rates appear in REPORT.md")
     parser.add_argument("--v2", action="store_true",
                         help="rebuild the contract-v2 deterministic table instead")
+    parser.add_argument("--tag", default=V2_TAG,
+                        help="with --v2: the result set (e.g. v2_llm)")
     args = parser.parse_args()
 
     if args.v2:
         from src.mr.harness import headline_table as v2_table
-        runs = pd.read_csv(Path("results") / V2_TAG / "mr_runs.csv")
-        meta = json.loads((Path("results") / V2_TAG / "run_meta.json")
+        runs = pd.read_csv(Path("results") / args.tag / "mr_runs.csv")
+        meta = json.loads((Path("results") / args.tag / "run_meta.json")
                           .read_text(encoding="utf-8"))
-        print(f"Contract v2 deterministic sweep -- rebuilt from "
-              f"results/{V2_TAG}/mr_runs.csv")
+        print(f"Contract v2 sweep -- rebuilt from results/{args.tag}/mr_runs.csv")
         print()
         print(v2_table(runs))
         print(f"snapshot {meta['snapshot_sha256'][:16]}...  canonical rows "

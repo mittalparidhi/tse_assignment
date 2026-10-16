@@ -49,7 +49,7 @@ These are tested directly: prompts are unchanged under ID relabelling, unit chan
 
 ## 6. Open decision
 
-Whether a strict replay mode is required (a cache miss raises instead of calling Ollama), so a grader can prove the committed LLM sweep is replayed exactly. Currently a cache miss calls the model.
+Resolved: `scripts/replay_llm_sweep.py` is the strict replay mode. Every request is answered from the cache, a miss stops the replay, and the run records are compared with `results/<tag>/mr_runs.csv`; it reproduces `results/v2_llm/` exactly. In a normal `--llm` run a cache miss still calls the model.
 
 ## 7. Tests
 

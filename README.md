@@ -65,13 +65,35 @@ before it is kept in `results/v2_before_note_alignment/` (M1 0.167, M1raw
 The earlier sweeps (`results/phaseA_deterministic`, `llm_before_promptfix`,
 `llm`; 11 relations × 36 inputs, per-run intervals, the pre-v2 population)
 are kept as the record behind `docs/DIAGNOSIS.md` and `REPORT.md` §7. The
-two LLM sweeps need Ollama and have not been re-run under contract v2.
+pre-v2 LLM sweeps are superseded by the v2 LLM sweep below.
+
+Contract-v2 LLM sweep (`results/v2_llm/`, Kaggle T4, `qwen2.5:3b-instruct-q4_K_M`;
+same 72 base inputs, unit = base input):
+
+```
+MR     bases  viol   rate    95% CI           deterministic
+I1-I5    72     0   0.000   [0.000, 0.051]    0.000
+M1       72    27   0.375   [0.272, 0.490]    0.194
+M2-M4  72/36    0   0.000                     0.000
+M1raw    71    53   0.746   [0.634, 0.833]    0.718
+D1       72     5   0.069   [0.030, 0.152]    0.000
+D2       72    19   0.264   [0.176, 0.376]    0.000
+
+fallback rate 0.0383 over 17,164 model requests · I3 was 0.111 before the review fix
+```
+
+It found one genuine fault — the listing review cut its batch before removing
+duplicates, so duplicating the data changed what the model saw (I3 0.111 →
+0.000 after the fix; `results/v2_llm_before_reviewfix/`). D1, D2 and M1's
+excess fail because shifting the window or the prices changes what the model
+judges. `python scripts/replay_llm_sweep.py` reproduces it from the committed
+reply cache without a GPU (`REPORT.md` §7.1.1, §8.0).
 
 ### Other entry points
 
 ```bash
 streamlit run app.py                                  # the dashboard
-python -m pytest                                      # 138 tests, 1 xfail
+python -m pytest                                      # 152 tests
 python scripts/make_synthetic.py                      # synthetic snapshot + oracle check
 python scripts/run_harness.py --tag syn --synthetic   # relations vs known ground truth
 python scripts/diagnose.py                            # the root-cause experiments
@@ -197,9 +219,10 @@ python scripts/run_harness.py --tag llm --llm
   (`REPORT.md` §9).
 - `POSTING_DATE` is a posting timestamp, so this is an **asking-price** trend.
 - The n ≥ 50 sufficiency threshold is a judgement call, not a derived value.
-- **The LLM path is weaker than its presence suggests**: fallback rate 0.0874,
-  and the summary agent's output is rejected by a faithfulness guard on 35% of
-  runs.
+- **The LLM path is weaker than its presence suggests**: pre-v2 the fallback
+  rate was 0.0874 and the summary was rejected by a faithfulness guard on 35%
+  of runs; in v2 it is 0.0383, and the summary comes from the model only when
+  there is a price change.
 - The dataset's slug (`gurgaon-real-estate-99acres-com`) is misleading: it is a
   multi-city archive titled "Indian Real Estate – 99acres.com" covering
   Gurgaon, Hyderabad, Mumbai and Kolkata. Origin and CDLA-Sharing-1.0 licence

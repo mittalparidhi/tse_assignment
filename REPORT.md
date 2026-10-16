@@ -10,8 +10,9 @@ final population (4,975 sale listings, 4,574 with a usable price), twelve relati
 intervals over base inputs. The **earlier sweeps** (§7.3) — one deterministic,
 two with a local model — were run before the two team implementations were
 merged; they are kept because §8's diagnosis of the model-driven violations
-rests on them, and are labelled pre-v2 wherever quoted. The model sweeps need
-Ollama and have not been re-run under v2.
+rests on them, and are labelled pre-v2 wherever quoted. The model path was
+re-run under v2 on a Kaggle GPU (§7.1.1), and it replays offline from the
+committed reply cache.
 
 ---
 
@@ -488,7 +489,7 @@ conclusion. At 72 base inputs a zero-violation relation is bounded at 0.051
 fewer than one input in ten"; the non-zero rates have intervals clearly
 separated from zero. We therefore did not extend the sweep. The same criterion
 applied to the LLM fallback rate, which converged to **0.0874** with a 95%
-interval of width 0.012 over 14,209 calls.
+interval of width 0.012 over 14,209 calls (pre-v2; v2: 0.0383 over 17,164).
 
 ---
 
@@ -532,15 +533,55 @@ design (§8.2), more often than before alignment (§8.0). M1's residual is the
 outlier-filter interaction (§8.0). M3's
 failures before the fix were a genuine design fault, found and removed (§8.0).
 
+### 7.1.1 The contract-v2 LLM sweep
+
+`results/v2_llm/` (rebuilt by `headline_table.py --v2 --tag v2_llm`): the same 72 base inputs, seeds and relations with the model
+agents on (`qwen2.5:3b-instruct-q4_K_M`, Ollama 0.40.4, weights digest
+`357c53fb…`, a Kaggle T4). The column *before review fix* is
+`results/v2_llm_before_reviewfix/`, the same sweep before the I3 fault of §8.0
+was fixed. Unit = base input.
+
+| MR | Bases | Deterministic | Before review fix | **LLM** | 95% CI | Seeds disagree |
+|----|------:|--------------:|------------------:|--------:|--------|---------------:|
+| I1, I2, I4, I5 | 72 | 0.000 | 0.000 | **0.000** | [0.000, 0.051] | 0 |
+| I3 | 72 | 0.000 | 0.111 | **0.000** | [0.000, 0.051] | 0 |
+| M1 | 72 | 0.194 | 0.375 | **0.375** | [0.272, 0.490] | 5 |
+| M2 | 72 | 0.000 | 0.000 | **0.000** | [0.000, 0.051] | 0 |
+| M3 | 36 | 0.000 | 0.000 | **0.000** | [0.000, 0.096] | 0 |
+| M4 | 36 | 0.000 | 0.000 | **0.000** | [0.000, 0.096] | 0 |
+| M1raw | 71 | 0.718 | 0.746 | **0.746** | [0.634, 0.833] | 1 |
+| D1 | 72 | 0.000 | 0.069 | **0.069** | [0.030, 0.152] | 0 |
+| D2 | 72 | 0.000 | 0.278 | **0.264** | [0.176, 0.376] | 2 |
+
+2,592 runs; the cycle-1 path diverged in 43 (stable-path rates differ only for
+D1 0.070 and D2 0.268). Seeds now disagree on 8 base inputs: the seed reaches
+the model, so in LLM mode the three seeds are no longer repeats of one
+computation. The fallback rate is **0.0383** over 17,164 model requests (658
+fallbacks, 0 errors). Every violating M1, D1 and D2 run took the same control
+path in both runs, and in 128 of those 143 runs cycle 2 rejected a different
+number of listings: the model's listing review is where it changes the answer.
+
+**Reading it.** The relations that hold deterministically and fail with the
+model — D1, D2 and M1's excess over 0.194 — reproduce the pre-v2 finding of
+§§8.3–8.4 on v2: shifting the window or the prices changes what the model is
+shown, so it judges a different question. I3 failed for another reason, a
+genuine fault, fixed and re-measured (§8.0).
+
+**It replays without a GPU.** `python scripts/replay_llm_sweep.py` answers every
+model request from `data/llm_cache/responses.json`, treats a missing reply as
+an error, and reproduces `results/v2_llm/mr_runs.csv` exactly; the same check
+reproduced the before-fix sweep from its code.
+
 ### 7.2 Run metadata (v2)
 
-| | v2 deterministic | v2 before alignment | v2 synthetic |
-|---|---|---|---|
-| runs | 2,592 | 2,592 | 1,296 |
-| base inputs | 72 | 72 | 36 |
-| elapsed (s, Windows) | 1,037 | 1,473 | 172 |
-| C1 path diverged (runs) | 42 | 27 | 69 |
-| coverage verdict | all 72 LIMITED | — | — |
+| | v2 deterministic | v2 before alignment | v2 synthetic | v2 LLM |
+|---|---|---|---|---|
+| runs | 2,592 | 2,592 | 1,296 | 2,592 |
+| base inputs | 72 | 72 | 36 | 72 |
+| elapsed (s) | 1,037 (Windows) | 1,473 (Windows) | 172 (Windows) | 1,596 (Kaggle T4) |
+| C1 path diverged (runs) | 42 | 27 | 69 | 43 |
+| coverage verdict | all 72 LIMITED | — | — | — |
+| LLM fallback rate | — | — | — | 0.0383 |
 
 ### 7.3 Pre-v2 sweeps: three configurations
 
@@ -615,7 +656,9 @@ of: a genuine agent fault, a data artifact, an ill-conceived MR, or a harness
 bug. All four occur.
 
 **The three most-violated relations in the contract-v2 sweep** are **M1raw
-(0.718)**, **M3 (0.250 before its fix)** and **M1 (0.194)**, diagnosed in §8.0
+(0.718)**, **M3 (0.250 before its fix)** and **M1 (0.194)**; in the v2 LLM
+sweep they are **M1raw (0.746)**, **M1 (0.375)** and **D2 (0.264)**, with
+**I3 (0.111 before its fix)** the fault it found. All are diagnosed in §8.0
 (M1raw's diagnosis, §8.2, is unchanged). §§8.1–8.8 diagnose the pre-v2 sweeps,
 whose most-violated relations under the local model were **M1raw (0.806)**,
 **D1 (0.667)** and **D2 (0.593)**, and the faults found before those —
@@ -672,6 +715,46 @@ inputs common to both sweeps it went from 35 to 44 violating bases. It comes
 with the alignment's rule changes — the range-overlap band, the 30-listing
 coverage threshold and the new lever order — which change the populations
 compared; those were not attributed separately.
+
+**I3 in LLM mode, 0.111 → 0.000 — a genuine agent fault, found and fixed.**
+*Symptom:* `2023-06: price_valid_count 141 -> 283, expected exactly 2x`. All
+23 violating runs (8 base inputs) took the same control path, and in each one
+cycle 2 rejected a different number of listings. Deterministic I3 never
+failed, so the fault is in code only the model path runs: the listing review.
+*Evidence:* capturing the review prompts for `base23`, the source run showed the
+model 10 distinct listings and the duplicated run 8. *Mechanism:*
+`_llm_review_rejections` cut each month's grey zone to its 12 highest-₹/sqft
+rows and only then removed duplicates on displayed content; with every row
+doubled the 12 rows held fewer distinct listings, and a verdict reached only
+the twins inside the cut — hence 283 = 2 × 141 + 1. *Fix:* remove duplicates
+first, cut after, and apply each verdict to every grey-zone row with that
+content (commit `90ceaac`). *Result:* on the re-run I3 8/72 → **0/72**, D2
+20 → 19, every other verdict unchanged. This is also the pre-v2 residual
+(0.176) that §8.5 recorded as localised but not isolated; its pinned failing
+test now passes. **Verdict: genuine agent fault.**
+
+**D1, D2 and M1 in LLM mode — the judge's input changes.** D1 (0.069) and D2
+(0.264) hold deterministically. With the model they fail with the pre-v2
+signature of §§8.3–8.4: same control path, different cycle-2 rejected count
+(15 of 15 and 49 of 55 violating runs). Shifting the window changes which
+months the review covers and the critique's twelve-row table; scaling prices
+changes every price the review shows. M1 (0.375) contains all 14 deterministic
+violations plus 13 where adding ₹5 lakh changes the prices the model judges.
+**Verdict: ill-conceived for an LLM-judged pipeline**, as pre-v2, at lower
+rates (pre-v2 0.667 and 0.593, per run).
+
+**The narrative fallbacks.** The first v2 LLM run had a fallback rate near 0.2,
+against 0.0874 pre-v2. `scripts/llm_fallback_breakdown.py` split it by agent
+from the reply cache: critique 140 of 140 replies used, listing review 79 of
+87, narrative 14 of 72. Of the 58 rejected narratives, 49 were the model
+copying the facts block where no price change exists (51 inputs; pre-v2,
+all 136 such leaks also began "Price change … unavailable"), and 9 were the
+radius scope's own figures (`within 6 km of 17.440, 78.348`), which the
+faithfulness guard rejected as invented. The guard now accepts figures that
+appear in the scope, and the model is not asked for a narrative when there is
+no change: a dedicated no-trend prompt still failed on 5 of 6 locality inputs.
+`provenance.narrative_source` records which text was used. No relation
+compares the narrative, so no verdict depended on it.
 
 ### 8.0.1 Pre-v2 findings
 
@@ -865,7 +948,9 @@ of those 51 cells violated. A differing prompt breaks it in 19 of 57 cases
 (base22/23/30/31) and seven on one of three (base11/17/24/27/32/33/35). The
 review batch comes out with fewer listings on the doubled frame, but *which*
 perturbations bite is not isolated. Recorded as an open defect with a pinned
-failing test rather than papered over.
+failing test rather than papered over. **Since isolated (v2, §8.0):** the batch
+was cut to 12 rows before duplicates were removed; fixed, I3 is 0/72 in the v2
+LLM sweep and the pinned test passes.
 
 ### 8.6 The deterministic faults, and M1's data artifact
 
@@ -955,6 +1040,9 @@ code it tests.
 |---------|------|-------|----------|
 | **M3** (v2) | **0.250 → 0.000** | geography widening around a shared centre broke set inclusion | **genuine agent fault**, fixed |
 | **M1** (v2) | **0.194** | relative outlier threshold moves under a price shift | **data artifact** |
+| **I3** (v2 LLM) | **0.111 → 0.000** | review batch cut before duplicates were removed | **genuine agent fault**, fixed |
+| D1, D2, M1 (v2 LLM) | 0.069, 0.264, 0.375 | the transformation changes what the model judges | **ill-conceived MR for this architecture** |
+| narrative (v2 LLM) | 58 / 72 rejected | model echoed the facts when there was no trend; the guard rejected supplied scope figures | model limitation and **genuine agent fault**, both fixed (no verdict affected) |
 | **M1raw** (v2) | **0.718** | band applied after the shift changes the population | **ill-conceived MR** |
 | M3 (pre-v2) | 0.000 | could not fail: widening collapsed every run to the whole metro | **harness/design blind spot** |
 | **M1raw** | **0.806** | band applied after the shift changes the population | **ill-conceived MR** |
@@ -1052,24 +1140,26 @@ PIN code. The dataset has no PIN/ZIP/postal column, and the six-digit strings
 in its free text are latitude fragments. Locality — the brief's own example —
 is the convention used, with radius/geo as the alternative.
 
-**The LLM results are pre-v2.** Both model sweeps ran before the merge, on a
-different population (4,578 listings, UTC months), the old geography widening
-and per-run intervals. They need Ollama and the 3B model to re-run, which this
-submission's machine did not have, so §8.1–8.5 describe the earlier system.
-The causes found there (prompt contamination; judges that read the statistics
-they influence) are properties of the prompts and the architecture, which v2
-did not change, but the rates would differ.
+**Two generations of LLM results.** §§8.1–8.5 diagnose the pre-v2 model
+sweeps (4,578 listings, UTC months, the old geography widening, per-run
+intervals); their rates are not comparable with v2. The v2 LLM sweep (§7.1.1)
+reproduces their causes — judges whose input the transformation changes — at
+lower rates, and found one more fault (§8.0). It ran on a Kaggle T4 and
+replays exactly from its cached replies; a fresh run on other hardware may get
+slightly different replies even at temperature 0.
 
 **The LLM path is weaker than its presence suggests** (pre-v2). Fallback rate
 **0.0874** over 14,209 calls — roughly 1 in 11 produced nothing usable — and
 the Aggregator's summary was rejected by the faithfulness guard on **35% of
 runs**. So three agents use the model and the fourth is overridden about a
-third of the time.
+third of the time. In v2 the fallback rate is 0.0383 over 17,164 requests,
+and the summary comes from the model only when there is a price change.
 
 **The model was not pinned by digest.** The pre-v2 sweeps recorded
 `d7f5d340f8953384` as the "model digest"; it is a hash of the model *name*, so
 a re-pull of the same tag with different weights would not be detected. The
-code now records the weights digest Ollama reports, or "unavailable".
+code now records the weights digest Ollama reports, or "unavailable"; the v2
+LLM sweep records `357c53fb…`.
 
 **Narrow queries now end below the coverage target.** Keeping the locality
 constraint means cycle 1 often exhausts its levers before reaching 0.5
@@ -1082,8 +1172,8 @@ projection, I5's lakh projection, M2/M3/M4's relaxation-stable subdomain). "M1
 holds" means "M1 holds where no price band is in play"; excluded-case
 frequencies are reported, not hidden.
 
-**One open defect (pre-v2, LLM):** I3's residual 0.176, localised to 11 of 36
-inputs, pinned by a deliberately failing test.
+**The pre-v2 I3 defect is closed.** Localised to 11 of 36 inputs and pinned by
+a failing test, it was isolated in the v2 LLM sweep and fixed (§8.0).
 
 **The synthetic snapshot is our own construction** — it validates the
 statistics and the harness, not the realism of the market model. It has no
@@ -1155,6 +1245,7 @@ records, recomputing every rate and interval rather than copying them:
 
 ```bash
 python scripts/headline_table.py --v2 --check   # §7.1, and checks it against this report
+python scripts/headline_table.py --v2 --tag v2_llm --check   # §7.1.1 likewise
 python scripts/headline_table.py --check        # §7.3, and checks each rate appears here
 ```
 
@@ -1165,18 +1256,19 @@ pip install -r requirements.txt
 python scripts/run_harness.py --tag v2_deterministic           # §7.1, ~25-50 min
 python scripts/run_harness.py --tag v2_synthetic --synthetic   # synthetic control
 python scripts/run_harness.py --tag v2_llm --llm               # needs Ollama + the model
+python scripts/replay_llm_sweep.py                             # §7.1.1 offline, no GPU
 python scripts/diagnose.py                                     # §8.6 replication
 python scripts/threshold_sensitivity.py                        # §9 table
-python -m pytest                                               # 148 tests, 1 xfail
+python -m pytest                                               # 152 tests
 python scripts/verify_claims.py                                # re-derive the quoted figures
 ```
 
 Contract-v2 result sets: `results/v2_deterministic/`,
 `results/v2_before_note_alignment/`, `results/v2_before_m3fix/`,
-`results/v2_synthetic/`, `results/v2_diagnosis/`,
+`results/v2_synthetic/`, `results/v2_llm/`,
+`results/v2_llm_before_reviewfix/`, `results/v2_diagnosis/`,
 `results/v2_sensitivity/`. Pre-v2: `results/phaseA_deterministic/`,
 `results/llm_before_promptfix/`, `results/llm/`, `results/synthetic/`,
 `results/diagnosis/`, `results/sensitivity/`. Shipped artifacts: the frozen
 snapshot and its checksum, the recorded seeds `[11, 23, 47]`, and the response
-cache in `data/llm_cache/`, which lets the pre-v2 LLM sweep replay without a
-GPU. Contracts for every agent are in `contracts/` (v2.1.0-draft).
+cache in `data/llm_cache/`, which lets the LLM sweeps replay without a GPU. Contracts for every agent are in `contracts/` (v2.1.0-draft).
