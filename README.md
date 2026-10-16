@@ -97,6 +97,7 @@ python -m pytest                                      # 154 tests
 python scripts/run_checks.py                          # all checks, logged to audit/test_logs/
 python scripts/replay_llm_sweep.py                    # the LLM sweep replayed offline, no GPU
 python scripts/build_report_pdf.py                    # REPORT.md -> REPORT.pdf (needs `pip install markdown` and Chrome/Edge)
+python scripts/export_ui_data.py                      # real results for 8 queries -> results/ui/ (for the web UI prompts in docs/)
 python scripts/make_synthetic.py                      # synthetic snapshot + oracle check
 python scripts/run_harness.py --tag syn --synthetic   # relations vs known ground truth
 python scripts/diagnose.py                            # the root-cause experiments
