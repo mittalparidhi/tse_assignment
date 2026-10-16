@@ -667,6 +667,9 @@ digest `357c53fb…`). Three problems surfaced on the way:
   full CPU core, and would have finished as a deterministic sweep labelled LLM.
   The harness now makes one real call before starting, stops after 10 backend
   errors in a row, and writes the reply cache every 50 replies (commit c8e6e85).
+- **Two sweeps at once.** The start cell was run twice; `ps` showed two
+  harnesses writing the same reply file and results folder. Both were stopped
+  and one restarted; nothing had been saved by either.
 - **A fallback rate of about 0.2**, against 0.087 for the pre-v2 LLM sweep.
   `scripts/llm_fallback_breakdown.py` replays the 72 base inputs from the
   cache (seed 11, 0 new model calls) and splits it by agent: critique 140/140
@@ -736,6 +739,24 @@ faults the relations found. The pre-v2 results and diagnoses (former §§7.3–7
 and §§8.1–8.8, 3,012 words) moved unchanged into `docs/DIAGNOSIS.md`, and
 `headline_table.py --check` now verifies the pre-v2 table there. The
 before-alignment column left §7.1; that comparison is Stage 20 above.
+
+## Stage 24 — Logs, the issue index, and the deliverables checked against the brief (2026-10-16)
+
+- **Issue index.** `docs/ISSUE_LOG.md` lists every issue found — data, agents,
+  LLM agents, relations, harness, platform — with what caught it, the evidence
+  file and the fix commit; the AI assistant's own errors stay in `AI_USE.md`.
+- **Logs kept.** `scripts/run_checks.py` writes each check run to
+  `audit/test_logs/` (the first implementation's convention); the LLM agents'
+  per-agent fallback breakdowns before and after the narrative fix, and the
+  final Kaggle notebook's full log, are in `audit/llm_logs/`; the first
+  Kaggle session's model-request log is in `results/v2_llm_before_reviewfix/`.
+- **Brief re-read item by item.** Two gaps found and closed: the report's MR
+  tables had lost the tolerance and fault-exposed columns the brief requires,
+  and nothing tested the dashboard (`tests/test_app.py` now runs it headless in
+  both retrieval modes). `scripts/build_report_pdf.py` renders the report:
+  **10 A4 pages**, inside the brief's 10–12. The Kaggle job that produced
+  `results/v2_llm/` is now in `notebooks/kaggle_v2_llm_sweep/`, and the team's
+  design note is in `docs/`.
 
 ## Threats to validity (carried into the report)
 

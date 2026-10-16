@@ -236,36 +236,39 @@ with evidence in `contracts/CONTRACT.md` §13.
 
 ## 5. The metamorphic relation catalogue
 
-Twelve relations across the three families (the minimum is eight). Each is a
-statement about `TrendReport` fields only. Full definitions, tolerances and the
-mapping to the design note's MR1–MR8: `contracts/Testing.md` §4.
+Twelve relations across the three families (the minimum is eight), each a
+statement about `TrendReport` fields only. For every relation: the relation
+and why it should hold, the subdomain, the tolerance, and the fault a
+violation would expose. Floats are compared with `math.isclose` on unrounded
+values; counts exactly. Full definitions and the mapping to the design note's
+MR1–MR8: `contracts/Testing.md` §4.
 
 ### 5.1 Invariance
 
-| ID | Transformation | Relation | Justification |
-|----|---------------|----------|---------------|
-| **I1** | permute the listing rows | every field unchanged | a trend is a property of the set of listings, not their order; catches order-dependent aggregation and shard leaks |
-| **I2** | display units ₹ → ₹ lakh, sqft → sq m | counts, statuses, rankings, % changes identical; ₹/sqft scales by the unit factor | units are presentation; catches hard-coded units and rounding before percentages |
-| **I3** | duplicate every listing | counts exactly double; per-month medians unchanged | a median does not move when every value is repeated; catches silent de-duplication and per-row judgments. Year-on-year fields excluded: doubling makes 25–49-listing months sufficient |
-| **I4** | bijectively relabel listing IDs | every field unchanged | an identifier says nothing about price; catches logic keyed on IDs (shard hashing, prompts) |
-| **I5** | display currency ₹ lakh → ₹ crore | as I2, factor 10⁻² | the brief's Indian-metro case: "converting ₹ crore ↔ ₹ lakh … must not move the trend or the rankings" |
+| ID | Transformation | Relation, and why it should hold | Subdomain | Tolerance | Fault exposed |
+|----|---------------|----------------------------------|-----------|-----------|---------------|
+| **I1** | permute the listing rows | every field unchanged: a trend is a property of the set of listings, not their order | all inputs | counts exact; floats 1e-9 | order-dependent aggregation; unstable tie-breaks; shards leaking row order |
+| **I2** | display ₹ → ₹ lakh, sqft → sq m | counts, statuses, rankings, % changes identical; ₹/sqft scales by the unit factor: units are presentation | all inputs; band kept in rupees | 1e-9 | hard-coded units; the square-metre confusion; rounding before percentages |
+| **I3** | duplicate every listing | counts exactly double; per-month medians unchanged: repeating every value does not move a median | year-on-year fields excluded (doubling makes 25–49-listing months sufficient) | medians 1e-9; counts exact 2× | silent de-duplication; double counting; per-row judgments |
+| **I4** | bijectively relabel listing IDs | every field unchanged: an identifier says nothing about price | all inputs | exact | logic keyed on IDs (shard hashing, prompts) |
+| **I5** | display ₹ lakh → ₹ crore | as I2, factor 10⁻²: the brief's Indian-metro case, "converting ₹ crore ↔ ₹ lakh … must not move the trend or the rankings" | lakh projection of each input | 1e-9 | hard-coded currency; rounding before percentages |
 
 ### 5.2 Monotonic
 
-| ID | Transformation | Relation | Justification |
-|----|---------------|----------|---------------|
-| **M1** | add ₹500,000 to both price bounds in the densest month | that month's price medians rise by ₹500,000; other months unchanged; counts unchanged | declared on the **band-free projection**, so the shift cannot change which listings are selected |
-| **M1raw** | as M1 with the price band left in place | as M1 | **does not hold**; kept as the documented counter-example (§8.1) |
-| **M2** | widen the price band 25% each side | each month's `listing_count` ≥ before | a superset filter cannot select fewer listings |
-| **M3** | keep the first half of the locality list | each month's `listing_count` ≤ before | a subset of places cannot hold more listings; meaningful only because widening preserves inclusion |
-| **M4** | halve the search radius | each month's `listing_count` ≤ before | exercises the radius algorithm of the genuine dependency |
+| ID | Transformation | Relation, and why it should hold | Subdomain | Tolerance | Fault exposed |
+|----|---------------|----------------------------------|-----------|-----------|---------------|
+| **M1** | add ₹500,000 to both price bounds in the densest month | that month's price medians rise by ₹500,000; other months and all counts unchanged: a shift moves a median by the shift | **band-free projection**, so the shift cannot change which listings are selected | \|Δ − X\| ≤ 1e-6·X; others 1e-9 | month-bucketing leaks; filters applied after the transform |
+| **M1raw** | as M1, price band left in place | as M1 — **does not hold**: kept as the documented counter-example (§8.1) | none | as M1 | none; the relation itself is unsound |
+| **M2** | widen the price band 25% each side | each month's `listing_count` ≥ before: a superset filter cannot select fewer | inputs with a band | exact inequality | filter inversion; off-by-one on bounds; stale cached criteria |
+| **M3** | keep the first half of the locality list | each month's `listing_count` ≤ before: a subset of places cannot hold more listings | inputs with ≥ 2 localities | exact inequality | leakage between shards; widening that breaks set inclusion (found, §8.4) |
+| **M4** | halve the search radius | each month's `listing_count` ≤ before: a smaller disc is contained in the larger | radius inputs | exact inequality | wrong distance formula; unlocated rows leaking into a radius query |
 
 ### 5.3 Directional
 
-| ID | Transformation | Relation | Justification |
-|----|---------------|----------|---------------|
-| **D1** | shift the window forward one month | the eleven overlapping months match exactly | a month's statistics cannot depend on which window contains it |
-| **D2** | scale all prices (and the band) by k = 1.5 | every price median scales by exactly k; % changes and rankings unchanged | medians are scale-equivariant; scaling the band keeps the population fixed |
+| ID | Transformation | Relation, and why it should hold | Subdomain | Tolerance | Fault exposed |
+|----|---------------|----------------------------------|-----------|-----------|---------------|
+| **D1** | shift the window forward one month | the eleven overlapping months' counts, statuses and medians match: a month's statistics cannot depend on which window contains it | both windows inside the data | counts exact; floats 1e-9 | window off-by-one; bucketing drift; state carried between runs |
+| **D2** | scale all prices (and the band) by k = 1.5 | every price median scales by exactly k; % changes, rankings and counts unchanged: medians are scale-equivariant, and scaling the band keeps the population fixed | all inputs | 1e-9 | unit mishandling; non-linear aggregation |
 
 **Stated in advance.** M2, M3 and M4 change listing counts, which can change
 which cycle-1 levers fire and so the population for the whole window; they are
@@ -561,8 +564,9 @@ python scripts/run_harness.py --tag v2_deterministic           # §7.1 from scra
 python scripts/run_harness.py --tag v2_synthetic --synthetic   # synthetic control
 python scripts/run_harness.py --tag v2_llm --llm               # §7.2 from scratch: Ollama + the model
 python scripts/threshold_sensitivity.py                        # §9 table
-python -m pytest                                               # 152 tests
+python -m pytest                                               # 154 tests
 python scripts/verify_claims.py                                # re-derive the quoted figures
+python scripts/run_checks.py --replay                          # all of the checks, logged to audit/test_logs/
 ```
 
 Result sets: `results/v2_deterministic/`, `results/v2_llm/`,
@@ -572,3 +576,4 @@ Result sets: `results/v2_deterministic/`, `results/v2_llm/`,
 diagnoses are described in `docs/DIAGNOSIS.md`. Shipped with them: the frozen
 snapshot and its checksum, the seeds `[11, 23, 47]`, and the model reply cache
 in `data/llm_cache/`. Contracts for every agent: `contracts/` (v2.1.0-draft).
+Every issue found, with how it was caught and fixed: `docs/ISSUE_LOG.md`.

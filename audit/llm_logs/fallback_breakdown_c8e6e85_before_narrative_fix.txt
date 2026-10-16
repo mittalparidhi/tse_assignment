@@ -1,0 +1,17 @@
+72 base inputs, seed 11; replies from the cache 319, new model calls 0
+
+kind      agent       model  fallback
+locality  review         39         5
+locality  critique       72         0
+locality  narrative      14        22
+radius    review         40         3
+radius    critique       68         0
+radius    narrative       0        36
+
+fallback reasons (count):
+    27  radius    narrative: instruction leaked into output ('price change in median per sqft:')
+    22  locality  narrative: instruction leaked into output ('price change in median per sqft:')
+     6  radius    narrative: invented figure '10'
+     5  locality  review: no valid JSON
+     3  radius    review: no valid JSON
+     3  radius    narrative: invented figure '6'

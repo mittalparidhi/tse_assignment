@@ -1,0 +1,215 @@
+
+$ nvidia-smi --query-gpu=name,memory.total --format=csv
+name, memory.total [MiB]
+Tesla T4, 15360 MiB
+Tesla T4, 15360 MiB
+
+nodes.py 113a5393a3e21d92 | raw data 9e81698322606c86
+saved replies: 8801
+
+$ pip install -q -r requirements.txt
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 79.5/79.5 kB 1.5 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.4/62.4 kB 2.8 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 573.3/573.3 kB 9.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 259.6/259.6 kB 15.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 98.6 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.8/10.8 MB 87.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 81.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 386.5/386.5 kB 14.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 57.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.3/10.3 MB 96.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.1/58.1 kB 3.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 162.4/162.4 kB 9.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.4/11.4 MB 91.3 MB/s eta 0:00:00
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+bigframes 2.48.0 requires google-cloud-bigquery-storage<3.0.0,>=2.30.0, which is not installed.
+ydata-profiling 4.18.4 requires numpy<2.4,>=1.22, but you have numpy 2.5.4 which is incompatible.
+ydata-profiling 4.18.4 requires pandas!=1.4.0,<3.0,>1.5, but you have pandas 3.0.6 which is incompatible.
+ydata-profiling 4.18.4 requires scipy<1.17,>=1.8, but you have scipy 1.18.1 which is incompatible.
+google-colab 1.0.0 requires jupyter-server==2.20.0, but you have jupyter-server 2.12.5 which is incompatible.
+google-colab 1.0.0 requires pandas==2.2.3, but you have pandas 3.0.6 which is incompatible.
+google-colab 1.0.0 requires requests==2.32.4, but you have requests 2.34.2 which is incompatible.
+dopamine-rl 4.1.2 requires gym<=0.25.2, but you have gym 0.26.2 which is incompatible.
+moviepy 1.0.3 requires decorator<5.0,>=4.0.2, but you have decorator 5.3.1 which is incompatible.
+numba 0.61.2 requires numpy<2.3,>=1.24, but you have numpy 2.5.4 which is incompatible.
+cudf-cu12 26.2.1 requires pandas<2.4.0,>=2.0, but you have pandas 3.0.6 which is incompatible.
+dask-cudf-cu12 26.2.1 requires pandas<2.4.0,>=2.0, but you have pandas 3.0.6 which is incompatible.
+
+
+$ python -m pytest -q -p no:cacheprovider 2>&1 | tail -3
+........................................................................ [ 47%]
+........................................................................ [ 94%]
+........                                                                 [100%]
+
+
+$ apt-get install -y -qq zstd lshw > /dev/null
+
+
+$ curl -fsSL https://ollama.com/install.sh | sh
+###########################################################            87.0%
+##############################################################            87.2%
+##############################################################            87.4%
+###############################################################           87.6%
+###############################################################           87.8%
+###############################################################           88.0%
+###############################################################           88.2%
+###############################################################           88.5%
+###############################################################           88.7%
+################################################################          88.9%
+################################################################          89.2%
+################################################################          89.4%
+################################################################          89.6%
+################################################################          89.9%
+################################################################          90.1%
+#################################################################         90.4%
+#################################################################         90.7%
+#################################################################         90.9%
+#################################################################         91.2%
+#################################################################         91.5%
+##################################################################        91.7%
+##################################################################        92.0%
+##################################################################        92.3%
+##################################################################        92.6%
+##################################################################        92.9%
+###################################################################       93.2%
+###################################################################       93.5%
+###################################################################       93.8%
+###################################################################       94.1%
+####################################################################      94.5%
+####################################################################      94.8%
+####################################################################      95.1%
+####################################################################      95.4%
+####################################################################      95.8%
+#####################################################################     96.1%
+#####################################################################     96.5%
+#####################################################################     96.8%
+#####################################################################     97.2%
+######################################################################    97.5%
+######################################################################    97.9%
+######################################################################    98.2%
+######################################################################    98.6%
+#######################################################################   99.0%
+#######################################################################   99.4%
+#######################################################################   99.7%
+######################################################################## 100.0%
+>>> Creating ollama user...
+>>> Adding ollama user to video group...
+>>> Adding current user to ollama group...
+>>> Creating ollama systemd service...
+WARNING: systemd is not running
+>>> NVIDIA GPU installed.
+>>> The Ollama API is now available at 127.0.0.1:11434.
+>>> Install complete. Run "ollama" from the command line.
+
+
+$ ollama pull qwen2.5:3b-instruct-q4_K_M 2>&1 | tail -2
+writing manifest [K
+success [K[?25h[?2026l
+
+
+$ ollama list
+NAME                          ID              SIZE      MODIFIED               
+qwen2.5:3b-instruct-q4_K_M    357c53fb659c    1.9 GB    Less than a second ago    
+
+
+$ curl -s localhost:11434/api/generate -d '{"model":"qwen2.5:3b-instruct-q4_K_M","prompt":"Say OK","stream":false,"options":{"temperature":0,"seed":11}}' | head -c 200
+{"model":"qwen2.5:3b-instruct-q4_K_M","created_at":"2026-10-16T04:32:33.719813302Z","response":"OK, I'm here. How can I assist you today?","done":true,"done_reason":"stop","context":[151644,8948,198,2
+
+$ ollama ps
+NAME                          ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL              
+qwen2.5:3b-instruct-q4_K_M    357c53fb659c    3.4 GB    100% GPU     32768      llamacpp    4 minutes from now    
+
+harness exit code 0 after 1604s
+snapshot verified: sha256=9e81698322606c86...
+canonical listings: 4,975
+base inputs: 72   seeds: [11, 23, 47]
+LLM mode: qwen2.5:3b-instruct-q4_K_M via http://localhost:11434
+  fingerprint: {'model': 'qwen2.5:3b-instruct-q4_K_M', 'backend': 'ollama', 'model_digest': '357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b', 'model_name_sha256': 'd7f5d340f8953384'}
+  50/2592 runs  [llm calls=282 cache=332 fallback=0.085]
+  100/2592 runs  [llm calls=684 cache=745 fallback=0.044]
+  150/2592 runs  [llm calls=978 cache=1043 fallback=0.035]
+  200/2592 runs  [llm calls=1338 cache=1439 fallback=0.039]
+  250/2592 runs  [llm calls=1674 cache=1807 fallback=0.042]
+  300/2592 runs  [llm calls=2040 cache=2201 fallback=0.040]
+  350/2592 runs  [llm calls=2362 cache=2525 fallback=0.036]
+  400/2592 runs  [llm calls=2680 cache=2857 fallback=0.034]
+  450/2592 runs  [llm calls=3066 cache=3281 fallback=0.036]
+  500/2592 runs  [llm calls=3373 cache=3638 fallback=0.040]
+  550/2592 runs  [llm calls=3793 cache=4053 fallback=0.036]
+  600/2592 runs  [llm calls=4059 cache=4321 fallback=0.034]
+  650/2592 runs  [llm calls=4511 cache=4803 fallback=0.034]
+  700/2592 runs  [llm calls=4795 cache=5137 fallback=0.037]
+  750/2592 runs  [llm calls=5211 cache=5567 fallback=0.036]
+  800/2592 runs  [llm calls=5493 cache=5853 fallback=0.034]
+  850/2592 runs  [llm calls=5863 cache=6259 fallback=0.035]
+  900/2592 runs  [llm calls=6189 cache=6623 fallback=0.036]
+  950/2592 runs  [llm calls=6551 cache=7013 fallback=0.036]
+  1000/2592 runs  [llm calls=6881 cache=7345 fallback=0.035]
+  1050/2592 runs  [llm calls=7203 cache=7681 fallback=0.034]
+  1100/2592 runs  [llm calls=7629 cache=8134 fallback=0.034]
+  1150/2592 runs  [llm calls=8085 cache=8612 fallback=0.034]
+  1200/2592 runs  [llm calls=8625 cache=9206 fallback=0.036]
+  1250/2592 runs  [llm calls=9071 cache=9725 fallback=0.038]
+  1300/2592 runs  [llm calls=9631 cache=10296 fallback=0.037]
+  1350/2592 runs  [llm calls=9930 cache=10631 fallback=0.037]
+  1400/2592 runs  [llm calls=10381 cache=11083 fallback=0.036]
+  1450/2592 runs  [llm calls=10684 cache=11401 fallback=0.036]
+  1500/2592 runs  [llm calls=11097 cache=11844 fallback=0.036]
+  1550/2592 runs  [llm calls=11397 cache=12187 fallback=0.037]
+  1600/2592 runs  [llm calls=11733 cache=12571 fallback=0.038]
+  1650/2592 runs  [llm calls=11907 cache=12752 fallback=0.038]
+  1700/2592 runs  [llm calls=11907 cache=12752 fallback=0.038]
+  1750/2592 runs  [llm calls=11907 cache=12752 fallback=0.038]
+  1800/2592 runs  [llm calls=11907 cache=12752 fallback=0.038]
+  1850/2592 runs  [llm calls=11956 cache=12801 fallback=0.038]
+  1900/2592 runs  [llm calls=12214 cache=13066 fallback=0.037]
+  1950/2592 runs  [llm calls=12596 cache=13483 fallback=0.037]
+  2000/2592 runs  [llm calls=12860 cache=13785 fallback=0.038]
+  2050/2592 runs  [llm calls=13299 cache=14240 fallback=0.038]
+  2100/2592 runs  [llm calls=13564 cache=14511 fallback=0.037]
+  2150/2592 runs  [llm calls=13943 cache=14926 fallback=0.037]
+  2200/2592 runs  [llm calls=14271 cache=15293 fallback=0.038]
+  2250/2592 runs  [llm calls=14697 cache=15749 fallback=0.038]
+  2300/2592 runs  [llm calls=15047 cache=16111 fallback=0.038]
+  2350/2592 runs  [llm calls=15414 cache=16510 fallback=0.038]
+  2400/2592 runs  [llm calls=15795 cache=16909 fallback=0.038]
+  2450/2592 runs  [llm calls=16127 cache=17292 fallback=0.039]
+  2500/2592 runs  [llm calls=16502 cache=17673 fallback=0.038]
+  2550/2592 runs  [llm calls=16780 cache=17975 fallback=0.038]
+completed 2592 runs in 1596.2s
+LLM accounting: {'llm_calls': 17164, 'llm_cache_hits': 18390, 'llm_parse_retries': 1902, 'llm_fallbacks': 658, 'llm_errors': 0, 'llm_fallback_rate': 0.0383, 'llm_seconds': 46.91}
+
+Unit = base input (violated if any seed violates)  | Relaxation-stable subdomain
+MR    family       bases viol   rate            95% CI disagr  |  bases viol   rate            95% CI
+----------------------------------------------------------------------------------------------------------
+I1    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I2    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I3    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I4    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I5    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+M1    monotonic       72   27  0.375     [0.272,0.490]      5  |     72   27  0.375     [0.272,0.490]
+M2    monotonic       72    0  0.000     [0.000,0.051]      0  |     69    0  0.000     [0.000,0.053]
+M3    monotonic       36    0  0.000     [0.000,0.096]      0  |     28    0  0.000     [0.000,0.121]
+M4    monotonic       36    0  0.000     [0.000,0.096]      0  |     34    0  0.000     [0.000,0.102]
+M1raw monotonic       71   53  0.746     [0.634,0.833]      1  |     71   53  0.746     [0.634,0.833]
+D1    directional     72    5  0.069     [0.030,0.152]      0  |     71    5  0.070     [0.030,0.154]
+D2    directional     72   19  0.264     [0.176,0.376]      2  |     71   19  0.268     [0.179,0.381]
+----------------------------------------------------------------------------------------------------------
+seeds: [11, 23, 47]   total runs: 2592   runs where the C1 relaxation path diverged: 43   disagr = base inputs whose seeds disagreed
+
+written to results/v2_llm/
+
+
+$ grep -c 'POST' /kaggle/working/ollama.log
+86
+
+
+$ grep '\[GIN\]' /kaggle/working/ollama.log > /kaggle/working/ollama_requests.log; rm /kaggle/working/ollama.log
+
+DONE
+/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __script__.ipynb to html
+[NbConvertApp] Writing 290536 bytes to __results__.html

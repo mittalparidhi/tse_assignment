@@ -93,7 +93,10 @@ reply cache without a GPU (`REPORT.md` §7.2, §8).
 
 ```bash
 streamlit run app.py                                  # the dashboard
-python -m pytest                                      # 152 tests
+python -m pytest                                      # 154 tests
+python scripts/run_checks.py                          # all checks, logged to audit/test_logs/
+python scripts/replay_llm_sweep.py                    # the LLM sweep replayed offline, no GPU
+python scripts/build_report_pdf.py                    # REPORT.md -> REPORT.pdf (needs `pip install markdown` and Chrome/Edge)
 python scripts/make_synthetic.py                      # synthetic snapshot + oracle check
 python scripts/run_harness.py --tag syn --synthetic   # relations vs known ground truth
 python scripts/diagnose.py                            # the root-cause experiments
@@ -143,21 +146,25 @@ termination is guaranteed, and both are asserted to fire by tests
 
 | Path | Contents |
 |------|----------|
+| `REPORT.md`, `REPORT.pdf` | the final report (10 pages, A4) |
 | `DESIGN.md` | design note: architecture, data source, the MR catalogue |
-| `docs/DIAGNOSIS.md` | root-cause analysis of the most-violated relations |
+| `contracts/` | the output contract and one contract per agent (v2.1.0-draft) |
+| `docs/DIAGNOSIS.md` | root-cause experiments for every violated relation, and the pre-v2 results |
+| `docs/ISSUE_LOG.md` | **index of every issue found**: how it was caught, the evidence, the fix |
 | `AI_USE.md` | AI-assistance disclosure, including where it was wrong |
 | `NOTEBOOK.md` | lab notebook: what was tried, what broke, what the numbers were |
+| `audit/` | data audits; `test_logs/` (check runs), `llm_logs/` (LLM agent fallback logs, Kaggle log) |
 | `src/contract.py` | **the output contract** — what every MR asserts on |
-| `src/loading.py` | raw snapshot → canonical frame, with five documented defects |
+| `src/loading.py` | raw snapshot → canonical frame; defects handled as documented in `contracts/Data.md` |
 | `src/trend.py` | the deterministic statistics |
 | `src/agents/` | the six agents and the cyclic graph |
-| `src/mr/` | transformations, the 10 relations, base inputs, the harness |
+| `src/mr/` | transformations, the 12 relations, base inputs, the harness |
 | `src/llm.py` | Ollama client: seeded, cached, counted fallbacks |
 | `src/viz.py`, `app.py` | the dashboard |
-| `notebooks/` | the Kaggle notebook for the LLM sweep |
+| `notebooks/` | `kaggle_v2_llm_sweep/`: the Kaggle job behind `results/v2_llm/`; `kaggle_llm_sweep.ipynb`: the pre-v2 notebook |
 | `data/raw/` | the frozen 99acres snapshot, never modified, SHA-256 pinned |
 | `data/snapshot/` | derived canonical + synthetic snapshots |
-| `results/` | `before_fix/`, `after_fix/`, `synthetic/`, `diagnosis/` |
+| `results/` | v2: `v2_deterministic/`, `v2_llm/`, `v2_llm_before_reviewfix/`, `v2_synthetic/`, `v2_before_m3fix/`, `v2_before_note_alignment/`, `v2_diagnosis/`, `v2_sensitivity/`; pre-v2 sets described in `docs/DIAGNOSIS.md` |
 
 ## Data
 
