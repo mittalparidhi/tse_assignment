@@ -6,7 +6,7 @@ the page count can be checked rather than estimated.
 
     pip install markdown        # build-time only, not needed to run the app
     python scripts/build_report_pdf.py                         # REPORT.md -> REPORT.pdf
-    python scripts/build_report_pdf.py docs/INTEGRATION_REPORT.md
+    python scripts/build_report_pdf.py docs/DIAGNOSIS.md       # any other Markdown file
 """
 from __future__ import annotations
 

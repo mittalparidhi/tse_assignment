@@ -152,8 +152,6 @@ termination is guaranteed, and both are asserted to fire by tests
 | `contracts/` | the output contract and one contract per agent (v2.1.0-draft) |
 | `docs/DIAGNOSIS.md` | root-cause experiments for every violated relation, and the pre-v2 results |
 | `docs/ISSUE_LOG.md` | **index of every issue found**: how it was caught, the evidence, the fix |
-| `docs/INTEGRATION_REPORT.md` | every change made to the second implementation during the merge, and why |
-| `docs/CONTRIBUTIONS.md` | who did what: each team member's work, with the commits and files behind it |
 | `AI_USE.md` | AI-assistance disclosure, including where it was wrong |
 | `NOTEBOOK.md` | lab notebook: what was tried, what broke, what the numbers were |
 | `audit/` | data audits; `test_logs/` (check runs), `llm_logs/` (LLM agent fallback logs, Kaggle log) |
