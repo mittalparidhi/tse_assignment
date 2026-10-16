@@ -92,7 +92,8 @@ def _trace(entries) -> list[dict]:
             if e.get("rejected_this_pass"):
                 detail += f", {e['rejected_this_pass']} outliers rejected"
         elif agent == "CritiqueAgent":
-            detail = f"{len(e.get('flagged') or [])} months flagged → {e.get('verdict')}"
+            n_flag = len(e.get("flagged") or [])
+            detail = f"{n_flag} month{'' if n_flag == 1 else 's'} flagged → {e.get('verdict')}"
             if "cycle 2" in str(e.get("decision", "")):
                 cycle = 2
         elif agent == "AggregatorAgent" and "chars" in e:

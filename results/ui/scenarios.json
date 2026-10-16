@@ -504,7 +504,7 @@
     {
      "step": 24,
      "agent": "CritiqueAgent",
-     "detail": "1 months flagged → REJECTED",
+     "detail": "1 month flagged → REJECTED",
      "cycle": 2
     },
     {
@@ -797,7 +797,7 @@
     {
      "step": 26,
      "agent": "CritiqueAgent",
-     "detail": "1 months flagged → APPROVED",
+     "detail": "1 month flagged → APPROVED",
      "cycle": null
     },
     {
@@ -1079,7 +1079,7 @@
     {
      "step": 26,
      "agent": "CritiqueAgent",
-     "detail": "1 months flagged → APPROVED",
+     "detail": "1 month flagged → APPROVED",
      "cycle": null
     },
     {
