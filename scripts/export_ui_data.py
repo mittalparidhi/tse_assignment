@@ -90,7 +90,8 @@ def _trace(entries) -> list[dict]:
         elif agent == "AnalysisAgent":
             detail = f"{e.get('mode')}: move {e.get('move_pct')}%"
             if e.get("rejected_this_pass"):
-                detail += f", {e['rejected_this_pass']} outliers rejected"
+                n_rej = e["rejected_this_pass"]
+                detail += f", {n_rej} outlier{'' if n_rej == 1 else 's'} rejected"
         elif agent == "CritiqueAgent":
             n_flag = len(e.get("flagged") or [])
             detail = f"{n_flag} month{'' if n_flag == 1 else 's'} flagged → {e.get('verdict')}"
