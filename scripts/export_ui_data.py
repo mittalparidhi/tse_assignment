@@ -162,6 +162,8 @@ def main() -> int:
         "listings": [m["listing_count"] for m in s["monthly"]],
         "price_valid": [m["price_valid_count"] for m in s["monthly"]],
         "psf": [m["median_price_per_sqft_inr"] for m in s["monthly"]],
+        "price_lakh": [None if m["median_listing_price_inr"] is None
+                       else round(m["median_listing_price_inr"] / 1e5, 2) for m in s["monthly"]],
         "coverage": [m["coverage_status"][0] for m in s["monthly"]],
         "sufficient": [int(m["month_is_sufficient"]) for m in s["monthly"]],
         "yoy_pct": s["yoy_median_psf_pct"], "span": s["yoy_span_months"],
