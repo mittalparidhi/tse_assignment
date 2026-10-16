@@ -9,10 +9,10 @@ Design rules applied deliberately:
 * **Sufficiency is never encoded by colour alone.** Thin months carry a hollow
   marker and a caption as well, so the distinction survives greyscale printing
   and colour-vision deficiency.
-* Palette is the validated two-slot categorical set (blue #2a78d6, orange
-  #eb6834). Both clear the lightness band, chroma floor, CVD separation
-  (worst adjacent dE 24.7 protan), normal-vision floor (dE 33.6) and the 3:1
-  contrast check against the light chart surface.
+* One accent (deep teal #1F5F5B) for the measured series and one contrast
+  colour (orange #eb6834) for thresholds and violations; the before-critique
+  line is a dashed neutral, so it reads as "the earlier answer", not a peer.
+* Text in IBM Plex Sans, matching the dashboard's typography.
 """
 
 from __future__ import annotations
@@ -27,11 +27,11 @@ TEXT_PRIMARY = "#0b0b0b"
 TEXT_SECONDARY = "#52514e"
 TEXT_MUTED = "#8a8980"
 GRID = "#e6e5e1"
-SERIES_1 = "#2a78d6"     # blue
+SERIES_1 = "#1F5F5B"     # deep teal accent
 SERIES_2 = "#eb6834"     # orange
 NEUTRAL = "#b6b5ad"
 
-_FONT = dict(family="Inter, -apple-system, Segoe UI, sans-serif",
+_FONT = dict(family="IBM Plex Sans, Inter, -apple-system, Segoe UI, sans-serif",
              color=TEXT_PRIMARY, size=13)
 
 
@@ -52,8 +52,13 @@ def _base_layout(title: str, height: int = 320) -> dict:
     )
 
 
-def psf_line(report: TrendReport) -> go.Figure:
-    """Median price per unit area across the window. One series, no legend."""
+def psf_line(report: TrendReport, before: TrendReport | None = None) -> go.Figure:
+    """Median price per unit area across the window. One series, no legend.
+
+    ``before`` is the same statistic before the critique's targeted
+    recomputation (cycle 2): drawn dashed underneath, with the months the
+    feedback loop changed shaded, so the loop's effect is visible.
+    """
     months = list(report.window_months)
     values = report.psf_series()
     sufficient = [m.month_is_sufficient for m in report.monthly]
@@ -61,6 +66,19 @@ def psf_line(report: TrendReport) -> go.Figure:
     unit = f"{cur} / {report.area_unit.lower()}"
 
     fig = go.Figure()
+    if before is not None:
+        earlier = before.psf_series()
+        for month, a, b in zip(months, earlier, values):
+            if a is not None and b is not None and abs(a - b) > 1e-6:
+                fig.add_vrect(x0=month, x1=month, line_width=14,
+                              line_color="rgba(31,95,91,0.10)", layer="below")
+        fig.add_trace(go.Scatter(
+            x=months, y=earlier, mode="lines+markers", connectgaps=True,
+            line=dict(color=NEUTRAL, width=2, dash="dash"),
+            marker=dict(color=NEUTRAL, size=5),
+            hovertemplate="%{x}<br>before critique %{y:,.0f}<extra></extra>",
+            name="before critique",
+        ))
     fig.add_trace(go.Scatter(
         x=months, y=values, mode="lines",
         line=dict(color=SERIES_1, width=2),
@@ -184,3 +202,34 @@ def violation_ci_chart(summary: pd.DataFrame) -> go.Figure:
     layout["hovermode"] = "closest"
     fig.update_layout(**layout)
     return fig
+
+
+def sensitivity_bars(rows: list[dict], chosen: int, reference_pct: float | None = None,
+                     reference_label: str = "") -> go.Figure:
+    """The headline move at each sufficiency threshold, the chosen one highlighted.
+
+    ``rows`` are ``{"min_n", "headline_pct"}``; a missing headline (fewer than
+    two sufficient months) is drawn as a gap. An optional dotted reference line
+    marks an external index.
+    """
+    xs = [str(r["min_n"]) for r in rows]
+    ys = [r["headline_pct"] for r in rows]
+    fig = go.Figure(go.Bar(
+        x=xs, y=ys,
+        marker=dict(color=[SERIES_1 if r["min_n"] == chosen else NEUTRAL for r in rows],
+                    line=dict(color=SURFACE, width=2)),
+        hovertemplate="n ≥ %{x}<br>%{y:+.2f}%<extra></extra>",
+    ))
+    layout = _base_layout("Headline move by minimum listings per month", height=280)
+    layout["bargap"] = 0.25
+    layout["xaxis"]["title"] = dict(text="minimum listings for a month to count",
+                                    font=dict(color=TEXT_MUTED, size=10))
+    layout["yaxis"]["ticksuffix"] = "%"
+    fig.update_layout(**layout)
+    if reference_pct is not None:
+        fig.add_hline(y=reference_pct, line=dict(color=SERIES_2, width=1.5, dash="dot"),
+                      annotation_text=reference_label, annotation_position="top right",
+                      annotation_font=dict(color=SERIES_2, size=11),
+                      annotation_bgcolor=SURFACE)
+    return fig
+

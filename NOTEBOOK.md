@@ -758,6 +758,33 @@ before-alignment column left §7.1; that comparison is Stage 20 above.
   `results/v2_llm/` is now in `notebooks/kaggle_v2_llm_sweep/`, and the team's
   design note is in `docs/`.
 
+## Stage 25 — The Streamlit app gets the demo dashboard's features, computed live (2026-10-16)
+
+A Lovable dashboard was built as a presentation front end over eight
+precomputed queries (`docs/LOVABLE_PROMPT_*.md`, `scripts/export_ui_data.py`).
+Its best ideas were then brought into the Streamlit app, where they run on the
+live pipeline for any criteria:
+
+- **Typography:** Newsreader headings, IBM Plex Sans text, IBM Plex Mono
+  numbers; a teal accent for both Streamlit themes (`.streamlit/config.toml`).
+- **Show before critique:** the first analysis pass, `compute_trend` on the
+  retrieved listings before cycle 2 rejected any, drawn dashed with the changed
+  months shaded; the headline card shows both (3 BHK Gachibowli: −0.70%, before
+  critique −4.45%).
+- **How sure is the headline?** The headline recomputed at twelve sufficiency
+  thresholds on this run's analysed listings, with the RESIDEX reference line.
+  Whole metro, live (after the critique): −7.74% at n ≥ 50 and +9.83% at
+  n ≥ 75, the sign of the official +6.8%.
+- **Watch the loops fire:** a step slider and a Replay button walk the run's
+  readable trace (`src/agents/readable.py`, shared with the UI export) beside a
+  Graphviz diagram that highlights the active agent and any cycle firing, with
+  the answer as it stood at each step.
+- Two stale lines on the Data tab corrected (sentinel and Price-on-Request rows
+  are flagged, not dropped; `month_is_sufficient`).
+
+`tests/test_app.py` drives all three panels headlessly; checked in the
+browser as well (fonts load, icons intact, replay animates).
+
 ## Threats to validity (carried into the report)
 
 1. **Single-point scrape.** The series is survivorship-biased: older months

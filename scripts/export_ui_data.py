@@ -18,6 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.agents import build_graph, run_pipeline  # noqa: E402
+from src.agents.readable import readable_trace  # noqa: E402
 from src.loading import load_canonical  # noqa: E402
 from src.trend import Criteria, compute_trend  # noqa: E402
 from src.validation import SourceCatalog, criteria_as_request, validate_request  # noqa: E402
@@ -73,37 +74,9 @@ def _monthly(report) -> list[dict]:
 
 
 def _trace(entries) -> list[dict]:
-    """A readable trace: one line per step that matters, with the cycle that fired."""
-    out = []
-    for e in entries:
-        agent, cycle, detail = e["agent"], None, None
-        if agent == "RetrievalMerge":
-            detail = f"{e.get('agents')} agents, round {e.get('round')}: {e.get('listings')} listings"
-        elif agent == "CoverageAgent":
-            detail = (f"coverage {e.get('coverage_score', 0):.2f} "
-                      f"({e.get('covered_months')} of {e.get('attainable_months')} attainable months)"
-                      f" → {e.get('verdict')}")
-            if e.get("relaxation"):
-                detail += f": {str(e['relaxation']).split(':')[0]}"
-            if "cycle 1" in str(e.get("decision", "")):
-                cycle = 1
-        elif agent == "AnalysisAgent":
-            detail = f"{e.get('mode')}: move {e.get('move_pct')}%"
-            if e.get("rejected_this_pass"):
-                n_rej = e["rejected_this_pass"]
-                detail += f", {n_rej} outlier{'' if n_rej == 1 else 's'} rejected"
-        elif agent == "CritiqueAgent":
-            n_flag = len(e.get("flagged") or [])
-            detail = f"{n_flag} month{'' if n_flag == 1 else 's'} flagged → {e.get('verdict')}"
-            if "cycle 2" in str(e.get("decision", "")):
-                cycle = 2
-        elif agent == "AggregatorAgent" and "chars" in e:
-            detail = "report assembled"
-        elif agent == "CriteriaAgent":
-            detail = f"planned: query mode {e.get('query_mode')}"
-        if detail:
-            out.append({"step": e["step"], "agent": agent, "detail": detail, "cycle": cycle})
-    return out
+    """The shared readable trace (src/agents/readable.py), without the move field."""
+    return [{k: v for k, v in row.items() if k != "move_pct"}
+            for row in readable_trace(entries)]
 
 
 def main() -> int:

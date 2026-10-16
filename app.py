@@ -11,6 +11,7 @@ Three views:
 
 from __future__ import annotations
 
+import time
 from pathlib import Path
 
 import pandas as pd
@@ -18,9 +19,10 @@ import streamlit as st
 
 from src import viz
 from src.agents import AgentMode, GraphConfig, build_graph, run_pipeline
+from src.agents.readable import readable_trace
 from src.loading import load_canonical, verify_snapshot
 from src.mr.relations import ALL_RELATIONS
-from src.trend import available_months
+from src.trend import available_months, compute_trend
 from src.validation import (
     CriteriaValidationError,
     SourceCatalog,
@@ -29,6 +31,72 @@ from src.validation import (
 
 st.set_page_config(page_title="Hyderabad Housing Trends",
                    page_icon="H", layout="wide")
+
+# Newsreader for headings, IBM Plex Sans for text, IBM Plex Mono for numbers.
+# Selectors are targeted rather than "*": Streamlit draws its icons with an
+# icon font, and a blanket override would turn them into their ligature names.
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap');
+html, body, .stApp, [data-testid="stSidebar"], .stMarkdown, [data-testid="stCaptionContainer"],
+[data-testid="stWidgetLabel"], [data-testid="stMetricLabel"], [data-testid="stExpander"] summary,
+.stTabs [data-baseweb="tab"], button, input, textarea {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+}
+h1, h2, h3, h4, h5, [data-testid="stHeading"] h1, [data-testid="stHeading"] h2,
+[data-testid="stHeading"] h3, [data-testid="stHeading"] h4 {
+  font-family: 'Newsreader', Georgia, serif !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em;
+}
+[data-testid="stMetricValue"], code, pre, .mono {
+  font-family: 'IBM Plex Mono', Consolas, monospace !important;
+  font-variant-numeric: tabular-nums;
+}
+.trace-step { padding: 6px 10px; border-left: 3px solid transparent; margin: 2px 0;
+  border-radius: 4px; font-size: 0.92rem; }
+.trace-step.current { border-left-color: #2E8B82; background: rgba(46,139,130,0.16); }
+.trace-step.future { opacity: 0.35; }
+.cycle-tag { font-size: 0.75rem; padding: 1px 7px; border-radius: 10px; margin-left: 6px;
+  background: #1F5F5B; color: #FFFFFF; white-space: nowrap; }
+</style>
+""", unsafe_allow_html=True)
+
+#: Thresholds for the "how sure is the headline?" panel (REPORT §9).
+SENSITIVITY_STEPS = [10, 20, 25, 30, 40, 50, 60, 75, 100, 150, 200, 300]
+#: NHB RESIDEX, Hyderabad, July-September 2023 (results/residex/cross_check.md).
+RESIDEX_HYDERABAD_PCT = 6.8
+#: Agent names in the trace -> boxes in the architecture diagram.
+DIAGRAM_NODE = {"CriteriaAgent": "Criteria", "RetrievalDispatch": "Retrieval",
+                "RetrievalMerge": "Retrieval", "CoverageAgent": "Coverage",
+                "AnalysisAgent": "Analysis", "CritiqueAgent": "Critique",
+                "AggregatorAgent": "Aggregator"}
+
+
+def _diagram(active: str | None, cycle: int | None) -> str:
+    """Graphviz source for the six agents and both cycles; the active agent
+    and, when it fires, its cycle are drawn in the accent colour."""
+    accent, idle, border = "#1F5F5B", "#FFFFFF", "#B6B5AD"
+    labels = {"Criteria": "Criteria", "Retrieval": "Retrieval ×4",
+              "Coverage": "Coverage", "Analysis": "Analysis",
+              "Critique": "Critique", "Aggregator": "Aggregator"}
+    lines = ['digraph G {', 'rankdir=TB; bgcolor="transparent"; nodesep=0.6; ranksep=0.32; forcelabels=true;',
+             'node [shape=box, style="rounded,filled", fontname="IBM Plex Sans", '
+             'fontsize=11, width=1.6, height=0.36, penwidth=1.2];',
+             'edge [color="#8A8980", arrowsize=0.6, fontname="IBM Plex Sans", fontsize=9];']
+    for key, label in labels.items():
+        on = key == active
+        lines.append(f'{key} [label="{label}", fillcolor="{accent if on else idle}", '
+                     f'fontcolor="{"#FFFFFF" if on else "#1A1A1A"}", '
+                     f'color="{accent if on else border}"];')
+    lines += ["Criteria -> Retrieval; Retrieval -> Coverage; Coverage -> Analysis;",
+              "Analysis -> Critique; Critique -> Aggregator;"]
+    c1 = 'color="#1F5F5B", penwidth=2.4, fontcolor="#1F5F5B"' if cycle == 1 else 'style=dashed'
+    c2 = 'color="#1F5F5B", penwidth=2.4, fontcolor="#1F5F5B"' if cycle == 2 else 'style=dashed'
+    lines.append(f'Coverage -> Retrieval [xlabel="cycle 1  ", constraint=false, {c1}];')
+    lines.append(f'Critique -> Analysis [xlabel="cycle 2  ", constraint=false, {c2}];')
+    lines.append("}")
+    return "\n".join(lines)
 
 
 @st.cache_data(show_spinner="Loading frozen snapshot...")
@@ -144,6 +212,10 @@ config = GraphConfig(coverage_target=coverage_target,
                      max_critique_rounds=max_critique,
                      n_retrieval_agents=n_agents)
 
+st.title("Hyderabad Housing Trends")
+st.caption(f"Frozen snapshot · SHA-256 `{digest[:12]}…` · every number below is "
+           "computed live by the agent pipeline for the criteria in the sidebar.")
+
 trend_tab, mr_tab, data_tab = st.tabs(["Trend", "Relations", "Data"])
 
 # ------------------------------------------------------------------ trend
@@ -152,15 +224,30 @@ with trend_tab:
     state = run_pipeline(frame, criteria, seed=int(seed),
                          config=config, graph=_graph(n_agents))
     report = state["final_report"]
+    spec = state.get("widened_filter_spec") or state["filter_spec"]
+    # The same statistics before the critique's targeted recomputation
+    # (cycle 2): the first analysis pass, on the retrieved listings as they were.
+    before = compute_trend(state["raw_listings"], spec, adequate_n=config.adequate_n)
+    rejected = report.provenance.get("n_rejected_outliers", 0)
 
     st.markdown(f"#### {report.window_months[0]} to {report.window_months[-1]}")
     st.caption(state["narrative"])
+    show_before = st.toggle(
+        "Show before critique", value=False, disabled=not rejected,
+        help="Overlay the trend as it was before the Critique agent sent the "
+             "flagged months back to the Analysis agent (cycle 2)." if rejected
+        else "The critique approved the first analysis; nothing was recomputed.")
 
     c1, c2, c3, c4 = st.columns(4)
     move = report.yoy_median_psf_pct
+    before_move = before.yoy_median_psf_pct
     c1.metric(
         "Median Rs/sqft move",
-        "n/a" if move is None else f"{move:+.1f}%",
+        "n/a" if move is None else f"{move:+.2f}%",
+        delta=(None if not (show_before and rejected) else
+               "before critique: " + ("n/a" if before_move is None
+                                      else f"{before_move:+.2f}%")),
+        delta_color="off",
         help=f"Measured across the {report.yoy_span_months} months with "
              f"adequate depth; the window spans 12.",
     )
@@ -184,7 +271,8 @@ with trend_tab:
 
     left, right = st.columns([3, 2])
     with left:
-        st.plotly_chart(viz.psf_line(report), width='stretch')
+        st.plotly_chart(viz.psf_line(report, before if show_before and rejected else None),
+                        width='stretch')
         st.plotly_chart(viz.count_bars(report), width='stretch')
     with right:
         st.plotly_chart(viz.locality_bars(report), width='stretch')
@@ -204,6 +292,86 @@ with trend_tab:
             "headline_month (n>=50)": m.month_is_sufficient,
         } for m in report.monthly]), width='stretch', hide_index=True)
 
+    # -- how sure is the headline? ------------------------------------------
+    st.markdown("#### How sure is the headline?")
+    st.caption(
+        "The yearly move runs from the first to the last month with enough "
+        "listings. Change how many a month needs, and watch the headline move. "
+        "Computed live on this run's analysed listings; the contract uses 50.")
+    analysed = state.get("analysed_listings")
+    if analysed is None:
+        analysed = state["raw_listings"]
+    sens_rows = []
+    for n in SENSITIVITY_STEPS:
+        alt = compute_trend(analysed, spec, min_sufficient_n=n,
+                            adequate_n=config.adequate_n)
+        months_ok = alt.sufficient_months()
+        sens_rows.append({"min_n": n, "headline_pct": alt.yoy_median_psf_pct,
+                          "span": alt.yoy_span_months,
+                          "first": months_ok[0] if months_ok else None})
+    s_left, s_right = st.columns([2, 3])
+    with s_left:
+        chosen = st.select_slider("Minimum listings for a month to count",
+                                  options=SENSITIVITY_STEPS, value=50)
+        row = next(r for r in sens_rows if r["min_n"] == chosen)
+        m1, m2, m3 = st.columns(3)
+        m1.metric("Headline", "n/a" if row["headline_pct"] is None
+                  else f"{row['headline_pct']:+.2f}%")
+        m2.metric("Spans", f"{row['span']} mo" if row["span"] else "—")
+        m3.metric("First month", row["first"] or "—")
+        st.caption(
+            f"Official index for comparison: NHB RESIDEX puts Hyderabad (whole "
+            f"metro) at {RESIDEX_HYDERABAD_PCT:+.1f}%. For the whole-metro query "
+            "the contract's n ≥ 50 gives the opposite sign, n ≥ 75 agrees "
+            "(REPORT §9).")
+    with s_right:
+        st.plotly_chart(viz.sensitivity_bars(
+            sens_rows, chosen, RESIDEX_HYDERABAD_PCT,
+            f"NHB RESIDEX Hyderabad {RESIDEX_HYDERABAD_PCT:+.1f}%"), width='stretch')
+
+    # -- the loops, step by step ---------------------------------------------
+    st.markdown("#### Agent trace — watch the loops fire")
+    steps = readable_trace(state["trace"])
+    st.caption(
+        f"This run: cycle 1 fired {state['retry_count']}×, cycle 2 fired "
+        f"{state['critique_rounds']}×. Move the slider, or press Replay, to step "
+        "through the run; the active agent and any loop that fires are highlighted.")
+
+    def _render(i: int, list_box, diagram_box, answer_box) -> None:
+        current = steps[i]
+        moves = [s["move_pct"] for s in steps[: i + 1] if s["move_pct"] is not None]
+        answer_box.metric("Answer at this step",
+                          "—" if not moves else f"{moves[-1]:+.2f}%",
+                          help="The headline after the latest Analysis pass so far.")
+        diagram_box.graphviz_chart(_diagram(DIAGRAM_NODE.get(current["agent"]),
+                                            current["cycle"]))
+        html = []
+        for j, s in enumerate(steps):
+            cls = "current" if j == i else ("future" if j > i else "")
+            tag = (f'<span class="cycle-tag">Cycle {s["cycle"]} · '
+                   f'{"coverage → retrieval" if s["cycle"] == 1 else "critique → analysis"}'
+                   f'</span>') if s["cycle"] else ""
+            html.append(f'<div class="trace-step {cls}"><span class="mono">#{s["step"]} '
+                        f'{s["agent"]}</span>{tag}<br>{s["detail"]}</div>')
+        list_box.markdown("".join(html), unsafe_allow_html=True)
+
+    if steps:
+        t_left, t_right = st.columns([3, 2])
+        with t_right:
+            replay = st.button("▶ Replay run", help="Step through the run automatically.")
+            answer_box = st.empty()
+            diagram_box = st.empty()
+        with t_left:
+            index = st.slider("Step", 0, len(steps) - 1, len(steps) - 1,
+                              format="%d", help="0 = the first step of the run.")
+            list_box = st.empty()
+        if replay:
+            for i in range(len(steps)):
+                _render(i, list_box, diagram_box, answer_box)
+                time.sleep(0.7)
+        else:
+            _render(index, list_box, diagram_box, answer_box)
+
     with st.expander(
         f"Execution trace - {len(state['trace'])} steps, "
         f"cycle 1 fired {state['retry_count']}x, "
@@ -211,7 +379,7 @@ with trend_tab:
         expanded=False,
     ):
         st.caption(
-            "The graph is cyclic. Rows whose decision reads 'WIDEN and "
+            "Every field each agent logged. The graph is cyclic. Rows whose decision reads 'WIDEN and "
             "re-retrieve (cycle 1)' or 'REJECT -> recompute flagged months "
             "(cycle 2)' are the back-edges firing: a downstream agent sending "
             "work upstream."
@@ -294,7 +462,7 @@ with data_tab:
          "handling": "area parsed from the AREA display string instead"},
         {"id": "D2", "defect": "int32 sentinel 2,147,483,647 in price fields",
          "evidence": "5 rows at exactly 2**31-1; 75 rows at zero",
-         "handling": "dropped"},
+         "handling": "kept and flagged: counted in listing_count, not price-valid"},
         {"id": "D3", "defect": "sale, rent and PG listings mixed",
          "evidence": "PREFERENCE: S=7,927 R=1,467 P=93",
          "handling": "sale only"},
@@ -307,7 +475,7 @@ with data_tab:
                      "recomputation is what must catch these (cycle 2)"},
         {"id": "D6", "defect": "'Price on Request' listings",
          "evidence": "87 rows; numeric bounds are placeholders, not prices",
-         "handling": "dropped"},
+         "handling": "kept and flagged: counted in listing_count, not price-valid"},
     ]), width='stretch', hide_index=True)
 
     st.markdown(
@@ -315,6 +483,6 @@ with data_tab:
         "so older months hold only listings still live on the scrape date. "
         "96.4% of the window's listings fall in its last six months, and the "
         "thin months' medians swing on 22-35 listings. That is why the report "
-        "carries a per-month `adequate_depth` flag and why month-comparing "
+        "carries a per-month `month_is_sufficient` flag and why month-comparing "
         "relations are declared only over the sufficient subdomain."
     )
