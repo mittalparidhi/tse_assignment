@@ -1,5 +1,7 @@
 # NOTEBOOK.md — Lab notebook
 
+> **Credits:** Stages 0-15 by Vidhi Jain (commits 736d594, 957224c); the dataset decisions and Stages 16-25 by Paridhi Mittal. Lines by git blame: Vidhi Jain 55%, Paridhi Mittal 45%. Full attribution: CREDITS.md.
+
 Chronological record of what was tried, what broke, and what the numbers were
 at each stage. Dead ends are kept: several of them are the evidence behind
 decisions in `DESIGN.md` and `docs/DIAGNOSIS.md`.
@@ -666,7 +668,7 @@ digest `357c53fb…`). Three problems surfaced on the way:
   first run; the restart made no model calls for over an hour while using a
   full CPU core, and would have finished as a deterministic sweep labelled LLM.
   The harness now makes one real call before starting, stops after 10 backend
-  errors in a row, and writes the reply cache every 50 replies (commit c8e6e85).
+  errors in a row, and writes the reply cache every 50 replies (commit 405a3dc).
 - **Two sweeps at once.** The start cell was run twice; `ps` showed two
   harnesses writing the same reply file and results folder. Both were stopped
   and one restarted; nothing had been saved by either.
@@ -696,12 +698,12 @@ digest `357c53fb…`). Three problems surfaced on the way:
 
 ## Stage 22 — The I3 review fault and the final LLM sweep (2026-10-16)
 
-The first v2 LLM sweep (code `2edd7bf`) violated I3 on 8 of 72 base inputs,
+The first v2 LLM sweep (code `07979f5`) violated I3 on 8 of 72 base inputs,
 always with cycle 2's rejected count changing; deterministic I3 is 0. On
 `base23` the review prompt showed 10 distinct listings in the source run and 8
 in the duplicated run: the grey zone was cut to 12 rows *before* duplicates
 were removed, and verdicts reached only the twins inside the cut. Fixed in
-`90ceaac` (de-duplicate, then cut); the strict xfail pinning the pre-v2 I3
+`98c741e` (de-duplicate, then cut); the strict xfail pinning the pre-v2 I3
 residual now passes and became a regular test.
 
 The fix was re-measured with a Kaggle notebook pushed from this machine by the

@@ -1,5 +1,7 @@
 # AGENTS SUBCONTRACT — Hyderabad Housing-Trends Application
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 **Parent:** `CONTRACT.md` v1.0.0-draft  
 **Related contracts:** `Data.md`, `Testing.md`, `LLM.md`  
 **Status:** Draft; open clarification items are listed in §11.

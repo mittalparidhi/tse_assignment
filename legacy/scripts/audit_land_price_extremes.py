@@ -1,4 +1,6 @@
-﻿from pathlib import Path
+﻿# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
+# attribution: CREDITS.md.
+from pathlib import Path
 import hashlib
 import numpy as np
 import pandas as pd

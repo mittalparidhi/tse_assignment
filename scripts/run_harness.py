@@ -1,3 +1,7 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: radius inputs; UTF-8 and fixed line
+# endings. Lines by git blame: Vidhi Jain 81%, Paridhi Mittal 19%. Full
+# attribution: CREDITS.md.
 """One-command reproduction of the headline results table.
 
     python scripts/run_harness.py [--tag TAG]

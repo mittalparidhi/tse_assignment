@@ -1,3 +1,5 @@
+# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
+# attribution: CREDITS.md.
 """Run Criteria -> Retrieval -> Aggregation through the existing execution graph.
 
 The default full-snapshot reporting path remains separate. This pipeline executes a

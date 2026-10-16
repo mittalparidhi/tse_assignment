@@ -1,3 +1,7 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: --v2, --tag and --check against the
+# report. Lines by git blame: Vidhi Jain 68%, Paridhi Mittal 32%. Full
+# attribution: CREDITS.md.
 """Rebuild the report's headline results table from the committed result files.
 
 The brief asks for "a one-command reproduction of your headline results table."

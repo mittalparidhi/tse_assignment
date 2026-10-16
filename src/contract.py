@@ -1,3 +1,7 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: contract v2.1: the five monthly fields,
+# coverage_status, min/max-price medians, partial month. Lines by git blame:
+# Vidhi Jain 64%, Paridhi Mittal 36%. Full attribution: CREDITS.md.
 """The output contract.
 
 Every metamorphic relation in this project is a statement about the objects

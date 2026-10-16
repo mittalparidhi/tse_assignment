@@ -1,5 +1,7 @@
 # AI_USE.md — Disclosure of AI assistance
 
+> **Credits:** §§1-4 by Vidhi Jain (commits 736d594, 957224c); §§5-7 by Paridhi Mittal. Lines by git blame: Vidhi Jain 56%, Paridhi Mittal 44%. Full attribution: CREDITS.md.
+
 Per the brief's ground rules: all substantive AI use is disclosed here,
 **including the cases where the tool was wrong and how that was caught.**
 
@@ -9,7 +11,7 @@ Per the brief's ground rules: all substantive AI use is disclosed here,
 |---------|-----|
 | **Building the project** | Claude (Anthropic), via the Claude Code CLI, wrote most of the application code, the MR catalogue, the harness and the dashboard, and drafted `DESIGN.md`, `REPORT.md` and `docs/DIAGNOSIS.md`. It ran the data audits, the controlled experiments and the diagnostic analyses. |
 | **Merging the two implementations (contract v2)** | Claude Opus 5.5, via the Claude Code desktop app, used by Paridhi: compared the two codebases, wrote the v2 contract suite, ported the first implementation's data and validation rules, fixed the harness and the agents, and updated the documents (§5). The deterministic v2 sweeps were run by Paridhi. |
-| **Aligning with the design note, the v2 LLM sweep, the report cut (§6)** | The same assistant adopted the team's design note as contract v2.1, diagnosed and fixed the LLM-mode faults, wrote the Kaggle notebook cells and later pushed the final notebook through the Kaggle API, verified every result by offline replay, and cut REPORT.md to the brief's length. A second Claude session, run by Paridhi in parallel, made one commit (`2edd7bf`, §6.4). Paridhi ran the first Kaggle sessions, created the Kaggle credentials and approved every upload. |
+| **Aligning with the design note, the v2 LLM sweep, the report cut (§6)** | The same assistant adopted the team's design note as contract v2.1, diagnosed and fixed the LLM-mode faults, wrote the Kaggle notebook cells and later pushed the final notebook through the Kaggle API, verified every result by offline replay, and cut REPORT.md to the brief's length. A second Claude session, run by Paridhi in parallel, made one commit (`07979f5`, §6.4). Paridhi ran the first Kaggle sessions, created the Kaggle credentials and approved every upload. |
 | **Inside the application, at run time** | **Qwen2.5-3B-Instruct (Q4_K_M) served locally by Ollama**, used by four of the six agents. |
 
 ## 2. The local model inside the application
@@ -363,9 +365,9 @@ and guessed that the rest came from the model writing a count of the widened
 localities. Measuring per agent (`scripts/llm_fallback_breakdown.py`) showed
 otherwise: 49 of the 58 rejected summaries were the model copying the facts
 block when there was no price change. The assistant's fix, a dedicated no-trend
-prompt (`45c8d13`), was then tested on Kaggle by a second Claude session run by
+prompt (`3b3006d`), was then tested on Kaggle by a second Claude session run by
 Paridhi, which measured a fallback rate of 0.277 after 50 runs and replaced it
-by not asking the model when there is no change (`2edd7bf`). That commit is
+by not asking the model when there is no change (`07979f5`). That commit is
 that session's, not this assistant's; the assistant learned of it only when it
 found it in the history while verifying the results.
 
@@ -374,7 +376,7 @@ found it in the history while verifying the results.
 The assistant did not take the Kaggle numbers on trust. The run record showed
 almost no model time, so it replayed all 2,592 runs on the laptop from the
 saved replies with any missing reply treated as an error. The replay matched
-exactly with the code of `2edd7bf`, not the patch the assistant had sent,
+exactly with the code of `07979f5`, not the patch the assistant had sent,
 which is how the second session's change was discovered (§6.4). The final
 sweep was verified the same way, and the replay became
 `scripts/replay_llm_sweep.py`.

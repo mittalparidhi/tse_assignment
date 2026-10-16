@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
+# attribution: CREDITS.md.
 """Reconcile the final snapshot audit artifacts with the 78-column CSV.
 
 The base cleaner writes a preliminary 66-column audit. This finalizer upgrades

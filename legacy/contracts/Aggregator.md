@@ -1,5 +1,7 @@
 # AGGREGATOR SUBCONTRACT — Hyderabad Housing-Trends Application
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 **Contract ID:** `TSE-HYD-MT-AGG`  
 **Version:** `1.0.0-draft`  
 **Parent:** `CONTRACT.md` v`1.0.0-draft`  

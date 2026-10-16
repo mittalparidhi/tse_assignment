@@ -1,4 +1,7 @@
 # Data source
+
+> **Credits:** written by Paridhi Mittal; edited by Vidhi Jain. Full attribution: CREDITS.md.
+
 - Dataset: 99acres.com Hyderabad residential listings (multi-city scrape; Mumbai, Hyderabad, Kolkata and Gurgaon files in the original archive)
 - Origin: Kaggle — https://www.kaggle.com/datasets/arvanshul/gurgaon-real-estate-99acres-com
   Titled "Indian Real Estate - 99acres.com". The slug says "gurgaon" but the

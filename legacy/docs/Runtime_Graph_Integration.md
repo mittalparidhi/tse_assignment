@@ -1,5 +1,7 @@
 # Runtime execution-graph integration
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 This patch replaces `scripts/build_runtime_state.py` so it calls the existing
 `app.execution_graph.run_execution_graph` callbacks while keeping the existing
 frozen-snapshot, month ordering, sale-price range rules, and null

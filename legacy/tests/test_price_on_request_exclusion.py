@@ -1,3 +1,5 @@
+# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
+# attribution: CREDITS.md.
 """Regression tests for textual Price on Request values with numeric bounds."""
 
 import numpy as np

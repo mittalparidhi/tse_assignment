@@ -1,3 +1,5 @@
+# Credits: Vidhi Jain (second implementation, commits 736d594 and 957224c).
+# Full attribution: CREDITS.md.
 langchain-core==1.6.10
 langgraph==1.2.15
 numpy==2.5.4

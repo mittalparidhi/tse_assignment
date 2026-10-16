@@ -1,3 +1,7 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: ACCEPT/RETRY/LIMITED and NEEDS_REVIEW
+# verdicts, adequate_n, analysed_listings. Lines by git blame: Vidhi Jain 92%,
+# Paridhi Mittal 8%. Full attribution: CREDITS.md.
 """Shared state for the agent graph.
 
 Field names follow the design note's Reads/Writes table so the document and

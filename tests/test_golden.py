@@ -1,3 +1,7 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: golden vectors regenerated only with a
+# recorded reason. Lines by git blame: Vidhi Jain 87%, Paridhi Mittal 13%.
+# Full attribution: CREDITS.md.
 """Golden regression tests: the deterministic numbers must not move.
 
 Phase A renames agents, rebuilds cycle 2 and adds an LLM path. All of that is

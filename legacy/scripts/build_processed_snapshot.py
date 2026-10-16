@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
+# attribution: CREDITS.md.
 """Rebuild the canonical processed Hyderabad snapshot from the frozen raw CSV.
 
 This wraps the existing cleaner rather than replacing its area/map parsers, then

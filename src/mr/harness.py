@@ -1,3 +1,7 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: the base input as the statistical unit;
+# rejected counts per run. Lines by git blame: Vidhi Jain 72%, Paridhi Mittal
+# 28%. Full attribution: CREDITS.md.
 """The metamorphic harness: transform -> re-run -> compare with tolerance.
 
 Protocol (from the brief, section 2 "Statistical checking"):

@@ -1,5 +1,7 @@
 # Data source
 
+> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
+
 The provenance record the design note (§3) requires before submission.
 
 | | |

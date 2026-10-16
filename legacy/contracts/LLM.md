@@ -1,5 +1,7 @@
 # MODEL/LLM SUBCONTRACT — Hyderabad Housing-Trends Application
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 **Parent:** `CONTRACT.md` v1.0.0-draft. This file restricts model use and defines reproducible fallback behavior.
 
 ## 1. Allowed uses

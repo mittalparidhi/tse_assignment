@@ -1,4 +1,6 @@
-﻿import pandas as pd
+﻿# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
+# attribution: CREDITS.md.
+import pandas as pd
 
 path = "data/raw/hyderabad.csv"
 df = pd.read_csv(path, nrows=10, low_memory=False)

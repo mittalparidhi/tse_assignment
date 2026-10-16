@@ -1,4 +1,5 @@
-# v2 LLM sweep with the I3 review fix (commit 90ceaac), resuming from saved replies.
+# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
+# v2 LLM sweep with the I3 review fix (commit 98c741e), resuming from saved replies.
 # Everything is logged to stdout; outputs land in /kaggle/working.
 import glob, hashlib, json, os, shutil, subprocess, sys, time, zipfile
 

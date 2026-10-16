@@ -1,3 +1,5 @@
+# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
+# attribution: CREDITS.md.
 """Typed Criteria Agent for the frozen Hyderabad housing snapshot.
 
 The agent validates a structured request against values observed in the frozen

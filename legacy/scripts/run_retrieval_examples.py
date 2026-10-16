@@ -1,3 +1,5 @@
+# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
+# attribution: CREDITS.md.
 """Run deterministic smoke examples against the frozen Hyderabad snapshot."""
 from app.criteria_agent import run_criteria_agent
 from app.retrieval_agent import RetrievalAgent

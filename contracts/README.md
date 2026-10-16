@@ -1,5 +1,7 @@
 # Hyderabad Contract Suite (v2.1.0-draft)
 
+> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
+
 ## Authority and reading order
 
 1. `CONTRACT.md` — authoritative shared rules, constants, output contract, graph and loop policies.

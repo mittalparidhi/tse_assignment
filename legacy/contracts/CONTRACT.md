@@ -1,5 +1,7 @@
 # GLOBAL CONTRACT — Hyderabad Housing-Trends Application
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 **Contract ID:** TSE-HYD-MT  
 **Version:** 1.0.0-draft  
 **Authority:** This file is the single source of truth for shared constants, schemas, metric definitions, execution order, failure semantics, and invariants. `Data.md`, `Agents.md`, `Testing.md`, and `LLM.md` are subordinate contracts. They may clarify implementation but must not redefine global rules. If they conflict with this file, the global contract wins and the conflicting subordinate clause must be corrected.

@@ -1,3 +1,5 @@
+# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
+# attribution: CREDITS.md.
 """Verified access to the canonical processed Hyderabad snapshot.
 
 Production agents use this module instead of independently reading the raw CSV.

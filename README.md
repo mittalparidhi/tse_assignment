@@ -1,5 +1,7 @@
 # Metamorphic Testing of a Multi-Agent Housing-Trends Application
 
+> **Credits:** first README by Vidhi Jain (commits 736d594, 957224c); updated for the integrated system by Paridhi Mittal. Lines by git blame: Vidhi Jain 53%, Paridhi Mittal 47%. Full attribution: CREDITS.md.
+
 A six-agent system that reads a frozen snapshot of Hyderabad residential
 listings and reports how asking prices moved over twelve months — tested with
 **twelve metamorphic relations** rather than against known-correct answers.
@@ -13,7 +15,8 @@ dataset, wrote the design note, the contracts and a first implementation
 final sweeps. Vidhi built the second implementation on that foundation (the
 LangGraph agent graph, the relations and harness, the local-model mode and the
 first diagnosis; commits `736d594`, `957224c`). Her commits were made under a
-placeholder git identity; `.mailmap` maps it to her name.
+placeholder git identity; `.mailmap` maps it to her name. Every file's
+authorship, with line shares, is in `CREDITS.md`.
 
 ---
 

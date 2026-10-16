@@ -1,3 +1,5 @@
+# Credits: Vidhi Jain (second implementation, commits 736d594 and 957224c).
+# Full attribution: CREDITS.md.
 """LangGraph wiring of the design note's agent graph.
 
     CriteriaAgent

@@ -1,5 +1,7 @@
 # DATA SUBCONTRACT — Hyderabad Housing-Trends Application
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 **Parent:** `CONTRACT.md` v1.0.0-draft  
 **Status:** Draft; dataset fingerprint is known, but several source-field semantics remain unresolved.  
 **Scope:** Source freeze, date conversion, row preservation, price eligibility, audit evidence, and reproducibility. This file clarifies data rules; the parent contract controls public schemas, metrics, analysis window, and loop limits. In a conflict, update this file rather than silently changing the parent contract.

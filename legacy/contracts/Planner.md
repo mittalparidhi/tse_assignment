@@ -1,5 +1,7 @@
 # PLANNER SUBCONTRACT — Hyderabad Housing-Trends Application
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 **Parent:** `CONTRACT.md` v1.0.0-draft. **Related:** `LLM.md`, `Data.md`, `Agents.md`. The parent contract wins on conflicts. Read this file with `CONTRACT.md` and `LLM.md`; load `Data.md` only when changing data-source rules. This split is deliberate so the active planner context stays below the project’s 8,000-token ceiling.
 
 **Status:** Draft. Request schema, supported natural-language grammar, topology configuration, and coverage-repair policy must be registered in the shared contract/config before implementation is frozen.

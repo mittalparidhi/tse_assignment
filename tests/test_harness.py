@@ -1,3 +1,7 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: planted-fault tests and base-input
+# intervals. Lines by git blame: Vidhi Jain 44%, Paridhi Mittal 56%. Full
+# attribution: CREDITS.md.
 """The harness itself must be trustworthy before its numbers mean anything."""
 
 import math

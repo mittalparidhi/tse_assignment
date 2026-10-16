@@ -1,5 +1,7 @@
 # Criteria Agent
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 ## Responsibility
 
 The Criteria Agent normalizes structured user filters into a typed `FilterSpec` and chooses one geographic query mode:

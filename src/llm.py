@@ -1,3 +1,7 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: weights digest from Ollama,
+# BackendUnavailable on a dead server, periodic atomic cache writes. Lines by
+# git blame: Vidhi Jain 82%, Paridhi Mittal 18%. Full attribution: CREDITS.md.
 """Local-model client for the agent graph.
 
 Design constraints, in order of importance:

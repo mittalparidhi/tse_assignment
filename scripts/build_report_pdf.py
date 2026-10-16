@@ -1,3 +1,4 @@
+# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """Render REPORT.md to REPORT.pdf (A4) and print its page count.
 
 The brief asks for a 10-12 page report; this renders the Markdown with a

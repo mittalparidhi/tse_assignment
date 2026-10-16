@@ -1,3 +1,7 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: tests for the safeguards and the I3 and
+# narrative fixes. Lines by git blame: Vidhi Jain 82%, Paridhi Mittal 18%.
+# Full attribution: CREDITS.md.
 """The LLM layer: parsing, caching, seeding, fallbacks, and graph wiring.
 
 These tests use a scripted backend, never a real model. That is deliberate:

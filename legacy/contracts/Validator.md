@@ -1,5 +1,7 @@
 # Agent V — Coverage Validator Subcontract
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 **Parent:** `CONTRACT.md` v1.0.0-draft  
 **Related contracts:** `Agents.md`, `Data.md`, `Planner.md`, `LLM.md`, `Testing.md`  
 **Status:** Draft. This contract defines the coverage calculation and decision protocol. Production filter-repair behavior remains disabled until the parent contract defines an approved soft-filter schema and repair table.  

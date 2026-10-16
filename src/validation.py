@@ -1,3 +1,4 @@
+# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """Request validation at the application boundary (contracts/Criteria.md §3-4).
 
 Ported from the first implementation's Criteria agent

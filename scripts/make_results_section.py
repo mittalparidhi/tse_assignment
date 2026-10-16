@@ -1,3 +1,6 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: UTF-8 reads. Lines by git blame: Vidhi
+# Jain 99%, Paridhi Mittal 1%. Full attribution: CREDITS.md.
 """Emit the report's results tables straight from the result CSVs.
 
 Transcribing 1,080-run figures by hand into a report is how numbers drift

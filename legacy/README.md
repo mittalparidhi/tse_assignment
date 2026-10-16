@@ -1,5 +1,7 @@
 # legacy/ — first implementation (reference only)
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 This folder holds the original agent pipeline that preceded the merge of the
 `metamorphic_testing` implementation. It is kept for reference and for porting
 its rules into `src/`; it is **not** part of the running application and is not

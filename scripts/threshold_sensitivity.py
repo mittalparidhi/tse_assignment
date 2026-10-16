@@ -1,3 +1,4 @@
+# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """How much the headline move depends on the sufficiency threshold.
 
     python scripts/threshold_sensitivity.py [--out results/v2_sensitivity]

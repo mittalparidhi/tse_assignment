@@ -1,3 +1,4 @@
 log_file,timestamp,commit,uncommitted_changes,pytest,verify_claims,table_v2_deterministic,table_v2_llm,table_pre_v2,replay_llm_sweep,overall
-check_run_20261016_115442.txt,20261016_115442,c1b3043,False,PASS,PASS,PASS,PASS,PASS,PASS,PASS
-check_run_20261016_170101.txt,20261016_170101,59c7c6d,True,PASS,PASS,PASS,PASS,PASS,PASS,PASS
+check_run_20261016_115442.txt,20261016_115442,dfae061,False,PASS,PASS,PASS,PASS,PASS,PASS,PASS
+check_run_20261016_170101.txt,20261016_170101,35079f8,True,PASS,PASS,PASS,PASS,PASS,PASS,PASS
+check_run_20261016_173401.txt,20261016_173401,8aac0f9,True,PASS,PASS,PASS,PASS,PASS,not run,PASS

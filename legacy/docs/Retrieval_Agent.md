@@ -1,5 +1,7 @@
 # Retrieval Agent — frozen Hyderabad snapshot
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 ## Purpose
 
 `app/retrieval_agent.py` applies the Criteria Agent's typed `FilterSpec` to the pinned Hyderabad CSV. It is deterministic and offline. It does not alter the source file and preserves a `source_row_id` based on the zero-based raw CSV row ordinal.

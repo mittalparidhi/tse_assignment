@@ -1,5 +1,7 @@
 # Reporter Contract — Hyderabad Housing-Trends Application
 
+> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
+
 **Contract ID:** `TSE-HYD-REPORTER`  
 **Contract version:** `1.0.0-draft`  
 **Role:** Reporter (final response assembler)  

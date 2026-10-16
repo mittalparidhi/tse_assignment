@@ -1,3 +1,4 @@
+# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """Replay a committed LLM sweep offline from the reply cache, and compare.
 
 Every model request is answered from ``data/llm_cache/responses.json``; a
