@@ -199,7 +199,7 @@ failure mode as §3.9, one step further out.
 
 ### 3.12 A sample size written up as a finding
 
-REPORT.md §8.5 stated that under duplication "the prompts still differ on
+REPORT.md §8.5 (now in `docs/DIAGNOSIS.md`) stated that under duplication "the prompts still differ on
 exactly **6 of 36** base inputs, and the correlation with the failures is
 **exact**", naming base11/17/22/23/30/31. Both halves were false, and the two
 errors had different origins.

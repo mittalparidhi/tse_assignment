@@ -3,16 +3,12 @@
 **TSE Assignment — Final Report**
 Market: Hyderabad / Secunderabad (the brief's optional Indian-metro route)
 
-**How to read the results.** Two generations of results appear. The
-**contract-v2 sweep** (`contracts/CONTRACT.md` v2.1.0-draft, aligned with the team's design note; §7.1) is the
-headline: it is deterministic, reproducible with one command, and uses the
-final population (4,975 sale listings, 4,574 with a usable price), twelve relations, 72 base inputs and
-intervals over base inputs. The **earlier sweeps** (§7.3) — one deterministic,
-two with a local model — were run before the two team implementations were
-merged; they are kept because §8's diagnosis of the model-driven violations
-rests on them, and are labelled pre-v2 wherever quoted. The model path was
-re-run under v2 on a Kaggle GPU (§7.1.1), and it replays offline from the
-committed reply cache.
+**How to read the results.** The headline results are the **contract-v2
+sweeps** (`contracts/CONTRACT.md` v2.1.0-draft): a deterministic sweep (§7.1)
+and the same sweep with the local model switched on (§7.2), each over twelve
+relations, 72 base inputs and three seeds. Earlier sweeps, run before the two
+team implementations were merged, are kept with their diagnoses in
+`docs/DIAGNOSIS.md` and quoted here only where they explain a v2 result.
 
 ---
 
@@ -23,185 +19,110 @@ Hyderabad residential listings and reports how asking prices moved over twelve
 months, and the metamorphic suite built to find faults in it without knowing
 the correct answer to any query.
 
-The difficulty is the absence of an oracle. Given "3 BHK in Gachibowli, ₹80
-lakh to ₹4 crore, the twelve months to August 2023", nobody can say what the
-correct median price per square foot was. Metamorphic testing sidesteps this:
-transform an input in a known way, re-run, and ask whether the two outputs
-relate as the property demands. Reordering the input must not move the trend;
-duplicating every listing must double the counts and leave medians alone;
-scaling prices by *k* must scale medians by *k* and leave percentage changes
-untouched. A violated relation exposes a fault with no oracle in sight.
+Given "3 BHK in Gachibowli, ₹80 lakh to ₹4 crore, the twelve months to August
+2023", nobody can say what the correct median price per square foot was.
+Metamorphic testing replaces that missing oracle with relations between runs:
+reordering the input must not move the trend, duplicating every listing must
+double the counts and leave the medians alone, scaling prices by *k* must scale
+the medians by *k*. A violated relation exposes a fault without knowing any
+single right answer.
 
-Five results frame what follows.
+**What the relations found.**
 
-**After the merge, a relation found a design fault that no test had.** Once
-geography widening stopped collapsing every query to the whole metro, the
-locality-subset relation M3 became testable and failed on **9 of 36** base
-inputs: widening around a selection's shared centre gave a subset localities its
-superset did not get. Widening is now per locality and provably preserves
-inclusion; M3 is **0 / 36** (§8.0).
-
-**Before the merge, the relations found a real fault.** Two invariance relations were violated on
-**all 108 runs** each: the agent validating listings computed its outlier
-threshold per *(worker, month)* group rather than per month, so renaming
-listing identifiers — changing no price, area or date — moved monthly counts.
-No individual output looked wrong.
-
-**One relation was itself unsound.** A monotonicity relation was violated at
-0.787 with the system blameless: adding a constant to prices while a price-band
-criterion stayed in place changed which listings the band selected. The brief's
-guidance — an MR is a hypothesis, not an axiom — applied literally.
-
-**A synthetic control exposed a fault the real data hid** (§8.7): the adaptive
-feedback loop breaks the invariance properties the relations assert, and the
-real snapshot masked it through a quirk of its shape.
-
-**Adding a local model broke relations the deterministic system satisfied** —
-not through randomness (a determinism probe returned 20/20 identical replies)
-but because the prompts carried information a judgment must not depend on. One
-measurement predicts every one of those violations (§8.1), and §8.7 states the
-general result: **an LLM judge that reads the output statistics and whose
-verdict changes which data is selected creates a feedback path no relation
-about those statistics can survive.**
+- **Genuine agent faults, each fixed and re-measured:** geography widening that
+  broke locality-set inclusion (M3, 9/36 → 0/36); a listing review that cut its
+  batch before removing duplicates (I3 in LLM mode, 8/72 → 0/72); before the
+  merge, an outlier threshold computed per *(worker, month)* (I3 and I4 on all
+  108 runs) and four prompts that leaked information a judgment must not
+  depend on.
+- **An unsound relation:** adding a constant to prices while a price band stays
+  in place changes the selected population (`M1raw`, kept as the
+  counter-example).
+- **A limit of the architecture:** a model judge whose verdict changes which
+  listings are counted cannot satisfy relations that change what it is shown
+  (D1, D2, part of M1).
+- **A threat to the headline:** the reported year-on-year move depends on the
+  sufficiency threshold, and at the contract's threshold it has the opposite
+  sign to the official index (§9).
 
 ## 2. Data source
 
 | | |
 |---|---|
 | Dataset | 99acres.com residential listings, Hyderabad slice |
-| Origin | Kaggle — `arvanshul/gurgaon-real-estate-99acres-com`, titled *"Indian Real Estate – 99acres.com"*. Despite the slug, it is a multi-city archive: "properties of **Gurgaon, Hyderabad, Mumbai, Kolkata**". Verified on the dataset page. |
-| Licence | Community Data License Agreement – Sharing – v1.0 (`cdla.io/sharing-1-0/`), verified on the same page |
+| Origin | Kaggle `arvanshul/gurgaon-real-estate-99acres-com`, titled *"Indian Real Estate – 99acres.com"*; despite the slug it covers Gurgaon, Hyderabad, Mumbai and Kolkata (verified on the dataset page) |
+| Licence | Community Data License Agreement – Sharing – v1.0 |
 | Scrape date | ≈ 26 August 2023 (latest `POSTING_DATE`) |
-| Raw size | 9,487 rows × 55 columns, 14 MB |
-| Integrity | SHA-256 `9e81698322606c86…`, re-verified on every load |
+| Raw size | 9,487 rows × 55 columns |
+| Integrity | SHA-256 `9e81698322606c86…`, checked on every load |
 
-The raw file is never modified, and `verify_snapshot()` aborts if the checksum
-moves, so a changed input cannot be mistaken for a code change. The snapshot
-and the seeds `[11, 23, 47]` make a deterministic sweep reproducible; a model
-sweep also needs the model weights, now recorded by the digest Ollama reports
-(the pre-v2 sweeps recorded only a hash of the model *name*, §9.2). Months are
-local calendar months in `Asia/Kolkata`; deriving them in UTC would move 18
-listings into the previous month.
+The raw file is never modified; `verify_snapshot()` aborts if the checksum
+changes. Months are calendar months in `Asia/Kolkata` (UTC would move 18
+listings into the previous month). Full provenance: `data/SOURCE.md`.
 
-### 2.1 Six defects, each verified rather than assumed
-
-| ID | Defect | Evidence | Handling |
-|----|--------|----------|----------|
-| **D1** | `MIN_AREA_SQFT` is **square metres despite its name** | ratio of the `AREA` display string to that column is **10.7639 at both the 5th and 95th percentile** over 3,531 rows — a constant, not a distribution | area parsed from the display string |
-| **D2** | int32 sentinel in the price fields | `MIN_PRICE`/`MAX_PRICE` reach exactly 2,147,483,647 (= 2³¹−1) on 5 rows; 75 rows carry zero | both dropped |
-| **D3** | sale, rent and PG mixed | `PREFERENCE`: S=7,927, R=1,467, P=93 | sale only |
-| **D4** | `BEDROOM_NUM` missing on 29.7% | **2,806 of the 2,814 are `Residential Land`**; where both exist, heading-derived BHK agrees on 6,041 rows and conflicts on **0** | restricted to dwellings |
-| **D5** | area-entry errors in the tail | a **27 sqft "villa" at ₹2.15 crore** (₹796,296/sqft) and a 285,599 sqft one | **deliberately retained** — see §4.3 |
-| **D6** | "Price on Request" listings | `PRICE` reads "Price on Request" on 87 rows; their numeric bounds are placeholders, not asking prices | dropped (4 would otherwise have reached the canonical frame) |
-
-**D1 is the most consequential**: had the column name been trusted, every
-price-per-area figure here would be inflated 10.76×, and the ratio being
-*identical* at both tails is what distinguishes mislabelling from noise.
-**D4 is structural inapplicability**, not missing data — plots have no
-bedrooms — so restricting to dwellings removes it and makes price-per-built-area
-commensurable.
-
-Filter cascade, every drop counted:
+**Population.** Sale listings of dwellings with a parseable `POSTING_DATE`:
 
 ```
-raw rows                                            9487
-sale only (PREFERENCE=S)                            7927   -1560
-dwellings only                                      5085   -2842
-parseable POSTING_DATE (months in IST)              4975    -110
-not Price on Request                                4914     -61
-MIN_PRICE not zero/sentinel                         4913      -1
-MAX_PRICE valid and >= MIN_PRICE                    4913      -0
-parseable AREA (sqft)                               4574    -339
-plausibility bounds DEFERRED to Analysis             4574      -0
-canonical listings                                  4574
+raw rows                         9487
+sale only (PREFERENCE=S)         7927   -1560
+dwellings only                   5085   -2842
+parseable POSTING_DATE (IST)     4975    -110
+canonical listings               4975   (4574 with a usable price and area)
 ```
 
-### 2.2 The threat this snapshot carries
+Listings without a usable price stay in the frame, flagged: they count in
+`listing_count` but not in the price statistics (§3).
 
-It is a **single-point scrape**: older months contain only listings still live
-on the scrape date, so the series is survivorship-biased. Monthly depth in the
-September 2022 – August 2023 window, after cleaning:
+**Defects found and how they are handled** (evidence in `contracts/Data.md`):
 
-```
-2022-09   25    2022-12   29    2023-03   61    2023-06   544
-2022-10   35    2023-01   22    2023-04  159    2023-07  1711
-2022-11   27    2023-02   23    2023-05  309    2023-08  1588
-```
+| Defect | Evidence | Handling |
+|---|---|---|
+| `MIN_AREA_SQFT` holds **square metres** | `AREA` string ÷ column = **10.7639** at both the 5th and 95th percentile (3,531 rows) | area parsed from the display string |
+| int32 sentinel and zero prices | `MIN_PRICE`/`MAX_PRICE` = 2,147,483,647 on 5 rows, 0 on 75 | not price-valid |
+| sale, rent and PG mixed | `PREFERENCE` S 7,927, R 1,467, P 93 | sale only |
+| `BEDROOM_NUM` missing on 29.7% | 2,806 of the 2,814 are `Residential Land` | dwellings only |
+| "Price on Request" | 87 raw rows carry placeholder bounds | not price-valid |
+| area-entry errors in the tail | a 27 sqft "villa" at ₹2.15 crore | **kept**, for cycle 2 to catch (§4.2) |
 
-**96.4% of the window's listings fall in its final six months**, and the thin
-months' medians swing from ₹4,167 to ₹8,783/sqft on 22–35 listings. §9 shows
-this is not a footnote but the dominant limitation of the whole study.
+The square-metre column is the consequential one: trusting the name would
+inflate every price-per-area figure 10.76×, and the ratio being identical at
+both tails is what separates mislabelling from noise.
 
-A **synthetic snapshot** with uniform monthly depth is built alongside the real
-one. It is not a substitute: it is the only place in the project with a genuine
-oracle, which is what makes two of the brief's four root-cause categories
-distinguishable at all (§8.4).
-
----
+**The snapshot's own limit.** It is a single scrape, so older months hold only
+listings still live on the scrape date: **96.4% of the window's listings fall
+in its final six months**. §9 shows this dominates the study's uncertainty. A
+**synthetic snapshot** with uniform monthly depth is built alongside; it is the
+only place with a genuine oracle.
 
 ## 3. The output contract
 
 Fixed before any relation was written, because "the trend is unchanged" cannot
-be falsified until "the trend" is a named, finite set of numbers. Defined in
-`src/contract.py` as `TrendReport`:
+be falsified until "the trend" is a named set of numbers (`src/contract.py`,
+`TrendReport`):
 
 | Field | Meaning |
 |---|---|
 | `window_months` | exactly twelve months, ascending |
-| `monthly[]` | per month, the design note's five fields: `listing_count` (including listings without a valid price), `price_valid_count`, `median_listing_price_inr` (median of (MIN + MAX) / 2), `median_price_per_sqft_inr`, `coverage_status` (ADEQUATE / LIMITED / NO_DATA_IN_SNAPSHOT); and extensions `median_min_price_inr`, `median_max_price_inr`, `p25_psf`, `p75_psf`, `median_age_on_site_days`, `month_is_sufficient`, `is_partial_month` |
+| `monthly[]` | per month: `listing_count` (all matching listings), `price_valid_count`, `median_listing_price_inr` (median of (MIN + MAX) / 2), `median_price_per_sqft_inr`, `coverage_status` (ADEQUATE ≥ 30 usable listings / LIMITED / NO_DATA_IN_SNAPSHOT); extensions: min/max-price medians, ₹/sqft quartiles, `median_age_on_site_days`, `month_is_sufficient` (n ≥ 50), `is_partial_month` |
 | `locality_rankings[]` | localities by median ₹/sqft, with explicit `rank` |
-| `yoy_median_psf_pct` | move between the first and last **sufficient** month |
-| `yoy_span_months` | how many months that actually spans |
-| `n_listings_total` | listings in the window after criteria |
-| `currency_unit`, `area_unit` | display units, carried so unit-invariance is observable |
-| `criteria`, `provenance` | the slice described; seeds, loop counts, LLM accounting, trace |
+| `yoy_median_psf_pct`, `yoy_span_months` | move between the first and last **sufficient** month, and how many months that spans |
+| `currency_unit`, `area_unit` | display units, carried so unit invariance is observable |
+| `criteria`, `provenance` | the slice described; seeds, loop counts, verdicts, LLM accounting |
 
-**The design note's output contract.** Each month reports `listing_count`
-(every matching listing, including those whose price or area is unusable) and
-`price_valid_count` (the listings both medians are computed from), so "no
-usable price" is distinguishable from "no listing". The representative asking
-price is the midpoint of `MIN_PRICE` and `MAX_PRICE`; on this snapshot every
-price-valid listing has `MIN_PRICE == MAX_PRICE`, so the midpoint, the minimum
-and the maximum coincide (the latter two are kept as extensions).
-`coverage_status` is `ADEQUATE` with at least 30 usable listings,
-`NO_DATA_IN_SNAPSHOT` with none at all, and `LIMITED` otherwise; a missing
-median is `null`, never zero. **August 2023 is flagged partial**
-(data to the 26th) and the summary says so whenever it is in the window.
-
-Five decisions exist specifically so that relations mean something.
-
-**Median, not mean.** The price tail is heavy and contaminated by D5; a mean
-would make every invariance relation fail for reasons unconnected to the
-agents. This is also why no violation in our results was attributable to a data
-artifact until the LLM was introduced.
-
-**Counts reported separately from prices.** Duplication doubles counts and
-leaves medians fixed; widening a band raises counts and may move medians. A
-statistic fusing the two would hide precisely the faults the relations target.
-
-**`yoy_span_months` is reported.** An early version named the field "yoy" while
-measuring between the first and last *sufficient* months — six on this
-snapshot, not twelve. A field called "year-on-year" that silently measures half
-a year would let the window-shift relation assert on an undefined quantity.
-
-**`month_is_sufficient` exists at all** (n ≥ 50). Without it the system can
-publish a median computed from 22 listings with no flag.
-
-**`median_age_on_site_days` is not called "days on market."** It is
-`scrape_date − posting_date` for listings live at the scrape — median 36 days
-(p10 6, p90 110). It is **right-censored**, since every listing is still live,
-and **length-biased**, since slow listings accumulate in a snapshot while fast
-ones exit, so it overstates typical time-to-sale. It is a secondary statistic
-and **no relation asserts on it.** Reporting it as days-on-market would be a
-false claim about what was measured.
-
----
+Three choices exist so that relations mean something. **Medians, not means**:
+the price tail is contaminated, and a mean would fail every invariance relation
+for reasons unrelated to the agents. **Counts separate from prices**: duplication
+doubles counts and leaves medians fixed, and a fused statistic would hide
+exactly what the relations test. **The span of the "year-on-year" move is
+reported**: it runs between sufficient months, often far fewer than twelve. A
+missing median is `null`, never zero, and August 2023 is flagged partial.
+`median_age_on_site_days` is right-censored and length-biased, so it is not
+called days on market and no relation asserts on it.
 
 ## 4. Agent architecture
 
-Six agents over a shared state, following the Reads/Writes contract of the
-project design note. The graph is not a linear pipeline: it carries two cycles,
-both real LangGraph conditional edges.
+Six agents over a shared LangGraph state. The graph carries two cycles, both
+real conditional edges:
 
 ```
                  ┌────────────────────────────────────────┐
@@ -210,7 +131,7 @@ both real LangGraph conditional edges.
       CriteriaAgent ──> RetrievalDispatch ──> Retrieval_0..3
                                 │                    │
                                 └──> RetrievalMerge ──> CoverageAgent
-                                                            │ sufficient
+                                                            │ proceed
                                                             v
                         ┌──── cycle 2 ────┐          AnalysisAgent
                         │  complaint +    │                │
@@ -220,87 +141,63 @@ both real LangGraph conditional edges.
 
 | Agent | Reads | Writes |
 |---|---|---|
-| **Criteria** | `user_query` | `filter_spec`, `query_mode` |
-| **Retrieval** ×4 | `filter_spec`, `query_mode`, `retry_count` | `retrieval_report` |
-| **Coverage / Confidence** | `raw_listings`, `filter_spec` | `coverage_score`, `coverage_verdict`, `widened_filter_spec` |
-| **Analysis** | `raw_listings`, `critique_complaint` | `trend_stats` |
-| **Critique / Validation** | `trend_stats` | `critique_verdict`, `critique_complaint` |
-| **Aggregator / Report** | `trend_stats`, `coverage_score` | `final_report`, `narrative` |
+| **Criteria** | request | `filter_spec`, `query_mode` |
+| **Retrieval** ×4 | `filter_spec`, `query_mode`, round | shard of matching listings |
+| **Coverage** | merged listings | `coverage_score`, ACCEPT / RETRY / LIMITED, `widened_filter_spec` |
+| **Analysis** | listings, `critique_complaint` | `trend_stats` |
+| **Critique** | `trend_stats` | APPROVED / REJECTED / NEEDS_REVIEW, flagged months |
+| **Aggregator** | `trend_stats`, coverage | `final_report`, narrative |
 
 ### 4.1 The three required control-flow properties
 
-**(a) Feedback loop — a downstream agent sends work upstream.** Cycle 2,
-Critique → Analysis: a rejection carries a *specific complaint* naming the
-months at fault, and Analysis recomputes only those. The payload is surgical,
-not a blanket re-run.
+**(a) Feedback loop.** Cycle 2, Critique → Analysis: a rejection names the
+months at fault, and Analysis recomputes only those, rejecting outliers by a
+robust z-score on log ₹/sqft. At most one recomputation; a problem still open
+after it is reported as NEEDS_REVIEW.
 
-**(b) Conditional / iterative control step.** Cycle 1, Coverage → Retrieval:
-the Coverage agent computes `coverage_score = sufficient_months / 12`, then
-proceeds or widens one criterion — geography, then BHK, then price band (the
-design note's order), each at most once, at most two retries — and re-runs
-retrieval. A month counts as covered with at least 30 usable listings; if the
-target cannot be reached, or the whole snapshot could not cover more months,
-the run proceeds with **LIMITED** coverage and reports the gap rather than
-inventing data. Geography widening never drops the
-locality filter: each selected locality adds its own nearest neighbours until
-depth roughly doubles, which preserves set inclusion (a subset widens to a
-subset; `contracts/Coverage.md` §3). Both cycles are capped, so termination is
-guaranteed.
+**(b) Conditional, iterative step.** Cycle 1, Coverage → Retrieval:
+`coverage_score` is the share of the twelve months with at least 30 usable
+listings. Below the target (0.5) Coverage widens one criterion — geography,
+then BHK, then price band, each at most once, at most two retries — and
+retrieval runs again; if the target cannot be reached it proceeds with
+**LIMITED** coverage and reports the gap. Geography widening keeps the locality
+constraint: each selected locality adds its own nearest neighbours, which
+preserves set inclusion (§8.4). Both cycles are capped, so the graph
+terminates.
 
-**(c) Genuine dependency — one agent's output changes what another *does*.**
-The Criteria agent sets **`query_mode`** and the Retrieval agents execute a
-**different algorithm**: exact locality matching, or great-circle (haversine)
-radius search. One is a set-membership test, the other a distance computation —
-not the same algorithm over different rows. 94.7% of the frame carries usable
-coordinates; unlocated rows are *excluded* from a radius query, since a radius
-query is a claim about geography.
+**(c) Genuine dependency.** Criteria sets `query_mode`, and Retrieval runs a
+**different algorithm** for each: exact locality matching, or a haversine
+radius search that excludes listings without coordinates (5.3% of those with
+a usable price).
 
-### 4.2 Several cooperating retrieval agents
+**Several cooperating agents.** Retrieval fans out to four parallel nodes, each
+scanning the shard given by a stable `sha256(seed:listing_id)`; a merge node
+reassembles them in canonical order. A test checks the answer is identical with
+1, 2, 4 and 8 agents.
 
-The brief asks for "several cooperating agents each scan listings against a set
-of user-specified criteria." Retrieval is therefore fanned out into **four
-parallel graph nodes**, each scanning its own shard, assigned by a stable
-`sha256(seed:listing_id)` hash, with a merge node reassembling the result in
-canonical order. A test asserts the answer is identical across 1, 2, 4 and 8
-agents — a property that did **not** hold before §8.1's fix.
+### 4.2 Why the loops are necessary rather than decorative
 
-### 4.3 Why the loops are necessary rather than decorative
+**Cycle 1 is forced by the data.** "3 BHK in Gachibowli" matches 120 listings,
+and only **two** months have 30 usable ones. Without the loop the system
+returns mostly empty months or silently answers a broader question. With it,
+coverage goes **0.167 → 0.250 → 0.333** as Gachibowli gains its 15 nearest
+localities and then BHK widens to 2–4 (120 → 432 → 696 listings), and the
+report states what was relaxed. A linear pipeline cannot do this: the decision
+to widen depends on an aggregate that exists only after retrieval. The run then
+stops at **LIMITED**: the whole snapshot could cover at most 7 months for this
+query, and the report says so instead of answering for the whole metro, which
+is what the pre-merge geography lever did.
 
-**Cycle 1 is forced by the data.** "3 BHK in Gachibowli over twelve months"
-matches 120 listings, of which only **two months** have the 30 usable listings
-that count a month as covered.
-Without the loop the system returns mostly empty months, or silently
-over-broadens and answers a different question. The loop makes an unanswerable
-query answerable **while recording which constraint it relaxed** — information
-the user needs to read the number at all. Measured: coverage goes **0.167 →
-0.250 → 0.333** as Gachibowli gains its 15 nearest localities and then BHK
-widens to 2–4 (120 → 432 → 696 listings, 632 with a usable price). A linear pipeline cannot do this: the
-decision to widen depends on an aggregate that exists only after retrieval.
+**Cycle 2 is forced by the area-entry errors.** A 400 sqft villa at ₹8.3 crore
+is plausible alone and suspicious only against its month, so no blanket filter
+catches it, and validating every listing on every run would discard legitimate
+luxury stock. Escalating only for months whose aggregate looks wrong is why the
+complaint carries flagged months. On the query above, cycle 2 rejects **17
+listings**, moves **4 monthly medians** (up to 11.6%) and changes the reported
+move from **−4.45% to −0.70%**; on the whole metro it rejects 132 and moves the
+headline from −6.41% to −7.74%.
 
-The loop stops below the 0.5 target after its two retries and reports
-**LIMITED** coverage (4 covered months; the whole snapshot could cover at most 7
-for this query), and that is deliberate. Before the merge the geography lever *dropped* the locality filter,
-so this query reached 0.5 by answering for the whole metro (4,141 listings) —
-a different question — and every harness run collapsed the same way, which
-made the locality-subset relation M3 untestable (§8.0).
-
-**Cycle 2 is forced by defect D5.** A 400 sqft villa at ₹8.3 crore is
-individually plausible and suspicious only in aggregate, so it survives any
-blanket filter; validating everything on every run is wasteful and discards
-legitimate luxury stock. Escalating only for months whose aggregate looks wrong
-is why the complaint carries flagged months.
-
-This cycle was nearly ornamental. The loader originally removed the D5
-contamination up front — hygiene that deleted the very thing the cycle exists
-to catch. On the bounded frame the cross-field checks found **zero
-disagreements in 4,501 rows**. With it retained, on the query above the cycle
-rejects **17 listings**, moves **4 monthly medians** (up to **11.6%**) and
-changes the reported move from **−4.45% to −0.70%** (measured over the 2
-sufficient months the slice has); on the whole metro it rejects **132** and moves
-the headline from **−6.41% to −7.74%**. (Pre-v2, on the whole-metro collapse of
-this query: 125 listings, 7 of 12 medians, −10.9% → −13.6%.)
-
-### 4.4 Execution trace: both cycles firing
+### 4.3 Execution trace: both cycles firing
 
 Abridged from `results/v2_deterministic/trace_example.txt` ("3 BHK in
 Gachibowli", seed 7):
@@ -318,957 +215,360 @@ Gachibowli", seed 7):
 26. CritiqueAgent    flagged 2 months, none new  verdict=APPROVED
 ```
 
-Cycle 1 fires twice, cycle 2 once, and the answer changes materially at step
-25. At step 26 the critique re-examines the *cleaned* listings and still finds
-two months with an outlier, but none it has not already handled, so it stops.
+Cycle 1 fires twice and cycle 2 once, and the answer changes at step 25.
 
-### 4.5 Alignment with the design note
+### 4.4 Where the local model sits
 
-The team's design note (*TSE – Agent Architecture, Hyderabad Refined*) is
-adopted in contract v2.1: its five-field monthly contract, the 30-listing
-coverage threshold with ACCEPT / RETRY / LIMITED verdicts, two retries in its
-lever order, the critique's coherence checks and NEEDS_REVIEW outcome, the
-city and locality-ID filters, the `GEO_RADIUS` name, the range-overlap price
-band and `data/SOURCE.md`. Ten deliberate deviations are listed with their
-evidence in `contracts/CONTRACT.md` §13. The most consequential:
+In LLM mode, agents delegate judgment to Qwen2.5-3B-Instruct (Q4_K_M) through
+Ollama: Analysis asks which **grey-zone** listings (robust |z| between 2.0 and
+3.5) their own description contradicts; Critique asks which months look
+implausible; Aggregator writes the summary when there is a price change;
+Criteria can choose `query_mode` for a free-text request. **Every statistic
+stays deterministic Python**: the model supplies judgment and wording, never
+arithmetic. Temperature is 0 and the harness seed reaches the model on every
+call; a probe of 20 identical requests returned 20 identical replies, so an
+unchanged prompt means an unchanged judgment.
 
-- **Months come from `POSTING_DATE`, not `REGISTER_DATE__U`.** The note's
-  monthly counts reproduce exactly on the raw file, but `REGISTER_DATE__U` is
-  later than `POSTING_DATE` on 5,389 rows (a refresh date, not the listing
-  date) and leaves 4 of 12 months with 30 usable listings, against 7.
-- **Sale dwellings only**: rent and PG rows carry rents, land has no built-up
-  area; mixing them would make price per sqft meaningless.
-- **One critique recomputation, not two**: a second round was measured to
-  cause violations (2/16 vs 0/16); NEEDS_REVIEW makes the cap visible.
-- **Four retrieval agents, a wider optional LLM role, twelve MRs**: supersets
-  of the note, each argued in §13; the note's MR1–MR8 map onto I1–I3, M1–M3,
-  D1 and D2 (`contracts/Testing.md` §4).
-
-### 4.6 Where the local model sits
-
-In LLM mode four agents delegate judgment to Qwen2.5-3B-Instruct (Q4_K_M) via
-Ollama: Criteria chooses `query_mode`; Analysis reviews the **grey zone**
-(robust |z| between 2.0 and 3.5) by reading descriptions; Critique judges which
-months look implausible; Aggregator writes the summary.
-
-**Every statistic stays deterministic Python in both modes.** The model
-supplies judgment and language, never arithmetic.
-
-Four **prompt-hygiene constraints** are design rules, not implementation
-details — each forced by a relation that failed without it (§8.5):
-
-1. listings are presented **by position, never by identifier**
-2. the review batch is sorted on **every displayed field** (a total order)
-3. the batch is **deduplicated on content**, and a verdict applies to every row
-   carrying that content
-4. the critique table is rendered in **canonical units** with **counts
-   withheld**
-
-Temperature is 0 and the harness seed reaches the model on every call. A
-determinism probe — 20 repeats, same prompt, same seed — returned **20/20
-identical replies**, which is what makes those four constraints *sufficient*:
-identical prompt plus deterministic decoding implies identical judgment.
-
----
+The team's design note is adopted in contract v2.1; its ten deliberate
+deviations — for example months from `POSTING_DATE` rather than
+`REGISTER_DATE__U`, which leaves 4 instead of 7 months coverable — are listed
+with evidence in `contracts/CONTRACT.md` §13.
 
 ## 5. The metamorphic relation catalogue
 
-Twelve relations across the three required families (eight is the minimum):
-five invariance, five monotonic, two directional. Every one is a statement
-about `TrendReport` fields and nothing else. M4 was added with the merge so
-that the radius-search branch of the genuine dependency is exercised; the
-pre-v2 sweeps have the other eleven.
+Twelve relations across the three families (the minimum is eight). Each is a
+statement about `TrendReport` fields only. Full definitions, tolerances and the
+mapping to the design note's MR1–MR8: `contracts/Testing.md` §4.
 
 ### 5.1 Invariance
 
-| ID | Transformation | Relation | Subdomain | Tolerance |
-|----|---------------|----------|-----------|-----------|
-| **I1** | permute the listing rows | every reported field unchanged | all criteria sets | counts exact; floats rel. 1e-9 |
-| **I2** | change display units (₹→₹ lakh, sqft→sq.m) | percentage changes, rankings and counts identical; medians scale by the unit factor | all criteria sets | rel. 1e-9 |
-| **I3** | duplicate every listing | per-month medians and quartiles unchanged; counts exactly double | months already sufficient; yoy fields excluded | medians rel. 1e-9; counts exactly 2× |
-| **I4** | bijectively relabel listing IDs | every reported field unchanged | all criteria sets | exact |
-| **I5** | convert **₹ lakh → ₹ crore** | as I2 | the lakh-denominated projection | rel. 1e-9 |
-
-I5 exists because the brief singles it out for the Indian-metro variant:
-*"converting ₹ crore ↔ ₹ lakh … must not move the trend or the rankings."*
-
-I3 is deliberately scoped. Doubling flips `month_is_sufficient` for any month
-holding 25–49 listings, which changes *which* months the headline spans — so
-the yoy fields legitimately move and are excluded by design, not convenience.
+| ID | Transformation | Relation | Justification |
+|----|---------------|----------|---------------|
+| **I1** | permute the listing rows | every field unchanged | a trend is a property of the set of listings, not their order; catches order-dependent aggregation and shard leaks |
+| **I2** | display units ₹ → ₹ lakh, sqft → sq m | counts, statuses, rankings, % changes identical; ₹/sqft scales by the unit factor | units are presentation; catches hard-coded units and rounding before percentages |
+| **I3** | duplicate every listing | counts exactly double; per-month medians unchanged | a median does not move when every value is repeated; catches silent de-duplication and per-row judgments. Year-on-year fields excluded: doubling makes 25–49-listing months sufficient |
+| **I4** | bijectively relabel listing IDs | every field unchanged | an identifier says nothing about price; catches logic keyed on IDs (shard hashing, prompts) |
+| **I5** | display currency ₹ lakh → ₹ crore | as I2, factor 10⁻² | the brief's Indian-metro case: "converting ₹ crore ↔ ₹ lakh … must not move the trend or the rankings" |
 
 ### 5.2 Monotonic
 
-| ID | Transformation | Relation | Subdomain |
-|----|---------------|----------|-----------|
-| **M1** | add ₹500,000 to every price in one month | that month's median price rises by ≈X; others unchanged; no month decreases | the **band-free projection** of each base input |
-| **M1raw** | as M1, band left in place | as M1 | **none — retained counter-example** |
-| **M2** | widen the price band (superset) | each month's count ≥ the original | criteria setting a band, **conditioned on control-path stability** |
-| **M3** | restrict to a locality subset | each month's count ≤ the all-locality count | ≥2 localities, **conditioned on control-path stability** |
-| **M4** | halve the search radius | each month's count ≤ the original | radius queries, **conditioned on control-path stability** |
-
-`M1raw` is not a passing check and is not meant to be: it is the documented
-unsound relation, kept measurable because a counter-example still being
-measured is stronger evidence than one deleted.
+| ID | Transformation | Relation | Justification |
+|----|---------------|----------|---------------|
+| **M1** | add ₹500,000 to both price bounds in the densest month | that month's price medians rise by ₹500,000; other months unchanged; counts unchanged | declared on the **band-free projection**, so the shift cannot change which listings are selected |
+| **M1raw** | as M1 with the price band left in place | as M1 | **does not hold**; kept as the documented counter-example (§8.1) |
+| **M2** | widen the price band 25% each side | each month's `listing_count` ≥ before | a superset filter cannot select fewer listings |
+| **M3** | keep the first half of the locality list | each month's `listing_count` ≤ before | a subset of places cannot hold more listings; meaningful only because widening preserves inclusion |
+| **M4** | halve the search radius | each month's `listing_count` ≤ before | exercises the radius algorithm of the genuine dependency |
 
 ### 5.3 Directional
 
-| ID | Transformation | Relation | Subdomain |
-|----|---------------|----------|-----------|
-| **D1** | shift the window forward one month | the eleven overlapping months match the previous run | both windows inside the data range |
-| **D2** | scale all prices by k = 1.5 | medians scale by exactly k; percentage changes and ranking order invariant | k keeping the population fixed; the band is scaled alongside |
+| ID | Transformation | Relation | Justification |
+|----|---------------|----------|---------------|
+| **D1** | shift the window forward one month | the eleven overlapping months match exactly | a month's statistics cannot depend on which window contains it |
+| **D2** | scale all prices (and the band) by k = 1.5 | every price median scales by exactly k; % changes and rankings unchanged | medians are scale-equivariant; scaling the band keeps the population fixed |
 
-### 5.4 Boundary interactions, stated in advance
-
-M1 and D2 both transform prices while the criteria may impose a price band. A
-large enough shift or scale moves listings across that boundary, **changing the
-selected population**, at which point the relation genuinely does not hold.
-This is a relation-design trap, not a system fault. D2 handles it by scaling
-the band alongside the data; M1 required two attempts (§8.2).
-
-M2, M3 and M4 are **conditional** because coverage depends on listing counts,
-so a transformation that changes counts can change how many relaxation rounds
-fire — and therefore the population for the whole window. Measured on the
-synthetic snapshot: a locality *subset* returned **85 → 331** listings. M3 and
-M4 additionally rely on the widening itself being monotone: a smaller
-selection must never widen to something the larger one does not contain. For
-the radius lever (doubling) that is automatic; for localities it had to be
-built in (§8.0).
-
-M1 and D2 were first stated with the precondition "no listing crosses a
-plausibility bound". That precondition is vacuous here, because the loader
-applies no plausibility bounds (D5 is left in for cycle 2). What can change
-the analysed population is cycle 2's relative outlier filter, so every v2 run
-records how many listings it rejected in the source and in the follow-up.
-
----
+**Stated in advance.** M2, M3 and M4 change listing counts, which can change
+which cycle-1 levers fire and so the population for the whole window; they are
+also reported over the **control-path-stable subdomain**, where both runs took
+the same path. Cycle 2's relative outlier filter can also change the analysed
+population, so every run records how many listings it rejected in each run.
 
 ## 6. Statistical protocol
 
-The system can be non-deterministic — shard assignment, relaxation order and
-(in LLM mode) the model's sampling are all seeded — so each relation is checked
-statistically rather than once.
-
-- **72 distinct base inputs** (v2): 36 locality inputs varying window end, BHK,
-  locality breadth and price band, and 36 radius inputs (centres at the six
-  deepest localities, 3 or 5 km) varying the same. Each relation is evaluated
-  on the inputs in its subdomain — every relation has at least 36; M3 runs on
-  the locality inputs and M4 on the radius inputs.
-- **k = 3 fixed, recorded seeds `[11, 23, 47]`**, applied to source and
-  follow-up alike.
-- **2,592 checks per v2 sweep** (12 relations × 72 inputs × 3 seeds, where
-  applicable), each comprising two full pipeline runs. The pre-v2 sweeps were
-  11 × 36 × 3 = 1,188.
-- Per relation: base-input count, violations, rate and a **95% Wilson score
-  interval with the base input as the unit** — a base input counts as violated
-  if any seed violates — plus the per-run rate and the number of base inputs
-  whose seeds disagreed.
-
-**The base input, not the run, is the unit.** The three seeds of one base input
-are repeated measurements of the same input, not independent samples, and in
-the deterministic sweep they agree on every base input. The pre-v2 sweeps
-computed intervals over runs, which overstated precision: 0 violations in
-108 runs gives an upper bound of 0.034; over the 36 base inputs it actually
-rests on, 0.096. The pre-v2 intervals quoted in §7.3 are per run and should be
-read with that in mind.
-
-**Wilson rather than the normal approximation.** Rates here sit at or near 0
-and 1. The normal interval leaves [0, 1] in that regime and collapses to zero
-width at p̂ = 0, asserting certainty from a finite sample. Wilson behaves:
-0/72 base inputs gives **[0.000, 0.051]**.
-
-**Generating the base inputs needed care.** A first sweep left M2 with 24
-applicable inputs, M3 with 27 and D1 with exactly 30, since those relations need
-a band, ≥2 localities and shiftable window room; cycling the option lists by one
-index also degenerated onto a single varying dimension. The generator now takes
-a strided sample of the full cross product, every option carrying a band and ≥2
-localities.
-
-**Stopping rule.** The brief asks us to stop when the interval supports the
-conclusion. At 72 base inputs a zero-violation relation is bounded at 0.051
-(0.096 at 36), enough to claim the property holds at the level of "fails on
-fewer than one input in ten"; the non-zero rates have intervals clearly
-separated from zero. We therefore did not extend the sweep. The same criterion
-applied to the LLM fallback rate, which converged to **0.0874** with a 95%
-interval of width 0.012 over 14,209 calls (pre-v2; v2: 0.0383 over 17,164).
-
----
+- **72 distinct base inputs**: 36 locality inputs (strided over window end,
+  BHK, price band and locality set) and 36 radius inputs (centres at the six
+  deepest localities, 3–5 km). Each relation runs on the inputs in its
+  subdomain: at least 36 for every relation.
+- **k = 3 fixed, recorded seeds `[11, 23, 47]`**, used for source and
+  follow-up alike: **2,592 checks per sweep**, each two full pipeline runs.
+- **The base input is the unit.** A base input counts as violated if any seed
+  violates. Its three seeds are repeated measurements of one input, not
+  independent samples, so intervals over runs would overstate precision (0/108
+  runs gives an upper bound of 0.034; 0/36 inputs, 0.096). The per-run rate and
+  the number of inputs whose seeds disagreed are also recorded.
+- **95% Wilson score intervals**, because rates sit at or near 0 and 1, where
+  the normal approximation leaves [0, 1] or collapses to zero width. 0/72 gives
+  **[0.000, 0.051]**.
+- **Stopping rule.** A zero-violation relation is bounded at 0.051 (0.096 for
+  the 36-input relations), enough to say it fails on fewer than one input in
+  ten; every non-zero rate has an interval clearly separated from zero. The
+  sweeps were therefore not extended.
 
 ## 7. Results
 
-### 7.1 Headline: the contract-v2 deterministic sweep
+### 7.1 The deterministic sweep
 
-Rebuilt by `python scripts/headline_table.py --v2` from
-`results/v2_deterministic/`; the column *before alignment* is
-`results/v2_before_note_alignment/`, the same harness before the design-note
-alignment of §4.5 (M3 fix already in place). Unit = base input. The base
-inputs are regenerated from the frame, and locality depth now counts all
-4,975 listings, so 9 of the 36 locality inputs take Nallagandla instead of
-Puppalaguda as their fourth locality and 9 more list the same set in another
-order; the 36 radius inputs are unchanged.
+`results/v2_deterministic/`, rebuilt by `python scripts/headline_table.py --v2`
+from the per-run records. Unit = base input.
 
-| MR | Family | Bases | Before alignment | **Rate** | 95% CI | Stable-path rate |
-|----|--------|------:|--------------:|---------:|--------|------------------|
-| I1–I5 | invariance | 72 | 0.000 | **0.000** | [0.000, 0.051] | 0.000 |
-| M1 | monotonic | 72 | 0.167 | **0.194** | [0.120, 0.300] | 0.194 |
-| M2 | monotonic | 72 | 0.000 | **0.000** | [0.000, 0.051] | 0.000 |
-| M3 | monotonic | 36 | 0.000 | **0.000** | [0.000, 0.096] | 0.000 |
-| M4 | monotonic | 36 | 0.000 | **0.000** | [0.000, 0.096] | 0.000 |
-| M1raw | monotonic | 71 | 0.542 | **0.718** | [0.605, 0.810] | 0.718 |
-| D1 | directional | 72 | 0.000 | **0.000** | [0.000, 0.051] | 0.000 |
-| D2 | directional | 72 | 0.000 | **0.000** | [0.000, 0.051] | 0.000 |
+| MR | Family | Bases | Rate | 95% CI | Stable-path rate |
+|----|--------|------:|-----:|--------|-----------------:|
+| I1–I5 | invariance | 72 | **0.000** | [0.000, 0.051] | 0.000 |
+| M1 | monotonic | 72 | **0.194** | [0.120, 0.300] | 0.194 |
+| M2 | monotonic | 72 | **0.000** | [0.000, 0.051] | 0.000 |
+| M3 | monotonic | 36 | **0.000** | [0.000, 0.096] | 0.000 |
+| M4 | monotonic | 36 | **0.000** | [0.000, 0.096] | 0.000 |
+| M1raw | monotonic | 71 | **0.718** | [0.605, 0.810] | 0.718 |
+| D1, D2 | directional | 72 | **0.000** | [0.000, 0.051] | 0.000 |
 
-2,592 runs, seeds `[11, 23, 47]`; seeds disagreed on **no** base input; the
-cycle-1 path diverged in 42 runs (27 before alignment): M3 24, M2 9, M4 6,
-D1 3. M1raw has 71 bases: `base10` (2 BHK, ₹1–6 crore, window to 2023-04)
-has no listing inside its window once the band is kept, so there is no month
-to shift; M1 runs on the band-free projection and keeps all 72. The synthetic
-control (`results/v2_synthetic/`, locality inputs only) gives M2 0.028 and
-M3 0.111, **both 0.000 on the control-path-stable subdomain** — every
-violating run diverged; the design tension of §8.7, not a statistics fault.
-I3 is 0.000 there (0.167 before alignment): its control path no longer
-diverges. M1raw 0.722.
+Seeds disagreed on no base input; the cycle-1 path diverged in 42 of 2,592
+runs. M1raw has 71 inputs because one (`base10`) has no listing inside its
+window once the band is kept. Before M3's fix the same sweep gave M3 0.250 and
+M2 0.028 (`results/v2_before_m3fix/`); the sweep before the design-note
+alignment is `results/v2_before_note_alignment/`. On the **synthetic snapshot**
+M2 (0.028) and M3 (0.111) fail only on runs whose control path diverged, and
+are 0.000 on the stable subdomain.
 
-**Reading it.** Every invariance and directional relation holds. M1raw fails by
-design (§8.2), more often than before alignment (§8.0). M1's residual is the
-outlier-filter interaction (§8.0). M3's
-failures before the fix were a genuine design fault, found and removed (§8.0).
+### 7.2 The LLM sweep
 
-### 7.1.1 The contract-v2 LLM sweep
+`results/v2_llm/`: the same inputs, seeds and relations with the model agents
+on (`qwen2.5:3b-instruct-q4_K_M`, Ollama 0.40.4, weights digest `357c53fb…`,
+Kaggle T4). *Before fix* is `results/v2_llm_before_reviewfix/`, the same sweep
+before the I3 fault of §8.4 was fixed.
 
-`results/v2_llm/` (rebuilt by `headline_table.py --v2 --tag v2_llm`): the same 72 base inputs, seeds and relations with the model
-agents on (`qwen2.5:3b-instruct-q4_K_M`, Ollama 0.40.4, weights digest
-`357c53fb…`, a Kaggle T4). The column *before review fix* is
-`results/v2_llm_before_reviewfix/`, the same sweep before the I3 fault of §8.0
-was fixed. Unit = base input.
-
-| MR | Bases | Deterministic | Before review fix | **LLM** | 95% CI | Seeds disagree |
-|----|------:|--------------:|------------------:|--------:|--------|---------------:|
+| MR | Bases | Deterministic | Before fix | **LLM** | 95% CI | Seeds disagree |
+|----|------:|--------------:|-----------:|--------:|--------|---------------:|
 | I1, I2, I4, I5 | 72 | 0.000 | 0.000 | **0.000** | [0.000, 0.051] | 0 |
 | I3 | 72 | 0.000 | 0.111 | **0.000** | [0.000, 0.051] | 0 |
 | M1 | 72 | 0.194 | 0.375 | **0.375** | [0.272, 0.490] | 5 |
 | M2 | 72 | 0.000 | 0.000 | **0.000** | [0.000, 0.051] | 0 |
-| M3 | 36 | 0.000 | 0.000 | **0.000** | [0.000, 0.096] | 0 |
-| M4 | 36 | 0.000 | 0.000 | **0.000** | [0.000, 0.096] | 0 |
+| M3, M4 | 36 | 0.000 | 0.000 | **0.000** | [0.000, 0.096] | 0 |
 | M1raw | 71 | 0.718 | 0.746 | **0.746** | [0.634, 0.833] | 1 |
 | D1 | 72 | 0.000 | 0.069 | **0.069** | [0.030, 0.152] | 0 |
 | D2 | 72 | 0.000 | 0.278 | **0.264** | [0.176, 0.376] | 2 |
 
-2,592 runs; the cycle-1 path diverged in 43 (stable-path rates differ only for
-D1 0.070 and D2 0.268). Seeds now disagree on 8 base inputs: the seed reaches
-the model, so in LLM mode the three seeds are no longer repeats of one
-computation. The fallback rate is **0.0383** over 17,164 model requests (658
-fallbacks, 0 errors). Every violating M1, D1 and D2 run took the same control
-path in both runs, and in 128 of those 143 runs cycle 2 rejected a different
-number of listings: the model's listing review is where it changes the answer.
+The cycle-1 path diverged in 43 runs (stable-path rates differ only for D1,
+0.070, and D2, 0.268). Seeds now disagree on 8 (relation, input) pairs, because the
+seed reaches the model. The fallback rate — requests whose reply was unusable, so the
+deterministic rule was used — is **0.0383** over 17,164 model requests.
+Every violating M1, D1 and D2 run took the same control path in both runs, and
+in 128 of those 143 runs cycle 2 rejected a different number of listings: the
+model's listing review is where it changes the answer.
 
-**Reading it.** The relations that hold deterministically and fail with the
-model — D1, D2 and M1's excess over 0.194 — reproduce the pre-v2 finding of
-§§8.3–8.4 on v2: shifting the window or the prices changes what the model is
-shown, so it judges a different question. I3 failed for another reason, a
-genuine fault, fixed and re-measured (§8.0).
+The sweep **replays without a GPU**: `python scripts/replay_llm_sweep.py`
+answers every model request from the committed reply cache, treats a missing
+reply as an error, and reproduces all 2,592 run records exactly.
 
-**It replays without a GPU.** `python scripts/replay_llm_sweep.py` answers every
-model request from `data/llm_cache/responses.json`, treats a missing reply as
-an error, and reproduces `results/v2_llm/mr_runs.csv` exactly; the same check
-reproduced the before-fix sweep from its code.
-
-### 7.2 Run metadata (v2)
-
-| | v2 deterministic | v2 before alignment | v2 synthetic | v2 LLM |
-|---|---|---|---|---|
-| runs | 2,592 | 2,592 | 1,296 | 2,592 |
-| base inputs | 72 | 72 | 36 | 72 |
-| elapsed (s) | 1,037 (Windows) | 1,473 (Windows) | 172 (Windows) | 1,596 (Kaggle T4) |
-| C1 path diverged (runs) | 42 | 27 | 69 | 43 |
-| coverage verdict | all 72 LIMITED | — | — | — |
-| LLM fallback rate | — | — | — | 0.0383 |
-
-### 7.3 Pre-v2 sweeps: three configurations
-
-Before the merge (4,578 listings, UTC months, whole-metro geography widening,
-eleven relations, 36 base inputs, **intervals per run**). These are the
-evidence for §§8.1–8.8 and are not comparable rate-for-rate with §7.1.
-
-| MR | Family | Transformation | Deterministic | LLM pre-fix | LLM post-fix | 95% CI (post-fix) |
-|----|--------|----------------|---------------|-------------|--------------|-------------------|
-| I1 | inva. | reorder listings | 0.000 | 0.000 | 0.000 | [0.000, 0.034] |
-| I2 | inva. | change display units | 0.000 | 0.028 | 0.000 | [0.000, 0.034] |
-| **I3** | inva. | duplicate every listing (2x) | 0.000 | 0.417 | **0.176** | [0.116, 0.258] |
-| I4 | inva. | relabel listing ids | 0.000 | 0.630 | 0.000 | [0.000, 0.034] |
-| I5 | inva. | convert the display currency from lakh to crore | 0.000 | 0.000 | 0.000 | [0.000, 0.034] |
-| **M1** | mono. | add Rs 500,000 to every price in one month | 0.139 | 0.222 | **0.333** | [0.252, 0.427] |
-| **M2** | mono. | widen the price band (superset) | 0.000 | 0.111 | **0.111** | [0.065, 0.184] |
-| M3 | mono. | restrict to a locality subset | 0.000 | 0.000 | 0.000 | [0.000, 0.034] |
-| **M1raw** | mono. | add Rs 500,000 to one month, band left in place | 0.861 | 0.852 | **0.806** | [0.721, 0.869] |
-| **D1** | dire. | shift the window forward one month | 0.000 | 0.222 | **0.667** | [0.573, 0.748] |
-| **D2** | dire. | scale all prices by k=1.5 | 0.000 | 0.556 | **0.593** | [0.498, 0.681] |
-
-Pre-v2 run metadata:
-
-| | Deterministic | LLM pre-fix | LLM post-fix |
-|---|---|---|---|
-| runs | 1188 | 1188 | 1188 |
-| elapsed (s) | 354.67 | 4137 | 2340 |
-| LLM calls | — | 14,210 | 14,209 |
-| cache hits | — | 10,556 | 12,329 |
-| fallback rate | — | 0.0645 | 0.0874 |
-| C1 path diverged | 0 | 0 | 0 |
-
-Pre-v2 violations by family, excluding the retained counter-example:
-
-| Family | Deterministic | LLM pre-fix | LLM post-fix |
-|---|---|---|---|
-| invariance | 0 | 116 | 19 |
-| monotonic | 15 | 36 | 48 |
-| directional | 0 | 84 | 136 |
-| **total** | **15** | **236** | **203** |
-
-### 7.4 Reading the pre-v2 tables
-
-**Deterministically, every relation held except M1's residual** — fifteen
-violations in 1,188 checks, all on M1 (§8.6). M3's 0.000 there is not
-evidence: every run had collapsed to the whole metro, so the subset and the
-superset were the same query (§8.0).
-
-**The model broke three invariance relations** (relabelling 0.630, duplication
-0.417, units 0.028), and the determinism probe rules out randomness, so these
-were *systematic*. **The fixes recovered two exactly and one partially** — I4
-and I2 to 0.000, I3 to 0.176, invariance violations **116 → 19** — and **made
-two others worse** (D1 0.222 → 0.667, M1 0.222 → 0.333). Totals fell 236 → 203
-but the distribution shifted from invariance to directional; §8.7 argues the
-choice.
-
-**`M1raw` behaves as designed** at 0.806–0.861 in all three configurations,
-which is what a genuinely unsound relation should look like.
-
-**Control-path divergence was zero in all three pre-v2 sweeps**, but for a
-degenerate reason: cycle 1 exhausted its levers identically in every run. On
-synthetic data it diverged in 99 of 1,188 runs (§8.7); under v2, where the
-locality constraint is kept, it diverges in 27 of 2,592 real-data runs and the
-stable-subdomain column is no longer vacuous.
-
----
+| | Deterministic | LLM |
+|---|---|---|
+| runs / base inputs | 2,592 / 72 | 2,592 / 72 |
+| elapsed (s) | 1,037 (Windows laptop) | 1,596 (Kaggle T4) |
+| coverage verdict | all 72 inputs LIMITED | — |
 
 ## 8. Root-cause analysis
 
-The brief requires each top violation to be attributed, with evidence, to one
-of: a genuine agent fault, a data artifact, an ill-conceived MR, or a harness
-bug. All four occur.
-
-**The three most-violated relations in the contract-v2 sweep** are **M1raw
-(0.718)**, **M3 (0.250 before its fix)** and **M1 (0.194)**; in the v2 LLM
-sweep they are **M1raw (0.746)**, **M1 (0.375)** and **D2 (0.264)**, with
-**I3 (0.111 before its fix)** the fault it found. All are diagnosed in §8.0
-(M1raw's diagnosis, §8.2, is unchanged). §§8.1–8.8 diagnose the pre-v2 sweeps,
-whose most-violated relations under the local model were **M1raw (0.806)**,
-**D1 (0.667)** and **D2 (0.593)**, and the faults found before those —
-I4, I3 and M1. Their rates are pre-v2 and per run; their causes and fixes carry
-over.
-
-### 8.0 Contract-v2 findings
-
-**M3, 0.250 → 0.000 — a genuine agent fault, found and fixed.**
-*Symptom:* `2022-12: locality subset gave MORE listings (3 -> 4)`. Before the
-merge M3 could not fail at all: the geography lever dropped the locality filter,
-so both runs answered for the whole metro (geography fired in 100% of logged
-runs). Once the lever kept the locality constraint, M3 failed on 9 of 36 base
-inputs. *Evidence:* all 9 are the inputs whose localities are {Kondapur,
-Gachibowli, Kokapet, Narsingi}; none of the 27 inputs with other locality sets
-violated; 8 of the 9 took the same cycle-1 path in both runs, so it is not
-path divergence. Running both pipelines on `base03` shows the mechanism
-directly: the 2-locality subset widened to a set that is **not** contained in
-the 4-locality superset's widened set — it gained Gulmohar Park Colony,
-Hafeezpet, Janapriya Nagar, Lingampally and Madinaguda. *Mechanism:* the lever
-widened around the *selection's* median centre, so a subset and its superset
-were widened around different points. *Fix:* each selected locality adds its
-own neighbourhood, walking its own nearest-first ranking and skipping
-already-selected localities until depth doubles. If A ⊆ B, B skips at least
-what A skips and so walks at least as far along every ranking A walks, so
-widen(A) ⊆ widen(B). A test checks this on all 36 M3 pairs and 40 random subset
-pairs and fails on the old rule. *Result:* M3 9/36 → **0/36**, M2 2/72 →
-**0/72**, nothing else moved. *Cost:* overlapping neighbourhoods add less depth
-for clustered selections (one input fell from 105 to 60 listings).
-**Verdict: genuine agent fault** — and one that only became visible because an
-earlier change made the relation able to fail.
-
-**M1, 0.194 — the outlier filter is not shift-invariant.** All 14 violating
-base inputs (12 of 12 before the alignment) are ones where cycle 2 rejected a different number of listings in
-the follow-up run than in the source; on no base input did M1 fail with the
-rejected count unchanged. Adding ₹5 lakh to every price in a month changes
-₹/sqft by a different amount per listing (₹1,000 at 500 sq ft, ₹100 at
-5,000), so the month's median and MAD of log ₹/sqft move and the relative
-threshold admits or rejects a different set. The two pre-fix M2 violations
-(2023-03, 24 → 22 listings when the band widens) had the same signature.
-**Verdict: data artifact** in the sense of §8.6: the relation is sound for the
-statistics; it fails through an outlier filter whose verdict depends on where
-real listings sit relative to a relative threshold, and on clean synthetic data
-M1 is 0.000.
-
-Of the 14, 13 surface in `median_listing_price_inr` and one in
-`price_valid_count`, because a rejected listing no longer counts as having a
-usable price.
-
-**M1raw, 0.718 (0.542 before alignment)** — unchanged diagnosis (§8.2): the
-band is applied after the shift, so the follow-up selects a different
-population. The rise is not caused by the changed base inputs: on the 63
-inputs common to both sweeps it went from 35 to 44 violating bases. It comes
-with the alignment's rule changes — the range-overlap band, the 30-listing
-coverage threshold and the new lever order — which change the populations
-compared; those were not attributed separately.
-
-**I3 in LLM mode, 0.111 → 0.000 — a genuine agent fault, found and fixed.**
-*Symptom:* `2023-06: price_valid_count 141 -> 283, expected exactly 2x`. All
-23 violating runs (8 base inputs) took the same control path, and in each one
-cycle 2 rejected a different number of listings. Deterministic I3 never
-failed, so the fault is in code only the model path runs: the listing review.
-*Evidence:* capturing the review prompts for `base23`, the source run showed the
-model 10 distinct listings and the duplicated run 8. *Mechanism:*
-`_llm_review_rejections` cut each month's grey zone to its 12 highest-₹/sqft
-rows and only then removed duplicates on displayed content; with every row
-doubled the 12 rows held fewer distinct listings, and a verdict reached only
-the twins inside the cut — hence 283 = 2 × 141 + 1. *Fix:* remove duplicates
-first, cut after, and apply each verdict to every grey-zone row with that
-content (commit `90ceaac`). *Result:* on the re-run I3 8/72 → **0/72**, D2
-20 → 19, every other verdict unchanged. This is also the pre-v2 residual
-(0.176) that §8.5 recorded as localised but not isolated; its pinned failing
-test now passes. **Verdict: genuine agent fault.**
-
-**D1, D2 and M1 in LLM mode — the judge's input changes.** D1 (0.069) and D2
-(0.264) hold deterministically. With the model they fail with the pre-v2
-signature of §§8.3–8.4: same control path, different cycle-2 rejected count
-(15 of 15 and 49 of 55 violating runs). Shifting the window changes which
-months the review covers and the critique's twelve-row table; scaling prices
-changes every price the review shows. M1 (0.375) contains all 14 deterministic
-violations plus 13 where adding ₹5 lakh changes the prices the model judges.
-**Verdict: ill-conceived for an LLM-judged pipeline**, as pre-v2, at lower
-rates (pre-v2 0.667 and 0.593, per run).
-
-**The narrative fallbacks.** The first v2 LLM run had a fallback rate near 0.2,
-against 0.0874 pre-v2. `scripts/llm_fallback_breakdown.py` split it by agent
-from the reply cache: critique 140 of 140 replies used, listing review 79 of
-87, narrative 14 of 72. Of the 58 rejected narratives, 49 were the model
-copying the facts block where no price change exists (51 inputs; pre-v2,
-all 136 such leaks also began "Price change … unavailable"), and 9 were the
-radius scope's own figures (`within 6 km of 17.440, 78.348`), which the
-faithfulness guard rejected as invented. The guard now accepts figures that
-appear in the scope, and the model is not asked for a narrative when there is
-no change: a dedicated no-trend prompt still failed on 5 of 6 locality inputs.
-`provenance.narrative_source` records which text was used. No relation
-compares the narrative, so no verdict depended on it.
-
-### 8.0.1 Pre-v2 findings
-
-The rest of §8 diagnoses the pre-v2 sweeps of §7.3.
-
-### 8.1 One measurement bounds what the model can break
-
-The determinism probe returned **20/20 identical replies** at temperature 0
-with a fixed seed. So for a model agent, *identical prompt ⟹ identical
-judgment*. Whether a relation can survive the LLM therefore reduces to a
-question with a yes/no answer: **does the transformation change any prompt that
-influences which listings are selected?**
-
-Measured directly, with no inference, over the whole catalogue
-(`scripts/prompt_sensitivity.py`, all 36 base inputs):
-
-| MR | selection prompts differ | review | critique | LLM post-fix rate |
-|----|--------------------------|--------|----------|-------------------|
-| I1 reorder | **0 / 36** | 0 | 0 | **0.000** |
-| I4 relabel | **0 / 36** | 0 | 0 | **0.000** |
-| M3 subset | **0 / 36** | 0 | 0 | **0.000** |
-| I2 units | 2 / 36 | 0 | 4 | **0.000** |
-| I5 crore | 4 / 36 | 0 | 4 | **0.000** |
-| I3 duplicate | 19 / 36 | 27 | 0 | 0.176 |
-| M2 widen band | 36 / 36 | 88 | 72 | 0.111 |
-| M1 add ₹X | 36 / 36 | 37 | 72 | 0.333 |
-| D2 scale prices | 36 / 36 | 107 | 72 | 0.593 |
-| D1 window shift | 36 / 36 | 76 | 72 | 0.667 |
-| M1raw | 36 / 36 | 29 | 72 | 0.806 |
-
-**The implication runs one way, and only the deductive direction is sound.**
-Prompt invariance is *sufficient* for the relation to hold: I1, I4 and M3
-perturb no selection prompt on any of the 36 inputs, and all three sit at
-0.000. That is not a statistical finding but a proof — given the determinism
-probe, an identical prompt cannot yield a different judgment, so the relation
-*cannot* break through the model.
-
-**The converse is false**, and reading it as a biconditional is the error an
-earlier draft of this report made (AI_USE.md §3.12). I2 and I5 perturb a
-selection prompt on 2 and 4 inputs respectively and still hold at 0.000: a
-perturbed prompt only *enables* a violation, it does not cause one, because the
-perturbation still has to change a judgment that changes which listings are
-counted. The same asymmetry holds within a single relation — §8.5 reports it
-per-cell for I3, where 0 of 51 identical-prompt cells violated but only 19 of
-57 differing-prompt cells did. Nor is the relationship monotone: M2 perturbs
-every input yet scores 0.111, below I3's 0.176 on 19.
-
-The measurement is therefore a **bound**, not an explanation. It partitions the
-catalogue into relations the model provably cannot break and relations it
-*might*, and the rest of §8 does the work of finding out which of the latter it
-actually did.
-
-It also splits the violations into two kinds, which is what the rest of §8 is
-about:
-
-- **prompts differ because the prompt leaked information the judgment is not
-  about** — identity, display units, duplicate rows. These are **faults**, and
-  fixing them moved I4, I2 and I1 into the top block (§8.5).
-- **prompts differ because the transformation genuinely changed what the
-  judgment is about** — the prices, the window, the listing set. These are
-  **unsound relations** for this architecture (§§8.3–8.4), and no prompt
-  hygiene can repair them.
-
-### 8.2 M1raw, 0.806 — an ill-conceived relation, by design
-
-`M1raw` adds ₹500,000 to one month's prices while leaving the price-band
-criterion in place. **Evidence with no agents involved** — computing medians
-directly on the frame:
-
-| base input | band (₹ lakh) | n | before | after | moved |
-|------------|---------------|---|--------|-------|-------|
-| base00 | 40–150 | 2 | 14,377,250 | 14,500,000 | **+122,750** |
-| base01 | 80–400 | 15 | 18,000,000 | 16,877,250 | **−1,122,750** |
-| base09 | 40–150 | 15 | 8,253,000 | 8,051,500 | **−201,500** |
-
-On `base01` the median **fell by ₹1.12M** after every price rose by ₹500k. No
-agent participates, so the cause is neither an agent fault nor a harness bug:
-the band is applied *after* the shift, so the follow-up selects a different
-population. One crossing listing dominates, because these sliced months hold
-1–15 listings.
-
-**The control that confirms it.** D2 scales all prices and holds at 0.000
-*deterministically* — same class of transformation, and it holds for exactly
-one reason: D2 scales the band alongside the data.
-
-**Verdict: ill-conceived MR.** Retained deliberately at 0.806 as the documented
-counter-example; the refined form (M1, declared on the band-free projection)
-replaces it. Its rate is near-identical in all three configurations, which is
-what a genuinely unsound relation should look like.
-
-### 8.3 D1, 0.667 — an unsound relation for an LLM-judged pipeline
-
-**Symptom.** All 72 violations are of one form:
-
-```
-2022-09: count 22 != 23 across the shifted window
-```
-
-The eleven overlapping months should match between a window and the same window
-shifted one month. They differ by one or two listings.
-
-**Mechanism.** D1 replaces one month of the window with another, so the
-Critique agent's twelve-row median table is a *different table*
-(§8.1: 12 of 6 critique prompts differ) and the Analysis review sees a
-different listing set (15 of 6). The model therefore flags a different set of
-months, different listings are rejected, and the overlap moves.
-
-**Why this is not a prompt-hygiene fault.** The information that changes is the
-information the judgment is *about*. A critique agent asked "which months look
-anomalous relative to their neighbours" must see the months; a window shift
-changes the neighbours. Withholding the window would not make the judgment
-better-posed, it would make it impossible.
-
-**Confirmed by configuration, not by sampling.** D1 holds at **0.000
-deterministically** and at **0.222** with the pre-fix prompts, rising to 0.667
-once counts were withheld from the critique (§8.7). All three rates come from
-the same relation on the same data; only what the judge reads changed.
-
-**Verdict: ill-conceived MR for this architecture.** The relation is sound for a
-pipeline whose selection is independent of the aggregate, which the
-deterministic configuration is and the LLM configuration is not. Stating it
-without that condition was our error, not the system's.
-
-### 8.4 D2, 0.593 — the same cause, and the cleanest demonstration of it
-
-**Symptom.** 57 of 60 violations read:
-
-```
-2023-04: median psf 7,364 did not scale by 1.5 (got 7,361)
-```
-
-Medians scale by *almost* exactly k.
-
-**Mechanism.** Scaling every price by 1.5 changes every price and every ₹/sqft
-the review prompt displays — the largest prompt perturbation of any relation
-(18 of 6 review prompts differ, §8.1). The model's judgment about whether a
-listing's description corroborates its price legitimately changes when the
-price changes, so a different set is rejected and the median scales by k only
-up to that difference.
-
-**This relation is the control for the whole of §8.1.** D2 was *predicted* to
-remain violated after the prompt fixes, before the second sweep was run,
-precisely because its prompt difference is irreducible. It came back 0.556 →
-0.593 while I4 collapsed 0.630 → 0.000. A diagnosis that correctly predicts
-which violations will *persist* is stronger evidence than one that only
-explains those that disappear.
-
-**Verdict: ill-conceived MR for this architecture**, same category as D1.
-Deterministically D2 holds at 0.000, so the relation is sound; it is the
-combination of an exact-arithmetic claim with a judge that reads prices that is
-not.
-
-### 8.5 I4, I3, I2, I1 — genuine agent faults, now fixed
-
-These were the most-violated relations before the fixes, and all four causes
-were leaks of information the judgment is not about:
-
-| Cause | Affects | Pre | Post |
-|-------|---------|-----|------|
-| **listing IDs printed in the review prompt** | I4, I3 | 0.630 | **0.000** |
-| **critique table rendered in display units** | I2 | 0.028 | **0.000** |
-| **top-N taken from a duplicated set** (returns N/2 distinct listings twice) | I3 | 0.417 | 0.176 |
-| **tie-ordering on a subset of displayed fields** | I1 | 0.000 *(by luck)* | 0.000 |
-
-An identifier carries no information about whether a description corroborates a
-price; a judgment about whether a month is anomalous must not depend on the
-units it is shown in. **Verdict: genuine agent faults**, fixed by the four
-prompt-hygiene constraints of §4.6.
-
-**The fourth is the most instructive.** I1 scored 0.000 across 108 runs, but a
-prompt-invariance test showed the review ordering sorted on a *subset* of the
-displayed fields, so listings tied on (psf, price, area) kept their input order
-and reordering the rows *did* change the prompt. No tie happened to flip in
-those 108 runs. **108 passing runs is not the same as the property holding.**
-
-**I3's residual 0.176 is localised, and prompt perturbation is necessary but
-not sufficient.** Comparing the selection prompts across all 36 base inputs
-under all three seeds (108 cells, no inference required) gives:
-
-| | not violated | violated |
-|-------------------|-------------:|---------:|
-| prompt identical  | 51 | **0** |
-| prompt differs    | 38 | 19 |
-
-The implication runs one way only. An identical prompt provably *cannot* break
-the relation — identical prompt plus temperature-0 decoding implies an
-identical judgment, per the 20/20 determinism probe of §4.4 — and indeed none
-of those 51 cells violated. A differing prompt breaks it in 19 of 57 cases
-(33%), so the perturbation is a necessary condition, not the whole mechanism.
-11 of 36 base inputs violated at least once: four on all three seeds
-(base22/23/30/31) and seven on one of three (base11/17/24/27/32/33/35). The
-review batch comes out with fewer listings on the doubled frame, but *which*
-perturbations bite is not isolated. Recorded as an open defect with a pinned
-failing test rather than papered over. **Since isolated (v2, §8.0):** the batch
-was cut to 12 rows before duplicates were removed; fixed, I3 is 0/72 in the v2
-LLM sweep and the pinned test passes.
-
-### 8.6 The deterministic faults, and M1's data artifact
-
-Before any model was involved, two relations were violated on **all 108 runs**:
-`I4 count series differ` and `I3 count 9 -> 15, expected exactly 2x`.
-
-**Mechanism.** Retrieval shards by `sha256(seed:listing_id)`, and the targeted
-recomputation computed its MAD outlier threshold **per `(shard, month)` group**
-rather than per month — making it a property of how a month was split across
-workers.
-
-**Evidence, one variable at a time** (12 inputs × 2 seeds):
-
-| MR | group = `shard+month` | cycle 2 off | group = `month` |
-|----|----------------------|-------------|-----------------|
-| I3 | **1.000** | 0.000 | 0.000 |
-| I4 | **1.000** | 0.000 | 0.000 |
-| M2 | 0.042 | 0.000 | 0.000 |
-
-**Independent corroboration:** varying only the agent count, `shard+month`
-returns **185 listings at 8 agents** against **184** at 1, 2 and 4; per-month
-grouping returns 184 at every count. Worker count is not a property of the
-housing market. **Verdict: genuine agent fault**, fixed; regression test added.
-
-**Replicated under v2** (`python scripts/diagnose.py`, `results/v2_diagnosis/`,
-12 inputs × 2 seeds): re-enabling the old grouping gives I3 **0.750** and I4
-**0.667**, and both are 0.000 with per-month grouping or with cycle 2 off. On the
-deepest input the listing total is **60, 58, 59, 61** at 1, 2, 4 and 8 agents
-under the old grouping and **60 at every count** under the fix — a sharper
-version of the pre-v2 evidence.
-
-**M1's deterministic residual, 0.139 — a data artifact.** On the five affected
-inputs, **15/15 violations with cycle 2 enabled, 0/15 disabled**; and on the
-synthetic snapshot M1 = 0.000. Adding a constant to *price* is not a constant
-shift in *price per sqft* — Δ/area differs per listing (₹1,000 for 500 sqft,
-₹100 for 5,000) — so the psf distribution changes shape and the outlier filter
-reaches a different verdict. Whether it does depends on how close real listings
-sit to the threshold, which is why clean synthetic data shows none.
-
-### 8.7 The adaptive loop, and the trade-off we chose
-
-**Found only by the synthetic control.** Three relations that hold on real data
-are violated on synthetic data: `M3 locality subset gave MORE listings
-(85 -> 331)`, `M2 widened band gave fewer (136 -> 67)`, `I3 85 -> 98`. With
-cycle 1 disabled all three go to **0/24**; conditioning on the
-relaxation-stable subdomain removes every violation (I3 0.167→0.000,
-M2 0.056→0.000, M3 0.278→0.000). Coverage depends on listing counts, so a
-transformation that changes counts changes how many relaxation rounds fire —
-and the population for the whole window.
-
-**Why the real snapshot hid it:** there, coverage is so far below target that
-cycle 1 exhausts its levers in every run, so both executions relax identically.
-A relation that *passes* on real data only because the real data is degenerate
-is exactly the failure mode a control exists to catch.
-
-**The trade-off.** Withholding counts from the critique closed I3's
-count-doubling fault and made two others worse: **D1 0.222 → 0.667** and
-**M1 0.222 → 0.333**, because the model then judges purely on the median series
-and those are the relations that perturb medians. Stated generally:
-
-> An LLM judge that reads the output statistics, and whose verdict changes which
-> data is selected, creates a feedback path through those same statistics. What
-> the model is shown determines *which* relations break — not *whether* they
-> break.
-
-We ship the configuration with **19 invariance violations rather than 116**,
-accepting 136 directional ones, because invariance relations must hold
-unconditionally — "renaming a listing must not change the trend" admits no
-excuse — whereas D1 and D2 perturb data the judgment is legitimately about. We
-stopped tuning there: removing the critique from the selection path would
-likely score better, but that is fitting the system to pass its own tests.
-
-### 8.8 A harness bug, in our own instrumentation
-
-The first control-path comparison used the planner's human-readable relaxation
-notes, which embed criteria values. Comparing those across two runs reports a
-difference whenever the inputs differ, so **all 108 M3 runs were recorded as
-path divergences** and M3's stable subdomain came out empty. Caught by noticing
-that an empty subdomain was implausible; fixed by recording a canonical lever
-sequence. It changed no violation rate — only the conditioning — but it is the
-clearest reminder that a metamorphic suite needs the same scepticism as the
-code it tests.
-
-### 8.9 Summary of attributions
-
-| Finding | Rate | Cause | Category |
-|---------|------|-------|----------|
-| **M3** (v2) | **0.250 → 0.000** | geography widening around a shared centre broke set inclusion | **genuine agent fault**, fixed |
-| **M1** (v2) | **0.194** | relative outlier threshold moves under a price shift | **data artifact** |
-| **I3** (v2 LLM) | **0.111 → 0.000** | review batch cut before duplicates were removed | **genuine agent fault**, fixed |
-| D1, D2, M1 (v2 LLM) | 0.069, 0.264, 0.375 | the transformation changes what the model judges | **ill-conceived MR for this architecture** |
-| narrative (v2 LLM) | 58 / 72 rejected | model echoed the facts when there was no trend; the guard rejected supplied scope figures | model limitation and **genuine agent fault**, both fixed (no verdict affected) |
-| **M1raw** (v2) | **0.718** | band applied after the shift changes the population | **ill-conceived MR** |
-| M3 (pre-v2) | 0.000 | could not fail: widening collapsed every run to the whole metro | **harness/design blind spot** |
-| **M1raw** | **0.806** | band applied after the shift changes the population | **ill-conceived MR** |
-| **D1** | **0.667** | window shift changes the judge's own input | **ill-conceived MR for this architecture** |
-| **D2** | **0.593** | price scaling changes the judge's own input | **ill-conceived MR for this architecture** |
-| I4, I3, I2, I1 (LLM) | 0.630 → 0.000 etc. | prompts leaked identity, units, duplicates, order | **genuine agent faults** |
-| I4, I3 (deterministic) | 1.000 | threshold per `(shard, month)` | **genuine agent fault** |
-| M1 residual | 0.139 | real listings near the outlier boundary | **data artifact** |
-| M2 (deterministic) | 0.019 | flagged set grows across rounds; MAD not idempotent | **genuine agent fault** |
-| I3/M2/M3 (synthetic) | 0.167–0.278 | cycle-1 relaxation path diverges with input size | **design tension** |
-| control-path reporting | — | signature compared message text | **harness bug** |
-
-All four of the brief's categories are represented. The pre-v2 rows are
-quoted per run. Of the thirteen findings, four are faults in the agents and one
-a design tension in them; four concern the *relations*, two the data, and two
-our own *instrumentation* (including a relation that passed only because it
-could not fail).
+The three most-violated relations of the final system — the LLM sweep — are
+**M1raw (0.746)**, **M1 (0.375)** and **D2 (0.264)**. Each is attributed below
+to one of the brief's four causes; §8.4 lists the faults the other relations
+found. The full experiment log, including every pre-v2 diagnosis, is
+`docs/DIAGNOSIS.md`.
+
+### 8.1 M1raw, 0.746 — an ill-conceived relation
+
+**Symptom.** 53 of 71 inputs; typically `median_listing_price_inr moved
+750,000.00, expected 500,000.00`, and in 24 runs a month's `listing_count`
+itself changed.
+
+**Evidence with no agents involved.** Applying the criteria directly to the
+frame, before and after adding ₹500,000 to the shifted month:
+
+| Input | Band (₹ lakh) | Listings before → after | Median before | after | Moved |
+|---|---|---|---:|---:|---:|
+| base00 | 40–150 | 2 → 1 | 14,377,250 | 14,500,000 | **+122,750** |
+| base01 | 80–400 | 15 → 16 | 18,000,000 | 16,877,250 | **−1,122,750** |
+| base09 | 40–150 | 15 → 14 | 8,253,000 | 8,051,500 | **−201,500** |
+| base05 | 50–200 | 11 → 11 | 14,000,000 | 14,500,000 | +500,000 |
+
+On `base01` the median **fell by ₹1.12 million** after every price in the month
+rose by ₹500,000. The band is applied after the shift, so listings cross its
+edges and the follow-up selects a different population; where no listing
+crosses (`base05`) the relation holds exactly. No agent takes part, so this is
+neither an agent fault nor a harness bug.
+
+**Control.** D2 also transforms every price and holds at 0.000
+deterministically, for one reason: it scales the band with the data.
+
+**Verdict: ill-conceived MR.** Kept deliberately as the counter-example; M1,
+declared on the band-free projection, replaces it. Its rate barely moves
+between the deterministic (0.718) and LLM (0.746) sweeps, as an unsound
+relation's should.
+
+### 8.2 M1, 0.375 — two causes, measured separately
+
+**Symptom.** 27 of 72 inputs, e.g. `2023-03: median_listing_price_inr moved
+750,000.00, expected 500,000.00`. The shift is applied to both price bounds,
+no band is in play, and every violating run took the same control path.
+
+**Cause 1 — the outlier filter is not shift-invariant (14 inputs, a data
+artifact).** The deterministic sweep fails on 14 inputs, and the LLM sweep on
+all 14 of them. In every one of those violations cycle 2 rejected a different
+number of listings in the follow-up run; no input failed with the rejected
+count unchanged. Adding ₹500,000 to price changes ₹/sqft by a different amount
+per listing (₹1,000 at 500 sq ft, ₹100 at 5,000 sq ft), so the month's median
+and MAD of log ₹/sqft move and the relative threshold admits a different set.
+Two controls confirm it: with cycle 2 disabled M1 does not fail (0 of 15 runs
+pre-v2, the same inputs failing 15 of 15 with it on), and on the synthetic
+snapshot, whose listings sit away from the threshold, M1 is 0.000. The
+relation is sound for the statistics; it fails through where real listings sit
+relative to a relative threshold. **Verdict: data artifact.**
+
+**Cause 2 — the model judges different prices (13 inputs).** The other 13
+inputs fail only with the model on; in 25 of their 31 violating runs the
+rejected count changed. The listing review shows the model each listing's price
+and ₹/sqft, so a shifted month is a different question and the model can
+answer it differently. This is D2's mechanism (§8.3). **Verdict: ill-conceived
+for an LLM-judged pipeline.**
+
+### 8.3 D2, 0.264 — the model is shown different prices
+
+**Symptom.** 19 of 72 inputs, e.g. `2023-03: median psf 10000.0 did not scale
+by 1.5 (got 14267.1)` — almost, but not exactly, ×1.5.
+
+**Evidence.** D2 holds on all 72 inputs deterministically, so the statistics
+are scale-equivariant and the relation is sound for them. With the model, every
+violating run kept the same control path, and in 49 of 55 the number of rejected
+listings changed. Because the model is deterministic (§4.4), an unchanged
+prompt cannot produce a changed judgment; a prompt-sensitivity measurement on
+the pre-v2 system (`scripts/prompt_sensitivity.py`) found that D2 changes the
+review prompt on **every** input — more review prompts than any other relation
+— because every displayed price and ₹/sqft is multiplied by 1.5. Whether a
+description corroborates a price is a judgment *about* the price, so the
+model's verdict legitimately changes, a different set is rejected, and the
+median scales by k only up to that difference.
+
+**Prediction, then confirmation.** Before the pre-v2 prompt fixes, D2 was
+predicted to stay violated because its prompt difference is irreducible, while
+the identity leak behind I4 was predicted to vanish. Afterwards I4 fell from
+0.630 to 0.000 while D2 stayed violated, 0.556 → 0.593 (per run). D1 (0.069 in v2) has the same
+cause: shifting the window changes which months the review covers and the
+twelve-row table the critique reads.
+
+**Verdict: ill-conceived MR for this architecture.** The relation holds for a
+pipeline whose selection does not depend on what an LLM judge is shown; this
+one deliberately lets the judge change which listings are counted. Stated
+generally: *a judge whose verdict changes the data selected creates a feedback
+path, and what it is shown decides which relations break.* We kept that design
+because invariance relations — renaming or duplicating a listing must not
+change the trend — admit no exception, while D1, D2 and M1 change data the
+judgment is legitimately about.
+
+### 8.4 Other faults the relations found
+
+| Relation | Symptom | Cause, evidence | Category | Status |
+|---|---|---|---|---|
+| **M3** (v2) | 9/36: `2022-12: locality subset gave MORE listings (3 -> 4)` | geography widened around the *selection's* centre, so a subset and its superset widened around different points; on `base03` the subset gained five localities the superset did not | **genuine agent fault** | fixed: each locality widens around itself, skipping selected ones, which provably keeps widen(A) ⊆ widen(B); M3 0/36, M2 2/72 → 0/72 |
+| **I3** (v2 LLM) | 8/72: `price_valid_count 141 -> 283, expected exactly 2x` | the review cut each month's grey zone to its 12 highest-₹/sqft rows **before** removing duplicates; on `base23` the model saw 10 distinct listings in the source run and 8 after duplication, and a verdict reached only the twins inside the cut (283 = 2 × 141 + 1) | **genuine agent fault** | fixed and re-run on Kaggle: I3 0/72, D2 20 → 19, nothing else changed; it also closes the pre-v2 residual (0.176) |
+| narrative (v2 LLM) | 58 of 72 model summaries rejected | with no price change the model copied the facts block (49); the faithfulness guard rejected the radius it had been given (9) | model limitation; **genuine agent fault** | guard fixed; no model summary without a change. No relation compares the narrative |
+| **I3, I4** (pre-v2) | 108/108 runs | outlier threshold computed per *(worker, month)*: 184 listings at 1–4 agents, 185 at 8 | **genuine agent fault** | fixed; replicated on v2 (`results/v2_diagnosis/`) |
+| **I4, I3, I2, I1** (pre-v2 LLM) | I4 0.630, I3 0.417, I2 0.028 | prompts carried listing IDs, display units, duplicated rows and an incomplete sort order | **genuine agent faults** | fixed by four prompt-hygiene rules |
+| **M3** (pre-v2) | 0.000 | could not fail: geography widening sent every run to the whole metro | **harness/design blind spot** | became testable, then found the fault above |
+| control-path report | M3's stable subdomain empty | signature compared human-readable notes containing criteria values | **harness bug** | fixed |
+
+All four of the brief's categories occur. Two of the findings concern our own
+instrumentation, which is the reason every relation's rate is reported with the
+rejected counts and control paths that explain it.
 
 ## 9. Threats to validity
 
-**The headline figure is not robust, and this is the dominant limitation.**
-The trend is measured from the first *sufficient* month, the early months hold
-21–35 listings, and their medians are sampling noise — so the sufficiency
-threshold effectively *selects* the answer:
+**The headline depends on the sufficiency threshold.** The year-on-year move
+runs from the first sufficient month, early months hold 21–35 listings, and
+their medians are noise. Whole metro, statistics only
+(`scripts/threshold_sensitivity.py`):
 
-| n ≥ | sufficient months | first sufficient | headline (v2) | pre-v2 |
-|-----|-------------------|------------------|---------------|--------|
-| 10–25 | 12 | 2022-09 | **+87.18%** | +87.18% |
-| 30 | 7 | 2022-10 | +18.35% | +18.35% |
-| **40–60** | **6** | **2023-03** | **−6.41%** | −6.41% |
-| 75–150 | 5 | 2023-04 | **+8.32%** | +7.08% |
-| 200–300 | 4 | 2023-05 | +3.87% | +3.87% |
+| n ≥ | sufficient months | first | headline |
+|-----|-------------------|-------|----------|
+| 10–25 | 12 | 2022-09 | +87.18% |
+| 30 | 7 | 2022-10 | +18.35% |
+| **40–60** | **6** | **2023-03** | **−6.41%** |
+| 75–150 | 5 | 2023-04 | +8.32% |
+| 200–300 | 4 | 2023-05 | +3.87% |
 
-**Spread: 93.6 percentage points, and the sign flips.** Rebuilt by
-`python scripts/threshold_sensitivity.py` (whole metro, statistics only, no
-agents) into `results/v2_sensitivity/`. The pre-v2 table was committed without
-the script that produced it; the script reproduces it exactly from the pre-v2
-code. Only the n ≥ 75 row moved under v2 (+7.08% → +8.32%). With cycle 2
-active, the dashboard's whole-metro figure is −7.74%.
+A 93.6-point spread, and the sign flips. **External cross-check:** NHB RESIDEX
+(*Press Release July–September 2023*, HPI at market price, based on asking
+prices) reports Hyderabad at **+6.8%**. At n ≥ 75 our snapshot gives +8.32%,
+the same sign and within 1.5 points; at the contract's n ≥ 50 it gives −6.41%,
+the **wrong sign**. We report −6.41% because that is what the contract fixed in
+advance — changing the threshold after seeing the index would fit the contract
+to the answer — and state that n ≥ 50 was a poor choice. It is one overlapping
+data point, not a series (`results/residex/cross_check.md`).
 
-### 9.1 The external cross-check: the n ≥ 50 headline has the wrong sign
+**Other threats.**
 
-NHB RESIDEX, *Press Release July–September 2023*, reports **Hyderabad at
-+6.8%** year-on-year. That series — HPI @ Market Price — is described in the
-same release as "based on **Asking Price** of Unsold & under-construction
-properties", so it measures the same kind of quantity we do and the comparison
-is methodologically matched rather than approximate.
-
-| Source | Hyderabad, annual change |
-|--------|--------------------------|
-| **NHB RESIDEX, HPI @ Market Price** | **+6.8%** |
-| our snapshot, n ≥ 75 (v2) | **+8.32%** |
-| our snapshot, n ≥ 75 (pre-v2) | +7.08% |
-| **our snapshot, n ≥ 50 (the contract)** | **−6.41%** |
-
-At n ≥ 75 our data agrees with the official index in sign and to within
-**1.5 points** (0.3 points pre-v2). The n ≥ 50 figure the contract produces is
-the outlier, and it has the **wrong sign**. The conclusion therefore survives
-the merge in a weaker form: **the threshold, not the data, decides the sign of
-the headline**, and the n ≥ 50 choice gives the wrong one. The close pre-v2
-agreement was fragile: excluding the four "Price on Request" placeholder
-prices moves the n ≥ 75 figure by 0.10 points and deriving months in IST by
-0.20, but the two together move it by 1.24 (+7.08% → +8.32%), a change from a
-handful of listings out of 4,574. One overlapping data point cannot validate a
-method to a fraction of a point.
-
-An earlier draft also cited "+6.24% on a 3 km IT-corridor radius slice". No
-script records that slice's centre, and the plausible centres give −3% to −9%
-from the statistics alone, so the figure cannot be reproduced and is withdrawn.
-
-We report −6.41% because it is what the §3 contract produces; changing the
-threshold after seeing the external figure would be fitting the contract to the
-answer. The honest statement is that **n ≥ 50 was chosen badly** and a revision
-would use 75. Evidence and retained PDF: `results/residex/cross_check.md`. One
-overlapping annual data point, not a series — two earlier quarterly releases
-returned empty.
-
-### 9.2 Other threats
-
-**Single-point scrape, asking prices.** Older months hold only listings still
-live on 26 August 2023, so the series is survivorship-biased in a direction we
-cannot measure. `POSTING_DATE` is a posting timestamp and `MIN_PRICE` an asking
-price — stickier and more optimistic than sale prices.
-
-**A provenance trap.** The dataset's slug is
-`gurgaon-real-estate-99acres-com`, but its title is "Indian Real Estate –
-99acres.com" and it covers Gurgaon, Hyderabad, Mumbai and Kolkata. The dataset
-the brief recommends for this route (`arnabk123/…`) covers Gurgaon only and
-does *not* contain the Hyderabad file. Reasoning from the slug led us briefly
-to the wrong conclusion; reading both pages corrected it. Origin and licence
-verified.
-
-**PIN codes are unavailable.** The brief suggests filtering by locality *and*
-PIN code. The dataset has no PIN/ZIP/postal column, and the six-digit strings
-in its free text are latitude fragments. Locality — the brief's own example —
-is the convention used, with radius/geo as the alternative.
-
-**Two generations of LLM results.** §§8.1–8.5 diagnose the pre-v2 model
-sweeps (4,578 listings, UTC months, the old geography widening, per-run
-intervals); their rates are not comparable with v2. The v2 LLM sweep (§7.1.1)
-reproduces their causes — judges whose input the transformation changes — at
-lower rates, and found one more fault (§8.0). It ran on a Kaggle T4 and
-replays exactly from its cached replies; a fresh run on other hardware may get
-slightly different replies even at temperature 0.
-
-**The LLM path is weaker than its presence suggests** (pre-v2). Fallback rate
-**0.0874** over 14,209 calls — roughly 1 in 11 produced nothing usable — and
-the Aggregator's summary was rejected by the faithfulness guard on **35% of
-runs**. So three agents use the model and the fourth is overridden about a
-third of the time. In v2 the fallback rate is 0.0383 over 17,164 requests,
-and the summary comes from the model only when there is a price change.
-
-**The model was not pinned by digest.** The pre-v2 sweeps recorded
-`d7f5d340f8953384` as the "model digest"; it is a hash of the model *name*, so
-a re-pull of the same tag with different weights would not be detected. The
-code now records the weights digest Ollama reports, or "unavailable"; the v2
-LLM sweep records `357c53fb…`.
-
-**Narrow queries now end below the coverage target.** Keeping the locality
-constraint means cycle 1 often exhausts its levers before reaching 0.5
-coverage (no locality base input reaches it), so many reported moves span only
-2–3 sufficient months. The report says so; it no longer answers a whole-metro
-question instead.
-
-**Relations are stated over projections in three places** (M1's band-free
-projection, I5's lakh projection, M2/M3/M4's relaxation-stable subdomain). "M1
-holds" means "M1 holds where no price band is in play"; excluded-case
-frequencies are reported, not hidden.
-
-**The pre-v2 I3 defect is closed.** Localised to 11 of 36 inputs and pinned by
-a failing test, it was isolated in the v2 LLM sweep and fixed (§8.0).
-
-**The synthetic snapshot is our own construction** — it validates the
-statistics and the harness, not the realism of the market model. It has no
-coordinates, so it cannot exercise radius search or geography widening.
-
-**Different machines for different sweeps.** The v2 sweeps ran on Windows; the
-pre-v2 deterministic sweep on another team member's machine and the model
-sweeps on Kaggle. Files are now written with fixed line endings so results and
-checksums are byte-identical across platforms (a Windows checkout had silently
-broken the snapshot checksum), but no sweep was repeated on a second machine.
-
-**The diagnosis rests on our own instrumentation**, which was wrong twice
-(§8.8, and M3 passing only because it could not fail, §8.0); errors of the same
-kind would be equally invisible to us.
-
----
+- **Single-point scrape, asking prices.** Older months hold only listings still
+  live in August 2023 (survivorship), and the prices are asking prices.
+- **Narrow queries end below the coverage target.** Keeping the locality
+  constraint means no locality base input reaches 0.5 coverage, so many moves
+  span two or three sufficient months; the report states it.
+- **Relations stated over projections.** M1's band-free projection, I5's lakh
+  projection and M2–M4's stable subdomain are reported with how often each
+  excluded case occurs.
+- **The LLM sweep ran on one machine.** It replays exactly from its cached
+  replies, but a fresh run on other hardware may get slightly different replies
+  even at temperature 0. The pre-v2 LLM sweeps used another population and
+  per-run intervals; their rates are not compared with v2.
+- **The model's role is limited by design.** It judges grey-zone listings and
+  months and writes some summaries; 3.8% of its requests ended in the
+  deterministic rule because the reply was unusable.
+- **No PIN codes.** The dataset has no postal column; locality and radius are
+  the geographic filters.
+- **The synthetic snapshot is our own construction** and has no coordinates, so
+  it cannot exercise radius search or geography widening.
+- **The diagnosis rests on our own instrumentation**, which was wrong twice
+  (§8.4); errors of the same kind would be equally hard for us to see.
 
 ## 10. Reflection
 
 The brief asks which aspects an LLM could have produced without running the
 system.
 
-**Producible from the text alone: the shape of nearly everything.** The brief
-supplies eight example relations; extending them to twelve across three
-families is routine. The architecture — planner, retriever, auditor, analyser,
-critic, reporter, with a feedback edge and a conditional stop — is a design
-pattern, and a competent model will produce it with a plausible justification
-for why the loops are not decorative. The protocol is standard. Most of §§1–6
-is of that character. A model could also write confident root-cause narratives
-for a results table, which is precisely the danger.
+**Producible from the text alone: the shape of nearly everything.** Extending
+the brief's eight example relations to twelve is routine. The architecture —
+planner, parallel retrievers, coverage check, analyser, critic, reporter, a
+feedback edge and a conditional retry — is a known pattern, and a model will
+justify why its loops are not decorative. The statistical protocol is
+standard. A model could also write a confident root-cause story for any results
+table, which is exactly the danger.
 
 **Requiring execution: every number, and every surprise.** No reading reveals
-that `MIN_AREA_SQFT` holds square metres — that came from finding the ratio
-pinned at 10.7639 across *both* tails, a result whose shape is what makes it
-conclusive. Nor does reading reveal that our own two cycles were dead: the code
-compiled, the tests passed, the output was plausible, and the loops were
-unreachable because LangGraph discards updates to undeclared state keys. We
-found it by reading a trace and seeing the auditor say `ITERATE` while nothing
-iterated. Likewise the per-worker threshold, visible only as 185 listings at
-eight workers against 184 at four; M1's band crossing, as a median falling
-₹1,122,750 under a uniform increase; the prompt contamination, as three
-invariance relations collapsing from 0.000 to 0.630.
+that `MIN_AREA_SQFT` holds square metres; that came from a ratio pinned at
+10.7639 across both tails. Nor that our own cycles were once dead — the code
+compiled, the tests passed, and LangGraph silently discarded updates to
+undeclared state keys, visible only in a trace where the coverage agent said
+retry and nothing retried. The per-worker threshold showed up as 185 listings
+at eight workers against 184 at four; M1raw's flaw as a median *falling*
+₹1,122,750 under a uniform increase; the review fault as 10 distinct listings
+becoming 8 when the data was duplicated; the threshold problem as a sign flip
+against an official index.
 
-**The sharpest version.** We were wrong three times running about why M1 failed,
-and every wrong answer was articulate. We wrote an oracle that failed twice for
-reasons internal to itself. We shipped a relation that passed 108 runs while
-the property it claimed did not hold. We called a correct data citation suspect
-and recommended replacing it with a wrong one. An LLM generates the hypothesis
-space fluently; what it cannot do without execution is determine which element
-is true — which, in a project about testing without an oracle, is the subject
-matter.
-
-**Merging two implementations taught the same lesson again.** Nothing in
-either codebase's text said that a Windows checkout rewrites line endings and
-silently breaks a SHA-256 check; that only showed up when the checksum test ran.
-Nothing said that M3's 0.000 was vacuous; that showed up only when we counted
-how often the geography lever fired (every run). The fix that made M3 testable
-introduced a fault M3 then found, and the first fix for *that* kept inclusion
-but quietly halved the depth a query gained — visible only by printing listing
-counts. A model drafted every one of those changes; running the system is what
-decided which drafts were right.
+**The sharpest version.** We were wrong three times about why M1 failed, and
+every wrong answer was articulate. A relation passed 108 runs while the property
+it claimed did not hold. A fix that made M3 testable introduced a fault M3 then
+found. A model drafted every one of these changes, including the wrong ones;
+running the system is what decided which were right — which, in a project about
+testing without an oracle, is the subject matter. The use of AI throughout is
+recorded in `AI_USE.md`.
 
 ---
 
 ## Appendix — reproducing this report
 
-**One command rebuilds the headline table of §7.1** from the committed per-run
-records, recomputing every rate and interval rather than copying them:
-
-```bash
-python scripts/headline_table.py --v2 --check   # §7.1, and checks it against this report
-python scripts/headline_table.py --v2 --tag v2_llm --check   # §7.1.1 likewise
-python scripts/headline_table.py --check        # §7.3, and checks each rate appears here
-```
-
-Re-running the sweeps from scratch is the stronger check:
-
 ```bash
 pip install -r requirements.txt
-python scripts/run_harness.py --tag v2_deterministic           # §7.1, ~25-50 min
+python scripts/headline_table.py --v2 --check                  # §7.1 from the run records, checked against this report
+python scripts/headline_table.py --v2 --tag v2_llm --check     # §7.2 likewise
+python scripts/replay_llm_sweep.py                             # §7.2 replayed offline, no GPU
+python scripts/run_harness.py --tag v2_deterministic           # §7.1 from scratch, ~20-50 min
 python scripts/run_harness.py --tag v2_synthetic --synthetic   # synthetic control
-python scripts/run_harness.py --tag v2_llm --llm               # needs Ollama + the model
-python scripts/replay_llm_sweep.py                             # §7.1.1 offline, no GPU
-python scripts/diagnose.py                                     # §8.6 replication
+python scripts/run_harness.py --tag v2_llm --llm               # §7.2 from scratch: Ollama + the model
 python scripts/threshold_sensitivity.py                        # §9 table
 python -m pytest                                               # 152 tests
 python scripts/verify_claims.py                                # re-derive the quoted figures
 ```
 
-Contract-v2 result sets: `results/v2_deterministic/`,
-`results/v2_before_note_alignment/`, `results/v2_before_m3fix/`,
-`results/v2_synthetic/`, `results/v2_llm/`,
-`results/v2_llm_before_reviewfix/`, `results/v2_diagnosis/`,
-`results/v2_sensitivity/`. Pre-v2: `results/phaseA_deterministic/`,
-`results/llm_before_promptfix/`, `results/llm/`, `results/synthetic/`,
-`results/diagnosis/`, `results/sensitivity/`. Shipped artifacts: the frozen
-snapshot and its checksum, the recorded seeds `[11, 23, 47]`, and the response
-cache in `data/llm_cache/`, which lets the LLM sweeps replay without a GPU. Contracts for every agent are in `contracts/` (v2.1.0-draft).
+Result sets: `results/v2_deterministic/`, `results/v2_llm/`,
+`results/v2_llm_before_reviewfix/`, `results/v2_before_m3fix/`,
+`results/v2_before_note_alignment/`, `results/v2_synthetic/`,
+`results/v2_diagnosis/`, `results/v2_sensitivity/`; pre-v2 sets and their
+diagnoses are described in `docs/DIAGNOSIS.md`. Shipped with them: the frozen
+snapshot and its checksum, the seeds `[11, 23, 47]`, and the model reply cache
+in `data/llm_cache/`. Contracts for every agent: `contracts/` (v2.1.0-draft).

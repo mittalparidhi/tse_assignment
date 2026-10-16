@@ -64,7 +64,7 @@ before it is kept in `results/v2_before_note_alignment/` (M1 0.167, M1raw
 
 The earlier sweeps (`results/phaseA_deterministic`, `llm_before_promptfix`,
 `llm`; 11 relations × 36 inputs, per-run intervals, the pre-v2 population)
-are kept as the record behind `docs/DIAGNOSIS.md` and `REPORT.md` §7. The
+are kept as the record behind `docs/DIAGNOSIS.md`, which also holds their tables. The
 pre-v2 LLM sweeps are superseded by the v2 LLM sweep below.
 
 Contract-v2 LLM sweep (`results/v2_llm/`, Kaggle T4, `qwen2.5:3b-instruct-q4_K_M`;
@@ -87,7 +87,7 @@ duplicates, so duplicating the data changed what the model saw (I3 0.111 →
 0.000 after the fix; `results/v2_llm_before_reviewfix/`). D1, D2 and M1's
 excess fail because shifting the window or the prices changes what the model
 judges. `python scripts/replay_llm_sweep.py` reproduces it from the committed
-reply cache without a GPU (`REPORT.md` §7.1.1, §8.0).
+reply cache without a GPU (`REPORT.md` §7.2, §8).
 
 ### Other entry points
 

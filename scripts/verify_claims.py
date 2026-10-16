@@ -108,7 +108,7 @@ def main() -> int:
         checks.append((f"{mr} LLM post-fix", round(summary.loc[mr,"violation_rate"],3), q))
 
     # I3's residual: the 2x2 of prompt difference against actual violation,
-    # quoted in REPORT §8.5 and DIAGNOSIS. An earlier draft claimed the
+    # quoted in DIAGNOSIS (formerly REPORT §8.5). An earlier draft claimed the
     # correlation was "exact"; this asserts the real, one-directional shape so
     # the claim cannot drift from the evidence again.
     i3 = Path("results/diagnosis/i3_prompt_vs_violation.csv")
@@ -142,7 +142,7 @@ def main() -> int:
     checks.append(("sensitivity sign flips",
                    bool((sens.headline_pct > 0).any() and (sens.headline_pct < 0).any()), True))
 
-    # The external cross-check, quoted in REPORT §9.1 and DESIGN §5.
+    # The external cross-check, quoted in REPORT §9 and DESIGN §5.
     at75 = sens[sens.min_sufficient_n == 75].headline_pct.iloc[0]
     checks.append(("headline at n>=75 %", round(at75, 2), 7.08))
     residex = Path("results/residex/cross_check.md")

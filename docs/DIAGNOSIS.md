@@ -663,6 +663,352 @@ from the model echoing the facts when there is no trend and from radius
 figures the guard did not count as supplied) were fixed without affecting any
 verdict (`NOTEBOOK.md` Stage 21).
 
+## Pre-v2 results and diagnoses (moved from REPORT.md)
+
+These were REPORT §§7.3–7.4 and §§8.1–8.8 before the report was cut to the
+brief's length (2026-10-16). They are reproduced unchanged; section numbers
+inside them (§7.x, §8.x) refer to these headings, and §4.x to REPORT.md.
+All rates here are pre-v2 and per run. `python scripts/headline_table.py
+--check` verifies the three-configuration table against this file.
+
+#### 7.3 Pre-v2 sweeps: three configurations
+
+Before the merge (4,578 listings, UTC months, whole-metro geography widening,
+eleven relations, 36 base inputs, **intervals per run**). These are the
+evidence for §§8.1–8.8 and are not comparable rate-for-rate with §7.1.
+
+| MR | Family | Transformation | Deterministic | LLM pre-fix | LLM post-fix | 95% CI (post-fix) |
+|----|--------|----------------|---------------|-------------|--------------|-------------------|
+| I1 | inva. | reorder listings | 0.000 | 0.000 | 0.000 | [0.000, 0.034] |
+| I2 | inva. | change display units | 0.000 | 0.028 | 0.000 | [0.000, 0.034] |
+| **I3** | inva. | duplicate every listing (2x) | 0.000 | 0.417 | **0.176** | [0.116, 0.258] |
+| I4 | inva. | relabel listing ids | 0.000 | 0.630 | 0.000 | [0.000, 0.034] |
+| I5 | inva. | convert the display currency from lakh to crore | 0.000 | 0.000 | 0.000 | [0.000, 0.034] |
+| **M1** | mono. | add Rs 500,000 to every price in one month | 0.139 | 0.222 | **0.333** | [0.252, 0.427] |
+| **M2** | mono. | widen the price band (superset) | 0.000 | 0.111 | **0.111** | [0.065, 0.184] |
+| M3 | mono. | restrict to a locality subset | 0.000 | 0.000 | 0.000 | [0.000, 0.034] |
+| **M1raw** | mono. | add Rs 500,000 to one month, band left in place | 0.861 | 0.852 | **0.806** | [0.721, 0.869] |
+| **D1** | dire. | shift the window forward one month | 0.000 | 0.222 | **0.667** | [0.573, 0.748] |
+| **D2** | dire. | scale all prices by k=1.5 | 0.000 | 0.556 | **0.593** | [0.498, 0.681] |
+
+Pre-v2 run metadata:
+
+| | Deterministic | LLM pre-fix | LLM post-fix |
+|---|---|---|---|
+| runs | 1188 | 1188 | 1188 |
+| elapsed (s) | 354.67 | 4137 | 2340 |
+| LLM calls | — | 14,210 | 14,209 |
+| cache hits | — | 10,556 | 12,329 |
+| fallback rate | — | 0.0645 | 0.0874 |
+| C1 path diverged | 0 | 0 | 0 |
+
+Pre-v2 violations by family, excluding the retained counter-example:
+
+| Family | Deterministic | LLM pre-fix | LLM post-fix |
+|---|---|---|---|
+| invariance | 0 | 116 | 19 |
+| monotonic | 15 | 36 | 48 |
+| directional | 0 | 84 | 136 |
+| **total** | **15** | **236** | **203** |
+
+#### 7.4 Reading the pre-v2 tables
+
+**Deterministically, every relation held except M1's residual** — fifteen
+violations in 1,188 checks, all on M1 (§8.6). M3's 0.000 there is not
+evidence: every run had collapsed to the whole metro, so the subset and the
+superset were the same query (§8.0).
+
+**The model broke three invariance relations** (relabelling 0.630, duplication
+0.417, units 0.028), and the determinism probe rules out randomness, so these
+were *systematic*. **The fixes recovered two exactly and one partially** — I4
+and I2 to 0.000, I3 to 0.176, invariance violations **116 → 19** — and **made
+two others worse** (D1 0.222 → 0.667, M1 0.222 → 0.333). Totals fell 236 → 203
+but the distribution shifted from invariance to directional; §8.7 argues the
+choice.
+
+**`M1raw` behaves as designed** at 0.806–0.861 in all three configurations,
+which is what a genuinely unsound relation should look like.
+
+**Control-path divergence was zero in all three pre-v2 sweeps**, but for a
+degenerate reason: cycle 1 exhausted its levers identically in every run. On
+synthetic data it diverged in 99 of 1,188 runs (§8.7); under v2, where the
+locality constraint is kept, it diverges in 27 of 2,592 real-data runs and the
+stable-subdomain column is no longer vacuous.
+
+#### 8.1 One measurement bounds what the model can break
+
+The determinism probe returned **20/20 identical replies** at temperature 0
+with a fixed seed. So for a model agent, *identical prompt ⟹ identical
+judgment*. Whether a relation can survive the LLM therefore reduces to a
+question with a yes/no answer: **does the transformation change any prompt that
+influences which listings are selected?**
+
+Measured directly, with no inference, over the whole catalogue
+(`scripts/prompt_sensitivity.py`, all 36 base inputs):
+
+| MR | selection prompts differ | review | critique | LLM post-fix rate |
+|----|--------------------------|--------|----------|-------------------|
+| I1 reorder | **0 / 36** | 0 | 0 | **0.000** |
+| I4 relabel | **0 / 36** | 0 | 0 | **0.000** |
+| M3 subset | **0 / 36** | 0 | 0 | **0.000** |
+| I2 units | 2 / 36 | 0 | 4 | **0.000** |
+| I5 crore | 4 / 36 | 0 | 4 | **0.000** |
+| I3 duplicate | 19 / 36 | 27 | 0 | 0.176 |
+| M2 widen band | 36 / 36 | 88 | 72 | 0.111 |
+| M1 add ₹X | 36 / 36 | 37 | 72 | 0.333 |
+| D2 scale prices | 36 / 36 | 107 | 72 | 0.593 |
+| D1 window shift | 36 / 36 | 76 | 72 | 0.667 |
+| M1raw | 36 / 36 | 29 | 72 | 0.806 |
+
+**The implication runs one way, and only the deductive direction is sound.**
+Prompt invariance is *sufficient* for the relation to hold: I1, I4 and M3
+perturb no selection prompt on any of the 36 inputs, and all three sit at
+0.000. That is not a statistical finding but a proof — given the determinism
+probe, an identical prompt cannot yield a different judgment, so the relation
+*cannot* break through the model.
+
+**The converse is false**, and reading it as a biconditional is the error an
+earlier draft of this report made (AI_USE.md §3.12). I2 and I5 perturb a
+selection prompt on 2 and 4 inputs respectively and still hold at 0.000: a
+perturbed prompt only *enables* a violation, it does not cause one, because the
+perturbation still has to change a judgment that changes which listings are
+counted. The same asymmetry holds within a single relation — §8.5 reports it
+per-cell for I3, where 0 of 51 identical-prompt cells violated but only 19 of
+57 differing-prompt cells did. Nor is the relationship monotone: M2 perturbs
+every input yet scores 0.111, below I3's 0.176 on 19.
+
+The measurement is therefore a **bound**, not an explanation. It partitions the
+catalogue into relations the model provably cannot break and relations it
+*might*, and the rest of §8 does the work of finding out which of the latter it
+actually did.
+
+It also splits the violations into two kinds, which is what the rest of §8 is
+about:
+
+- **prompts differ because the prompt leaked information the judgment is not
+  about** — identity, display units, duplicate rows. These are **faults**, and
+  fixing them moved I4, I2 and I1 into the top block (§8.5).
+- **prompts differ because the transformation genuinely changed what the
+  judgment is about** — the prices, the window, the listing set. These are
+  **unsound relations** for this architecture (§§8.3–8.4), and no prompt
+  hygiene can repair them.
+
+#### 8.2 M1raw, 0.806 — an ill-conceived relation, by design
+
+`M1raw` adds ₹500,000 to one month's prices while leaving the price-band
+criterion in place. **Evidence with no agents involved** — computing medians
+directly on the frame:
+
+| base input | band (₹ lakh) | n | before | after | moved |
+|------------|---------------|---|--------|-------|-------|
+| base00 | 40–150 | 2 | 14,377,250 | 14,500,000 | **+122,750** |
+| base01 | 80–400 | 15 | 18,000,000 | 16,877,250 | **−1,122,750** |
+| base09 | 40–150 | 15 | 8,253,000 | 8,051,500 | **−201,500** |
+
+On `base01` the median **fell by ₹1.12M** after every price rose by ₹500k. No
+agent participates, so the cause is neither an agent fault nor a harness bug:
+the band is applied *after* the shift, so the follow-up selects a different
+population. One crossing listing dominates, because these sliced months hold
+1–15 listings.
+
+**The control that confirms it.** D2 scales all prices and holds at 0.000
+*deterministically* — same class of transformation, and it holds for exactly
+one reason: D2 scales the band alongside the data.
+
+**Verdict: ill-conceived MR.** Retained deliberately at 0.806 as the documented
+counter-example; the refined form (M1, declared on the band-free projection)
+replaces it. Its rate is near-identical in all three configurations, which is
+what a genuinely unsound relation should look like.
+
+#### 8.3 D1, 0.667 — an unsound relation for an LLM-judged pipeline
+
+**Symptom.** All 72 violations are of one form:
+
+```
+2022-09: count 22 != 23 across the shifted window
+```
+
+The eleven overlapping months should match between a window and the same window
+shifted one month. They differ by one or two listings.
+
+**Mechanism.** D1 replaces one month of the window with another, so the
+Critique agent's twelve-row median table is a *different table*
+(§8.1: 12 of 6 critique prompts differ) and the Analysis review sees a
+different listing set (15 of 6). The model therefore flags a different set of
+months, different listings are rejected, and the overlap moves.
+
+**Why this is not a prompt-hygiene fault.** The information that changes is the
+information the judgment is *about*. A critique agent asked "which months look
+anomalous relative to their neighbours" must see the months; a window shift
+changes the neighbours. Withholding the window would not make the judgment
+better-posed, it would make it impossible.
+
+**Confirmed by configuration, not by sampling.** D1 holds at **0.000
+deterministically** and at **0.222** with the pre-fix prompts, rising to 0.667
+once counts were withheld from the critique (§8.7). All three rates come from
+the same relation on the same data; only what the judge reads changed.
+
+**Verdict: ill-conceived MR for this architecture.** The relation is sound for a
+pipeline whose selection is independent of the aggregate, which the
+deterministic configuration is and the LLM configuration is not. Stating it
+without that condition was our error, not the system's.
+
+#### 8.4 D2, 0.593 — the same cause, and the cleanest demonstration of it
+
+**Symptom.** 57 of 60 violations read:
+
+```
+2023-04: median psf 7,364 did not scale by 1.5 (got 7,361)
+```
+
+Medians scale by *almost* exactly k.
+
+**Mechanism.** Scaling every price by 1.5 changes every price and every ₹/sqft
+the review prompt displays — the largest prompt perturbation of any relation
+(18 of 6 review prompts differ, §8.1). The model's judgment about whether a
+listing's description corroborates its price legitimately changes when the
+price changes, so a different set is rejected and the median scales by k only
+up to that difference.
+
+**This relation is the control for the whole of §8.1.** D2 was *predicted* to
+remain violated after the prompt fixes, before the second sweep was run,
+precisely because its prompt difference is irreducible. It came back 0.556 →
+0.593 while I4 collapsed 0.630 → 0.000. A diagnosis that correctly predicts
+which violations will *persist* is stronger evidence than one that only
+explains those that disappear.
+
+**Verdict: ill-conceived MR for this architecture**, same category as D1.
+Deterministically D2 holds at 0.000, so the relation is sound; it is the
+combination of an exact-arithmetic claim with a judge that reads prices that is
+not.
+
+#### 8.5 I4, I3, I2, I1 — genuine agent faults, now fixed
+
+These were the most-violated relations before the fixes, and all four causes
+were leaks of information the judgment is not about:
+
+| Cause | Affects | Pre | Post |
+|-------|---------|-----|------|
+| **listing IDs printed in the review prompt** | I4, I3 | 0.630 | **0.000** |
+| **critique table rendered in display units** | I2 | 0.028 | **0.000** |
+| **top-N taken from a duplicated set** (returns N/2 distinct listings twice) | I3 | 0.417 | 0.176 |
+| **tie-ordering on a subset of displayed fields** | I1 | 0.000 *(by luck)* | 0.000 |
+
+An identifier carries no information about whether a description corroborates a
+price; a judgment about whether a month is anomalous must not depend on the
+units it is shown in. **Verdict: genuine agent faults**, fixed by the four
+prompt-hygiene constraints of §4.6.
+
+**The fourth is the most instructive.** I1 scored 0.000 across 108 runs, but a
+prompt-invariance test showed the review ordering sorted on a *subset* of the
+displayed fields, so listings tied on (psf, price, area) kept their input order
+and reordering the rows *did* change the prompt. No tie happened to flip in
+those 108 runs. **108 passing runs is not the same as the property holding.**
+
+**I3's residual 0.176 is localised, and prompt perturbation is necessary but
+not sufficient.** Comparing the selection prompts across all 36 base inputs
+under all three seeds (108 cells, no inference required) gives:
+
+| | not violated | violated |
+|-------------------|-------------:|---------:|
+| prompt identical  | 51 | **0** |
+| prompt differs    | 38 | 19 |
+
+The implication runs one way only. An identical prompt provably *cannot* break
+the relation — identical prompt plus temperature-0 decoding implies an
+identical judgment, per the 20/20 determinism probe of §4.4 — and indeed none
+of those 51 cells violated. A differing prompt breaks it in 19 of 57 cases
+(33%), so the perturbation is a necessary condition, not the whole mechanism.
+11 of 36 base inputs violated at least once: four on all three seeds
+(base22/23/30/31) and seven on one of three (base11/17/24/27/32/33/35). The
+review batch comes out with fewer listings on the doubled frame, but *which*
+perturbations bite is not isolated. Recorded as an open defect with a pinned
+failing test rather than papered over. **Since isolated (v2, §8.0):** the batch
+was cut to 12 rows before duplicates were removed; fixed, I3 is 0/72 in the v2
+LLM sweep and the pinned test passes.
+
+#### 8.6 The deterministic faults, and M1's data artifact
+
+Before any model was involved, two relations were violated on **all 108 runs**:
+`I4 count series differ` and `I3 count 9 -> 15, expected exactly 2x`.
+
+**Mechanism.** Retrieval shards by `sha256(seed:listing_id)`, and the targeted
+recomputation computed its MAD outlier threshold **per `(shard, month)` group**
+rather than per month — making it a property of how a month was split across
+workers.
+
+**Evidence, one variable at a time** (12 inputs × 2 seeds):
+
+| MR | group = `shard+month` | cycle 2 off | group = `month` |
+|----|----------------------|-------------|-----------------|
+| I3 | **1.000** | 0.000 | 0.000 |
+| I4 | **1.000** | 0.000 | 0.000 |
+| M2 | 0.042 | 0.000 | 0.000 |
+
+**Independent corroboration:** varying only the agent count, `shard+month`
+returns **185 listings at 8 agents** against **184** at 1, 2 and 4; per-month
+grouping returns 184 at every count. Worker count is not a property of the
+housing market. **Verdict: genuine agent fault**, fixed; regression test added.
+
+**Replicated under v2** (`python scripts/diagnose.py`, `results/v2_diagnosis/`,
+12 inputs × 2 seeds): re-enabling the old grouping gives I3 **0.750** and I4
+**0.667**, and both are 0.000 with per-month grouping or with cycle 2 off. On the
+deepest input the listing total is **60, 58, 59, 61** at 1, 2, 4 and 8 agents
+under the old grouping and **60 at every count** under the fix — a sharper
+version of the pre-v2 evidence.
+
+**M1's deterministic residual, 0.139 — a data artifact.** On the five affected
+inputs, **15/15 violations with cycle 2 enabled, 0/15 disabled**; and on the
+synthetic snapshot M1 = 0.000. Adding a constant to *price* is not a constant
+shift in *price per sqft* — Δ/area differs per listing (₹1,000 for 500 sqft,
+₹100 for 5,000) — so the psf distribution changes shape and the outlier filter
+reaches a different verdict. Whether it does depends on how close real listings
+sit to the threshold, which is why clean synthetic data shows none.
+
+#### 8.7 The adaptive loop, and the trade-off we chose
+
+**Found only by the synthetic control.** Three relations that hold on real data
+are violated on synthetic data: `M3 locality subset gave MORE listings
+(85 -> 331)`, `M2 widened band gave fewer (136 -> 67)`, `I3 85 -> 98`. With
+cycle 1 disabled all three go to **0/24**; conditioning on the
+relaxation-stable subdomain removes every violation (I3 0.167→0.000,
+M2 0.056→0.000, M3 0.278→0.000). Coverage depends on listing counts, so a
+transformation that changes counts changes how many relaxation rounds fire —
+and the population for the whole window.
+
+**Why the real snapshot hid it:** there, coverage is so far below target that
+cycle 1 exhausts its levers in every run, so both executions relax identically.
+A relation that *passes* on real data only because the real data is degenerate
+is exactly the failure mode a control exists to catch.
+
+**The trade-off.** Withholding counts from the critique closed I3's
+count-doubling fault and made two others worse: **D1 0.222 → 0.667** and
+**M1 0.222 → 0.333**, because the model then judges purely on the median series
+and those are the relations that perturb medians. Stated generally:
+
+> An LLM judge that reads the output statistics, and whose verdict changes which
+> data is selected, creates a feedback path through those same statistics. What
+> the model is shown determines *which* relations break — not *whether* they
+> break.
+
+We ship the configuration with **19 invariance violations rather than 116**,
+accepting 136 directional ones, because invariance relations must hold
+unconditionally — "renaming a listing must not change the trend" admits no
+excuse — whereas D1 and D2 perturb data the judgment is legitimately about. We
+stopped tuning there: removing the critique from the selection path would
+likely score better, but that is fitting the system to pass its own tests.
+
+#### 8.8 A harness bug, in our own instrumentation
+
+The first control-path comparison used the planner's human-readable relaxation
+notes, which embed criteria values. Comparing those across two runs reports a
+difference whenever the inputs differ, so **all 108 M3 runs were recorded as
+path divergences** and M3's stable subdomain came out empty. Caught by noticing
+that an empty subdomain was implausible; fixed by recording a canonical lever
+sequence. It changed no violation rate — only the conditioning — but it is the
+clearest reminder that a metamorphic suite needs the same scepticism as the
+code it tests.
+
 ## Categories, final
 
 | Category | Instances |

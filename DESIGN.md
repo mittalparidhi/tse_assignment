@@ -301,7 +301,7 @@ asserted by test, with no inference at all.
 Constraint 4 is a **trade-off, not a free win**: withholding counts closed the
 duplication fault but made the window-shift and price-shift relations worse
 (0.222 → 0.667 and 0.222 → 0.333), because the model then judges purely on the
-median series. The reasoning for favouring invariance is in `REPORT.md` §8.6.
+median series. The reasoning for favouring invariance is in `REPORT.md` §8.3.
 
 Temperature is 0 and the harness's recorded seed is passed to the model on
 every call, so the **model is a third reproducibility artifact** alongside the

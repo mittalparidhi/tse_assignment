@@ -1,14 +1,14 @@
 """Rebuild the report's headline results table from the committed result files.
 
 The brief asks for "a one-command reproduction of your headline results table."
-`run_harness.py` re-runs a sweep, but the headline table in REPORT.md §7.1 spans
+`run_harness.py` re-runs a sweep, but the pre-v2 table (now in docs/DIAGNOSIS.md) spans
 three configurations and two of them need Ollama and a 1.9 GB model, so a fresh
 machine cannot rebuild it in one command. This script closes that gap: it
 assembles the published table from the committed per-run CSVs, recomputing every
 rate and confidence interval from the raw results rather than copying them.
 
     python scripts/headline_table.py            # the table as published
-    python scripts/headline_table.py --check     # also verify it matches REPORT.md
+    python scripts/headline_table.py --check     # also verify it matches docs/DIAGNOSIS.md
     python scripts/headline_table.py --v2        # the contract-v2 sweep, unit =
                                                  # base input (results/v2_deterministic)
 
@@ -33,6 +33,9 @@ from src.mr.relations import ALL_RELATIONS    # noqa: E402
 
 #: The contract-v2 deterministic sweep (statistical unit = base input).
 V2_TAG = "v2_deterministic"
+
+#: Where the pre-v2 three-configuration table is published.
+PRE_V2_DOC = "docs/DIAGNOSIS.md"
 
 #: The published three-configuration table. These sweeps predate contract v2
 #: (contracts/README.md open items) and are kept as the record behind it.
@@ -133,7 +136,9 @@ def main() -> int:
           f"{json.loads(Path('results/llm/determinism_probe.json').read_text(encoding='utf-8'))['identical_rate']:.0%} identical")
 
     if args.check:
-        report = Path("REPORT.md").read_text(encoding="utf-8")
+        # The pre-v2 table moved from REPORT.md to docs/DIAGNOSIS.md when the
+        # report was cut to the brief's length.
+        report = Path(PRE_V2_DOC).read_text(encoding="utf-8")
         missing = []
         for mr in shipped.index:
             for label, _ in CONFIGS:
@@ -145,11 +150,11 @@ def main() -> int:
                     missing.append(f"{mr} {label} {token}")
         print()
         if missing:
-            print(f"{len(missing)} rebuilt rate(s) not found in REPORT.md:")
+            print(f"{len(missing)} rebuilt rate(s) not found in {PRE_V2_DOC}:")
             for m in missing:
                 print(f"  {m}")
             return 1
-        print("every rebuilt rate appears in REPORT.md")
+        print(f"every rebuilt rate appears in {PRE_V2_DOC}")
     return 0
 
 
