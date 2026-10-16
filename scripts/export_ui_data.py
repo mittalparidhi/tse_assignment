@@ -1,4 +1,4 @@
-"""Export real pipeline results for the web UI (docs/LOVABLE_PROMPT_*.md).
+"""Export real pipeline results for a web UI built outside this repository.
 
 Runs the deterministic agent pipeline on a fixed set of queries and writes
 ``results/ui/scenarios.json``: for each query the monthly series, the

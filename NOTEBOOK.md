@@ -761,7 +761,7 @@ before-alignment column left §7.1; that comparison is Stage 20 above.
 ## Stage 25 — The Streamlit app gets the demo dashboard's features, computed live (2026-10-16)
 
 A Lovable dashboard was built as a presentation front end over eight
-precomputed queries (`docs/LOVABLE_PROMPT_*.md`, `scripts/export_ui_data.py`).
+precomputed queries (`scripts/export_ui_data.py`; the Lovable prompts are kept outside the repository).
 Its best ideas were then brought into the Streamlit app, where they run on the
 live pipeline for any criteria:
 

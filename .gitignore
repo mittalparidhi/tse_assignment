@@ -25,3 +25,6 @@ results/quick/
 # Local patch backups and patch bundles
 *.bak
 *.zip
+
+# Items not part of the project (see _not_relevant/README.md)
+_not_relevant/
