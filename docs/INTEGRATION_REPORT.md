@@ -1,42 +1,94 @@
-# Integration report — what I changed in the second implementation, and why
+# Integration report — how the project was built, and what I changed, and why
 
-**Author:** Paridhi Mittal · **Branch:** `integrate-friend-impl` · **Period:** 15–16 October 2026
-**Baseline:** my teammate's implementation at commit `957224c` (merged in `bed240b`)
+**Author:** Paridhi Mittal · **Branch:** `integrate-friend-impl` · **Period:** 11–16 October 2026
 
-Two of us built independent implementations of the assignment. I compared
-them, decided to build on my teammate's (it had the complete multi-agent
-graph, harness and diagnosis), and carried over what my own implementation
-did better: the agent contracts, the data rules and the request validation.
-This report records every change I made to the second implementation, the
-reason for each, and the evidence behind it. AI assistance used in this work
-is disclosed in `AI_USE.md` (§§5–6); the decisions recorded here were mine.
+The project was built in three stages:
+
+1. **I laid the foundation (11–12 October):** I froze the dataset, audited it,
+   wrote the design note, the agent contracts and the data, audit and
+   cleaning scripts, and built a first implementation with its tests (§0.1).
+2. **My teammate continued from my work (14–15 October):** starting from my
+   frozen snapshot and audits (commit `273045e`), and aligning to my design
+   note, she built a second implementation with the full agent graph,
+   metamorphic harness, local-model mode and diagnosis (§0.2).
+3. **I integrated the two (15–16 October):** I merged her implementation,
+   carried my contracts, data rules and validation into it, aligned it with
+   the team's refined design note, found and fixed faults, re-ran every sweep
+   — including the LLM sweep on Kaggle — and rewrote the report (§§1–5).
+
+This report records each stage, every change I made in the third, the reason
+for each, and the evidence behind it. AI assistance is disclosed in
+`AI_USE.md` (§§5–6); the decisions recorded here were mine.
+
+---
+
+## 0. Starting point
+
+### 0.1 What I built first
+
+| Work | Where | What it established |
+|---|---|---|
+| **Frozen snapshot** with SHA-256 checksum and a provenance Readme | `0caeb2e` (11 Oct); `data/raw/` | the 9,487 × 55 Hyderabad slice every result rests on; source and licence cited correctly, as later verified |
+| **Dataset audit** — column missingness, monthly counts, numeric anomalies, field inspection | `3793127`, `273045e` (11 Oct); `audit/`, `scripts/audit_hyderabad.py`, `scripts/inspect_hyderabad_*.py` | the single-point-scrape shape (most listings in the last months), column missingness and a list of numeric anomalies |
+| **Design note** (`Assignment1_Design_Note_Final.docx`) | submitted design note | six agents with explicit Reads/Writes; cycle 2 as Critique → Analysis with a specific complaint and flagged months; `query_mode` as the genuine dependency; the control-flow table with "why necessary"; the five-column MR table; LangGraph. My teammate's own notes (`docs/FOR_PARIDHI.md` in her commit) record that her implementation adopted these, and that cycle 2 and `query_mode` replaced her earlier design |
+| **Contract suite** — 13 files: global contract, data, agents, planner, validator, anomaly, reporter, aggregator, diagnostic, LLM, testing, golden, a consistency audit | `legacy/contracts/` (about 33,000 words) | the per-agent contract format that the final `contracts/` suite follows |
+| **Data, audit and cleaning scripts** — 31 scripts: the cleaning pipeline and processed snapshot, the Price-on-Request exclusion, reporting-month identity, locality, price and month audits, runtime-state builders | `legacy/scripts/` | the data rules later ported into the final loader (§3.2) |
+| **First implementation** — criteria agent, retrieval agent, anomaly detector, execution graph, typed schemas, snapshot repository (about 3,250 lines) | `legacy/app/` | request validation and typed contracts, ported in §3.4 |
+| **Tests** — 84 test functions in 15 files, with six logged runs (last: 77 passed, 12 subtests) | `legacy/tests/`, `legacy/audit/test_logs/` | the logged-test convention the final `audit/test_logs/` continues |
+
+### 0.2 What my teammate built on top
+
+Starting from my snapshot and audits, and following my design note, my
+teammate built the second implementation (commits `736d594`, `957224c`,
+14–15 October): the LangGraph graph with its two cycles and four parallel
+retrieval agents (`src/agents/`), the loader, output contract and statistics
+(`src/loading.py`, `src/contract.py`, `src/trend.py`), the metamorphic
+relations and harness (`src/mr/`, 11 relations, 36 base inputs), the
+synthetic control snapshot, the local-model mode with its prompt-hygiene
+rules and two Kaggle LLM sweeps, the dashboard, the harness and analysis
+scripts (`run_harness.py`, `diagnose.py`, `headline_table.py`,
+`verify_claims.py`, `prompt_sensitivity.py`, `make_synthetic.py`), 84 test
+functions, the root-cause diagnosis, the RESIDEX cross-check, and the first
+REPORT, DESIGN, NOTEBOOK and AI_USE. She also reviewed my design note against
+her measurements and proposed corrections (`docs/FOR_PARIDHI.md`).
+
+### 0.3 Why I integrated rather than choose one
+
+Her implementation had the complete agent graph, harness and diagnosis built
+to my design; mine had the contracts, the data rules and the request
+validation. Building on hers and carrying mine into it kept the strongest part
+of each. Everything below is that integration: the "before" column is her
+implementation at `957224c`, the "after" column the integrated system.
 
 ---
 
 ## 1. Summary
 
-| | Before (`957224c`) | After (`HEAD`) |
+| | Second implementation (`957224c`) | Integrated (`HEAD`) |
 |---|---|---|
 | Canonical population | 4,578 listings, months in UTC, drop-on-defect | 4,975 sale dwellings, months in IST; 4,574 with a usable price, the rest flagged, not dropped |
 | Output contract | per-month `n_active`, `median_psf` | the design note's five monthly fields plus extensions (`contracts/CONTRACT.md` v2.1.0-draft) |
-| Contracts | none | a global contract and one per agent, 12 files in `contracts/` |
+| Contracts | my contracts not carried over | my per-agent contract format, rewritten for the integrated system: 12 files in `contracts/` |
 | Relations | 11 | 12 (added M4, radius halving) |
 | Base inputs | 36 locality inputs | 72: 36 locality + 36 radius |
 | Statistical unit | the run (per-run Wilson CI) | the base input (a base input is violated if any seed is) |
 | Geography widening | dropped the locality filter (whole metro) | keeps it, and provably preserves set inclusion |
 | Coverage loop | one threshold, levers price → BHK → geography | 30-listing coverage, ACCEPT / RETRY / LIMITED, two retries, geography → BHK → price band |
 | Critique | APPROVED / REJECTED | adds coherence checks and NEEDS_REVIEW |
-| Request validation | none | `src/validation.py`, ported from my implementation |
+| Request validation | not carried over | `src/validation.py`, ported from my first implementation |
 | LLM sweep | pre-v2 only | re-run under v2 on a Kaggle T4, replayable offline |
 | Tests | 84 functions (101 cases) | 132 functions (154 cases), all passing |
 | Reproducibility checks | headline table only | headline tables for both sweeps, `verify_claims.py`, offline LLM replay, logged check runs |
 | Report | 7,431 words, pre-v2 results | rewritten for v2; 10 A4 pages, as the brief asks |
 
-**Faults found and fixed in the inherited code:** geography widening that
-broke set inclusion (found by M3), an LLM review batch cut before duplicates
-were removed (found by I3), a merge that returned both rows of a repeated
-listing ID, a "model digest" that was a hash of the model's name, two broken
-scripts, and figures in the report that no script could reproduce (§4).
+**Faults found and fixed in the second implementation:** geography widening
+that dropped the locality filter, so M3 could never fail; an LLM review batch
+cut before duplicates were removed (found by I3); a merge that returned both
+rows of a repeated listing ID; rejections double-counted across critique
+rounds; a "model digest" that was a hash of the model's name; two scripts that
+no longer ran; and figures in the report that no script could reproduce (§4).
+One fault was my own: my first fix for the widening broke set inclusion, and
+relation M3 caught it (§4).
 
 ---
 
@@ -217,18 +269,25 @@ the old I3 residual now passes and is a regular test.
 
 ---
 
-## 4. Faults I found in the inherited code
+## 4. Faults I found in the second implementation
 
 | Fault | How I found it | Fix |
 |---|---|---|
 | Geography widening dropped the locality filter, so M3 could never fail | counting how often widening fired: every run | widening keeps a locality constraint |
-| Widening around the selection's centre broke set inclusion | **M3 9/36** once it could fail | per-locality widening, provably inclusion-preserving |
 | LLM review cut its batch before removing duplicates | **I3 8/72** in the v2 LLM sweep; captured prompts (10 vs 8 listings) | de-duplicate, then cut; re-run: I3 0/72 |
 | Merge returned both rows of a repeated `PROP_ID` | merge audit | unique `listing_id` |
 | "Model digest" was a hash of the model name | trying to verify the model record | weights digest recorded |
 | Critique inspected listings other than those the report was computed from; rejections double-counted across rounds | checking the accounting against the trace | `analysed_listings` declared and inspected; per-pass count |
 | Threshold-sensitivity table had no script; "+6.24% radius slice" not reproducible | regenerating every quoted number | script added; the figure withdrawn |
 | `diagnose.py` and the synthetic path no longer ran | running them | repaired |
+
+**A fault I introduced, and caught.** My first fix for the widening (`c78a270`)
+added neighbours around the median centre of the selected localities. A subset
+and its superset then widened around different points, so the subset could
+gain localities the superset did not: relation M3 failed on 9 of 36 inputs. I
+kept that sweep as evidence (`results/v2_before_m3fix/`) and replaced the rule
+with per-locality widening that provably preserves inclusion (`8148658`): M3
+0/36.
 
 ---
 
