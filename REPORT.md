@@ -564,7 +564,7 @@ python scripts/run_harness.py --tag v2_deterministic           # §7.1 from scra
 python scripts/run_harness.py --tag v2_synthetic --synthetic   # synthetic control
 python scripts/run_harness.py --tag v2_llm --llm               # §7.2 from scratch: Ollama + the model
 python scripts/threshold_sensitivity.py                        # §9 table
-python -m pytest                                               # 154 tests
+python -m pytest                                               # 157 tests
 python scripts/verify_claims.py                                # re-derive the quoted figures
 python scripts/run_checks.py --replay                          # all of the checks, logged to audit/test_logs/
 ```

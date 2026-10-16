@@ -93,7 +93,7 @@ reply cache without a GPU (`REPORT.md` §7.2, §8).
 
 ```bash
 streamlit run app.py                                  # the dashboard
-python -m pytest                                      # 154 tests
+python -m pytest                                      # 157 tests
 python scripts/run_checks.py                          # all checks, logged to audit/test_logs/
 python scripts/replay_llm_sweep.py                    # the LLM sweep replayed offline, no GPU
 python scripts/build_report_pdf.py                    # REPORT.md -> REPORT.pdf (needs `pip install markdown` and Chrome/Edge)
