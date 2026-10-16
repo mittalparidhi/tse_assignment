@@ -1,10 +1,11 @@
 # Next Lovable message — eight real queries, a chart fix, a heading font and dark mode
 
-For the project built from `LOVABLE_PROMPT_FRESH.md`. Same as `LOVABLE_PROMPT_3.md`, with one added line: the
-price chart's y-axis started at 0, which flattened the trend; headings move to Newsreader; and a dark mode is added. Send the block below as one message.
+For the project built from `LOVABLE_PROMPT_FRESH.md`. Based on `LOVABLE_PROMPT_3.md` (eight real queries),
+plus: a y-axis fix (it started at 0 and flattened the trend), Newsreader for headings, and dark mode.
+Send the block below as one message.
 
 ````text
-Make "Run analysis" real, using precomputed results for eight queries. Keep everything else as it is; no backend.
+Make "Run analysis" real, using precomputed results for eight queries, and apply the font, chart and dark-mode changes in sections 5–6. Keep everything not mentioned here as it is; no backend.
 
 ## 1. Data
 Create src/data/scenarios.json with EXACTLY the JSON at the end of this message. Field meanings: "months" is the shared 12-month window. Per scenario: "listings", "price_valid", "psf" (median ₹ per sq ft, null = no data), "coverage" (A = ADEQUATE, L = LIMITED, N = NO DATA), "sufficient" (1 = counts toward the year-on-year move) are arrays aligned with "months"; "yoy_pct" and "span" are the headline move and the months it spans; "n_total"/"n_valid" listings matched / with a usable price; "verdict" ACCEPT or LIMITED; "review" APPROVED or NEEDS_REVIEW; "rejected" outliers removed by the critique loop; "widened" how the query was relaxed; "trace" rows are [step, agent, detail, cycle] with cycle 1, 2 or null; "before_critique" holds the same median series and headline BEFORE the critique's recomputation. The last month (2023-08) is always partial (data to 26 Aug). Replace report.json as the source of the Trend tab with the selected scenario (keep report.json only for the Data tab's source card).
@@ -15,7 +16,7 @@ Create src/data/scenarios.json with EXACTLY the JSON at the end of this message.
 - Show the current scenario label as a small heading above the stat cards, with a "Changed from last run" indicator next to any stat card whose value changed (arrow and the previous value in muted text), so switching queries visibly changes the answer.
 
 ## 3. The critique loop, made visible
-- In the price chart add a toggle "Show before critique". When on, draw before_critique.psf as a dashed grey line under the final teal line, and shade the months where the two differ. The first stat card then reads "−0.70% (before critique −4.45%)" using the scenario's values.
+- The price chart already has a "Show before critique" toggle: keep it (do not add a second one) and make it use the selected scenario's before_critique values. When on, draw before_critique.psf as a dashed grey line under the final teal line, and shade the months where the two differ. The first stat card then reads "−0.70% (before critique −4.45%)" using the scenario's values.
 - In the Replay run (agent trace), when the replay reaches the Analysis step that follows a Cycle 2 critique, morph the chart from the before-critique line to the final line over 600 ms.
 - If "rejected" is 0, hide the toggle and show "The critique approved the first analysis; nothing was recomputed."
 
