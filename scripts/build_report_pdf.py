@@ -5,10 +5,12 @@ plain academic style through a headless Chromium browser (Edge or Chrome) so
 the page count can be checked rather than estimated.
 
     pip install markdown        # build-time only, not needed to run the app
-    python scripts/build_report_pdf.py
+    python scripts/build_report_pdf.py                         # REPORT.md -> REPORT.pdf
+    python scripts/build_report_pdf.py docs/INTEGRATION_REPORT.md
 """
 from __future__ import annotations
 
+import argparse
 import shutil
 import subprocess
 import tempfile
@@ -55,13 +57,18 @@ def _browser() -> str:
 
 
 def main() -> int:
-    source = (ROOT / "REPORT.md").read_text(encoding="utf-8")
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("source", nargs="?", default="REPORT.md",
+                        help="Markdown file, relative to the repository (default REPORT.md)")
+    args = parser.parse_args()
+    src = ROOT / args.source
+    source = src.read_text(encoding="utf-8")
     body = markdown.markdown(source, extensions=["tables", "fenced_code"])
     html = ROOT / "results" / "report_build.html"
     html.write_text(f"<!doctype html><html><head><meta charset='utf-8'>"
                     f"<title>Report</title><style>{CSS}</style></head>"
                     f"<body>{body}</body></html>", encoding="utf-8")
-    pdf = ROOT / "REPORT.pdf"
+    pdf = src.with_suffix(".pdf")
     pdf.unlink(missing_ok=True)
     # A separate profile, so the call cannot hand off to a browser already open.
     with tempfile.TemporaryDirectory() as profile:
@@ -74,7 +81,7 @@ def main() -> int:
         sys.exit(f"the browser wrote no PDF (exit {run.returncode}): {run.stderr[-500:]}")
     from pypdf import PdfReader
     pages = len(PdfReader(str(pdf)).pages)
-    print(f"REPORT.pdf: {pages} pages (A4)")
+    print(f"{pdf.relative_to(ROOT)}: {pages} pages (A4)")
     return 0
 
 
