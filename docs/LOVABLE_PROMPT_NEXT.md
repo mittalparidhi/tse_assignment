@@ -1,7 +1,7 @@
-# Next Lovable message — eight real queries, plus one chart fix
+# Next Lovable message — eight real queries, a chart fix and a heading font
 
 For the project built from `LOVABLE_PROMPT_FRESH.md`. Same as `LOVABLE_PROMPT_3.md`, with one added line: the
-price chart's y-axis started at 0, which flattened the trend. Send the block below as one message.
+price chart's y-axis started at 0, which flattened the trend; and headings move to Newsreader. Send the block below as one message.
 
 ````text
 Make "Run analysis" real, using precomputed results for eight queries. Keep everything else as it is; no backend.
@@ -23,6 +23,7 @@ Create src/data/scenarios.json with EXACTLY the JSON at the end of this message.
 Add a "Compare" button next to the scenario heading. It opens a second scenario picker; the price chart then shows both medians (teal and slate) on one axis, and the stat cards become two columns. A "Clear" button returns to one query.
 
 ## 5. Small rules
+- Headings font: load "Newsreader" (weights 400, 500; optical size on) from Google Fonts and use it, weight 500, for the page title (24px), tab panel headings, card titles (17px) and the scenario label above the stat cards. Keep IBM Plex Sans for all other text and IBM Plex Mono for numbers (stat-card values stay in Plex Mono).
 - Price chart y-axis: do NOT start at 0. Use an automatic domain from the data with padding (about 8% below the lowest and above the highest median shown, including the before-critique line), rounded to the nearest 500, so the month-to-month movement is visible.
 Use the selected display units everywhere (lakh/crore, sq ft/sq m). Format ₹ in Indian grouping. Keep IBM Plex Sans / IBM Plex Mono from the previous change.
 
