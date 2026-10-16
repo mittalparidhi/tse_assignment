@@ -1,0 +1,14 @@
+[
+  {"id":"valid-01","request":{"city":"Hyderabad","locality":"Gachibowli","bhk":[2,3],"property_type":"Residential Apartment","min_price_inr":5000000,"max_price_inr":15000000}},
+  {"id":"valid-02","request":{"city":"Hyderabad","locality":"Nizampet","bhk":2,"property_type":"Residential Apartment","min_price_inr":4000000,"max_price_inr":9000000,"start_month":"2022-09","end_month":"2023-08"}},
+  {"id":"valid-03","request":{"city":"Hyderabad","locality":"Miyapur","bhk":[1,2,3],"property_types":["Residential Apartment","Independent House/Villa"],"min_price_inr":3000000}},
+  {"id":"valid-04","request":{"city":"Hyderabad","localities":["Kukatpally","KPHB"],"bhk":[2,3],"min_price_inr":6000000,"max_price_inr":18000000}},
+  {"id":"valid-05","request":{"city":"Hyderabad","locality":"Madhapur","bhk":3,"property_type":"Residential Apartment","min_price_inr":10000000,"max_price_inr":30000000}},
+  {"id":"valid-06","request":{"city":"Hyderabad","locality":"Kondapur","bhk":[2,3,4],"property_type":"Residential Apartment","geo_radius_km":5,"min_price_inr":7000000,"max_price_inr":25000000}},
+  {"id":"valid-07","request":{"city":"Hyderabad","locality":"Bachupally","bhk":2,"property_type":"Residential Apartment","geo_radius_km":3}},
+  {"id":"valid-08","request":{"city":"Secunderabad","locality":"Kompally","bhk":[2,3],"property_type":"Residential Apartment","geo_radius_km":8,"min_price_inr":5000000}},
+  {"id":"valid-09","request":{"city":"Secunderabad","locality":"Alwal","bhk":3,"property_type":"Independent House/Villa","min_price_inr":6000000,"max_price_inr":20000000}},
+  {"id":"valid-10","request":{"city":"Hyderabad","locality":"Uppal","bhk":[1,2],"property_types":["Residential Apartment","Studio Apartment"],"min_price_inr":2500000,"max_price_inr":8000000}},
+  {"id":"valid-11","request":{"city":"Hyderabad","locality":"KPHB","bhk":4,"property_type":"Residential Apartment","geo_radius_km":2.5,"start_month":"2022-09","end_month":"2023-08"}},
+  {"id":"valid-12","request":{"city":"Secunderabad","locality":"Gundlapochampalli","bhk":2,"property_type":"Residential Apartment","max_price_inr":10000000}}
+]

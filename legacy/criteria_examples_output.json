@@ -1,0 +1,483 @@
+{
+  "example_count": 12,
+  "valid_count": 12,
+  "results": [
+    {
+      "id": "valid-01",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Hyderabad",
+        "localities": [
+          "Gachibowli"
+        ],
+        "bhk": [
+          2,
+          3
+        ],
+        "property_types": [
+          "Residential Apartment"
+        ],
+        "min_price_inr": 5000000,
+        "max_price_inr": 15000000,
+        "geo_radius_km": null,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "EXACT_LOCALITY"
+    },
+    {
+      "id": "valid-02",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Hyderabad",
+        "localities": [
+          "Nizampet"
+        ],
+        "bhk": [
+          2
+        ],
+        "property_types": [
+          "Residential Apartment"
+        ],
+        "min_price_inr": 4000000,
+        "max_price_inr": 9000000,
+        "geo_radius_km": null,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "EXACT_LOCALITY"
+    },
+    {
+      "id": "valid-03",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Hyderabad",
+        "localities": [
+          "Miyapur"
+        ],
+        "bhk": [
+          1,
+          2,
+          3
+        ],
+        "property_types": [
+          "Residential Apartment",
+          "Independent House/Villa"
+        ],
+        "min_price_inr": 3000000,
+        "max_price_inr": null,
+        "geo_radius_km": null,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "EXACT_LOCALITY"
+    },
+    {
+      "id": "valid-04",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Hyderabad",
+        "localities": [
+          "Kukatpally",
+          "KPHB"
+        ],
+        "bhk": [
+          2,
+          3
+        ],
+        "property_types": [],
+        "min_price_inr": 6000000,
+        "max_price_inr": 18000000,
+        "geo_radius_km": null,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "EXACT_LOCALITY"
+    },
+    {
+      "id": "valid-05",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Hyderabad",
+        "localities": [
+          "Madhapur"
+        ],
+        "bhk": [
+          3
+        ],
+        "property_types": [
+          "Residential Apartment"
+        ],
+        "min_price_inr": 10000000,
+        "max_price_inr": 30000000,
+        "geo_radius_km": null,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "EXACT_LOCALITY"
+    },
+    {
+      "id": "valid-06",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Hyderabad",
+        "localities": [
+          "Kondapur"
+        ],
+        "bhk": [
+          2,
+          3,
+          4
+        ],
+        "property_types": [
+          "Residential Apartment"
+        ],
+        "min_price_inr": 7000000,
+        "max_price_inr": 25000000,
+        "geo_radius_km": 5.0,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "GEO_RADIUS"
+    },
+    {
+      "id": "valid-07",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Hyderabad",
+        "localities": [
+          "Bachupally"
+        ],
+        "bhk": [
+          2
+        ],
+        "property_types": [
+          "Residential Apartment"
+        ],
+        "min_price_inr": null,
+        "max_price_inr": null,
+        "geo_radius_km": 3.0,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "GEO_RADIUS"
+    },
+    {
+      "id": "valid-08",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Secunderabad",
+        "localities": [
+          "Kompally"
+        ],
+        "bhk": [
+          2,
+          3
+        ],
+        "property_types": [
+          "Residential Apartment"
+        ],
+        "min_price_inr": 5000000,
+        "max_price_inr": null,
+        "geo_radius_km": 8.0,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "GEO_RADIUS"
+    },
+    {
+      "id": "valid-09",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Secunderabad",
+        "localities": [
+          "Alwal"
+        ],
+        "bhk": [
+          3
+        ],
+        "property_types": [
+          "Independent House/Villa"
+        ],
+        "min_price_inr": 6000000,
+        "max_price_inr": 20000000,
+        "geo_radius_km": null,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "EXACT_LOCALITY"
+    },
+    {
+      "id": "valid-10",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Hyderabad",
+        "localities": [
+          "Uppal"
+        ],
+        "bhk": [
+          1,
+          2
+        ],
+        "property_types": [
+          "Residential Apartment",
+          "Studio Apartment"
+        ],
+        "min_price_inr": 2500000,
+        "max_price_inr": 8000000,
+        "geo_radius_km": null,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "EXACT_LOCALITY"
+    },
+    {
+      "id": "valid-11",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Hyderabad",
+        "localities": [
+          "KPHB"
+        ],
+        "bhk": [
+          4
+        ],
+        "property_types": [
+          "Residential Apartment"
+        ],
+        "min_price_inr": null,
+        "max_price_inr": null,
+        "geo_radius_km": 2.5,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "GEO_RADIUS"
+    },
+    {
+      "id": "valid-12",
+      "status": "ok",
+      "filter_spec": {
+        "city": "Secunderabad",
+        "localities": [
+          "Gundlapochampalli"
+        ],
+        "bhk": [
+          2
+        ],
+        "property_types": [
+          "Residential Apartment"
+        ],
+        "min_price_inr": null,
+        "max_price_inr": 10000000,
+        "geo_radius_km": null,
+        "source_period": {
+          "start_month": "2022-09",
+          "end_month": "2023-08",
+          "timezone": "Asia/Kolkata",
+          "months": [
+            "2022-09",
+            "2022-10",
+            "2022-11",
+            "2022-12",
+            "2023-01",
+            "2023-02",
+            "2023-03",
+            "2023-04",
+            "2023-05",
+            "2023-06",
+            "2023-07",
+            "2023-08"
+          ]
+        }
+      },
+      "query_mode": "EXACT_LOCALITY"
+    }
+  ]
+}

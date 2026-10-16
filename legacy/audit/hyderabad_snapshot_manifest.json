@@ -1,0 +1,61 @@
+{
+  "analysis_window": {
+    "end": "2023-08",
+    "start": "2022-09"
+  },
+  "audit_artifacts": [
+    "audit/hyderabad_cleaning_audit.json",
+    "audit/hyderabad_cleaning_summary.csv",
+    "audit/hyderabad_snapshot_manifest.json"
+  ],
+  "cleaning_script_version": "1.1.0",
+  "contract_version": "1.0.0-draft",
+  "date_status_counts": {
+    "invalid_missing": 242,
+    "valid": 9245
+  },
+  "exact_duplicate_excess_rows": 0,
+  "input_rows": 9487,
+  "monthly_posting_counts_all_valid_months": {
+    "2022-05": 10,
+    "2022-06": 34,
+    "2022-07": 24,
+    "2022-08": 15,
+    "2022-09": 35,
+    "2022-10": 51,
+    "2022-11": 41,
+    "2022-12": 46,
+    "2023-01": 32,
+    "2023-02": 45,
+    "2023-03": 217,
+    "2023-04": 288,
+    "2023-05": 482,
+    "2023-06": 947,
+    "2023-07": 3447,
+    "2023-08": 3531
+  },
+  "output_columns": 78,
+  "output_rows": 9487,
+  "price_range_status_counts": {
+    "non_positive_price": 75,
+    "price_sentinel": 3,
+    "valid": 9409
+  },
+  "processed_path": "data/processed/hyderabad_clean.csv",
+  "processed_sha256": "da7d8cfec25b077517cb6bc10cb4bfb972ec87ec07068cd151e42cacaa83eb38",
+  "raw_path": "data/raw/hyderabad.csv",
+  "raw_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+  "repeated_prop_ids": [
+    {
+      "prop_id": "Z70135726",
+      "row_count": 2
+    }
+  ],
+  "source_columns": 55,
+  "timezone": "Asia/Kolkata",
+  "window_baselines": {
+    "observed_listing_count": 9162,
+    "sale_listing_count": 7633,
+    "valid_sale_price_range_count": 7555
+  }
+}

@@ -1,0 +1,10 @@
+mr_id,family,relation,base_inputs,runs,violations,violation_rate,ci95_low,ci95_high
+I1,invariance,reorder listings,36,108,0,0.0,0.0,0.03434735974655703
+I2,invariance,change display units,36,108,0,0.0,0.0,0.03434735974655703
+I3,invariance,duplicate every listing (2x),36,108,108,1.0,0.9656526402534428,0.9999999999999999
+I4,invariance,relabel listing ids,36,108,108,1.0,0.9656526402534428,0.9999999999999999
+M1,monotonic,"add Rs 500,000 to every price in one month",36,108,85,0.7870370370370371,0.7006656475723132,0.853690497758367
+M2,monotonic,widen the price band (superset),36,108,2,0.018518518518518517,0.005093224344768714,0.06501904800376768
+M3,monotonic,restrict to a locality subset,36,108,0,0.0,0.0,0.03434735974655703
+D1,directional,shift the window forward one month,36,108,6,0.05555555555555555,0.025707729609183876,0.11593436794331125
+D2,directional,scale all prices by k=1.5,36,108,0,0.0,0.0,0.03434735974655703

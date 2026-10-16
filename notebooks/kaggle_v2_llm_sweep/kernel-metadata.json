@@ -1,0 +1,14 @@
+{
+  "id": "<kaggle-username>/tse-v2-llm-sweep-reviewfix",
+  "title": "tse-v2-llm-sweep-reviewfix",
+  "code_file": "run_sweep.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": ["<kaggle-username>/assignment-tse-v21-reviewfix"],
+  "competition_sources": [],
+  "kernel_sources": []
+}

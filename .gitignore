@@ -1,0 +1,34 @@
+# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
+# 957224c); changed by Paridhi Mittal: ignores for scratch results and local
+# folders. Lines by git blame: Vidhi Jain 0%, Paridhi Mittal 100%. Full
+# attribution: CREDITS.md.
+# Environment
+.venv/
+venv/
+*.egg-info/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+
+# NOTE: data/ and results/ are deliberately NOT ignored. The frozen snapshot
+# and the committed result sets are graded artefacts -- the instructor re-runs
+# a sample against them, and results that cannot be reproduced score zero on
+# rigor.
+
+# Local smoke-test sweeps (python scripts/run_harness.py --tag quick --quick)
+results/quick/
+
+# Local patch backups and patch bundles
+*.bak
+*.zip
+
+# Items not part of the project (see _not_relevant/README.md)
+_not_relevant/

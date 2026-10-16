@@ -1,3 +1,4 @@
+# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 
 import pandas as pd
 from pathlib import Path
@@ -44,7 +45,8 @@ print(monthly.to_string(index=False))
 
 monthly.to_csv(
     OUT / "hyderabad_monthly_counts.csv",
-    index=False
+    index=False,
+    lineterminator="\n",
 )
 
 # Explicitly check consecutive calendar months.
@@ -62,6 +64,6 @@ missingness = pd.DataFrame({
     "missing_percent": (df.isna().mean().values * 100).round(2)
 })
 
-missingness.to_csv(OUT / "hyderabad_missingness.csv", index=False)
+missingness.to_csv(OUT / "hyderabad_missingness.csv", index=False, lineterminator="\n")
 
 print("\nReports saved under:", OUT)

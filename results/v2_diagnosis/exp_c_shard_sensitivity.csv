@@ -1,0 +1,9 @@
+n_shards,grouping,I1_violations,I1_runs,listings_total,rejected,listings_input
+1,shard+month,0,6,60,2,base01
+1,month,0,6,60,2,base01
+2,shard+month,0,6,58,4,base01
+2,month,0,6,60,2,base01
+4,shard+month,0,6,59,3,base01
+4,month,0,6,60,2,base01
+8,shard+month,0,6,61,1,base01
+8,month,0,6,60,2,base01

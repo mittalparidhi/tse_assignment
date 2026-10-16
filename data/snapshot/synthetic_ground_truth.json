@@ -1,0 +1,44 @@
+{
+  "seed": 20231013,
+  "psf_log_sigma": 0.12,
+  "pooled_median_factor": 1.0746291080585584,
+  "window_end": "2023-08",
+  "months": [
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+  ],
+  "listings_per_month": 400,
+  "monthly_growth": 0.01,
+  "base_psf": 7000.0,
+  "expected_total_pct_change": 11.566834666531655,
+  "locality_factors": {
+    "Jubilee Hills": 1.8,
+    "Gachibowli": 1.4,
+    "Kondapur": 1.15,
+    "Narsingi": 1.0,
+    "Bachupally": 0.85,
+    "Kollur": 0.7
+  },
+  "expected_locality_rank_order": [
+    "Jubilee Hills",
+    "Gachibowli",
+    "Kondapur",
+    "Narsingi",
+    "Bachupally",
+    "Kollur"
+  ],
+  "n_outliers_injected": 105,
+  "outlier_id_prefix": "OUT",
+  "n_rows": 4800,
+  "sha256": "b13c868ff70f77adae527a3cd1fa383dc9917c784fea94d8d4e0674c953407ef"
+}

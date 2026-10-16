@@ -1,0 +1,7 @@
+﻿"LogFile","LastModified","TestsRun","TestExitCode","BuildExitCode","Status","FullPath","Timestamp","TestFramework","PytestExitCode","RetrievalExamplesExitCode","RuntimeBuildExitCode","FinalStatus"
+"test_run_20261012_003535.txt","2026-10-12 00:35:37","38","0","0","PASS","C:\Users\parid\Desktop\assignment_tse\audit\test_logs\test_run_20261012_003535.txt","","","","","",""
+"test_run_20261012_004220.txt","2026-10-12 00:42:21","46","0","0","PASS","C:\Users\parid\Desktop\assignment_tse\audit\test_logs\test_run_20261012_004220.txt","","","","","",""
+"test_run_20261012_004350.txt","2026-10-12 00:43:51","46","","0","PASS","C:\Users\parid\Desktop\assignment_tse\audit\test_logs\test_run_20261012_004350.txt","","","","","",""
+"C:\Users\parid\Desktop\assignment_tse\audit\test_logs\test_run_20261012_092438.txt","","","","","","","2026-10-12 09:24:38","pytest","0","0","0","PASS"
+"C:\Users\parid\Desktop\assignment_tse\audit\test_logs\test_run_20261012_093259.txt","","","","","","","2026-10-12 09:32:59","pytest","0","0","0","PASS"
+"C:\Users\parid\Desktop\assignment_tse\audit\test_logs\test_run_20261012_093908.txt","","","","","","","2026-10-12 09:39:08","pytest","0","0","0","PASS"

@@ -1,0 +1,96 @@
+{
+  "audit_artifacts": [
+    "audit/hyderabad_cleaning_audit.json",
+    "audit/hyderabad_cleaning_summary.csv",
+    "audit/hyderabad_snapshot_manifest.json"
+  ],
+  "canonicalization_rules": {
+    "area": "AREA parsed only when explicit sq.ft. unit is present; ranges preserved",
+    "csv": "UTF-8 without BOM, LF line endings, fixed source-then-derived column order",
+    "deduplication": "none; all source rows retained; exact duplicates are flagged, not removed",
+    "location": "ast.literal_eval dictionary only; CITY_NAME and LOCALITY_NAME extracted when available",
+    "map_details": "ast.literal_eval dictionary only; coordinate ranges validated",
+    "posting_date": "POSTING_DATE is Unix milliseconds; parse explicitly as milliseconds, convert the instant to Asia/Kolkata, then derive posting_month; invalid dates remain retained and unassigned to a month",
+    "price_bounds": "MIN_PRICE/MAX_PRICE must be numeric, finite, positive, non-sentinel, and coherent (MIN_PRICE <= MAX_PRICE); ineligible records are retained with reason flags",
+    "price_sqft": "PRICE_SQFT is preserved; values >= 100000 are review flags only and are not automatically excluded",
+    "row_identity": "source_row_id is the stable zero-based raw-row ordinal; source row order retained",
+    "source_area_columns": "MIN_AREA_SQFT/MAX_AREA_SQFT retained unchanged and only audited under the sqm-to-sqft hypothesis",
+    "text": "strip boundary whitespace; empty strings represent missing values"
+  },
+  "checksum_file": "data/processed/hyderabad_clean.csv.sha256",
+  "cleaning_version": "1.1.0",
+  "counts": {
+    "area_invalid": 0,
+    "area_missing": 0,
+    "area_unrecognized_or_unit_missing": 0,
+    "area_valid_sqft": 9487,
+    "location_invalid": 0,
+    "location_missing": 0,
+    "location_parsed": 9487,
+    "map_invalid": 0,
+    "map_missing": 0,
+    "map_parsed": 9487,
+    "source_area_fields_consistent_after_sqm_conversion": 9487,
+    "source_area_fields_mismatch": 0,
+    "source_area_fields_unverifiable": 0
+  },
+  "derived_counts": {
+    "date_status_counts": {
+      "invalid_missing": 242,
+      "valid": 9245
+    },
+    "exact_duplicate_rows_flagged": 0,
+    "monthly_posting_counts_all_valid_months": {
+      "2022-05": 10,
+      "2022-06": 34,
+      "2022-07": 24,
+      "2022-08": 15,
+      "2022-09": 35,
+      "2022-10": 51,
+      "2022-11": 41,
+      "2022-12": 46,
+      "2023-01": 32,
+      "2023-02": 45,
+      "2023-03": 217,
+      "2023-04": 288,
+      "2023-05": 482,
+      "2023-06": 947,
+      "2023-07": 3447,
+      "2023-08": 3531
+    },
+    "price_range_status_counts": {
+      "non_positive_price": 75,
+      "price_sentinel": 3,
+      "valid": 9409
+    },
+    "price_reason_flag_counts": {
+      "invalid_price_bound": 0,
+      "inverted_price_range": 0,
+      "non_positive_price": 75,
+      "price_sentinel": 3
+    },
+    "price_sqft_review_rows": 497,
+    "repeated_prop_id_rows": 2,
+    "repeated_prop_ids": [
+      {
+        "prop_id": "Z70135726",
+        "row_count": 2
+      }
+    ],
+    "window_baselines": {
+      "observed_listing_count": 9162,
+      "sale_listing_count": 7633,
+      "valid_sale_price_range_count": 7555
+    }
+  },
+  "output_column_count": 78,
+  "processed_file": "data/processed/hyderabad_clean.csv",
+  "processed_sha256": "da7d8cfec25b077517cb6bc10cb4bfb972ec87ec07068cd151e42cacaa83eb38",
+  "raw_file": "data/raw/hyderabad.csv",
+  "raw_sha256_after": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+  "raw_sha256_before": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+  "raw_unchanged": true,
+  "row_count": 9487,
+  "row_order": "preserved; source_row_id is the zero-based raw row ordinal",
+  "source_column_count": 55
+}

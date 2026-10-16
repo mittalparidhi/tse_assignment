@@ -1,0 +1,12 @@
+{
+  "snapshot_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+  "canonical_rows": 4578,
+  "base_inputs": 36,
+  "seeds": [
+    11,
+    23,
+    47
+  ],
+  "total_runs": 972,
+  "elapsed_seconds": 221.97
+}

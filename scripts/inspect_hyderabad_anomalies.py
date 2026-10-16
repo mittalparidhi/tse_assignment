@@ -1,3 +1,4 @@
+# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 
 import pandas as pd
 from pathlib import Path
@@ -78,7 +79,8 @@ for col in [
     })
 
 pd.DataFrame(summary).to_csv(
-    "audit/hyderabad_numeric_anomalies.csv", index=False
+    "audit/hyderabad_numeric_anomalies.csv", index=False,
+    lineterminator="\n",
 )
 
 print("\nSaved audit/hyderabad_numeric_anomalies.csv")

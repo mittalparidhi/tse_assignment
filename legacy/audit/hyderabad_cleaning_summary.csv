@@ -1,0 +1,13 @@
+rule_id,rows_inspected,rows_flagged_or_changed,output_path,description
+D1_identity,9487,9487,data/processed/hyderabad_clean.csv,Stable source_row_id added to every retained row; source order preserved.
+D2_posting_date_quality,9487,242,data/processed/hyderabad_clean.csv,Invalid posting dates retained and excluded from monthly aggregates.
+D3_exact_duplicates,9487,0,data/processed/hyderabad_clean.csv,Exact duplicates flagged; no rows deleted.
+D4_repeated_property_id,9487,2,audit/hyderabad_cleaning_audit.json,Repeated PROP_ID rows reported and preserved.
+D5_sale_scope,9487,7633,audit/hyderabad_snapshot_manifest.json,PREFERENCE == S sale rows in the reporting window; not a deduplication rule.
+D7_D8_price_range_quality,9487,78,data/processed/hyderabad_clean.csv,Ineligible price ranges retained with reason flags.
+D9_PRICE_SQFT_review,9487,497,data/processed/hyderabad_clean.csv,>= 100000 review flag only; values are not automatically excluded.
+D10_source_area_semantics,9487,0,data/processed/hyderabad_clean.csv,"Area source-field comparison is only a hypothesis audit, not a semantic assertion."
+C_area_parse,9487,0,data/processed/hyderabad_clean.csv,AREA parse accepts explicit square-foot notation only.
+C_map_details_parse,9487,0,data/processed/hyderabad_clean.csv,MAP_DETAILS is parsed safely and coordinates are range-checked.
+C_location_parse,9487,0,data/processed/hyderabad_clean.csv,location is parsed with literal-dictionary parsing only.
+R1_snapshot_integrity,9487,0,audit/hyderabad_snapshot_manifest.json,Raw and processed hashes verified against frozen metadata.

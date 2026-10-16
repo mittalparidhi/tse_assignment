@@ -1,0 +1,1189 @@
+mr_id,family,base_input,seed,applicable,violated,detail,source_loops_c1,source_loops_c2,follow_loops_c1,follow_loops_c2,same_control_path,source_relaxations,follow_relaxations,seconds
+I1,invariance,base00,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.746961220000003
+I1,invariance,base00,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.2559640549999926
+I1,invariance,base00,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.1929640530000256
+I1,invariance,base01,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.928238764000014
+I1,invariance,base01,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.497462086999974
+I1,invariance,base01,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.4135032849999902
+I1,invariance,base02,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2428039750000153
+I1,invariance,base02,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.879773854000007
+I1,invariance,base02,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8628289060000043
+I1,invariance,base03,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.102380793000009
+I1,invariance,base03,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9651308800000038
+I1,invariance,base03,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9395600550000154
+I1,invariance,base04,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.739560948000019
+I1,invariance,base04,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.676854665999997
+I1,invariance,base04,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.657839975999991
+I1,invariance,base05,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.307578863999993
+I1,invariance,base05,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.82222617299999
+I1,invariance,base05,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.829582777999974
+I1,invariance,base06,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5807326769999577
+I1,invariance,base06,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6050304059999689
+I1,invariance,base06,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6143830959999832
+I1,invariance,base07,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.7195968510000057
+I1,invariance,base07,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0568998690000058
+I1,invariance,base07,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0769564519999903
+I1,invariance,base08,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.3043741099999693
+I1,invariance,base08,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.6469349810000153
+I1,invariance,base08,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.6781136210000227
+I1,invariance,base09,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.166998405000015
+I1,invariance,base09,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.541520365999986
+I1,invariance,base09,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.560396799999978
+I1,invariance,base10,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,5.964712148999979
+I1,invariance,base10,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,5.590554032999989
+I1,invariance,base10,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,5.3670056210000325
+I1,invariance,base11,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.180252897999992
+I1,invariance,base11,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.1892910050000296
+I1,invariance,base11,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9322702799999547
+I1,invariance,base12,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7939471840000465
+I1,invariance,base12,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.61627278200001
+I1,invariance,base12,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.600912716000039
+I1,invariance,base13,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2333287659999996
+I1,invariance,base13,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6650452549999954
+I1,invariance,base13,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7003133749999506
+I1,invariance,base14,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.319145380000009
+I1,invariance,base14,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.073891818999982
+I1,invariance,base14,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.0601738880000084
+I1,invariance,base15,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.5332006779999574
+I1,invariance,base15,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.321486972999992
+I1,invariance,base15,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.3004185070000176
+I1,invariance,base16,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.5337158680000584
+I1,invariance,base16,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.3860560499999792
+I1,invariance,base16,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.392581617000019
+I1,invariance,base17,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.614686327999948
+I1,invariance,base17,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9825047529999438
+I1,invariance,base17,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0535861609999984
+I1,invariance,base18,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.59990845599998
+I1,invariance,base18,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.458885277000036
+I1,invariance,base18,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.498401663999971
+I1,invariance,base19,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.500209889999951
+I1,invariance,base19,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7352659660000427
+I1,invariance,base19,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.727421548000052
+I1,invariance,base20,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.39750871199999
+I1,invariance,base20,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8524626339999486
+I1,invariance,base20,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8584303390000514
+I1,invariance,base21,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7660137260000965
+I1,invariance,base21,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4743917280000005
+I1,invariance,base21,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4973841019999554
+I1,invariance,base22,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.2443766679999726
+I1,invariance,base22,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.7517878700000438
+I1,invariance,base22,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.7501175280000325
+I1,invariance,base23,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,4.0206386250000605
+I1,invariance,base23,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.157806654999945
+I1,invariance,base23,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.142913781999937
+I1,invariance,base24,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9525341919999164
+I1,invariance,base24,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.74354163299995
+I1,invariance,base24,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7494309899999507
+I1,invariance,base25,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1947378940000135
+I1,invariance,base25,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0854072180000003
+I1,invariance,base25,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0465453690000004
+I1,invariance,base26,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.170703612000011
+I1,invariance,base26,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9560886009999194
+I1,invariance,base26,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.942987427999924
+I1,invariance,base27,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.775552199999993
+I1,invariance,base27,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.401089216999935
+I1,invariance,base27,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2642135130000725
+I1,invariance,base28,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1184509849999813
+I1,invariance,base28,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9418656820000706
+I1,invariance,base28,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.962043736999931
+I1,invariance,base29,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0131640829999924
+I1,invariance,base29,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.885701972999982
+I1,invariance,base29,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8775918389999333
+I1,invariance,base30,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.9186889959999007
+I1,invariance,base30,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.354049100999987
+I1,invariance,base30,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.36806045600008
+I1,invariance,base31,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.240344393999976
+I1,invariance,base31,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.4274224269998967
+I1,invariance,base31,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.427971425999999
+I1,invariance,base32,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.5864733580000348
+I1,invariance,base32,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0554381970000577
+I1,invariance,base32,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0042456310000034
+I1,invariance,base33,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.465435589000094
+I1,invariance,base33,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.924833702000001
+I1,invariance,base33,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.915315822000025
+I1,invariance,base34,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.6581130330000633
+I1,invariance,base34,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2095620379999446
+I1,invariance,base34,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.230529981000018
+I1,invariance,base35,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2111258879999696
+I1,invariance,base35,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9103470250000782
+I1,invariance,base35,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8729823350000743
+I2,invariance,base00,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.43220897399999103
+I2,invariance,base00,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42337943699999414
+I2,invariance,base00,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42903032100002747
+I2,invariance,base01,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4247593129999814
+I2,invariance,base01,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4254965679999714
+I2,invariance,base01,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.41314963199999966
+I2,invariance,base02,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5445415850000472
+I2,invariance,base02,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5528771719999668
+I2,invariance,base02,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5469491329999983
+I2,invariance,base03,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5698899049999682
+I2,invariance,base03,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5754388770000105
+I2,invariance,base03,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.626492847999998
+I2,invariance,base04,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5593364559999827
+I2,invariance,base04,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.537782022999977
+I2,invariance,base04,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5499929750000092
+I2,invariance,base05,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6076648050000131
+I2,invariance,base05,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5987663700000212
+I2,invariance,base05,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.612131029000011
+I2,invariance,base06,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5832439780000414
+I2,invariance,base06,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5805851329999996
+I2,invariance,base06,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.591710283999987
+I2,invariance,base07,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6157975080000142
+I2,invariance,base07,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6149944779999714
+I2,invariance,base07,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6241153720000057
+I2,invariance,base08,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.44083300199997666
+I2,invariance,base08,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.43847742799994194
+I2,invariance,base08,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.41914700899997115
+I2,invariance,base09,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6058038070000293
+I2,invariance,base09,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5851415369999131
+I2,invariance,base09,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6083777480000663
+I2,invariance,base10,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5375083320000158
+I2,invariance,base10,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.531421117999912
+I2,invariance,base10,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5396516860000702
+I2,invariance,base11,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5812798690000136
+I2,invariance,base11,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5739285220000738
+I2,invariance,base11,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5925014780000311
+I2,invariance,base12,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5761187699999937
+I2,invariance,base12,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5853941789999908
+I2,invariance,base12,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5769766670000536
+I2,invariance,base13,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.597239254000101
+I2,invariance,base13,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6141213260000313
+I2,invariance,base13,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5920350979999967
+I2,invariance,base14,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5871334959999785
+I2,invariance,base14,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5735095369999499
+I2,invariance,base14,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5978169050000588
+I2,invariance,base15,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4500158470000315
+I2,invariance,base15,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.45002417400007744
+I2,invariance,base15,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4596684880000339
+I2,invariance,base16,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5531822069999635
+I2,invariance,base16,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5475339249999251
+I2,invariance,base16,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5570905230000562
+I2,invariance,base17,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.113885223000011
+I2,invariance,base17,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9177390969999806
+I2,invariance,base17,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9301765339999974
+I2,invariance,base18,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6254300240000248
+I2,invariance,base18,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.619438956999943
+I2,invariance,base18,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6013847279999709
+I2,invariance,base19,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.62403585200002
+I2,invariance,base19,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5889279179999676
+I2,invariance,base19,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5982512560000259
+I2,invariance,base20,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6106738440000754
+I2,invariance,base20,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6104033270000855
+I2,invariance,base20,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.617069777000097
+I2,invariance,base21,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6719550520000439
+I2,invariance,base21,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6853880390000313
+I2,invariance,base21,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7749625320000177
+I2,invariance,base22,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.47289409199993315
+I2,invariance,base22,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4704887289999533
+I2,invariance,base22,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.46144152500005475
+I2,invariance,base23,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.49025451900001826
+I2,invariance,base23,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4911831780000284
+I2,invariance,base23,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.48100219000002653
+I2,invariance,base24,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.208535287000018
+I2,invariance,base24,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.8414178910001056
+I2,invariance,base24,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.0836284740000792
+I2,invariance,base25,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6178858540000647
+I2,invariance,base25,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6531233360000215
+I2,invariance,base25,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6440397670000948
+I2,invariance,base26,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6231384850000268
+I2,invariance,base26,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6209662769999795
+I2,invariance,base26,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6295370569999932
+I2,invariance,base27,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6481759120000561
+I2,invariance,base27,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6386294879999923
+I2,invariance,base27,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6704663149999988
+I2,invariance,base28,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6274117660000229
+I2,invariance,base28,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6337167550000231
+I2,invariance,base28,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6277428170000121
+I2,invariance,base29,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6739173589999155
+I2,invariance,base29,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6678408389999504
+I2,invariance,base29,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6697513550000167
+I2,invariance,base30,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5584981789999119
+I2,invariance,base30,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5482113680000111
+I2,invariance,base30,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5393935170000077
+I2,invariance,base31,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6657720310000741
+I2,invariance,base31,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6611227980000649
+I2,invariance,base31,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6652643439999792
+I2,invariance,base32,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6787777910000159
+I2,invariance,base32,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6626266289999876
+I2,invariance,base32,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6838653530001011
+I2,invariance,base33,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.8034267560000217
+I2,invariance,base33,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7512211009999419
+I2,invariance,base33,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.753116781000017
+I2,invariance,base34,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7006951299999855
+I2,invariance,base34,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6985145680000642
+I2,invariance,base34,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7194004909999876
+I2,invariance,base35,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6937685609999562
+I2,invariance,base35,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6995150110000168
+I2,invariance,base35,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.693585197999937
+I3,invariance,base00,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.2942578900000399
+I3,invariance,base00,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.2017399680000835
+I3,invariance,base00,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.208545924999953
+I3,invariance,base01,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.2297927170000094
+I3,invariance,base01,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.2270845240000199
+I3,invariance,base01,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.2103061409999327
+I3,invariance,base02,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3746527259999084
+I3,invariance,base02,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3544497519999368
+I3,invariance,base02,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3881106390000468
+I3,invariance,base03,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6021419290000267
+I3,invariance,base03,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6184847580000223
+I3,invariance,base03,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6399605880000081
+I3,invariance,base04,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4978756210000483
+I3,invariance,base04,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4075542999999016
+I3,invariance,base04,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3914741280000271
+I3,invariance,base05,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4710809570000265
+I3,invariance,base05,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4450566930000832
+I3,invariance,base05,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4290860810000368
+I3,invariance,base06,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5870605009999963
+I3,invariance,base06,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5966401719999794
+I3,invariance,base06,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6369117250000045
+I3,invariance,base07,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6447763889999578
+I3,invariance,base07,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4500986350000176
+I3,invariance,base07,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.379650718999983
+I3,invariance,base08,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.7098865819999673
+I3,invariance,base08,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.5042334350000601
+I3,invariance,base08,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.5116910539999253
+I3,invariance,base09,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.740704883000035
+I3,invariance,base09,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6370683380000628
+I3,invariance,base09,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6396481110000423
+I3,invariance,base10,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2130524810000907
+I3,invariance,base10,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2705674610000415
+I3,invariance,base10,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2922285860000784
+I3,invariance,base11,11,True,True,"2023-04: count 113 -> 224, expected exactly 2x",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.188528144999964
+I3,invariance,base11,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6621916560000045
+I3,invariance,base11,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5973860809999678
+I3,invariance,base12,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3815294560000666
+I3,invariance,base12,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2077676939999265
+I3,invariance,base12,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.1922656039999993
+I3,invariance,base13,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4257271599999513
+I3,invariance,base13,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2555143309999721
+I3,invariance,base13,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2530246900000748
+I3,invariance,base14,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2739589270000806
+I3,invariance,base14,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2471392480000532
+I3,invariance,base14,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2367784809999876
+I3,invariance,base15,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.2758641330000273
+I3,invariance,base15,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.2379641859999992
+I3,invariance,base15,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.2601112079998984
+I3,invariance,base16,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3564286270000139
+I3,invariance,base16,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4486100889999989
+I3,invariance,base16,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3311663709999948
+I3,invariance,base17,11,True,True,"2023-04: count 95 -> 192, expected exactly 2x",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.2439770579999276
+I3,invariance,base17,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6876355839999633
+I3,invariance,base17,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.617424749999941
+I3,invariance,base18,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4549906729999975
+I3,invariance,base18,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.477030324999987
+I3,invariance,base18,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4799241360000224
+I3,invariance,base19,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.7102564530000564
+I3,invariance,base19,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6144927060000782
+I3,invariance,base19,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.610816903
+I3,invariance,base20,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6627896530000044
+I3,invariance,base20,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6940284089999977
+I3,invariance,base20,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6934757799999716
+I3,invariance,base21,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3734843780000574
+I3,invariance,base21,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5416811739999048
+I3,invariance,base21,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5721383840000271
+I3,invariance,base22,11,True,True,2023-06: median price 9406175.0 -> 9450000.0,2,1,2,1,True,price_band>geography,price_band>geography,1.6169331209999882
+I3,invariance,base22,23,True,True,2023-06: median price 9406175.0 -> 9450000.0,2,1,2,1,True,price_band>geography,price_band>geography,1.6947909849999405
+I3,invariance,base22,47,True,True,2023-06: median price 9406175.0 -> 9450000.0,2,1,2,1,True,price_band>geography,price_band>geography,1.732739314000014
+I3,invariance,base23,11,True,True,"2023-05: count 218 -> 434, expected exactly 2x",2,1,2,1,True,price_band>geography,price_band>geography,3.2194466129999455
+I3,invariance,base23,23,True,True,"2023-05: count 218 -> 434, expected exactly 2x",2,1,2,1,True,price_band>geography,price_band>geography,2.6359136669999543
+I3,invariance,base23,47,True,True,"2023-05: count 218 -> 434, expected exactly 2x",2,1,2,1,True,price_band>geography,price_band>geography,2.6471700370000235
+I3,invariance,base24,11,True,True,"2023-04: count 95 -> 192, expected exactly 2x",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4703744369999185
+I3,invariance,base24,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4873393069999565
+I3,invariance,base24,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4765068069999643
+I3,invariance,base25,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5112994040000558
+I3,invariance,base25,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5751608749999377
+I3,invariance,base25,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5569706649999944
+I3,invariance,base26,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5375895130000572
+I3,invariance,base26,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5202010360000031
+I3,invariance,base26,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5279939550000563
+I3,invariance,base27,11,True,True,"2023-04: count 113 -> 224, expected exactly 2x",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.3785578479999003
+I3,invariance,base27,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5289102729999513
+I3,invariance,base27,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5310844010000437
+I3,invariance,base28,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4501191289999724
+I3,invariance,base28,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.471868069999914
+I3,invariance,base28,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.467671841000083
+I3,invariance,base29,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5815100770000754
+I3,invariance,base29,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5411220569999386
+I3,invariance,base29,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.537025736999908
+I3,invariance,base30,11,True,True,"2023-06: count 444 -> 892, expected exactly 2x",2,1,2,1,True,price_band>geography,price_band>geography,2.5163903600000594
+I3,invariance,base30,23,True,True,"2023-06: count 444 -> 892, expected exactly 2x",2,1,2,1,True,price_band>geography,price_band>geography,2.2855404220000537
+I3,invariance,base30,47,True,True,"2023-06: count 444 -> 892, expected exactly 2x",2,1,2,1,True,price_band>geography,price_band>geography,2.296168585000032
+I3,invariance,base31,11,True,True,2023-04: median psf 6328.639542275906 -> 6300.0,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.693427824999958
+I3,invariance,base31,23,True,True,2023-04: median psf 6328.639542275906 -> 6300.0,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.5797438590000183
+I3,invariance,base31,47,True,True,2023-04: median psf 6328.639542275906 -> 6300.0,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.5679007530000035
+I3,invariance,base32,11,True,True,"2023-07: count 1111 -> 2226, expected exactly 2x",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6817328580000321
+I3,invariance,base32,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5813604950000126
+I3,invariance,base32,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5669562880000285
+I3,invariance,base33,11,True,True,"2023-04: count 113 -> 224, expected exactly 2x",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8328586269999505
+I3,invariance,base33,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.976003377999973
+I3,invariance,base33,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9779984040000045
+I3,invariance,base34,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.45848877800006
+I3,invariance,base34,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5677837189999764
+I3,invariance,base34,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.569131488000039
+I3,invariance,base35,11,True,True,"2023-07: count 1114 -> 2232, expected exactly 2x",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.297010063000016
+I3,invariance,base35,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5932372889999442
+I3,invariance,base35,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5704910360000213
+I4,invariance,base00,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42644957799996064
+I4,invariance,base00,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42298035300007086
+I4,invariance,base00,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.44623364099993523
+I4,invariance,base01,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.43235004799998933
+I4,invariance,base01,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4271564480000052
+I4,invariance,base01,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4192981679999548
+I4,invariance,base02,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5552223820000108
+I4,invariance,base02,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5688265420000107
+I4,invariance,base02,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5781853700000283
+I4,invariance,base03,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6002796220000164
+I4,invariance,base03,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5754095319999806
+I4,invariance,base03,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5852745360000426
+I4,invariance,base04,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.543795376999924
+I4,invariance,base04,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5865059159999646
+I4,invariance,base04,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5500553650000484
+I4,invariance,base05,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6094970320000357
+I4,invariance,base05,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6079660650000278
+I4,invariance,base05,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6187098170000809
+I4,invariance,base06,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.661552231000087
+I4,invariance,base06,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5713067110000338
+I4,invariance,base06,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5730719279999903
+I4,invariance,base07,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6113723529999788
+I4,invariance,base07,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6242132130000755
+I4,invariance,base07,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6236730330000455
+I4,invariance,base08,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4381354710000096
+I4,invariance,base08,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4421818099999655
+I4,invariance,base08,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.44629505399996106
+I4,invariance,base09,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5946370609999576
+I4,invariance,base09,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.60418305099995
+I4,invariance,base09,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.595479169999976
+I4,invariance,base10,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5430893480000805
+I4,invariance,base10,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5438996840000527
+I4,invariance,base10,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5460696950000283
+I4,invariance,base11,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6064360859999169
+I4,invariance,base11,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5965792420000753
+I4,invariance,base11,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5949905070000341
+I4,invariance,base12,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5922537839999222
+I4,invariance,base12,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5928132419999201
+I4,invariance,base12,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6047348339999417
+I4,invariance,base13,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6324943559999383
+I4,invariance,base13,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6195393540000396
+I4,invariance,base13,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6392188160000387
+I4,invariance,base14,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6376684059999889
+I4,invariance,base14,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6333096959999693
+I4,invariance,base14,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6369549859999779
+I4,invariance,base15,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4598876880000944
+I4,invariance,base15,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4589736970000331
+I4,invariance,base15,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4618048600000293
+I4,invariance,base16,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5829207009999209
+I4,invariance,base16,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5838551580000058
+I4,invariance,base16,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5785256249999975
+I4,invariance,base17,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5840024990000074
+I4,invariance,base17,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6146608029999925
+I4,invariance,base17,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5850329940000165
+I4,invariance,base18,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6104577279999148
+I4,invariance,base18,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5910216260000425
+I4,invariance,base18,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5988053280000258
+I4,invariance,base19,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6247852850000299
+I4,invariance,base19,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6129942679999658
+I4,invariance,base19,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6136750050000046
+I4,invariance,base20,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6502334409999548
+I4,invariance,base20,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6076355210000202
+I4,invariance,base20,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5907642569999325
+I4,invariance,base21,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6335843049999994
+I4,invariance,base21,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6520306899999468
+I4,invariance,base21,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6571258010000065
+I4,invariance,base22,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.47932881400004135
+I4,invariance,base22,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.46503425899993545
+I4,invariance,base22,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4576682219999384
+I4,invariance,base23,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4796417439999914
+I4,invariance,base23,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4833337480000637
+I4,invariance,base23,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4789499949999936
+I4,invariance,base24,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5667843149999499
+I4,invariance,base24,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5864837050000915
+I4,invariance,base24,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.572498851999967
+I4,invariance,base25,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6320064369999727
+I4,invariance,base25,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6369984930000783
+I4,invariance,base25,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6971268209999835
+I4,invariance,base26,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6174247449999939
+I4,invariance,base26,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6151031470000135
+I4,invariance,base26,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5998291710000103
+I4,invariance,base27,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6403985709999915
+I4,invariance,base27,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6038374930000145
+I4,invariance,base27,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6334073030000127
+I4,invariance,base28,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.645488816000011
+I4,invariance,base28,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6397185820000004
+I4,invariance,base28,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6508330600000818
+I4,invariance,base29,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.677675991000001
+I4,invariance,base29,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.677747183000065
+I4,invariance,base29,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.674027045999992
+I4,invariance,base30,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5449783059999618
+I4,invariance,base30,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5649007780000375
+I4,invariance,base30,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5477491329999111
+I4,invariance,base31,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7132627959999809
+I4,invariance,base31,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6582199409999703
+I4,invariance,base31,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6461897290000707
+I4,invariance,base32,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6598325090000117
+I4,invariance,base32,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6395207340000297
+I4,invariance,base32,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6524306159999469
+I4,invariance,base33,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7520459840000058
+I4,invariance,base33,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7443131870001025
+I4,invariance,base33,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7734853620000877
+I4,invariance,base34,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6861119709999457
+I4,invariance,base34,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6899676460000137
+I4,invariance,base34,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6831321439999556
+I4,invariance,base35,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7186896969999452
+I4,invariance,base35,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6924932999997964
+I4,invariance,base35,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7153667980001046
+I5,invariance,base00,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4442493310000373
+I5,invariance,base00,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.419627243999912
+I5,invariance,base00,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.44956978200002595
+I5,invariance,base01,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5120581169999241
+I5,invariance,base01,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4240341830000034
+I5,invariance,base01,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4183284289999847
+I5,invariance,base02,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5725990010000714
+I5,invariance,base02,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5809650139999576
+I5,invariance,base02,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5596049929999936
+I5,invariance,base03,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5846536889998788
+I5,invariance,base03,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5921605440000803
+I5,invariance,base03,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5734116280000308
+I5,invariance,base04,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3717414550001195
+I5,invariance,base04,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.1273343719999502
+I5,invariance,base04,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.1222092240000165
+I5,invariance,base05,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6128310540000257
+I5,invariance,base05,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6086136289998194
+I5,invariance,base05,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6449942680001186
+I5,invariance,base06,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5612540160000208
+I5,invariance,base06,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.557577098000138
+I5,invariance,base06,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5703920339999513
+I5,invariance,base07,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4348360789999788
+I5,invariance,base07,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2325050429999465
+I5,invariance,base07,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.249271642000167
+I5,invariance,base08,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42117196799995327
+I5,invariance,base08,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42403265799998735
+I5,invariance,base08,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.427480609000213
+I5,invariance,base09,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.578818253999998
+I5,invariance,base09,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5861470389997976
+I5,invariance,base09,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6180142100001831
+I5,invariance,base10,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.0845634419999897
+I5,invariance,base10,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.431662856999992
+I5,invariance,base10,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.470910616000083
+I5,invariance,base11,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6135474510001586
+I5,invariance,base11,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5840055160001612
+I5,invariance,base11,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5748505229998955
+I5,invariance,base12,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5686479250000502
+I5,invariance,base12,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6170155260001593
+I5,invariance,base12,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5816911140000229
+I5,invariance,base13,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.410699829000123
+I5,invariance,base13,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2171903269997983
+I5,invariance,base13,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2070937559999493
+I5,invariance,base14,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6097105939998073
+I5,invariance,base14,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.602273157999889
+I5,invariance,base14,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6192178659998717
+I5,invariance,base15,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4593735399998877
+I5,invariance,base15,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4583043220000036
+I5,invariance,base15,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4635545930000262
+I5,invariance,base16,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.583135957000195
+I5,invariance,base16,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5733550309998918
+I5,invariance,base16,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5771024310001849
+I5,invariance,base17,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6489968670000508
+I5,invariance,base17,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5949290570001722
+I5,invariance,base17,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6064799630000834
+I5,invariance,base18,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5969359780001469
+I5,invariance,base18,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.599999741999909
+I5,invariance,base18,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6040043629998308
+I5,invariance,base19,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.389428738999868
+I5,invariance,base19,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2525830019999376
+I5,invariance,base19,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.241993407000109
+I5,invariance,base20,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2698428819999208
+I5,invariance,base20,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.1728844269998717
+I5,invariance,base20,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.1731513120000727
+I5,invariance,base21,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6508088900000075
+I5,invariance,base21,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6420540999999957
+I5,invariance,base21,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.636776517999806
+I5,invariance,base22,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.2579909129999578
+I5,invariance,base22,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.0176033960001405
+I5,invariance,base22,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.0227553380000245
+I5,invariance,base23,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.1782992220000779
+I5,invariance,base23,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.0853898650000247
+I5,invariance,base23,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.0869747389999702
+I5,invariance,base24,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5569450030000098
+I5,invariance,base24,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5882252440001139
+I5,invariance,base24,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5833141919999889
+I5,invariance,base25,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4798281789999237
+I5,invariance,base25,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2926614919999793
+I5,invariance,base25,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3163153289999627
+I5,invariance,base26,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4226187589999881
+I5,invariance,base26,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3846878609999749
+I5,invariance,base26,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3876548060000005
+I5,invariance,base27,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6547104880000916
+I5,invariance,base27,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6633819159999348
+I5,invariance,base27,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6437002370000755
+I5,invariance,base28,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6618423450001956
+I5,invariance,base28,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6424103980000382
+I5,invariance,base28,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.648298160999957
+I5,invariance,base29,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5120334369999
+I5,invariance,base29,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.357729554000116
+I5,invariance,base29,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4514178790000187
+I5,invariance,base30,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5244072660000256
+I5,invariance,base30,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5425131570000303
+I5,invariance,base30,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5195453530000123
+I5,invariance,base31,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6572929479998493
+I5,invariance,base31,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6878061830000206
+I5,invariance,base31,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6479653940000389
+I5,invariance,base32,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.416919800999949
+I5,invariance,base32,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2766552179998598
+I5,invariance,base32,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.2908403300000373
+I5,invariance,base33,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7505498240000179
+I5,invariance,base33,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7487184030001117
+I5,invariance,base33,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7572132029999921
+I5,invariance,base34,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6825747039999897
+I5,invariance,base34,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.669438578999916
+I5,invariance,base34,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6725057630001174
+I5,invariance,base35,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.46090898500006
+I5,invariance,base35,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.3053186550000646
+I5,invariance,base35,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.273681624999881
+M1,monotonic,base00,11,True,False,,1,1,1,1,True,geography,geography,4.9034699779999755
+M1,monotonic,base00,23,True,False,,1,1,1,1,True,geography,geography,5.228248115000042
+M1,monotonic,base00,47,True,False,,1,1,1,1,True,geography,geography,5.299911206999923
+M1,monotonic,base01,11,True,False,,1,1,1,1,True,geography,geography,0.2931566269999166
+M1,monotonic,base01,23,True,False,,1,1,1,1,True,geography,geography,0.29727389499998935
+M1,monotonic,base01,47,True,False,,1,1,1,1,True,geography,geography,0.29737544299996443
+M1,monotonic,base02,11,True,True,"2022-09: median price moved 512,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,6.454641378999895
+M1,monotonic,base02,23,True,True,"2022-09: median price moved 512,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,6.6385917909999534
+M1,monotonic,base02,47,True,True,"2022-09: median price moved 512,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,6.176589043000149
+M1,monotonic,base03,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,4.534780138000087
+M1,monotonic,base03,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,3.9547498320000614
+M1,monotonic,base03,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,3.9028755409999576
+M1,monotonic,base04,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4083497819999593
+M1,monotonic,base04,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4169740150000507
+M1,monotonic,base04,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.42125768000005337
+M1,monotonic,base05,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4304698369999187
+M1,monotonic,base05,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.44287606900002174
+M1,monotonic,base05,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.43725380700016103
+M1,monotonic,base06,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4196265359998961
+M1,monotonic,base06,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4357351189999008
+M1,monotonic,base06,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.41941634399995564
+M1,monotonic,base07,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4372838629999478
+M1,monotonic,base07,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4345444260000022
+M1,monotonic,base07,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4476350509999065
+M1,monotonic,base08,11,True,True,"2023-04: median price moved 477,000.00, expected 500,000.00",1,1,1,1,True,geography,geography,5.485207778999893
+M1,monotonic,base08,23,True,True,"2023-04: median price moved 477,000.00, expected 500,000.00",1,1,1,1,True,geography,geography,4.600048477999962
+M1,monotonic,base08,47,True,True,"2023-04: median price moved 477,000.00, expected 500,000.00",1,1,1,1,True,geography,geography,4.686400031000176
+M1,monotonic,base09,11,True,True,"2023-04: median price moved 233,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.516786988000149
+M1,monotonic,base09,23,True,True,"2023-04: median price moved 233,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.2140882270000475
+M1,monotonic,base09,47,True,True,"2023-04: median price moved 233,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.384485485000141
+M1,monotonic,base10,11,True,True,"2023-04: median price moved 233,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,0.43154238399984024
+M1,monotonic,base10,23,True,True,"2023-04: median price moved 233,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,0.4162813330001427
+M1,monotonic,base10,47,True,True,"2023-04: median price moved 233,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,0.4215528249999352
+M1,monotonic,base11,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,6.1117232890001105
+M1,monotonic,base11,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.016932443000087
+M1,monotonic,base11,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,4.895063241999878
+M1,monotonic,base12,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,3.308843655999908
+M1,monotonic,base12,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,3.2641041659999246
+M1,monotonic,base12,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,3.197804025000096
+M1,monotonic,base13,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4414871649998986
+M1,monotonic,base13,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4337710339998466
+M1,monotonic,base13,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4355001030000949
+M1,monotonic,base14,11,True,True,"2023-04: median price moved 422,000.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,4.355043927999986
+M1,monotonic,base14,23,True,True,"2023-04: median price moved 422,000.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,4.198027746999969
+M1,monotonic,base14,47,True,True,"2023-04: median price moved 422,000.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,4.157845608999878
+M1,monotonic,base15,11,True,True,"2023-05: median price moved 317,500.00, expected 500,000.00",1,1,1,1,True,geography,geography,6.00277797800004
+M1,monotonic,base15,23,True,True,"2023-05: median price moved 317,500.00, expected 500,000.00",1,1,1,1,True,geography,geography,4.568027333999908
+M1,monotonic,base15,47,True,True,"2023-05: median price moved 317,500.00, expected 500,000.00",1,1,1,1,True,geography,geography,4.580768770000077
+M1,monotonic,base16,11,True,True,"2023-05: median price moved 486,400.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.250991778999833
+M1,monotonic,base16,23,True,True,"2023-05: median price moved 486,400.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,4.6993503209998835
+M1,monotonic,base16,47,True,True,"2023-05: median price moved 486,400.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,4.677822339999921
+M1,monotonic,base17,11,True,True,"2023-05: median price moved 486,400.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,0.45256208699993294
+M1,monotonic,base17,23,True,True,"2023-05: median price moved 486,400.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,0.4329696319998675
+M1,monotonic,base17,47,True,True,"2023-05: median price moved 486,400.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,0.4356939249998959
+M1,monotonic,base18,11,True,True,"2023-05: median price moved 378,750.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,6.072868454999934
+M1,monotonic,base18,23,True,True,"2023-05: median price moved 257,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.410061692999989
+M1,monotonic,base18,47,True,True,"2023-05: median price moved 257,500.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.434856123000145
+M1,monotonic,base19,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,4.92312515499998
+M1,monotonic,base19,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,4.83264611300001
+M1,monotonic,base19,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,4.848015683999847
+M1,monotonic,base20,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.43870076700000027
+M1,monotonic,base20,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4263412549998975
+M1,monotonic,base20,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.44100814600005833
+M1,monotonic,base21,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,6.062104988999863
+M1,monotonic,base21,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.121188222000001
+M1,monotonic,base21,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.09675087100004
+M1,monotonic,base22,11,True,False,,1,1,1,1,True,geography,geography,6.164999027000022
+M1,monotonic,base22,23,True,False,,1,1,1,1,True,geography,geography,5.102675589
+M1,monotonic,base22,47,True,False,,1,1,1,1,True,geography,geography,5.144257623000158
+M1,monotonic,base23,11,True,False,,1,1,1,1,True,geography,geography,0.3508889940001154
+M1,monotonic,base23,23,True,False,,1,1,1,1,True,geography,geography,0.33983224899998277
+M1,monotonic,base23,47,True,False,,1,1,1,1,True,geography,geography,0.34188892799988935
+M1,monotonic,base24,11,True,True,"2023-06: median price moved 466,625.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.703054205999933
+M1,monotonic,base24,23,True,True,"2023-06: median price moved 466,625.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.104904409000028
+M1,monotonic,base24,47,True,True,"2023-06: median price moved 466,625.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.103380589999915
+M1,monotonic,base25,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,6.1300140969999575
+M1,monotonic,base25,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.688316921000023
+M1,monotonic,base25,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.675381788000095
+M1,monotonic,base26,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.49416151199989145
+M1,monotonic,base26,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4904119660000106
+M1,monotonic,base26,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.4721090880000247
+M1,monotonic,base27,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,8.086947369999962
+M1,monotonic,base27,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,7.498595023999997
+M1,monotonic,base27,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,7.092569455999865
+M1,monotonic,base28,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,6.536491331000207
+M1,monotonic,base28,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.48358696299988
+M1,monotonic,base28,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.460115965000114
+M1,monotonic,base29,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.47989262199985205
+M1,monotonic,base29,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.471464812000022
+M1,monotonic,base29,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,0.472369130000061
+M1,monotonic,base30,11,True,False,,1,1,1,1,True,geography,geography,6.398667220000107
+M1,monotonic,base30,23,True,False,,1,1,1,1,True,geography,geography,5.210685511000065
+M1,monotonic,base30,47,True,False,,1,1,1,1,True,geography,geography,5.064205433000097
+M1,monotonic,base31,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,6.3871544430000995
+M1,monotonic,base31,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.463048196000045
+M1,monotonic,base31,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.4592579290001595
+M1,monotonic,base32,11,True,True,"2023-07: median price moved 512,250.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,6.279440834999832
+M1,monotonic,base32,23,True,True,"2023-07: median price moved 512,250.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.228694368999868
+M1,monotonic,base32,47,True,True,"2023-07: median price moved 512,250.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,5.200374808999868
+M1,monotonic,base33,11,True,True,"2023-07: median price moved 512,250.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,0.5660758849999183
+M1,monotonic,base33,23,True,True,"2023-07: median price moved 512,250.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,0.5565763820000029
+M1,monotonic,base33,47,True,True,"2023-07: median price moved 512,250.00, expected 500,000.00",2,1,2,1,True,bhk>geography,bhk>geography,0.5631476870000824
+M1,monotonic,base34,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,4.821382541000048
+M1,monotonic,base34,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,4.758134612000049
+M1,monotonic,base34,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,4.811936609999975
+M1,monotonic,base35,11,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.416036779000024
+M1,monotonic,base35,23,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.009374287000128
+M1,monotonic,base35,47,True,False,,2,1,2,1,True,bhk>geography,bhk>geography,5.120263978999901
+M2,monotonic,base00,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.769931038000095
+M2,monotonic,base00,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.471409668999968
+M2,monotonic,base00,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.48587033900003
+M2,monotonic,base01,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.827553941000133
+M2,monotonic,base01,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.350036833999866
+M2,monotonic,base01,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.687401388999888
+M2,monotonic,base02,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0105590709999888
+M2,monotonic,base02,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.888891041000079
+M2,monotonic,base02,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8712849270000333
+M2,monotonic,base03,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7697868919999564
+M2,monotonic,base03,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.578695239999888
+M2,monotonic,base03,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.5703524390000894
+M2,monotonic,base04,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.5346344800000224
+M2,monotonic,base04,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9704111620001186
+M2,monotonic,base04,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9822253539998655
+M2,monotonic,base05,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8051282300000366
+M2,monotonic,base05,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.693779235999955
+M2,monotonic,base05,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.70238980299996
+M2,monotonic,base06,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5810588669999106
+M2,monotonic,base06,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5897122579999632
+M2,monotonic,base06,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5918700590000299
+M2,monotonic,base07,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.812425845000007
+M2,monotonic,base07,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6980042699999558
+M2,monotonic,base07,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6703748249999535
+M2,monotonic,base08,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,4.415102736000108
+M2,monotonic,base08,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,4.1582498110001325
+M2,monotonic,base08,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,4.127528765999841
+M2,monotonic,base09,11,True,True,2022-09: widened band gave fewer listings (23 -> 22),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.812315140999999
+M2,monotonic,base09,23,True,True,2022-09: widened band gave fewer listings (23 -> 22),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7128893500000686
+M2,monotonic,base09,47,True,True,2022-09: widened band gave fewer listings (23 -> 22),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.678368874999933
+M2,monotonic,base10,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1424331900000197
+M2,monotonic,base10,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.936722983999971
+M2,monotonic,base10,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.919865308999988
+M2,monotonic,base11,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.683472613000049
+M2,monotonic,base11,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.3426241409999875
+M2,monotonic,base11,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.3490583970001353
+M2,monotonic,base12,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.72453391199997
+M2,monotonic,base12,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.694401208000045
+M2,monotonic,base12,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6211620369999764
+M2,monotonic,base13,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.267191364000155
+M2,monotonic,base13,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.810381580000012
+M2,monotonic,base13,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.827472700000044
+M2,monotonic,base14,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.6503568349999114
+M2,monotonic,base14,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.459485959000176
+M2,monotonic,base14,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.4528262659998745
+M2,monotonic,base15,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.796680606000109
+M2,monotonic,base15,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.5718066310000722
+M2,monotonic,base15,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.5727999880000425
+M2,monotonic,base16,11,True,True,2022-09: widened band gave fewer listings (23 -> 22),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.869117001999939
+M2,monotonic,base16,23,True,True,2022-09: widened band gave fewer listings (23 -> 22),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.453830926999899
+M2,monotonic,base16,47,True,True,2022-09: widened band gave fewer listings (23 -> 22),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4751023540000006
+M2,monotonic,base17,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.5588868459999503
+M2,monotonic,base17,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.3866032660000656
+M2,monotonic,base17,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.3635630579999543
+M2,monotonic,base18,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.673105125999882
+M2,monotonic,base18,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4112947259998236
+M2,monotonic,base18,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4345195519999834
+M2,monotonic,base19,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7955484939998314
+M2,monotonic,base19,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4846892359998947
+M2,monotonic,base19,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4716518719999385
+M2,monotonic,base20,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.371513714999992
+M2,monotonic,base20,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.837043228000084
+M2,monotonic,base20,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.875716349999948
+M2,monotonic,base21,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.0118748489999234
+M2,monotonic,base21,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.882602997000049
+M2,monotonic,base21,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.8523883719999503
+M2,monotonic,base22,11,True,True,2022-12: widened band gave fewer listings (22 -> 20),2,1,2,1,True,price_band>geography,price_band>geography,3.240816571999858
+M2,monotonic,base22,23,True,True,2022-12: widened band gave fewer listings (22 -> 20),2,1,2,1,True,price_band>geography,price_band>geography,2.9401344880000124
+M2,monotonic,base22,47,True,True,2022-12: widened band gave fewer listings (22 -> 20),2,1,2,1,True,price_band>geography,price_band>geography,2.974883684999895
+M2,monotonic,base23,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.9441821160000927
+M2,monotonic,base23,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.3703733109998666
+M2,monotonic,base23,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.353866111000116
+M2,monotonic,base24,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.206069444999912
+M2,monotonic,base24,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.4144924059999084
+M2,monotonic,base24,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.3373937290000413
+M2,monotonic,base25,11,True,True,2022-12: widened band gave fewer listings (22 -> 20),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.551646566000045
+M2,monotonic,base25,23,True,True,2022-12: widened band gave fewer listings (22 -> 20),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0030626959999154
+M2,monotonic,base25,47,True,True,2022-12: widened band gave fewer listings (22 -> 20),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0698596950001047
+M2,monotonic,base26,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.3475774809999166
+M2,monotonic,base26,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.174954797000055
+M2,monotonic,base26,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.176785052000014
+M2,monotonic,base27,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.115904829000101
+M2,monotonic,base27,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2911775570000827
+M2,monotonic,base27,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1485531789999186
+M2,monotonic,base28,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.4804246830001375
+M2,monotonic,base28,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8286541689999467
+M2,monotonic,base28,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.852150543000107
+M2,monotonic,base29,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.5707235649999802
+M2,monotonic,base29,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1765951879999648
+M2,monotonic,base29,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.238892289999967
+M2,monotonic,base30,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.9563874350001242
+M2,monotonic,base30,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.041029594000065
+M2,monotonic,base30,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.0727377180000985
+M2,monotonic,base31,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.115101877000143
+M2,monotonic,base31,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.152473853999936
+M2,monotonic,base31,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.175099236000051
+M2,monotonic,base32,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.4976151050000226
+M2,monotonic,base32,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1367652510000426
+M2,monotonic,base32,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.128908716000069
+M2,monotonic,base33,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.3828841629999715
+M2,monotonic,base33,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1292208560000745
+M2,monotonic,base33,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.153978561000031
+M2,monotonic,base34,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.5846617970000807
+M2,monotonic,base34,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0730690640000375
+M2,monotonic,base34,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0453127559999302
+M2,monotonic,base35,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.114123632999963
+M2,monotonic,base35,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.635754100999975
+M2,monotonic,base35,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.6374615839999933
+M3,monotonic,base00,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4369817920000969
+M3,monotonic,base00,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4129008329998669
+M3,monotonic,base00,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42270716499979244
+M3,monotonic,base01,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.41423736000001554
+M3,monotonic,base01,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4186057259998961
+M3,monotonic,base01,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42889679800009617
+M3,monotonic,base02,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5166632839998329
+M3,monotonic,base02,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5404904300000908
+M3,monotonic,base02,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5347862559999612
+M3,monotonic,base03,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5804591660000824
+M3,monotonic,base03,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5979647359999944
+M3,monotonic,base03,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5817144589998406
+M3,monotonic,base04,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5528204729998833
+M3,monotonic,base04,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.559190997000087
+M3,monotonic,base04,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5364806949999092
+M3,monotonic,base05,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5951999320000141
+M3,monotonic,base05,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5989077389999693
+M3,monotonic,base05,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6152551650000078
+M3,monotonic,base06,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5857115189999149
+M3,monotonic,base06,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5752629650000927
+M3,monotonic,base06,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5591523279999819
+M3,monotonic,base07,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5992342439999447
+M3,monotonic,base07,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6136736070000097
+M3,monotonic,base07,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5972402949998923
+M3,monotonic,base08,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42740622700011954
+M3,monotonic,base08,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42074303900017185
+M3,monotonic,base08,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.42484694299992043
+M3,monotonic,base09,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6000770059999923
+M3,monotonic,base09,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5992043349999676
+M3,monotonic,base09,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5945156770001176
+M3,monotonic,base10,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5242199560000245
+M3,monotonic,base10,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5305541459999858
+M3,monotonic,base10,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5491482179998002
+M3,monotonic,base11,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.57978809500014
+M3,monotonic,base11,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5759296359999553
+M3,monotonic,base11,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5830181100000118
+M3,monotonic,base12,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5876263919999474
+M3,monotonic,base12,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6068694130001404
+M3,monotonic,base12,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5923942199999601
+M3,monotonic,base13,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.608676381999885
+M3,monotonic,base13,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6204965409999659
+M3,monotonic,base13,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6131535570000324
+M3,monotonic,base14,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6134218539998528
+M3,monotonic,base14,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6007217950000268
+M3,monotonic,base14,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5900786350000544
+M3,monotonic,base15,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.45039946399992914
+M3,monotonic,base15,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4779660280000826
+M3,monotonic,base15,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4536849290000191
+M3,monotonic,base16,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5538475650000692
+M3,monotonic,base16,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5568110849999357
+M3,monotonic,base16,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.556248425999911
+M3,monotonic,base17,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5652591870000379
+M3,monotonic,base17,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5829309810001178
+M3,monotonic,base17,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.567670175999865
+M3,monotonic,base18,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5932645539999157
+M3,monotonic,base18,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5872447930000817
+M3,monotonic,base18,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5822746070000449
+M3,monotonic,base19,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6081932869999491
+M3,monotonic,base19,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5975046459998339
+M3,monotonic,base19,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6014309469999262
+M3,monotonic,base20,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6085810189999847
+M3,monotonic,base20,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6063462130000516
+M3,monotonic,base20,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6104122159999861
+M3,monotonic,base21,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6862772160000077
+M3,monotonic,base21,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.656176245999859
+M3,monotonic,base21,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6464452029999848
+M3,monotonic,base22,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4618111649999719
+M3,monotonic,base22,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.45461417599995
+M3,monotonic,base22,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4553841890001422
+M3,monotonic,base23,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4807569419999709
+M3,monotonic,base23,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.47471413900007065
+M3,monotonic,base23,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4787928150001335
+M3,monotonic,base24,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5655654519998734
+M3,monotonic,base24,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6482460330000777
+M3,monotonic,base24,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5592226380001648
+M3,monotonic,base25,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6378057219999391
+M3,monotonic,base25,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.627221893000069
+M3,monotonic,base25,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6564595830000144
+M3,monotonic,base26,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6421438879999641
+M3,monotonic,base26,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6182005139999092
+M3,monotonic,base26,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6162505160000364
+M3,monotonic,base27,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6519157979998909
+M3,monotonic,base27,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6308429200000774
+M3,monotonic,base27,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6337897660000635
+M3,monotonic,base28,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6281450700000732
+M3,monotonic,base28,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6355966119999721
+M3,monotonic,base28,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6451451370000996
+M3,monotonic,base29,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6765300199999729
+M3,monotonic,base29,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6906321000001299
+M3,monotonic,base29,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7109995890000391
+M3,monotonic,base30,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5698698199998944
+M3,monotonic,base30,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5840951319999022
+M3,monotonic,base30,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.5886318249999931
+M3,monotonic,base31,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7342710770001304
+M3,monotonic,base31,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6884704629999305
+M3,monotonic,base31,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.686775033999993
+M3,monotonic,base32,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7628867149999223
+M3,monotonic,base32,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7254132600000958
+M3,monotonic,base32,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.681066564000048
+M3,monotonic,base33,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.8066822309999679
+M3,monotonic,base33,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.8323663400001351
+M3,monotonic,base33,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.812344406000193
+M3,monotonic,base34,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7274809530001676
+M3,monotonic,base34,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6968034770000031
+M3,monotonic,base34,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6989904709998882
+M3,monotonic,base35,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7518785170000228
+M3,monotonic,base35,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7382268389999354
+M3,monotonic,base35,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.7070835609999904
+M1raw,monotonic,base00,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.9713248789998943
+M1raw,monotonic,base00,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.7081125910001447
+M1raw,monotonic,base00,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.7391696909999155
+M1raw,monotonic,base01,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.1787380369999028
+M1raw,monotonic,base01,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.9458112280001387
+M1raw,monotonic,base01,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.9703484840001693
+M1raw,monotonic,base02,11,True,True,"2023-02: median price moved 190,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.3583904780000466
+M1raw,monotonic,base02,23,True,True,"2023-02: median price moved 190,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.2528722639999614
+M1raw,monotonic,base02,47,True,True,"2023-02: median price moved 190,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.25729770199996
+M1raw,monotonic,base03,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.2540233920001356
+M1raw,monotonic,base03,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.1358345690000533
+M1raw,monotonic,base03,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.1138432139998713
+M1raw,monotonic,base04,11,True,True,"2023-03: median price moved 600,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.3324023180000495
+M1raw,monotonic,base04,23,True,True,"2023-03: median price moved 600,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9351729679999607
+M1raw,monotonic,base04,47,True,True,"2023-03: median price moved 600,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9024771890001375
+M1raw,monotonic,base05,11,True,True,"2023-03: median price moved -1,412,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.210133692999989
+M1raw,monotonic,base05,23,True,True,"2023-03: median price moved -1,412,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.013819243999933
+M1raw,monotonic,base05,47,True,True,"2023-03: median price moved -1,412,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9982836240001234
+M1raw,monotonic,base06,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.57999532000008
+M1raw,monotonic,base06,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.593017651000082
+M1raw,monotonic,base06,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6101661840000361
+M1raw,monotonic,base07,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.0926666539999133
+M1raw,monotonic,base07,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9230551289999767
+M1raw,monotonic,base07,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9230146899999454
+M1raw,monotonic,base08,11,True,True,"2023-04: median price moved -156,000.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,3.052579213999934
+M1raw,monotonic,base08,23,True,True,"2023-04: median price moved -156,000.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,2.51945213099998
+M1raw,monotonic,base08,47,True,True,"2023-04: median price moved -156,000.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,2.5062414520000402
+M1raw,monotonic,base09,11,True,True,"2023-04: median price moved 448,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.4273665800001254
+M1raw,monotonic,base09,23,True,True,"2023-04: median price moved 448,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.795397727999898
+M1raw,monotonic,base09,47,True,True,"2023-04: median price moved 448,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8230418189998545
+M1raw,monotonic,base10,11,True,True,"2023-04: median price moved 0.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,5.314252945000135
+M1raw,monotonic,base10,23,True,True,"2023-04: median price moved 78,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,5.3377026240000305
+M1raw,monotonic,base10,47,True,True,"2023-04: median price moved 78,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,5.437011533000032
+M1raw,monotonic,base11,11,True,True,"2023-04: median price moved 105,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2016212070000165
+M1raw,monotonic,base11,23,True,True,"2023-04: median price moved 183,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.958876774999908
+M1raw,monotonic,base11,47,True,True,"2023-04: median price moved 183,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9627071400000204
+M1raw,monotonic,base12,11,True,True,"2023-04: median price moved 75,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.1862522899998567
+M1raw,monotonic,base12,23,True,True,"2023-04: median price moved 75,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.1165144149999833
+M1raw,monotonic,base12,47,True,True,"2023-04: median price moved 75,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.114899487999992
+M1raw,monotonic,base13,11,True,True,"2023-04: median price moved 300,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.005243939000138
+M1raw,monotonic,base13,23,True,True,"2023-04: median price moved 300,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.767572512000015
+M1raw,monotonic,base13,47,True,True,"2023-04: median price moved 300,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.784487404999936
+M1raw,monotonic,base14,11,True,True,"2023-04: median price moved 93,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7760418279999612
+M1raw,monotonic,base14,23,True,True,"2023-04: median price moved 93,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6150167540001803
+M1raw,monotonic,base14,47,True,True,"2023-04: median price moved 93,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.5970542570000816
+M1raw,monotonic,base15,11,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,2.7082476760001555
+M1raw,monotonic,base15,23,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,2.6220629279998775
+M1raw,monotonic,base15,47,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,2.575395877999881
+M1raw,monotonic,base16,11,True,True,2022-11: untouched month moved 4650000.0 -> 4656000.0,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1034691629999998
+M1raw,monotonic,base16,23,True,True,2022-11: untouched month moved 4650000.0 -> 4656000.0,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.773837292000053
+M1raw,monotonic,base16,47,True,True,2022-11: untouched month moved 4650000.0 -> 4656000.0,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.758368388000008
+M1raw,monotonic,base17,11,True,True,"2023-05: median price moved -31,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.981612694999967
+M1raw,monotonic,base17,23,True,True,"2023-05: median price moved -31,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.668892139000036
+M1raw,monotonic,base17,47,True,True,"2023-05: median price moved -31,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6318237089999457
+M1raw,monotonic,base18,11,True,True,"2023-05: median price moved 396,800.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.5070952979999674
+M1raw,monotonic,base18,23,True,True,"2023-05: median price moved 396,800.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.398593111999844
+M1raw,monotonic,base18,47,True,True,"2023-05: median price moved 396,800.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.3819914309999604
+M1raw,monotonic,base19,11,True,True,"2023-05: median price moved 340,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6081872960000965
+M1raw,monotonic,base19,23,True,True,"2023-05: median price moved 340,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.411724707999838
+M1raw,monotonic,base19,47,True,True,"2023-05: median price moved 340,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4288826219999464
+M1raw,monotonic,base20,11,True,True,"2023-05: median price moved 252,100.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.861987092000163
+M1raw,monotonic,base20,23,True,True,"2023-05: median price moved 252,100.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7838624100002107
+M1raw,monotonic,base20,47,True,True,"2023-05: median price moved 252,100.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8248608669998703
+M1raw,monotonic,base21,11,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6696825149999768
+M1raw,monotonic,base21,23,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.373402597999757
+M1raw,monotonic,base21,47,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.3723834180000267
+M1raw,monotonic,base22,11,True,True,"2023-06: median price moved 431,825.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,3.1694691409998086
+M1raw,monotonic,base22,23,True,True,"2023-06: median price moved 431,825.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,2.696571277000203
+M1raw,monotonic,base22,47,True,True,"2023-06: median price moved 431,825.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,2.7067331980001654
+M1raw,monotonic,base23,11,True,True,"2023-06: median price moved 0.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,3.212483395000163
+M1raw,monotonic,base23,23,True,True,"2023-06: median price moved 0.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,2.726859787000194
+M1raw,monotonic,base23,47,True,True,"2023-06: median price moved 0.00, expected 500,000.00",2,1,2,1,True,price_band>geography,price_band>geography,2.721124034999775
+M1raw,monotonic,base24,11,True,True,"2023-06: median price moved 1.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.154937856000288
+M1raw,monotonic,base24,23,True,True,"2023-06: median price moved 1.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0763031299998147
+M1raw,monotonic,base24,47,True,True,"2023-06: median price moved 1.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.10336293499995
+M1raw,monotonic,base25,11,True,True,"2023-06: median price moved 432,200.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.4996225330000925
+M1raw,monotonic,base25,23,True,True,"2023-06: median price moved 432,200.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1130556450002587
+M1raw,monotonic,base25,47,True,True,"2023-06: median price moved 432,200.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.14526217599996
+M1raw,monotonic,base26,11,True,True,"2023-06: median price moved 0.50, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2344543860003796
+M1raw,monotonic,base26,23,True,True,"2023-06: median price moved 0.50, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9330375089998597
+M1raw,monotonic,base26,47,True,True,"2023-06: median price moved 0.50, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.957102536000093
+M1raw,monotonic,base27,11,True,True,"2023-06: median price moved 490,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2527106990000902
+M1raw,monotonic,base27,23,True,True,"2023-06: median price moved 490,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2453842400000212
+M1raw,monotonic,base27,47,True,True,"2023-06: median price moved 490,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.329783545999817
+M1raw,monotonic,base28,11,True,True,"2023-06: median price moved 100,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.440635855000437
+M1raw,monotonic,base28,23,True,True,"2023-06: median price moved 100,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7050010230000225
+M1raw,monotonic,base28,47,True,True,"2023-06: median price moved 100,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.705907534999824
+M1raw,monotonic,base29,11,True,True,"2023-06: median price moved -200,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.859640424999725
+M1raw,monotonic,base29,23,True,True,"2023-06: median price moved -200,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6814483420002944
+M1raw,monotonic,base29,47,True,True,"2023-06: median price moved -200,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.701402379999763
+M1raw,monotonic,base30,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.6627174309996917
+M1raw,monotonic,base30,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.1285986349998893
+M1raw,monotonic,base30,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.105221631999939
+M1raw,monotonic,base31,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.8604523509998216
+M1raw,monotonic,base31,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2704623829999946
+M1raw,monotonic,base31,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.26705562799998
+M1raw,monotonic,base32,11,True,True,"2023-07: median price moved 364,921.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.848428285999944
+M1raw,monotonic,base32,23,True,True,"2023-07: median price moved 364,835.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.3186129640002946
+M1raw,monotonic,base32,47,True,True,"2023-07: median price moved 364,835.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.300637132999782
+M1raw,monotonic,base33,11,True,True,"2023-07: median price moved 300,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.6655792789997577
+M1raw,monotonic,base33,23,True,True,"2023-07: median price moved 300,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1741409619999104
+M1raw,monotonic,base33,47,True,True,"2023-07: median price moved 300,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.133129700000154
+M1raw,monotonic,base34,11,True,True,"2023-07: median price moved 414,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8226641060000475
+M1raw,monotonic,base34,23,True,True,"2023-07: median price moved 414,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6875660709997646
+M1raw,monotonic,base34,47,True,True,"2023-07: median price moved 414,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6757616160002726
+M1raw,monotonic,base35,11,True,True,"2023-07: median price moved 382,417.50, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.729679129000033
+M1raw,monotonic,base35,23,True,True,"2023-07: median price moved 370,123.50, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7122902020000765
+M1raw,monotonic,base35,47,True,True,"2023-07: median price moved 370,123.50, expected 500,000.00",3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6661588689999007
+D1,directional,base00,11,True,True,2022-09: count 22 != 23 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,2.51173413000015
+D1,directional,base00,23,True,True,2022-09: count 22 != 23 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,2.389600018999772
+D1,directional,base00,47,True,True,2022-09: count 22 != 23 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,2.4153448639999624
+D1,directional,base01,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.419750288999694
+D1,directional,base01,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.43383822699979646
+D1,directional,base01,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,0.4339520599996831
+D1,directional,base02,11,True,True,2022-11: count 19 != 20 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.3464921969998613
+D1,directional,base02,23,True,True,2022-11: count 19 != 20 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.8517819389999204
+D1,directional,base02,47,True,True,2022-11: count 19 != 20 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.8511230350000005
+D1,directional,base03,11,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7851753050003936
+D1,directional,base03,23,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6056875760000366
+D1,directional,base03,47,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.558050464000189
+D1,directional,base04,11,True,True,2022-10: count 9 != 10 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5856197880002583
+D1,directional,base04,23,True,True,2022-10: count 9 != 10 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6281949680001162
+D1,directional,base04,47,True,True,2022-10: count 9 != 10 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6020769080000719
+D1,directional,base05,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6292892499996015
+D1,directional,base05,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6260512750000089
+D1,directional,base05,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6424277639998763
+D1,directional,base06,11,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.057409023999753
+D1,directional,base06,23,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.951527791999979
+D1,directional,base06,47,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9607861790000243
+D1,directional,base07,11,True,True,2023-03: count 46 != 47 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.052855509999972
+D1,directional,base07,23,True,True,2023-03: count 46 != 47 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.8919933779998246
+D1,directional,base07,47,True,True,2023-03: count 46 != 47 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.8745271650000177
+D1,directional,base08,11,True,True,2022-10: count 13 != 14 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,3.159192286000234
+D1,directional,base08,23,True,True,2022-10: count 13 != 14 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,2.819718555000236
+D1,directional,base08,47,True,True,2022-10: count 13 != 14 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,2.8418258849997073
+D1,directional,base09,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6492821689998891
+D1,directional,base09,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5956938640001681
+D1,directional,base09,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5957053289998839
+D1,directional,base10,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.327529241999855
+D1,directional,base10,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.994819948999975
+D1,directional,base10,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0155677319999086
+D1,directional,base11,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7688682369998787
+D1,directional,base11,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.652998389000004
+D1,directional,base11,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.5888988520000566
+D1,directional,base12,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.668814146999921
+D1,directional,base12,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4990406870001607
+D1,directional,base12,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.500457883999843
+D1,directional,base13,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6262399840002217
+D1,directional,base13,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6338533260000077
+D1,directional,base13,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.647999493000043
+D1,directional,base14,11,True,True,2022-10: count 13 != 14 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.5743350709999504
+D1,directional,base14,23,True,True,2022-10: count 13 != 14 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.1557291419999274
+D1,directional,base14,47,True,True,2022-10: count 13 != 14 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.174079043999882
+D1,directional,base15,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.940647764000005
+D1,directional,base15,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.5889703590000863
+D1,directional,base15,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.5794887120000567
+D1,directional,base16,11,True,True,2022-11: count 16 != 18 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.392822496000008
+D1,directional,base16,23,True,True,2022-11: count 16 != 18 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.923697513999741
+D1,directional,base16,47,True,True,2022-11: count 16 != 18 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.923627029999807
+D1,directional,base17,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6302302990002318
+D1,directional,base17,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6186710329998277
+D1,directional,base17,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6089258790002532
+D1,directional,base18,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6405317669996293
+D1,directional,base18,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.3123754680000275
+D1,directional,base18,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.3387021070002447
+D1,directional,base19,11,True,True,2022-12: count 20 != 22 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7745074330000534
+D1,directional,base19,23,True,True,2022-12: count 20 != 22 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6186934890001794
+D1,directional,base19,47,True,True,2022-12: count 20 != 22 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.624467480000021
+D1,directional,base20,11,True,True,2023-03: count 44 != 45 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.209380327999952
+D1,directional,base20,23,True,True,2023-03: count 44 != 45 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.1750045929998123
+D1,directional,base20,47,True,True,2023-03: count 44 != 45 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.18339360400023
+D1,directional,base21,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6520066359998964
+D1,directional,base21,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6305994419999479
+D1,directional,base21,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6487340839998978
+D1,directional,base22,11,True,True,2022-11: count 16 != 18 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,3.391391548000229
+D1,directional,base22,23,True,True,2022-11: count 16 != 18 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,2.8169720909995704
+D1,directional,base22,47,True,True,2022-11: count 16 != 18 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,2.8247348340000826
+D1,directional,base23,11,True,True,2023-04: count 110 != 112 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,3.3572151050002503
+D1,directional,base23,23,True,True,2023-04: count 110 != 112 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,2.796011135000299
+D1,directional,base23,47,True,True,2023-04: count 110 != 112 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,2.6786189969998304
+D1,directional,base24,11,True,True,2023-06: count 347 != 348 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.5008395089998885
+D1,directional,base24,23,True,True,2023-06: count 347 != 348 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1184271990000525
+D1,directional,base24,47,True,True,2023-06: count 347 != 348 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.133420956000009
+D1,directional,base25,11,True,True,2022-11: count 16 != 18 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6712034649999623
+D1,directional,base25,23,True,True,2022-11: count 16 != 18 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.6491454259999045
+D1,directional,base25,47,True,True,2022-11: count 16 != 18 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.654984106000029
+D1,directional,base26,11,True,True,2023-04: count 104 != 106 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.5002973369996653
+D1,directional,base26,23,True,True,2023-04: count 104 != 106 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.942465860000084
+D1,directional,base26,47,True,True,2023-04: count 104 != 106 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9332256749999033
+D1,directional,base27,11,True,True,2023-05: count 227 != 228 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.016950444000031
+D1,directional,base27,23,True,True,2023-05: count 227 != 228 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9579366320003828
+D1,directional,base27,47,True,True,2023-05: count 227 != 228 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9102775430001202
+D1,directional,base28,11,True,True,2022-11: count 21 != 22 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.4699745389998498
+D1,directional,base28,23,True,True,2022-11: count 21 != 22 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.049431553999966
+D1,directional,base28,47,True,True,2022-11: count 21 != 22 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0251301009998315
+D1,directional,base29,11,True,True,2023-04: count 106 != 108 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.476765276000151
+D1,directional,base29,23,True,True,2023-04: count 106 != 108 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.968937257000107
+D1,directional,base29,47,True,True,2023-04: count 106 != 108 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9584115170000587
+D1,directional,base30,11,True,True,2023-06: count 444 != 446 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,4.122139238999807
+D1,directional,base30,23,True,True,2023-06: count 444 != 446 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,3.120245318999878
+D1,directional,base30,47,True,True,2023-06: count 444 != 446 across the shifted window,2,1,2,1,True,price_band>geography,price_band>geography,3.1442473289998816
+D1,directional,base31,11,True,True,2022-12: count 19 != 21 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.351702859999932
+D1,directional,base31,23,True,True,2022-12: count 19 != 21 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.127721688999827
+D1,directional,base31,47,True,True,2022-12: count 19 != 21 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1191979459999857
+D1,directional,base32,11,True,True,2023-06: count 347 != 349 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.7339880330000597
+D1,directional,base32,23,True,True,2023-06: count 347 != 349 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.882493421000163
+D1,directional,base32,47,True,True,2023-06: count 347 != 349 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8881511320000754
+D1,directional,base33,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.8781274990001293
+D1,directional,base33,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.072034720999909
+D1,directional,base33,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1361474680002175
+D1,directional,base34,11,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,5.5526557559996945
+D1,directional,base34,23,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.493159694000042
+D1,directional,base34,47,True,True,2022-09: count 22 != 23 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.444563055999879
+D1,directional,base35,11,True,True,2023-06: count 348 != 351 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.384537066000121
+D1,directional,base35,23,True,True,2023-06: count 349 != 351 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.072027826000067
+D1,directional,base35,47,True,True,2023-06: count 349 != 351 across the shifted window,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0305162790000395
+D2,directional,base00,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.3885820099999364
+D2,directional,base00,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.0603129539999827
+D2,directional,base00,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.0377133060001142
+D2,directional,base01,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,3.0666612640002313
+D2,directional,base01,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.6809502039996005
+D2,directional,base01,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.6426218880001215
+D2,directional,base02,11,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6501672619997407
+D2,directional,base02,23,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.36221053700001
+D2,directional,base02,47,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.35196119200009
+D2,directional,base03,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.0943064210000557
+D2,directional,base03,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.671263388999705
+D2,directional,base03,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.693055300999731
+D2,directional,base04,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.637608275000275
+D2,directional,base04,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.2206020260000514
+D2,directional,base04,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.2283451040002547
+D2,directional,base05,11,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.6502313729997695
+D2,directional,base05,23,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0109595990002163
+D2,directional,base05,47,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.026074504999997
+D2,directional,base06,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5962839399999211
+D2,directional,base06,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5999879500000134
+D2,directional,base06,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,0.5885580879998997
+D2,directional,base07,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0510987450002176
+D2,directional,base07,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4971649109997998
+D2,directional,base07,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.49837401700006
+D2,directional,base08,11,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,2.3856271839999863
+D2,directional,base08,23,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.9219233079998048
+D2,directional,base08,47,True,False,,2,1,2,1,True,price_band>geography,price_band>geography,1.9443048940001972
+D2,directional,base09,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.3010104979998687
+D2,directional,base09,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.397347781999997
+D2,directional,base09,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.346814111000185
+D2,directional,base10,11,True,True,2023-02: median psf 8365.019011406845 did not scale by 1.5 (got 12093.870078660953),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.372261729999991
+D2,directional,base10,23,True,True,2023-02: median psf 8365.019011406845 did not scale by 1.5 (got 12093.870078660953),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2314903149999736
+D2,directional,base10,47,True,True,2023-02: median psf 8365.019011406845 did not scale by 1.5 (got 12093.870078660953),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2036915880003107
+D2,directional,base11,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.446536974999617
+D2,directional,base11,23,True,True,2023-04: median psf 6983.606557377049 did not scale by 1.5 (got 10500.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.966027868999845
+D2,directional,base11,47,True,True,2023-04: median psf 6983.606557377049 did not scale by 1.5 (got 10500.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.9714952550002636
+D2,directional,base12,11,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9042525389995717
+D2,directional,base12,23,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.698737818000154
+D2,directional,base12,47,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6983543590004047
+D2,directional,base13,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6257849630001147
+D2,directional,base13,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.0935875139998643
+D2,directional,base13,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.078865792000215
+D2,directional,base14,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.751546808999592
+D2,directional,base14,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5225777870000456
+D2,directional,base14,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.5052369209997778
+D2,directional,base15,11,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),2,1,2,1,True,price_band>geography,price_band>geography,2.445170871999835
+D2,directional,base15,23,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),2,1,2,1,True,price_band>geography,price_band>geography,2.30132180199962
+D2,directional,base15,47,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),2,1,2,1,True,price_band>geography,price_band>geography,2.277736725000068
+D2,directional,base16,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.039216869000029
+D2,directional,base16,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.8890287640001588
+D2,directional,base16,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,1.8700450740002452
+D2,directional,base17,11,True,True,2023-05: median psf 7599.044890162369 did not scale by 1.5 (got 11497.134670487107),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.7227902079998785
+D2,directional,base17,23,True,True,2023-05: median psf 7599.044890162369 did not scale by 1.5 (got 11497.134670487107),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.013555537999764
+D2,directional,base17,47,True,True,2023-05: median psf 7599.044890162369 did not scale by 1.5 (got 11497.134670487107),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0056998730001396
+D2,directional,base18,11,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.643272431999776
+D2,directional,base18,23,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.499639066999862
+D2,directional,base18,47,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.5119592490000286
+D2,directional,base19,11,True,True,2023-04: median psf 6299.0 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7840168369998537
+D2,directional,base19,23,True,True,2023-04: median psf 6299.0 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.7994824840002366
+D2,directional,base19,47,True,True,2023-04: median psf 6299.0 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8145037280000906
+D2,directional,base20,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8334436680002
+D2,directional,base20,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.4310822359998383
+D2,directional,base20,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.298795614000028
+D2,directional,base21,11,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.8989542379999875
+D2,directional,base21,23,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6728780669996013
+D2,directional,base21,47,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.6863729360002253
+D2,directional,base22,11,True,True,2023-04: median psf 6299.0 did not scale by 1.5 (got 9450.0),2,1,2,1,True,price_band>geography,price_band>geography,2.6013974229999803
+D2,directional,base22,23,True,True,2023-04: median psf 6299.0 did not scale by 1.5 (got 9450.0),2,1,2,1,True,price_band>geography,price_band>geography,2.256296789999851
+D2,directional,base22,47,True,True,2023-04: median psf 6299.0 did not scale by 1.5 (got 9450.0),2,1,2,1,True,price_band>geography,price_band>geography,2.364185832000203
+D2,directional,base23,11,True,True,2023-05: median psf 8155.906593406593 did not scale by 1.5 (got 12187.5),2,1,2,1,True,price_band>geography,price_band>geography,4.226696883999921
+D2,directional,base23,23,True,True,2023-05: median psf 8155.906593406593 did not scale by 1.5 (got 12280.21978021978),2,1,2,1,True,price_band>geography,price_band>geography,3.469313607999993
+D2,directional,base23,47,True,True,2023-05: median psf 8155.906593406593 did not scale by 1.5 (got 12280.21978021978),2,1,2,1,True,price_band>geography,price_band>geography,3.4897850610000205
+D2,directional,base24,11,True,True,2023-05: median psf 7599.044890162369 did not scale by 1.5 (got 11497.134670487107),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.1393821110000317
+D2,directional,base24,23,True,True,2023-05: median psf 7599.044890162369 did not scale by 1.5 (got 11497.134670487107),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.024601457999779
+D2,directional,base24,47,True,True,2023-05: median psf 7599.044890162369 did not scale by 1.5 (got 11497.134670487107),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0296191859997634
+D2,directional,base25,11,True,True,2023-04: median psf 6299.5 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.5135776899996927
+D2,directional,base25,23,True,True,2023-04: median psf 6299.5 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.3368825339998693
+D2,directional,base25,47,True,True,2023-04: median psf 6299.5 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.1351156440000523
+D2,directional,base26,11,True,True,locality ranking order changed under price scaling,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.724454180000066
+D2,directional,base26,23,True,True,locality ranking order changed under price scaling,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.435873231000187
+D2,directional,base26,47,True,True,locality ranking order changed under price scaling,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.191153860999748
+D2,directional,base27,11,True,True,2023-05: median price did not scale by 1.5,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.8859833960000287
+D2,directional,base27,23,True,True,2023-04: median psf 6983.606557377049 did not scale by 1.5 (got 10500.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.411607838999771
+D2,directional,base27,47,True,True,2023-04: median psf 6983.606557377049 did not scale by 1.5 (got 10500.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.460730080000303
+D2,directional,base28,11,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.120935220999854
+D2,directional,base28,23,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.933069332999821
+D2,directional,base28,47,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.9383253639998657
+D2,directional,base29,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.556408874999761
+D2,directional,base29,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.345084369000233
+D2,directional,base29,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,2.3363698030002524
+D2,directional,base30,11,True,True,2023-07: median psf 7299.0 did not scale by 1.5 (got 10947.07520891365),2,1,2,1,True,price_band>geography,price_band>geography,4.459486229000049
+D2,directional,base30,23,True,True,2023-07: median psf 7299.0 did not scale by 1.5 (got 10947.07520891365),2,1,2,1,True,price_band>geography,price_band>geography,3.54147362599997
+D2,directional,base30,47,True,True,2023-07: median psf 7299.0 did not scale by 1.5 (got 10947.07520891365),2,1,2,1,True,price_band>geography,price_band>geography,3.3921748409998145
+D2,directional,base31,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,5.215879812999901
+D2,directional,base31,23,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.873621269000068
+D2,directional,base31,47,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.791646488999959
+D2,directional,base32,11,True,True,2023-04: median psf 6299.5 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.5466453719996025
+D2,directional,base32,23,True,True,2023-04: median psf 6299.5 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.25285933799978
+D2,directional,base32,47,True,True,2023-04: median psf 6299.5 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.2494649800000843
+D2,directional,base33,11,True,False,,3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,4.568528342000263
+D2,directional,base33,23,True,True,2023-04: median psf 6983.606557377049 did not scale by 1.5 (got 10500.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.6191196340000715
+D2,directional,base33,47,True,True,2023-04: median psf 6983.606557377049 did not scale by 1.5 (got 10500.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.5804911340001127
+D2,directional,base34,11,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.8167464169996492
+D2,directional,base34,23,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.5416754380003113
+D2,directional,base34,47,True,True,2022-09: median psf 4104.169444444445 did not scale by 1.5 (got 6250.008333333333),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.4424365680001756
+D2,directional,base35,11,True,True,2023-04: median psf 6299.5 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.236797370000204
+D2,directional,base35,23,True,True,2023-04: median psf 6299.5 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.088753137999902
+D2,directional,base35,47,True,True,2023-04: median psf 6299.5 did not scale by 1.5 (got 9450.0),3,1,3,1,True,price_band>bhk>geography,price_band>bhk>geography,3.0338825379999435

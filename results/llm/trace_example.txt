@@ -1,0 +1,27 @@
+  1. CriteriaAgent     action=planned (LLM)  query_mode=EXACT_LOCALITY  llm_fallback=False  reason=Request specifies exact locality (Gachibowli)
+  2. RetrievalDispatch agents=4  query_mode=EXACT_LOCALITY  round=0
+  3. RetrievalAgent[1] query_mode=EXACT_LOCALITY  retrieved=19  retry_round=0
+  4. RetrievalAgent[0] query_mode=EXACT_LOCALITY  retrieved=26  retry_round=0
+  5. RetrievalAgent[3] query_mode=EXACT_LOCALITY  retrieved=32  retry_round=0
+  6. RetrievalAgent[2] query_mode=EXACT_LOCALITY  retrieved=34  retry_round=0
+  7. RetrievalMerge    agents=4  round=0  listings=111  excluded_no_coordinate=0
+  8. CoverageAgent     coverage_score=0.0833  target=0.5  sufficient_months=1  geographic_spread=1  verdict=INSUFFICIENT  decision=WIDEN and re-retrieve (cycle 1)  relaxation=BHK [3] -> [2, 3, 4]
+  9. RetrievalDispatch agents=4  query_mode=EXACT_LOCALITY  round=1
+ 10. RetrievalAgent[3] query_mode=EXACT_LOCALITY  retrieved=66  retry_round=1
+ 11. RetrievalAgent[2] query_mode=EXACT_LOCALITY  retrieved=61  retry_round=1
+ 12. RetrievalAgent[0] query_mode=EXACT_LOCALITY  retrieved=46  retry_round=1
+ 13. RetrievalAgent[1] query_mode=EXACT_LOCALITY  retrieved=54  retry_round=1
+ 14. RetrievalMerge    agents=4  round=1  listings=227  excluded_no_coordinate=0
+ 15. CoverageAgent     coverage_score=0.1667  target=0.5  sufficient_months=2  geographic_spread=1  verdict=INSUFFICIENT  decision=WIDEN and re-retrieve (cycle 1)  relaxation=locality filter dropped (was ['Gachibowli'])
+ 16. RetrievalDispatch agents=4  query_mode=EXACT_LOCALITY  round=2
+ 17. RetrievalAgent[0] query_mode=EXACT_LOCALITY  retrieved=1091  retry_round=2
+ 18. RetrievalAgent[1] query_mode=EXACT_LOCALITY  retrieved=1032  retry_round=2
+ 19. RetrievalAgent[3] query_mode=EXACT_LOCALITY  retrieved=1034  retry_round=2
+ 20. RetrievalAgent[2] query_mode=EXACT_LOCALITY  retrieved=1109  retry_round=2
+ 21. RetrievalMerge    agents=4  round=2  listings=4266  excluded_no_coordinate=0
+ 22. CoverageAgent     coverage_score=0.5  target=0.5  sufficient_months=6  geographic_spread=506  verdict=SUFFICIENT  decision=PROCEED  relaxation=None
+ 23. AnalysisAgent     mode=full  listings=4266  recomputed_months=[]  rejected_this_pass=0  sufficient_months=6  move_pct=-10.9
+ 24. CritiqueAgent     flagged=['2022-09', '2022-10', '2022-11', '2022-12', '2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08']  new_flags=['2022-09', '2022-10', '2022-11', '2022-12', '2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08']  verdict=REJECTED  decision=REJECT -> recompute flagged months (cycle 2)  critique_round=0  reason=2023-01: +95.0% month-on-month
+ 25. AnalysisAgent     mode=targeted recomputation  listings=4135  recomputed_months=['2022-09', '2022-10', '2022-11', '2022-12', '2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08']  rejected_this_pass=131  sufficient_months=6  move_pct=-13.6
+ 26. CritiqueAgent     flagged=['2022-09', '2022-10', '2022-11', '2022-12', '2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08']  new_flags=[]  verdict=APPROVED  decision=APPROVE  critique_round=1  reason=2023-01: +90.2% month-on-month
+ 27. AggregatorAgent   chars=155  coverage_score=0.5  llm_calls=14209  llm_fallback_rate=0.0874

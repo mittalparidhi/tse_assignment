@@ -1,0 +1,6 @@
+# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
+[theme.light]
+primaryColor = "#1F5F5B"
+
+[theme.dark]
+primaryColor = "#5FB3A9"

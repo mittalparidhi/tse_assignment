@@ -1,0 +1,10 @@
+{
+  "city": "Hyderabad",
+  "locality": "Gachibowli",
+  "bhk": 2,
+  "property_type": "Residential Apartment",
+  "min_price_inr": 5000000,
+  "max_price_inr": 10000000,
+  "start_month": "2022-09",
+  "end_month": "2023-08"
+}

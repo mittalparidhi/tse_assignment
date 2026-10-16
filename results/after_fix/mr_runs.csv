@@ -1,0 +1,1081 @@
+mr_id,family,base_input,seed,applicable,violated,detail,source_loops_c1,source_loops_c2,follow_loops_c1,follow_loops_c2,same_control_path,source_relaxations,follow_relaxations,seconds
+I1,invariance,base00,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.6167190410014882
+I1,invariance,base00,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.3872108979994664
+I1,invariance,base00,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.39728650899996865
+I1,invariance,base01,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.35492443200200796
+I1,invariance,base01,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.4003181219995895
+I1,invariance,base01,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.3642669979999482
+I1,invariance,base02,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.34762064299866324
+I1,invariance,base02,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3892332199975499
+I1,invariance,base02,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4250719960000424
+I1,invariance,base03,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.39388478699765983
+I1,invariance,base03,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5461413599987281
+I1,invariance,base03,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.7032567599999311
+I1,invariance,base04,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6828812210005708
+I1,invariance,base04,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6105207379987405
+I1,invariance,base04,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6254794280030183
+I1,invariance,base05,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6064540949992079
+I1,invariance,base05,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.37063955400299164
+I1,invariance,base05,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.42181094999978086
+I1,invariance,base06,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4425635539992072
+I1,invariance,base06,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.49534355600189883
+I1,invariance,base06,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6627690160021302
+I1,invariance,base07,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.45803503499701037
+I1,invariance,base07,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4234832570000435
+I1,invariance,base07,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4100701649986149
+I1,invariance,base08,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.479217495998455
+I1,invariance,base08,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5489029540003685
+I1,invariance,base08,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5845859159999236
+I1,invariance,base09,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5364709709974704
+I1,invariance,base09,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4860502510018705
+I1,invariance,base09,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5303973219997715
+I1,invariance,base10,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.504743066001538
+I1,invariance,base10,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5903300999998464
+I1,invariance,base10,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.36222937700222246
+I1,invariance,base11,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3589548380004999
+I1,invariance,base11,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.35973706399818184
+I1,invariance,base11,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.43161882599815726
+I1,invariance,base12,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.47289209099835716
+I1,invariance,base12,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.44153736299995217
+I1,invariance,base12,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3654861950017221
+I1,invariance,base13,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3830192569985229
+I1,invariance,base13,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3831451180012664
+I1,invariance,base13,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5874917350010946
+I1,invariance,base14,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4267102489975514
+I1,invariance,base14,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4131032010009221
+I1,invariance,base14,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.45905140900140395
+I1,invariance,base15,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.46134022200203617
+I1,invariance,base15,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.4465390559998923
+I1,invariance,base15,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5740683900003205
+I1,invariance,base16,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5921376769983908
+I1,invariance,base16,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5262856449990068
+I1,invariance,base16,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4043702390008548
+I1,invariance,base17,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.37844667899844353
+I1,invariance,base17,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.7262285239994526
+I1,invariance,base17,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5818324669999129
+I1,invariance,base18,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5678669860026275
+I1,invariance,base18,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5206876090014703
+I1,invariance,base18,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.40867182799775037
+I1,invariance,base19,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.44494252699951176
+I1,invariance,base19,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6021628149974276
+I1,invariance,base19,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5630517079989659
+I1,invariance,base20,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5317877380002756
+I1,invariance,base20,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.33542622700042557
+I1,invariance,base20,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.44396844700168003
+I1,invariance,base21,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.561500978001277
+I1,invariance,base21,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4466460609983187
+I1,invariance,base21,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5882405390002532
+I1,invariance,base22,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5142606679983146
+I1,invariance,base22,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5859370119978848
+I1,invariance,base22,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5989238379988819
+I1,invariance,base23,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5972635029975208
+I1,invariance,base23,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.6998734609987878
+I1,invariance,base23,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.47470889300166164
+I1,invariance,base24,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.45755306399951223
+I1,invariance,base24,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3408441350002249
+I1,invariance,base24,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3598695990003762
+I1,invariance,base25,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4112082549982006
+I1,invariance,base25,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6486686310017831
+I1,invariance,base25,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3385113359981915
+I1,invariance,base26,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.47077466799964895
+I1,invariance,base26,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4531549339990306
+I1,invariance,base26,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.45790924800166977
+I1,invariance,base27,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.59187122000003
+I1,invariance,base27,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4154764510021778
+I1,invariance,base27,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4254810679994989
+I1,invariance,base28,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4645996519975597
+I1,invariance,base28,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.38716542499969364
+I1,invariance,base28,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5009613059992262
+I1,invariance,base29,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6049685630023305
+I1,invariance,base29,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5425215119976201
+I1,invariance,base29,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4697309939983825
+I1,invariance,base30,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.6608888760019909
+I1,invariance,base30,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.8880291269997542
+I1,invariance,base30,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.6659390100030578
+I1,invariance,base31,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4251226440028404
+I1,invariance,base31,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4499672229976568
+I1,invariance,base31,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5042668960013543
+I1,invariance,base32,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.459644472997752
+I1,invariance,base32,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.41508822800096823
+I1,invariance,base32,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5800441869978386
+I1,invariance,base33,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5800010020029731
+I1,invariance,base33,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6373383430000104
+I1,invariance,base33,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5568336969990924
+I1,invariance,base34,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.49875900099868886
+I1,invariance,base34,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.7227469710014702
+I1,invariance,base34,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6747812060020806
+I1,invariance,base35,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5646138140000403
+I1,invariance,base35,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3739122769984533
+I1,invariance,base35,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.45028832599928137
+I2,invariance,base00,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5369972529988445
+I2,invariance,base00,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.42038112900263513
+I2,invariance,base00,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.34048604700001306
+I2,invariance,base01,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.3465297209986602
+I2,invariance,base01,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.37824176300273393
+I2,invariance,base01,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.4912764780019643
+I2,invariance,base02,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.43747902900213376
+I2,invariance,base02,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.361017092000111
+I2,invariance,base02,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3479340990015771
+I2,invariance,base03,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3391391940022004
+I2,invariance,base03,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4852591249982652
+I2,invariance,base03,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.32069286099795136
+I2,invariance,base04,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.48358227200151305
+I2,invariance,base04,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4933171749980829
+I2,invariance,base04,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3722311460005585
+I2,invariance,base05,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4950388409997686
+I2,invariance,base05,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3860740630007058
+I2,invariance,base05,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3183970190002583
+I2,invariance,base06,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.45392132499910076
+I2,invariance,base06,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.38990079699942726
+I2,invariance,base06,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4636969120001595
+I2,invariance,base07,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.37311905800015666
+I2,invariance,base07,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3495009680009389
+I2,invariance,base07,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.48727275299825124
+I2,invariance,base08,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5806035710011201
+I2,invariance,base08,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.7327367479992972
+I2,invariance,base08,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5332084469991969
+I2,invariance,base09,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.42911085599916987
+I2,invariance,base09,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3404375509999227
+I2,invariance,base09,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3912474110002222
+I2,invariance,base10,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4877425279992167
+I2,invariance,base10,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4357819670003664
+I2,invariance,base10,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.471286121999583
+I2,invariance,base11,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6907094039997901
+I2,invariance,base11,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6929390249970311
+I2,invariance,base11,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6674717509995389
+I2,invariance,base12,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.678790989000845
+I2,invariance,base12,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5004667809989769
+I2,invariance,base12,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.45984779299760703
+I2,invariance,base13,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.39771190699684666
+I2,invariance,base13,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.45595934000084526
+I2,invariance,base13,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.45094772499942337
+I2,invariance,base14,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.39838293100183364
+I2,invariance,base14,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.46606126299957396
+I2,invariance,base14,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3493329429984442
+I2,invariance,base15,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.453302187997906
+I2,invariance,base15,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.49049726399971405
+I2,invariance,base15,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5610496930021327
+I2,invariance,base16,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5644229270001233
+I2,invariance,base16,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5698882859978767
+I2,invariance,base16,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.616849841997464
+I2,invariance,base17,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.7162086419994012
+I2,invariance,base17,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5892695879992971
+I2,invariance,base17,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4142036470002495
+I2,invariance,base18,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3273911690012028
+I2,invariance,base18,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5213015070003166
+I2,invariance,base18,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.576411067002482
+I2,invariance,base19,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6132047869978123
+I2,invariance,base19,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5678605220018653
+I2,invariance,base19,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5904986870009452
+I2,invariance,base20,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.573818779001158
+I2,invariance,base20,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6250118059979286
+I2,invariance,base20,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6103169660018466
+I2,invariance,base21,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.51473027099928
+I2,invariance,base21,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.39648065700021107
+I2,invariance,base21,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4109489059992484
+I2,invariance,base22,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.48759208000046783
+I2,invariance,base22,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.6707018809975125
+I2,invariance,base22,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.41328486999918823
+I2,invariance,base23,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.42635213600078714
+I2,invariance,base23,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5955984409993107
+I2,invariance,base23,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.6293895259987039
+I2,invariance,base24,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.7362228149977454
+I2,invariance,base24,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.7275722810009029
+I2,invariance,base24,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.7128183120003087
+I2,invariance,base25,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6609786470035033
+I2,invariance,base25,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5674377079994883
+I2,invariance,base25,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.663986974999716
+I2,invariance,base26,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.46685753999918234
+I2,invariance,base26,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.38976729800197063
+I2,invariance,base26,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3931108860015229
+I2,invariance,base27,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3899278860008053
+I2,invariance,base27,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5070777719993202
+I2,invariance,base27,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.46074682499966
+I2,invariance,base28,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5491663090033398
+I2,invariance,base28,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5058491790005064
+I2,invariance,base28,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.47881532199971844
+I2,invariance,base29,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.510499030999199
+I2,invariance,base29,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5184458410003572
+I2,invariance,base29,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.30279182399681304
+I2,invariance,base30,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.29680372300208546
+I2,invariance,base30,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.3190708629990695
+I2,invariance,base30,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.3227389679996122
+I2,invariance,base31,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4285794240022369
+I2,invariance,base31,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.450431925997691
+I2,invariance,base31,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4389163660016493
+I2,invariance,base32,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.41318794899780187
+I2,invariance,base32,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4400529650010867
+I2,invariance,base32,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.39193197500208043
+I2,invariance,base33,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5852058890013723
+I2,invariance,base33,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5872142949992849
+I2,invariance,base33,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5041670610007714
+I2,invariance,base34,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.447054065996781
+I2,invariance,base34,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4751509380002972
+I2,invariance,base34,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.49058160099957604
+I2,invariance,base35,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.32452457299950765
+I2,invariance,base35,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3208150719983678
+I2,invariance,base35,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.33239021500048693
+I3,invariance,base00,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.29034936300013214
+I3,invariance,base00,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.3518181729996286
+I3,invariance,base00,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.36274780800158624
+I3,invariance,base01,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.46328795200315653
+I3,invariance,base01,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.39600022100057686
+I3,invariance,base01,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.38468545700015966
+I3,invariance,base02,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4750765959979617
+I3,invariance,base02,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4820156869973289
+I3,invariance,base02,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6942308649995539
+I3,invariance,base03,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5999061199981952
+I3,invariance,base03,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5214638569996168
+I3,invariance,base03,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5694191579968901
+I3,invariance,base04,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.44503762199747143
+I3,invariance,base04,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3867825190027361
+I3,invariance,base04,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3047387519982294
+I3,invariance,base05,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3517580520019692
+I3,invariance,base05,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4135679179998988
+I3,invariance,base05,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.34656074199665454
+I3,invariance,base06,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.35223621299883234
+I3,invariance,base06,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4113851110014366
+I3,invariance,base06,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.32646768300037365
+I3,invariance,base07,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3084111460011627
+I3,invariance,base07,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3374858569986827
+I3,invariance,base07,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.35487830900092376
+I3,invariance,base08,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.3079675910012156
+I3,invariance,base08,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.4390675739996368
+I3,invariance,base08,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.5758948990005592
+I3,invariance,base09,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.41440579800109845
+I3,invariance,base09,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3639252180000767
+I3,invariance,base09,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.5549035289986932
+I3,invariance,base10,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.46218814399981056
+I3,invariance,base10,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4127667359971383
+I3,invariance,base10,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4495110910029325
+I3,invariance,base11,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.6818995370012999
+I3,invariance,base11,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.7193229459990107
+I3,invariance,base11,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.817654518999916
+I3,invariance,base12,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.30476963199907914
+I3,invariance,base12,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.33720675600125105
+I3,invariance,base12,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3219822689970897
+I3,invariance,base13,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19044618699990679
+I3,invariance,base13,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1815204119993723
+I3,invariance,base13,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17759911100074532
+I3,invariance,base14,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.165525009000703
+I3,invariance,base14,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2299662499972328
+I3,invariance,base14,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16909057600059896
+I3,invariance,base15,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16044027099997038
+I3,invariance,base15,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1629163729994616
+I3,invariance,base15,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.17205241399642546
+I3,invariance,base16,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17918840299898875
+I3,invariance,base16,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1769859429987264
+I3,invariance,base16,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1632394080006634
+I3,invariance,base17,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17169049400035874
+I3,invariance,base17,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15611978600281873
+I3,invariance,base17,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15436958499776665
+I3,invariance,base18,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15972369700102718
+I3,invariance,base18,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1543528830006835
+I3,invariance,base18,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1662333120002586
+I3,invariance,base19,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17963197700009914
+I3,invariance,base19,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16337172900239239
+I3,invariance,base19,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16190655999889714
+I3,invariance,base20,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1503425929986406
+I3,invariance,base20,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1545918129995698
+I3,invariance,base20,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15778014099851134
+I3,invariance,base21,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2082284720017924
+I3,invariance,base21,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.172225668997271
+I3,invariance,base21,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2103612869977951
+I3,invariance,base22,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.17101899099725415
+I3,invariance,base22,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1634465729985095
+I3,invariance,base22,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16167175400187261
+I3,invariance,base23,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.20403704999989714
+I3,invariance,base23,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1788256790023297
+I3,invariance,base23,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.20100082299904898
+I3,invariance,base24,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1785400410008151
+I3,invariance,base24,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16119602199978544
+I3,invariance,base24,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15469603100063978
+I3,invariance,base25,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1706507609997061
+I3,invariance,base25,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16231157099900884
+I3,invariance,base25,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16547391100175446
+I3,invariance,base26,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16797808699993766
+I3,invariance,base26,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1718666899978416
+I3,invariance,base26,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17073384999821428
+I3,invariance,base27,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18280540500200004
+I3,invariance,base27,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21437203300229157
+I3,invariance,base27,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.23028569400048582
+I3,invariance,base28,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20116885100287618
+I3,invariance,base28,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18955414200172527
+I3,invariance,base28,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18144555300023057
+I3,invariance,base29,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.192993712000316
+I3,invariance,base29,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2678118860021641
+I3,invariance,base29,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19634364800003823
+I3,invariance,base30,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.21446519800156238
+I3,invariance,base30,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.2777302950016747
+I3,invariance,base30,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.37636043000020436
+I3,invariance,base31,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3262350779987173
+I3,invariance,base31,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.382586204999825
+I3,invariance,base31,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3791629129991634
+I3,invariance,base32,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2221931259991834
+I3,invariance,base32,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.37920292600028915
+I3,invariance,base32,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.34791125300034764
+I3,invariance,base33,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24509298900011345
+I3,invariance,base33,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.27786804100105655
+I3,invariance,base33,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.35801255499973195
+I3,invariance,base34,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2332946839997021
+I3,invariance,base34,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2512965839996468
+I3,invariance,base34,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3147823699982837
+I3,invariance,base35,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1961578609989374
+I3,invariance,base35,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19597675299883122
+I3,invariance,base35,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.23513859000013326
+I4,invariance,base00,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14528721399983624
+I4,invariance,base00,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.18039961400063476
+I4,invariance,base00,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14413479799986817
+I4,invariance,base01,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.13781507499879808
+I4,invariance,base01,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1890824900001462
+I4,invariance,base01,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.23628769599963562
+I4,invariance,base02,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16910422399814706
+I4,invariance,base02,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17158396699960576
+I4,invariance,base02,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2559733359994425
+I4,invariance,base03,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17897128099866677
+I4,invariance,base03,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.247114978999889
+I4,invariance,base03,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2228413279990491
+I4,invariance,base04,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.22094025700062048
+I4,invariance,base04,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18006377400161
+I4,invariance,base04,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1641983640001854
+I4,invariance,base05,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24433516499993857
+I4,invariance,base05,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.4139899380024872
+I4,invariance,base05,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.36099643600027775
+I4,invariance,base06,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2650368510003318
+I4,invariance,base06,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3759764799979166
+I4,invariance,base06,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1861213049996877
+I4,invariance,base07,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14731234999999288
+I4,invariance,base07,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13933111099686357
+I4,invariance,base07,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13441824999972596
+I4,invariance,base08,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.12553308399947127
+I4,invariance,base08,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1250065860003815
+I4,invariance,base08,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15025787400008994
+I4,invariance,base09,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2887680359999649
+I4,invariance,base09,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18575149099706323
+I4,invariance,base09,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1687618959986139
+I4,invariance,base10,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15068954500020482
+I4,invariance,base10,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1351693910000904
+I4,invariance,base10,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18037842600097065
+I4,invariance,base11,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14795868700093706
+I4,invariance,base11,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14727016200049547
+I4,invariance,base11,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13583391700012726
+I4,invariance,base12,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1278408739999577
+I4,invariance,base12,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.12965809399975115
+I4,invariance,base12,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19154614600120112
+I4,invariance,base13,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2789529279980343
+I4,invariance,base13,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21919280599831836
+I4,invariance,base13,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1585391160006111
+I4,invariance,base14,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24799343400081852
+I4,invariance,base14,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1675464150030166
+I4,invariance,base14,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18574813099985477
+I4,invariance,base15,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.32337068500055466
+I4,invariance,base15,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.2416368469966983
+I4,invariance,base15,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.21574723000230733
+I4,invariance,base16,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.28475473299840814
+I4,invariance,base16,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2053359769997769
+I4,invariance,base16,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1699004510010127
+I4,invariance,base17,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15291679700021632
+I4,invariance,base17,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1346579240016581
+I4,invariance,base17,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18953930999850854
+I4,invariance,base18,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1395931560000463
+I4,invariance,base18,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15896353999778512
+I4,invariance,base18,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1435350940009812
+I4,invariance,base19,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14776436499960255
+I4,invariance,base19,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18613419699977385
+I4,invariance,base19,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3705208909996145
+I4,invariance,base20,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.22980517399992095
+I4,invariance,base20,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18083935799950268
+I4,invariance,base20,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17021553199811024
+I4,invariance,base21,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2123911480011884
+I4,invariance,base21,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2549712100008037
+I4,invariance,base21,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.33244277400081046
+I4,invariance,base22,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.21514257799935876
+I4,invariance,base22,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.17243044000133523
+I4,invariance,base22,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16333513800054789
+I4,invariance,base23,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16462034700089134
+I4,invariance,base23,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.186075138997694
+I4,invariance,base23,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14680965099978494
+I4,invariance,base24,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13749529299821006
+I4,invariance,base24,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1758312100027979
+I4,invariance,base24,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15465201500046533
+I4,invariance,base25,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16361624099954497
+I4,invariance,base25,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1681606300007843
+I4,invariance,base25,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.22592578699914156
+I4,invariance,base26,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.33261378099996364
+I4,invariance,base26,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.23675331699996605
+I4,invariance,base26,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3129279380009393
+I4,invariance,base27,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2705323970003519
+I4,invariance,base27,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.41440710699680494
+I4,invariance,base27,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3981907859997591
+I4,invariance,base28,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3649400579997746
+I4,invariance,base28,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2750812969970866
+I4,invariance,base28,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19799459999921964
+I4,invariance,base29,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2827494269986346
+I4,invariance,base29,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.27801352700043935
+I4,invariance,base29,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3499724690009316
+I4,invariance,base30,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.3779722840008617
+I4,invariance,base30,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.22325950499725877
+I4,invariance,base30,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.2200070280014188
+I4,invariance,base31,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18404350499986322
+I4,invariance,base31,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17404715999873588
+I4,invariance,base31,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1581856949997018
+I4,invariance,base32,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15821616700122831
+I4,invariance,base32,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.152666659996612
+I4,invariance,base32,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15443162899828167
+I4,invariance,base33,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15850108199811075
+I4,invariance,base33,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16691761900074198
+I4,invariance,base33,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16306765699846437
+I4,invariance,base34,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14767992099950789
+I4,invariance,base34,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1498724070006574
+I4,invariance,base34,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15214092599853757
+I4,invariance,base35,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15054935499938438
+I4,invariance,base35,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2924008189984306
+I4,invariance,base35,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.31425218699951074
+M1,monotonic,base00,11,True,False,,3,1,3,1,True,localities,localities,0.19628000399825396
+M1,monotonic,base00,23,True,False,,3,1,3,1,True,localities,localities,0.17409964699982083
+M1,monotonic,base00,47,True,False,,3,1,3,1,True,localities,localities,0.15132270300091477
+M1,monotonic,base01,11,True,False,,3,1,3,1,True,localities,localities,0.13130797300254926
+M1,monotonic,base01,23,True,False,,3,1,3,1,True,localities,localities,0.1262728799993056
+M1,monotonic,base01,47,True,False,,3,1,3,1,True,localities,localities,0.14466781599912792
+M1,monotonic,base02,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.16641804300161311
+M1,monotonic,base02,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.13593417599986424
+M1,monotonic,base02,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.13236127300115186
+M1,monotonic,base03,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1566105800011428
+M1,monotonic,base03,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.13127809700017679
+M1,monotonic,base03,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1280326160012919
+M1,monotonic,base04,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.12811621199944057
+M1,monotonic,base04,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.14732473800177104
+M1,monotonic,base04,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.16659234400140122
+M1,monotonic,base05,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.22016973399877315
+M1,monotonic,base05,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.3767432720014767
+M1,monotonic,base05,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.3340564539976185
+M1,monotonic,base06,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.31488443600028404
+M1,monotonic,base06,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.281500049000897
+M1,monotonic,base06,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.2590596119989641
+M1,monotonic,base07,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.34550749199843267
+M1,monotonic,base07,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.232519109002169
+M1,monotonic,base07,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.2135821970005054
+M1,monotonic,base08,11,True,True,"2023-04: median price moved 403,000.00, expected 500,000.00",3,1,3,1,True,localities,localities,0.2619578320009168
+M1,monotonic,base08,23,True,True,"2023-04: median price moved 403,000.00, expected 500,000.00",3,1,3,1,True,localities,localities,0.25609080999856815
+M1,monotonic,base08,47,True,True,"2023-04: median price moved 403,000.00, expected 500,000.00",3,1,3,1,True,localities,localities,0.22357267300321837
+M1,monotonic,base09,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.25988429200151586
+M1,monotonic,base09,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.2703768190003757
+M1,monotonic,base09,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.22588373699909425
+M1,monotonic,base10,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.19719379399975878
+M1,monotonic,base10,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17413479100287077
+M1,monotonic,base10,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.20377767899844912
+M1,monotonic,base11,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.23631759099953342
+M1,monotonic,base11,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.2519773050007643
+M1,monotonic,base11,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17043655799716362
+M1,monotonic,base12,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.15356695100126672
+M1,monotonic,base12,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1550159079997684
+M1,monotonic,base12,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.13907697100148653
+M1,monotonic,base13,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1396030840005551
+M1,monotonic,base13,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.25975353100147913
+M1,monotonic,base13,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.2698551880021114
+M1,monotonic,base14,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.2622651199999382
+M1,monotonic,base14,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.29709840600116877
+M1,monotonic,base14,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.2588700129999779
+M1,monotonic,base15,11,True,True,"2023-05: median price moved 470,000.00, expected 500,000.00",3,1,3,1,True,localities,localities,0.25339987500046846
+M1,monotonic,base15,23,True,True,"2023-05: median price moved 470,000.00, expected 500,000.00",3,1,3,1,True,localities,localities,0.27488960200207657
+M1,monotonic,base15,47,True,True,"2023-05: median price moved 470,000.00, expected 500,000.00",3,1,3,1,True,localities,localities,0.29910851499880664
+M1,monotonic,base16,11,True,True,"2023-05: median price moved 499,800.00, expected 500,000.00",3,1,3,1,True,bhk>localities,bhk>localities,0.2017708820021653
+M1,monotonic,base16,23,True,True,"2023-05: median price moved 499,800.00, expected 500,000.00",3,1,3,1,True,bhk>localities,bhk>localities,0.23244246700051008
+M1,monotonic,base16,47,True,True,"2023-05: median price moved 499,800.00, expected 500,000.00",3,1,3,1,True,bhk>localities,bhk>localities,0.31517899300160934
+M1,monotonic,base17,11,True,True,"2023-05: median price moved 499,800.00, expected 500,000.00",3,1,3,1,True,bhk>localities,bhk>localities,0.3379050309995364
+M1,monotonic,base17,23,True,True,"2023-05: median price moved 499,800.00, expected 500,000.00",3,1,3,1,True,bhk>localities,bhk>localities,0.20613695700012613
+M1,monotonic,base17,47,True,True,"2023-05: median price moved 499,800.00, expected 500,000.00",3,1,3,1,True,bhk>localities,bhk>localities,0.17628687599790283
+M1,monotonic,base18,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.19122852300279192
+M1,monotonic,base18,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17790794200118398
+M1,monotonic,base18,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.16662231200098176
+M1,monotonic,base19,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.16875964800055954
+M1,monotonic,base19,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1750134820031235
+M1,monotonic,base19,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1637001160015643
+M1,monotonic,base20,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1824018180013809
+M1,monotonic,base20,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17123633500159485
+M1,monotonic,base20,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.23396507399957045
+M1,monotonic,base21,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1865184570015117
+M1,monotonic,base21,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.16158628999983193
+M1,monotonic,base21,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.16330161999940174
+M1,monotonic,base22,11,True,False,,3,1,3,1,True,localities,localities,0.15683474600155023
+M1,monotonic,base22,23,True,False,,3,1,3,1,True,localities,localities,0.16174750900245272
+M1,monotonic,base22,47,True,False,,3,1,3,1,True,localities,localities,0.1616573720020824
+M1,monotonic,base23,11,True,False,,3,1,3,1,True,localities,localities,0.15553294499841286
+M1,monotonic,base23,23,True,False,,3,1,3,1,True,localities,localities,0.15927928100063582
+M1,monotonic,base23,47,True,False,,3,1,3,1,True,localities,localities,0.23924315299882437
+M1,monotonic,base24,11,True,True,"2023-06: median price moved 466,625.00, expected 500,000.00",3,1,3,1,True,bhk>localities,bhk>localities,0.2620567550002306
+M1,monotonic,base24,23,True,True,"2023-06: median price moved 466,625.00, expected 500,000.00",3,1,3,1,True,bhk>localities,bhk>localities,0.302386982999451
+M1,monotonic,base24,47,True,True,"2023-06: median price moved 466,625.00, expected 500,000.00",3,1,3,1,True,bhk>localities,bhk>localities,0.306882308999775
+M1,monotonic,base25,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.25657466299890075
+M1,monotonic,base25,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.22894006299975445
+M1,monotonic,base25,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1866419500001939
+M1,monotonic,base26,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1750361089980288
+M1,monotonic,base26,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.20163083399893367
+M1,monotonic,base26,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17364380200160667
+M1,monotonic,base27,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17470911399868783
+M1,monotonic,base27,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17033940399778658
+M1,monotonic,base27,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17920244699780596
+M1,monotonic,base28,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17725986299774377
+M1,monotonic,base28,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1781779999982973
+M1,monotonic,base28,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.22113214800265268
+M1,monotonic,base29,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1774295679970237
+M1,monotonic,base29,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.16791038099836442
+M1,monotonic,base29,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17034745599812595
+M1,monotonic,base30,11,True,False,,3,1,3,1,True,localities,localities,0.17768459400031134
+M1,monotonic,base30,23,True,False,,3,1,3,1,True,localities,localities,0.17072362200269708
+M1,monotonic,base30,47,True,False,,3,1,3,1,True,localities,localities,0.1694810930021049
+M1,monotonic,base31,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.16712087000269094
+M1,monotonic,base31,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17019263700058218
+M1,monotonic,base31,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1701278309992631
+M1,monotonic,base32,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.18114187299943296
+M1,monotonic,base32,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.21150635600133683
+M1,monotonic,base32,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.21202745899790898
+M1,monotonic,base33,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1955966890018317
+M1,monotonic,base33,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1932992939982796
+M1,monotonic,base33,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.18999654999788618
+M1,monotonic,base34,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1808940420014551
+M1,monotonic,base34,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.18541664000076707
+M1,monotonic,base34,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.18499173799864366
+M1,monotonic,base35,11,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17771788900063257
+M1,monotonic,base35,23,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.1851173020004353
+M1,monotonic,base35,47,True,False,,3,1,3,1,True,bhk>localities,bhk>localities,0.17999697900086176
+M2,monotonic,base00,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.13973325699771522
+M2,monotonic,base00,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1488446240000485
+M2,monotonic,base00,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.17173939600252197
+M2,monotonic,base01,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.17477371800123365
+M2,monotonic,base01,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15416754900070373
+M2,monotonic,base01,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1445676650000678
+M2,monotonic,base02,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14118415999837453
+M2,monotonic,base02,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13732772300136276
+M2,monotonic,base02,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1443426339974394
+M2,monotonic,base03,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14223719100118615
+M2,monotonic,base03,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16656789899934665
+M2,monotonic,base03,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14893354400192038
+M2,monotonic,base04,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14433148199896095
+M2,monotonic,base04,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1420559489997686
+M2,monotonic,base04,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13860310100062634
+M2,monotonic,base05,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15349725899795885
+M2,monotonic,base05,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15681321499869227
+M2,monotonic,base05,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15432873499958077
+M2,monotonic,base06,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14476391499920283
+M2,monotonic,base06,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18347355100195273
+M2,monotonic,base06,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14129535999745713
+M2,monotonic,base07,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16314552599942544
+M2,monotonic,base07,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14588946500225575
+M2,monotonic,base07,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14674125899909995
+M2,monotonic,base08,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14065549099905184
+M2,monotonic,base08,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1505849950008269
+M2,monotonic,base08,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16409895700053312
+M2,monotonic,base09,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15603525400001672
+M2,monotonic,base09,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14719837400116376
+M2,monotonic,base09,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15388591500231996
+M2,monotonic,base10,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15032144900033018
+M2,monotonic,base10,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14623502000176813
+M2,monotonic,base10,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13669838599889772
+M2,monotonic,base11,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14264309499776573
+M2,monotonic,base11,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1389703879976878
+M2,monotonic,base11,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1356351510003151
+M2,monotonic,base12,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1621202110000013
+M2,monotonic,base12,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14339995900081703
+M2,monotonic,base12,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1380921039999521
+M2,monotonic,base13,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14199185200050124
+M2,monotonic,base13,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14775594900129363
+M2,monotonic,base13,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14168797800084576
+M2,monotonic,base14,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1448472230003972
+M2,monotonic,base14,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15642445500270696
+M2,monotonic,base14,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1538371989990992
+M2,monotonic,base15,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15277528400110896
+M2,monotonic,base15,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14217047799684224
+M2,monotonic,base15,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14007094800035702
+M2,monotonic,base16,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13699624400032917
+M2,monotonic,base16,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1354725300006976
+M2,monotonic,base16,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14183489900096902
+M2,monotonic,base17,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1366794999994454
+M2,monotonic,base17,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1395196390003548
+M2,monotonic,base17,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13629203900200082
+M2,monotonic,base18,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14075136600149563
+M2,monotonic,base18,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14400487300008535
+M2,monotonic,base18,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1482941810027114
+M2,monotonic,base19,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1486562749996665
+M2,monotonic,base19,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14350867600296624
+M2,monotonic,base19,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14115448499796912
+M2,monotonic,base20,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14661149499806925
+M2,monotonic,base20,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15370765300031053
+M2,monotonic,base20,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.179672976002621
+M2,monotonic,base21,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14651431200036313
+M2,monotonic,base21,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15204571000140277
+M2,monotonic,base21,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14496659699943848
+M2,monotonic,base22,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.13507917499737232
+M2,monotonic,base22,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.12886092500048107
+M2,monotonic,base22,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.13428754400229082
+M2,monotonic,base23,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14871257899721968
+M2,monotonic,base23,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1398811850012862
+M2,monotonic,base23,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16627225299816928
+M2,monotonic,base24,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14379910500065307
+M2,monotonic,base24,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1412593579989334
+M2,monotonic,base24,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1418827790002979
+M2,monotonic,base25,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16468360200087773
+M2,monotonic,base25,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16044202099874383
+M2,monotonic,base25,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15343586500239326
+M2,monotonic,base26,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16082004700001562
+M2,monotonic,base26,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1511299660014629
+M2,monotonic,base26,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15027331100282026
+M2,monotonic,base27,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14886746999764
+M2,monotonic,base27,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15351744400322787
+M2,monotonic,base27,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14876465300039854
+M2,monotonic,base28,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1501425489987014
+M2,monotonic,base28,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15296696599762072
+M2,monotonic,base28,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15351735900185304
+M2,monotonic,base29,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14997551000124076
+M2,monotonic,base29,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15002291499695275
+M2,monotonic,base29,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17432964600084233
+M2,monotonic,base30,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.17600490300173988
+M2,monotonic,base30,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.17448495600183378
+M2,monotonic,base30,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16654592899794807
+M2,monotonic,base31,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1580843130032008
+M2,monotonic,base31,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1655669069987198
+M2,monotonic,base31,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17395101899819565
+M2,monotonic,base32,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18928305599911255
+M2,monotonic,base32,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1762979869999981
+M2,monotonic,base32,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1647243530023843
+M2,monotonic,base33,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17142139799761935
+M2,monotonic,base33,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1668627680010104
+M2,monotonic,base33,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16762068600291968
+M2,monotonic,base34,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18956983699899865
+M2,monotonic,base34,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.22763228099938715
+M2,monotonic,base34,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1669812149993959
+M2,monotonic,base35,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16066155500084278
+M2,monotonic,base35,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15481396099858102
+M2,monotonic,base35,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16245783799968194
+M3,monotonic,base00,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1305873800010886
+M3,monotonic,base00,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.13823254599992651
+M3,monotonic,base00,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.13269973599744844
+M3,monotonic,base01,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1300548079998407
+M3,monotonic,base01,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1355294969980605
+M3,monotonic,base01,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1330044819987961
+M3,monotonic,base02,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13248821700108238
+M3,monotonic,base02,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13618560900067678
+M3,monotonic,base02,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14451048100090702
+M3,monotonic,base03,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1560093260013673
+M3,monotonic,base03,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1412446619979164
+M3,monotonic,base03,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13930824500130257
+M3,monotonic,base04,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13611265600047773
+M3,monotonic,base04,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13345401599872275
+M3,monotonic,base04,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1418131419995916
+M3,monotonic,base05,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1468994790011493
+M3,monotonic,base05,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15053664300285163
+M3,monotonic,base05,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13363152699821512
+M3,monotonic,base06,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1422913479982526
+M3,monotonic,base06,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13783633400089457
+M3,monotonic,base06,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14104067600055714
+M3,monotonic,base07,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13479916399955982
+M3,monotonic,base07,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13678401699871756
+M3,monotonic,base07,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14952365399949485
+M3,monotonic,base08,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14308437499857973
+M3,monotonic,base08,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1381861560003017
+M3,monotonic,base08,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.13390606100074365
+M3,monotonic,base09,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13621509199947468
+M3,monotonic,base09,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1361951559993031
+M3,monotonic,base09,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17582248100006836
+M3,monotonic,base10,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15812148099939805
+M3,monotonic,base10,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.156921998001053
+M3,monotonic,base10,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16308014700189233
+M3,monotonic,base11,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19157305699991412
+M3,monotonic,base11,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.25403142899813247
+M3,monotonic,base11,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24320765399897937
+M3,monotonic,base12,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21168792100070277
+M3,monotonic,base12,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21745052500045858
+M3,monotonic,base12,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2045960549985466
+M3,monotonic,base13,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24854873000003863
+M3,monotonic,base13,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20341801600079634
+M3,monotonic,base13,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18858157399881748
+M3,monotonic,base14,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19725760399887804
+M3,monotonic,base14,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2071359740002663
+M3,monotonic,base14,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20471240600090823
+M3,monotonic,base15,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.19879911899988656
+M3,monotonic,base15,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1840473420015769
+M3,monotonic,base15,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.20068952499786974
+M3,monotonic,base16,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21955892900223262
+M3,monotonic,base16,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21106533499914804
+M3,monotonic,base16,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2194121440006711
+M3,monotonic,base17,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21498244400208932
+M3,monotonic,base17,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19991902699985076
+M3,monotonic,base17,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19784684299884248
+M3,monotonic,base18,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20306412699937937
+M3,monotonic,base18,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2287117979976756
+M3,monotonic,base18,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2523198980015877
+M3,monotonic,base19,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24705749100030516
+M3,monotonic,base19,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24083244500070577
+M3,monotonic,base19,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.27775882900095894
+M3,monotonic,base20,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1807281100009277
+M3,monotonic,base20,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1623411370019312
+M3,monotonic,base20,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15157702999931644
+M3,monotonic,base21,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1578612740013341
+M3,monotonic,base21,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15538847700008773
+M3,monotonic,base21,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1460909659981553
+M3,monotonic,base22,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14115225999921677
+M3,monotonic,base22,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1426830210002663
+M3,monotonic,base22,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16461301599701983
+M3,monotonic,base23,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.182327594000526
+M3,monotonic,base23,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.18433995800296543
+M3,monotonic,base23,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.17675634800252737
+M3,monotonic,base24,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16070402799959993
+M3,monotonic,base24,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15517927799737663
+M3,monotonic,base24,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14865905300030136
+M3,monotonic,base25,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1528804779991333
+M3,monotonic,base25,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14411604000270017
+M3,monotonic,base25,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14474602499831235
+M3,monotonic,base26,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14298363699708716
+M3,monotonic,base26,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14391070700003183
+M3,monotonic,base26,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18134072799875867
+M3,monotonic,base27,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14438340000197059
+M3,monotonic,base27,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14842762800253695
+M3,monotonic,base27,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1553728399994725
+M3,monotonic,base28,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.158424401000957
+M3,monotonic,base28,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17516139799772645
+M3,monotonic,base28,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.156225988001097
+M3,monotonic,base29,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14887653500045417
+M3,monotonic,base29,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15527961200132268
+M3,monotonic,base29,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15187049499945715
+M3,monotonic,base30,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1566678259987384
+M3,monotonic,base30,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15976435300035519
+M3,monotonic,base30,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15664186299909488
+M3,monotonic,base31,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1527779099997133
+M3,monotonic,base31,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15395000600256026
+M3,monotonic,base31,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16362523499992676
+M3,monotonic,base32,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1580054049991304
+M3,monotonic,base32,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.159019893999357
+M3,monotonic,base32,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19933663700066973
+M3,monotonic,base33,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21616915699996753
+M3,monotonic,base33,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2019835549981508
+M3,monotonic,base33,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19539079899914213
+M3,monotonic,base34,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1742581889993744
+M3,monotonic,base34,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17573548600194044
+M3,monotonic,base34,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16194323699892266
+M3,monotonic,base35,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15650292200007243
+M3,monotonic,base35,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15947837899875594
+M3,monotonic,base35,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16608715899928939
+M1raw,monotonic,base00,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.13491904200054705
+M1raw,monotonic,base00,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.13415111399808666
+M1raw,monotonic,base00,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1332345759983582
+M1raw,monotonic,base01,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14522070300154155
+M1raw,monotonic,base01,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.18246363700018264
+M1raw,monotonic,base01,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1755991250029183
+M1raw,monotonic,base02,11,True,True,"2023-02: median price moved 190,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17128441499880864
+M1raw,monotonic,base02,23,True,True,"2023-02: median price moved 190,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15436008699907688
+M1raw,monotonic,base02,47,True,True,"2023-02: median price moved 190,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15041747100258362
+M1raw,monotonic,base03,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14605294699867954
+M1raw,monotonic,base03,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1421505830003298
+M1raw,monotonic,base03,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14373645700106863
+M1raw,monotonic,base04,11,True,True,"2023-03: median price moved 1,250,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14495317099863314
+M1raw,monotonic,base04,23,True,True,"2023-03: median price moved 1,250,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18541529700087267
+M1raw,monotonic,base04,47,True,True,"2023-03: median price moved 1,250,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14296393399854423
+M1raw,monotonic,base05,11,True,True,"2023-03: median price moved -1,412,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14376922699739225
+M1raw,monotonic,base05,23,True,True,"2023-03: median price moved -1,412,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14349132599818404
+M1raw,monotonic,base05,47,True,True,"2023-03: median price moved -1,412,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1465441370019107
+M1raw,monotonic,base06,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1707668859999103
+M1raw,monotonic,base06,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16635822300304426
+M1raw,monotonic,base06,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1456053879992396
+M1raw,monotonic,base07,11,True,True,"2023-03: median price moved 400,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1458506019989727
+M1raw,monotonic,base07,23,True,True,"2023-03: median price moved 400,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14738859000135562
+M1raw,monotonic,base07,47,True,True,"2023-03: median price moved 400,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15528438100227504
+M1raw,monotonic,base08,11,True,True,"2023-04: median price moved -23,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.17659547600123915
+M1raw,monotonic,base08,23,True,True,"2023-04: median price moved -23,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.1766615750020719
+M1raw,monotonic,base08,47,True,True,"2023-04: median price moved -23,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.16463086099975044
+M1raw,monotonic,base09,11,True,True,"2023-04: median price moved 150,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16277651000200422
+M1raw,monotonic,base09,23,True,True,"2023-04: median price moved 150,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15926312000010512
+M1raw,monotonic,base09,47,True,True,"2023-04: median price moved 150,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15328426500127534
+M1raw,monotonic,base10,11,True,True,"2023-04: median price moved -63,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14214228600030765
+M1raw,monotonic,base10,23,True,True,"2023-04: median price moved -63,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14785286900223582
+M1raw,monotonic,base10,47,True,True,"2023-04: median price moved -63,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15769470400118735
+M1raw,monotonic,base11,11,True,True,"2023-04: median price moved 171,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15821020499788574
+M1raw,monotonic,base11,23,True,True,"2023-04: median price moved 171,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1556586309998238
+M1raw,monotonic,base11,47,True,True,"2023-04: median price moved 171,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14980718300284934
+M1raw,monotonic,base12,11,True,True,"2023-04: median price moved 75,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14968655700067757
+M1raw,monotonic,base12,23,True,True,"2023-04: median price moved 75,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14981008999893675
+M1raw,monotonic,base12,47,True,True,"2023-04: median price moved 75,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14964820299792336
+M1raw,monotonic,base13,11,True,True,"2023-04: median price moved 368,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1588965380033187
+M1raw,monotonic,base13,23,True,True,"2023-04: median price moved 368,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15494099100033054
+M1raw,monotonic,base13,47,True,True,"2023-04: median price moved 368,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14994352999929106
+M1raw,monotonic,base14,11,True,True,"2023-04: median price moved -234,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15029256100024213
+M1raw,monotonic,base14,23,True,True,"2023-04: median price moved -234,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15078885600087233
+M1raw,monotonic,base14,47,True,True,"2023-04: median price moved -234,500.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15476431600109208
+M1raw,monotonic,base15,11,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.14990631000182475
+M1raw,monotonic,base15,23,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.17408139300096082
+M1raw,monotonic,base15,47,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.1671137049997924
+M1raw,monotonic,base16,11,True,True,"2023-05: median price moved 337,700.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17019159400297212
+M1raw,monotonic,base16,23,True,True,"2023-05: median price moved 337,700.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1684040720028861
+M1raw,monotonic,base16,47,True,True,"2023-05: median price moved 337,700.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1716352610019385
+M1raw,monotonic,base17,11,True,True,"2023-05: median price moved -131,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1707591179983865
+M1raw,monotonic,base17,23,True,True,"2023-05: median price moved -131,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20400701700054924
+M1raw,monotonic,base17,47,True,True,"2023-05: median price moved -131,750.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1596988000019337
+M1raw,monotonic,base18,11,True,True,"2023-05: median price moved 396,800.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19403677900118055
+M1raw,monotonic,base18,23,True,True,"2023-05: median price moved 396,800.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19417736399918795
+M1raw,monotonic,base18,47,True,True,"2023-05: median price moved 396,800.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20605824400263373
+M1raw,monotonic,base19,11,True,True,"2023-05: median price moved 340,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1924248040013481
+M1raw,monotonic,base19,23,True,True,"2023-05: median price moved 340,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19240276100026676
+M1raw,monotonic,base19,47,True,True,"2023-05: median price moved 340,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1946344499992847
+M1raw,monotonic,base20,11,True,True,"2023-05: median price moved 297,050.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18435098599729827
+M1raw,monotonic,base20,23,True,True,"2023-05: median price moved 297,050.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18323248399974545
+M1raw,monotonic,base20,47,True,True,"2023-05: median price moved 297,050.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1636828750015411
+M1raw,monotonic,base21,11,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1721888769970974
+M1raw,monotonic,base21,23,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16627480200259015
+M1raw,monotonic,base21,47,True,True,"2023-05: median price moved 434,600.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18426960299984785
+M1raw,monotonic,base22,11,True,True,"2023-06: median price moved 400,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.19460831600008532
+M1raw,monotonic,base22,23,True,True,"2023-06: median price moved 400,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.2904342000001634
+M1raw,monotonic,base22,47,True,True,"2023-06: median price moved 400,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.3505535289987165
+M1raw,monotonic,base23,11,True,True,"2023-06: median price moved -50,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.21149364500161028
+M1raw,monotonic,base23,23,True,True,"2023-06: median price moved -50,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.20162368399905972
+M1raw,monotonic,base23,47,True,True,"2023-06: median price moved -50,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.2028002099978039
+M1raw,monotonic,base24,11,True,True,"2023-06: median price moved 85,000.50, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1832929910015082
+M1raw,monotonic,base24,23,True,True,"2023-06: median price moved 85,000.50, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1783775109979615
+M1raw,monotonic,base24,47,True,True,"2023-06: median price moved 85,000.50, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19333057800031384
+M1raw,monotonic,base25,11,True,True,"2023-06: median price moved 431,825.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.22193990600135294
+M1raw,monotonic,base25,23,True,True,"2023-06: median price moved 431,825.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18964114499976858
+M1raw,monotonic,base25,47,True,True,"2023-06: median price moved 431,825.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16984858899741084
+M1raw,monotonic,base26,11,True,True,"2023-06: median price moved 24,633.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17765091999899596
+M1raw,monotonic,base26,23,True,True,"2023-06: median price moved 24,633.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1991530369996326
+M1raw,monotonic,base26,47,True,True,"2023-06: median price moved 24,633.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.178498187000514
+M1raw,monotonic,base27,11,True,True,"2023-06: median price moved 490,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.196412818000681
+M1raw,monotonic,base27,23,True,True,"2023-06: median price moved 490,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19332624699745793
+M1raw,monotonic,base27,47,True,True,"2023-06: median price moved 490,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18934704899947974
+M1raw,monotonic,base28,11,True,True,"2023-06: median price moved 200,001.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19522149900149088
+M1raw,monotonic,base28,23,True,True,"2023-06: median price moved 200,001.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18770605600002455
+M1raw,monotonic,base28,47,True,True,"2023-06: median price moved 200,001.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1942974680023326
+M1raw,monotonic,base29,11,True,True,"2023-06: median price moved 192,467.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24881796699992265
+M1raw,monotonic,base29,23,True,True,"2023-06: median price moved 192,467.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.29265597099947627
+M1raw,monotonic,base29,47,True,True,"2023-06: median price moved 192,467.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20889901800182997
+M1raw,monotonic,base30,11,True,True,"2023-07: median price moved 484,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.20814994200190995
+M1raw,monotonic,base30,23,True,True,"2023-07: median price moved 484,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.2437585810002929
+M1raw,monotonic,base30,47,True,True,"2023-07: median price moved 484,000.00, expected 500,000.00",3,1,3,1,True,price_band>localities,price_band>localities,0.21241373800148722
+M1raw,monotonic,base31,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.23700585400001728
+M1raw,monotonic,base31,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1851440790014749
+M1raw,monotonic,base31,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1952686909971817
+M1raw,monotonic,base32,11,True,True,"2023-07: median price moved 352,541.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21410954800012405
+M1raw,monotonic,base32,23,True,True,"2023-07: median price moved 352,541.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20815442099774373
+M1raw,monotonic,base32,47,True,True,"2023-07: median price moved 352,541.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18923923699912848
+M1raw,monotonic,base33,11,True,True,"2023-07: median price moved 300,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19878402300309972
+M1raw,monotonic,base33,23,True,True,"2023-07: median price moved 300,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19921916900057113
+M1raw,monotonic,base33,47,True,True,"2023-07: median price moved 300,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.22325452699806192
+M1raw,monotonic,base34,11,True,True,"2023-07: median price moved 444,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21375678600088577
+M1raw,monotonic,base34,23,True,True,"2023-07: median price moved 444,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1923860489987419
+M1raw,monotonic,base34,47,True,True,"2023-07: median price moved 444,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18782381599885412
+M1raw,monotonic,base35,11,True,True,"2023-07: median price moved 400,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18443188099990948
+M1raw,monotonic,base35,23,True,True,"2023-07: median price moved 400,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19239394400210585
+M1raw,monotonic,base35,47,True,True,"2023-07: median price moved 400,000.00, expected 500,000.00",3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1999311809995561
+D1,directional,base00,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14326891800010344
+D1,directional,base00,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14715958600208978
+D1,directional,base00,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14008818300135317
+D1,directional,base01,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1461143220003578
+D1,directional,base01,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14417384399712319
+D1,directional,base01,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14457291299913777
+D1,directional,base02,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14712244700058363
+D1,directional,base02,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1575182059968938
+D1,directional,base02,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16210444500029553
+D1,directional,base03,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16037559599863016
+D1,directional,base03,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15895031499894685
+D1,directional,base03,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15508965399931185
+D1,directional,base04,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1973912269968423
+D1,directional,base04,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21166873699985445
+D1,directional,base04,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18899359599890886
+D1,directional,base05,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1690997179975966
+D1,directional,base05,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18830852400060394
+D1,directional,base05,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16930898200007505
+D1,directional,base06,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16287496400036616
+D1,directional,base06,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16270904300108668
+D1,directional,base06,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1685392299987143
+D1,directional,base07,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16401558500001556
+D1,directional,base07,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16061043399895425
+D1,directional,base07,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.153293241000938
+D1,directional,base08,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14445195000007516
+D1,directional,base08,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1438168160020723
+D1,directional,base08,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15722811299929162
+D1,directional,base09,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20792198699928122
+D1,directional,base09,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17413738100003684
+D1,directional,base09,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.155722773000889
+D1,directional,base10,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15824622899890528
+D1,directional,base10,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15147685299962177
+D1,directional,base10,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1545543770007498
+D1,directional,base11,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1712729089995264
+D1,directional,base11,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17837187600161997
+D1,directional,base11,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16677258500203607
+D1,directional,base12,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1607831029978115
+D1,directional,base12,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15232707600080175
+D1,directional,base12,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16227303499908885
+D1,directional,base13,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1604342379978334
+D1,directional,base13,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16139150499657262
+D1,directional,base13,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15635874600047828
+D1,directional,base14,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1537162550011999
+D1,directional,base14,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15728723900247132
+D1,directional,base14,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19886766399940825
+D1,directional,base15,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.23861494199809385
+D1,directional,base15,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.20204777600156376
+D1,directional,base15,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.18172596599833923
+D1,directional,base16,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16739659200175083
+D1,directional,base16,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15896837800028152
+D1,directional,base16,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16102952499932144
+D1,directional,base17,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15927225499763153
+D1,directional,base17,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15749996500017005
+D1,directional,base17,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16168040200136602
+D1,directional,base18,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15680826199968578
+D1,directional,base18,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17684271299731336
+D1,directional,base18,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19025353799952427
+D1,directional,base19,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18960704400160466
+D1,directional,base19,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17016778499964857
+D1,directional,base19,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17936926900074468
+D1,directional,base20,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18357659200046328
+D1,directional,base20,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16807528699791874
+D1,directional,base20,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16395561799799907
+D1,directional,base21,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16941171399957966
+D1,directional,base21,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16605915999753051
+D1,directional,base21,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15815073900012067
+D1,directional,base22,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15706059799776995
+D1,directional,base22,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16019099400000414
+D1,directional,base22,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15826325799935148
+D1,directional,base23,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16435858800105052
+D1,directional,base23,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.20006909900257597
+D1,directional,base23,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1682444639991445
+D1,directional,base24,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17057680600191816
+D1,directional,base24,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17542489799961913
+D1,directional,base24,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17852568099988275
+D1,directional,base25,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19936058099847287
+D1,directional,base25,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19978860300034285
+D1,directional,base25,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1873265079993871
+D1,directional,base26,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1808668369994848
+D1,directional,base26,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19403915799921378
+D1,directional,base26,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1843750270018063
+D1,directional,base27,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18661566600349033
+D1,directional,base27,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18663905100038392
+D1,directional,base27,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2171745039995585
+D1,directional,base28,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2116980329992657
+D1,directional,base28,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20659333399817115
+D1,directional,base28,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18487600999651477
+D1,directional,base29,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17801517399857403
+D1,directional,base29,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18733196500033955
+D1,directional,base29,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19434245500087854
+D1,directional,base30,11,True,False,,3,1,2,1,True,price_band>localities,price_band>localities,0.19628691699836054
+D1,directional,base30,23,True,False,,3,1,2,1,True,price_band>localities,price_band>localities,0.17498611799965147
+D1,directional,base30,47,True,False,,3,1,2,1,True,price_band>localities,price_band>localities,0.18813179500284605
+D1,directional,base31,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2035167480025848
+D1,directional,base31,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21845680800106493
+D1,directional,base31,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20542502500029514
+D1,directional,base32,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21981613599928096
+D1,directional,base32,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20454732900179806
+D1,directional,base32,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1811778659975971
+D1,directional,base33,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1851626089992351
+D1,directional,base33,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18442038400098681
+D1,directional,base33,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18895060000068042
+D1,directional,base34,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.18530274699878646
+D1,directional,base34,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2046404300017457
+D1,directional,base34,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2321849990003102
+D1,directional,base35,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19756851199781522
+D1,directional,base35,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19502536599975429
+D1,directional,base35,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20327681599883363
+D2,directional,base00,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15678574799676426
+D2,directional,base00,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15020321100018919
+D2,directional,base00,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.19092283799909637
+D2,directional,base01,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15128227900277125
+D2,directional,base01,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15040808099729475
+D2,directional,base01,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.162389876000816
+D2,directional,base02,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1572235180028656
+D2,directional,base02,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14628527800232405
+D2,directional,base02,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14178855099817156
+D2,directional,base03,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15109845999904792
+D2,directional,base03,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15669551100290846
+D2,directional,base03,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15119996199791785
+D2,directional,base04,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14501597599883098
+D2,directional,base04,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14445584300119663
+D2,directional,base04,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14348207999864826
+D2,directional,base05,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1510822489981365
+D2,directional,base05,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20275853799830656
+D2,directional,base05,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16454054299902054
+D2,directional,base06,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.155467092001345
+D2,directional,base06,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1542070989999047
+D2,directional,base06,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14059789800012368
+D2,directional,base07,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14079387199672055
+D2,directional,base07,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1355747989982774
+D2,directional,base07,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.13872467700275593
+D2,directional,base08,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.13020322500233306
+D2,directional,base08,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14841411800080095
+D2,directional,base08,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.18089738100024988
+D2,directional,base09,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2022958630004723
+D2,directional,base09,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19363385000178823
+D2,directional,base09,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17929140199703397
+D2,directional,base10,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17377816999942297
+D2,directional,base10,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19798855100088986
+D2,directional,base10,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15476420099730603
+D2,directional,base11,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15067540100062615
+D2,directional,base11,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14588776500022504
+D2,directional,base11,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.162449140996614
+D2,directional,base12,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15239192599983653
+D2,directional,base12,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1516019230002712
+D2,directional,base12,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15852186900156084
+D2,directional,base13,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15684615899954224
+D2,directional,base13,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15819558899966069
+D2,directional,base13,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1687176070008718
+D2,directional,base14,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21942344900162425
+D2,directional,base14,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1893758420010272
+D2,directional,base14,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17996148900056141
+D2,directional,base15,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.17501994099802687
+D2,directional,base15,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16282057199714473
+D2,directional,base15,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.16242683000018587
+D2,directional,base16,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17296279500078526
+D2,directional,base16,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19226930900185835
+D2,directional,base16,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15938850100064883
+D2,directional,base17,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24251375700259814
+D2,directional,base17,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21852412199950777
+D2,directional,base17,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2427914639993105
+D2,directional,base18,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.3380555710027693
+D2,directional,base18,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2144086700027401
+D2,directional,base18,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17123279699808336
+D2,directional,base19,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16234300299765891
+D2,directional,base19,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15802890899794875
+D2,directional,base19,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1602854760021728
+D2,directional,base20,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14364398700126912
+D2,directional,base20,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1456489550000697
+D2,directional,base20,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.14954409900019527
+D2,directional,base21,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1549691919972247
+D2,directional,base21,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1571372690013959
+D2,directional,base21,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1687760189997789
+D2,directional,base22,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15856270899894298
+D2,directional,base22,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.15719895599977463
+D2,directional,base22,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1745629929973802
+D2,directional,base23,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14080508000188274
+D2,directional,base23,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.14436791199841537
+D2,directional,base23,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.1667000849993201
+D2,directional,base24,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2067792220004776
+D2,directional,base24,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.19634856899938313
+D2,directional,base24,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16658668800300802
+D2,directional,base25,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16718367299836245
+D2,directional,base25,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15279038500011666
+D2,directional,base25,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15408568099883269
+D2,directional,base26,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16861881499789888
+D2,directional,base26,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.16769597299935413
+D2,directional,base26,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15267586700065294
+D2,directional,base27,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.15404180200130213
+D2,directional,base27,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.17318579600032535
+D2,directional,base27,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.1947432659981132
+D2,directional,base28,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.20894189899991034
+D2,directional,base28,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2234666449985525
+D2,directional,base28,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.27985624600114534
+D2,directional,base29,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.22535947199867223
+D2,directional,base29,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24166267500186223
+D2,directional,base29,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2008889110002201
+D2,directional,base30,11,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.19791628399980254
+D2,directional,base30,23,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.19015772599959746
+D2,directional,base30,47,True,False,,3,1,3,1,True,price_band>localities,price_band>localities,0.18368543600081466
+D2,directional,base31,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21448438900188194
+D2,directional,base31,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21166663699841592
+D2,directional,base31,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2125829309989058
+D2,directional,base32,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.24154683300002944
+D2,directional,base32,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2058383240000694
+D2,directional,base32,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2105210129993793
+D2,directional,base33,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21273722499972791
+D2,directional,base33,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2240583759994479
+D2,directional,base33,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21984235199852264
+D2,directional,base34,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.21423329100070987
+D2,directional,base34,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2214433929984807
+D2,directional,base34,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2216590259995428
+D2,directional,base35,11,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2236996879983053
+D2,directional,base35,23,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2492133769992506
+D2,directional,base35,47,True,False,,3,1,3,1,True,price_band>bhk>localities,price_band>bhk>localities,0.2641260409982351

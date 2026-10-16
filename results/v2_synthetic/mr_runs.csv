@@ -1,0 +1,1297 @@
+mr_id,family,base_input,seed,applicable,violated,detail,source_loops_c1,source_loops_c2,follow_loops_c1,follow_loops_c2,same_control_path,source_relaxations,follow_relaxations,source_rejected,follow_rejected,seconds
+I1,invariance,base00,11,True,False,,0,0,0,0,True,,,0,0,0.1222818000242114
+I1,invariance,base00,23,True,False,,0,0,0,0,True,,,0,0,0.09206049999920651
+I1,invariance,base00,47,True,False,,0,0,0,0,True,,,0,0,0.09544370000367053
+I1,invariance,base01,11,True,False,,0,0,0,0,True,,,0,0,0.12832809999235906
+I1,invariance,base01,23,True,False,,0,0,0,0,True,,,0,0,0.12788829999044538
+I1,invariance,base01,47,True,False,,0,0,0,0,True,,,0,0,0.12676189999911003
+I1,invariance,base02,11,True,False,,0,0,0,0,True,,,0,0,0.10598940000636503
+I1,invariance,base02,23,True,False,,0,0,0,0,True,,,0,0,0.10557320000953041
+I1,invariance,base02,47,True,False,,0,0,0,0,True,,,0,0,0.11476889997720718
+I1,invariance,base03,11,True,False,,0,1,0,1,True,,,1,1,0.18228460001409985
+I1,invariance,base03,23,True,False,,0,1,0,1,True,,,1,1,0.1759017999866046
+I1,invariance,base03,47,True,False,,0,1,0,1,True,,,1,1,0.12808460000087507
+I1,invariance,base04,11,True,False,,0,0,0,0,True,,,0,0,0.11145240001496859
+I1,invariance,base04,23,True,False,,0,0,0,0,True,,,0,0,0.10361030002241023
+I1,invariance,base04,47,True,False,,0,0,0,0,True,,,0,0,0.11626400001114234
+I1,invariance,base05,11,True,False,,0,0,0,0,True,,,0,0,0.13191769999684766
+I1,invariance,base05,23,True,False,,0,0,0,0,True,,,0,0,0.13203929999144748
+I1,invariance,base05,47,True,False,,0,0,0,0,True,,,0,0,0.14723370000137947
+I1,invariance,base06,11,True,False,,0,0,0,0,True,,,0,0,0.1461020999995526
+I1,invariance,base06,23,True,False,,0,0,0,0,True,,,0,0,0.12523860001238063
+I1,invariance,base06,47,True,False,,0,0,0,0,True,,,0,0,0.13245189998997375
+I1,invariance,base07,11,True,False,,0,0,0,0,True,,,0,0,0.14255479999701492
+I1,invariance,base07,23,True,False,,0,0,0,0,True,,,0,0,0.14350150001700968
+I1,invariance,base07,47,True,False,,0,0,0,0,True,,,0,0,0.1416019000171218
+I1,invariance,base08,11,True,False,,0,0,0,0,True,,,0,0,0.1313246999925468
+I1,invariance,base08,23,True,False,,0,0,0,0,True,,,0,0,0.13646589999552816
+I1,invariance,base08,47,True,False,,0,0,0,0,True,,,0,0,0.12639920000219718
+I1,invariance,base09,11,True,False,,0,0,0,0,True,,,0,0,0.13117640002747066
+I1,invariance,base09,23,True,False,,0,0,0,0,True,,,0,0,0.13177150001865812
+I1,invariance,base09,47,True,False,,0,0,0,0,True,,,0,0,0.1444134000048507
+I1,invariance,base10,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.267637700017076
+I1,invariance,base10,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.24050569999963045
+I1,invariance,base10,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.2695763999945484
+I1,invariance,base11,11,True,False,,0,0,0,0,True,,,0,0,0.13315919999149628
+I1,invariance,base11,23,True,False,,0,0,0,0,True,,,0,0,0.1310689999954775
+I1,invariance,base11,47,True,False,,0,0,0,0,True,,,0,0,0.12793620000593364
+I1,invariance,base12,11,True,False,,0,1,0,1,True,,,1,1,0.16049539999221452
+I1,invariance,base12,23,True,False,,0,1,0,1,True,,,1,1,0.16787920001661405
+I1,invariance,base12,47,True,False,,0,1,0,1,True,,,1,1,0.1947589000046719
+I1,invariance,base13,11,True,False,,0,0,0,0,True,,,0,0,0.14034450001781806
+I1,invariance,base13,23,True,False,,0,0,0,0,True,,,0,0,0.13736430002609268
+I1,invariance,base13,47,True,False,,0,0,0,0,True,,,0,0,0.14249019999988377
+I1,invariance,base14,11,True,False,,0,0,0,0,True,,,0,0,0.15563190000830218
+I1,invariance,base14,23,True,False,,0,0,0,0,True,,,0,0,0.14754149998771027
+I1,invariance,base14,47,True,False,,0,0,0,0,True,,,0,0,0.14229899999918416
+I1,invariance,base15,11,True,False,,0,0,0,0,True,,,0,0,0.14520910001010634
+I1,invariance,base15,23,True,False,,0,0,0,0,True,,,0,0,0.15524789999471977
+I1,invariance,base15,47,True,False,,0,0,0,0,True,,,0,0,0.1459307000041008
+I1,invariance,base16,11,True,False,,0,0,0,0,True,,,0,0,0.1240721000067424
+I1,invariance,base16,23,True,False,,0,0,0,0,True,,,0,0,0.14009260002058
+I1,invariance,base16,47,True,False,,0,0,0,0,True,,,0,0,0.19009750001714565
+I1,invariance,base17,11,True,False,,0,0,0,0,True,,,0,0,0.13174679997609928
+I1,invariance,base17,23,True,False,,0,0,0,0,True,,,0,0,0.12337280000792816
+I1,invariance,base17,47,True,False,,0,0,0,0,True,,,0,0,0.13173850000021048
+I1,invariance,base18,11,True,False,,0,0,0,0,True,,,0,0,0.1463336999877356
+I1,invariance,base18,23,True,False,,0,0,0,0,True,,,0,0,0.2503044000186492
+I1,invariance,base18,47,True,False,,0,0,0,0,True,,,0,0,0.18590129999211058
+I1,invariance,base19,11,True,False,,0,1,0,1,True,,,3,3,0.2034902999876067
+I1,invariance,base19,23,True,False,,0,1,0,1,True,,,3,3,0.1983808999939356
+I1,invariance,base19,47,True,False,,0,1,0,1,True,,,3,3,0.2361176999984309
+I1,invariance,base20,11,True,False,,0,0,0,0,True,,,0,0,0.17906590001075529
+I1,invariance,base20,23,True,False,,0,0,0,0,True,,,0,0,0.18140610001864843
+I1,invariance,base20,47,True,False,,0,0,0,0,True,,,0,0,0.16439160000300035
+I1,invariance,base21,11,True,False,,0,0,0,0,True,,,0,0,0.16795580001780763
+I1,invariance,base21,23,True,False,,0,0,0,0,True,,,0,0,0.18283320000045933
+I1,invariance,base21,47,True,False,,0,0,0,0,True,,,0,0,0.16125770000508055
+I1,invariance,base22,11,True,False,,0,0,0,0,True,,,0,0,0.16068310002447106
+I1,invariance,base22,23,True,False,,0,0,0,0,True,,,0,0,0.15124949999153614
+I1,invariance,base22,47,True,False,,0,0,0,0,True,,,0,0,0.14201630000025034
+I1,invariance,base23,11,True,False,,0,0,0,0,True,,,0,0,0.1397958000015933
+I1,invariance,base23,23,True,False,,0,0,0,0,True,,,0,0,0.13872700001229532
+I1,invariance,base23,47,True,False,,0,0,0,0,True,,,0,0,0.1399467999872286
+I1,invariance,base24,11,True,False,,0,0,0,0,True,,,0,0,0.12574139999924228
+I1,invariance,base24,23,True,False,,0,0,0,0,True,,,0,0,0.14319350000005215
+I1,invariance,base24,47,True,False,,0,0,0,0,True,,,0,0,0.16611059999559075
+I1,invariance,base25,11,True,False,,0,0,0,0,True,,,0,0,0.1729077999771107
+I1,invariance,base25,23,True,False,,0,0,0,0,True,,,0,0,0.16031710000243038
+I1,invariance,base25,47,True,False,,0,0,0,0,True,,,0,0,0.2453961999854073
+I1,invariance,base26,11,True,False,,0,0,0,0,True,,,0,0,0.47826410000561737
+I1,invariance,base26,23,True,False,,0,0,0,0,True,,,0,0,0.5038564999995288
+I1,invariance,base26,47,True,False,,0,0,0,0,True,,,0,0,0.5723307999724057
+I1,invariance,base27,11,True,False,,0,0,0,0,True,,,0,0,0.5098561999911908
+I1,invariance,base27,23,True,False,,0,0,0,0,True,,,0,0,0.48819279999588616
+I1,invariance,base27,47,True,False,,0,0,0,0,True,,,0,0,0.4735643999883905
+I1,invariance,base28,11,True,False,,0,1,0,1,True,,,1,1,0.5292350000236183
+I1,invariance,base28,23,True,False,,0,1,0,1,True,,,1,1,0.48253269999986514
+I1,invariance,base28,47,True,False,,0,1,0,1,True,,,1,1,0.5105245000158902
+I1,invariance,base29,11,True,False,,0,0,0,0,True,,,0,0,0.2648842000053264
+I1,invariance,base29,23,True,False,,0,0,0,0,True,,,0,0,0.196777299977839
+I1,invariance,base29,47,True,False,,0,0,0,0,True,,,0,0,0.17889980002655648
+I1,invariance,base30,11,True,False,,0,0,0,0,True,,,0,0,0.14671549998456612
+I1,invariance,base30,23,True,False,,0,0,0,0,True,,,0,0,0.15788380001322366
+I1,invariance,base30,47,True,False,,0,0,0,0,True,,,0,0,0.15546359997824766
+I1,invariance,base31,11,True,False,,0,0,0,0,True,,,0,0,0.149170899996534
+I1,invariance,base31,23,True,False,,0,0,0,0,True,,,0,0,0.13269769999897107
+I1,invariance,base31,47,True,False,,0,0,0,0,True,,,0,0,0.14698620000854135
+I1,invariance,base32,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.19489339998108335
+I1,invariance,base32,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.20535890001337975
+I1,invariance,base32,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.21120190000510775
+I1,invariance,base33,11,True,False,,0,0,0,0,True,,,0,0,0.14788340000086464
+I1,invariance,base33,23,True,False,,0,0,0,0,True,,,0,0,0.14929790000314824
+I1,invariance,base33,47,True,False,,0,0,0,0,True,,,0,0,0.14139710000017658
+I1,invariance,base34,11,True,False,,0,0,0,0,True,,,0,0,0.20963160000974312
+I1,invariance,base34,23,True,False,,0,0,0,0,True,,,0,0,0.15409409999847412
+I1,invariance,base34,47,True,False,,0,0,0,0,True,,,0,0,0.1628764999913983
+I1,invariance,base35,11,True,False,,0,1,0,1,True,,,1,1,0.16011699999216944
+I1,invariance,base35,23,True,False,,0,1,0,1,True,,,1,1,0.17313260000082664
+I1,invariance,base35,47,True,False,,0,1,0,1,True,,,1,1,0.15647669997997582
+I2,invariance,base00,11,True,False,,0,0,0,0,True,,,0,0,0.0968062000174541
+I2,invariance,base00,23,True,False,,0,0,0,0,True,,,0,0,0.09745349999866448
+I2,invariance,base00,47,True,False,,0,0,0,0,True,,,0,0,0.09865539998281747
+I2,invariance,base01,11,True,False,,0,0,0,0,True,,,0,0,0.14004739999654703
+I2,invariance,base01,23,True,False,,0,0,0,0,True,,,0,0,0.13824849997763522
+I2,invariance,base01,47,True,False,,0,0,0,0,True,,,0,0,0.12300130000221543
+I2,invariance,base02,11,True,False,,0,0,0,0,True,,,0,0,0.10345799999777228
+I2,invariance,base02,23,True,False,,0,0,0,0,True,,,0,0,0.10370889998739585
+I2,invariance,base02,47,True,False,,0,0,0,0,True,,,0,0,0.11897750000935048
+I2,invariance,base03,11,True,False,,0,1,0,1,True,,,1,1,0.14265749999321997
+I2,invariance,base03,23,True,False,,0,1,0,1,True,,,1,1,0.13726089999545366
+I2,invariance,base03,47,True,False,,0,1,0,1,True,,,1,1,0.13326600001892075
+I2,invariance,base04,11,True,False,,0,0,0,0,True,,,0,0,0.10710749999270774
+I2,invariance,base04,23,True,False,,0,0,0,0,True,,,0,0,0.10488649999024346
+I2,invariance,base04,47,True,False,,0,0,0,0,True,,,0,0,0.10658130000228994
+I2,invariance,base05,11,True,False,,0,0,0,0,True,,,0,0,0.1463528000167571
+I2,invariance,base05,23,True,False,,0,0,0,0,True,,,0,0,0.14910879998933524
+I2,invariance,base05,47,True,False,,0,0,0,0,True,,,0,0,0.17624770000111312
+I2,invariance,base06,11,True,False,,0,0,0,0,True,,,0,0,0.11345189998974092
+I2,invariance,base06,23,True,False,,0,0,0,0,True,,,0,0,0.11897700000554323
+I2,invariance,base06,47,True,False,,0,0,0,0,True,,,0,0,0.1190033000020776
+I2,invariance,base07,11,True,False,,0,0,0,0,True,,,0,0,0.11855529999593273
+I2,invariance,base07,23,True,False,,0,0,0,0,True,,,0,0,0.11878560000332072
+I2,invariance,base07,47,True,False,,0,0,0,0,True,,,0,0,0.12059539998881519
+I2,invariance,base08,11,True,False,,0,0,0,0,True,,,0,0,0.11031000001821667
+I2,invariance,base08,23,True,False,,0,0,0,0,True,,,0,0,0.1126366000098642
+I2,invariance,base08,47,True,False,,0,0,0,0,True,,,0,0,0.1123803999798838
+I2,invariance,base09,11,True,False,,0,0,0,0,True,,,0,0,0.11782959999982268
+I2,invariance,base09,23,True,False,,0,0,0,0,True,,,0,0,0.11113490001298487
+I2,invariance,base09,47,True,False,,0,0,0,0,True,,,0,0,0.11360680000507273
+I2,invariance,base10,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18682750000152737
+I2,invariance,base10,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.188432399998419
+I2,invariance,base10,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.20698400001856498
+I2,invariance,base11,11,True,False,,0,0,0,0,True,,,0,0,0.12373769999248907
+I2,invariance,base11,23,True,False,,0,0,0,0,True,,,0,0,0.12290300001041032
+I2,invariance,base11,47,True,False,,0,0,0,0,True,,,0,0,0.121373300004052
+I2,invariance,base12,11,True,False,,0,1,0,1,True,,,1,1,0.14965599999413826
+I2,invariance,base12,23,True,False,,0,1,0,1,True,,,1,1,0.1447104999970179
+I2,invariance,base12,47,True,False,,0,1,0,1,True,,,1,1,0.14335269998991862
+I2,invariance,base13,11,True,False,,0,0,0,0,True,,,0,0,0.12515599999460392
+I2,invariance,base13,23,True,False,,0,0,0,0,True,,,0,0,0.1623824000125751
+I2,invariance,base13,47,True,False,,0,0,0,0,True,,,0,0,0.12699069999507628
+I2,invariance,base14,11,True,False,,0,0,0,0,True,,,0,0,0.13092360002337955
+I2,invariance,base14,23,True,False,,0,0,0,0,True,,,0,0,0.12245750002330169
+I2,invariance,base14,47,True,False,,0,0,0,0,True,,,0,0,0.1249727999966126
+I2,invariance,base15,11,True,False,,0,0,0,0,True,,,0,0,0.12767479999456555
+I2,invariance,base15,23,True,False,,0,0,0,0,True,,,0,0,0.13668100000359118
+I2,invariance,base15,47,True,False,,0,0,0,0,True,,,0,0,0.13980039997841232
+I2,invariance,base16,11,True,False,,0,0,0,0,True,,,0,0,0.12338790000649169
+I2,invariance,base16,23,True,False,,0,0,0,0,True,,,0,0,0.11652609999873675
+I2,invariance,base16,47,True,False,,0,0,0,0,True,,,0,0,0.10894820000976324
+I2,invariance,base17,11,True,False,,0,0,0,0,True,,,0,0,0.1134291999915149
+I2,invariance,base17,23,True,False,,0,0,0,0,True,,,0,0,0.11219449999043718
+I2,invariance,base17,47,True,False,,0,0,0,0,True,,,0,0,0.11105029997997917
+I2,invariance,base18,11,True,False,,0,0,0,0,True,,,0,0,0.11961180000798777
+I2,invariance,base18,23,True,False,,0,0,0,0,True,,,0,0,0.12119770000572316
+I2,invariance,base18,47,True,False,,0,0,0,0,True,,,0,0,0.12216229998739436
+I2,invariance,base19,11,True,False,,0,1,0,1,True,,,3,3,0.16013679999741726
+I2,invariance,base19,23,True,False,,0,1,0,1,True,,,3,3,0.20257219998165965
+I2,invariance,base19,47,True,False,,0,1,0,1,True,,,3,3,0.16642080000019632
+I2,invariance,base20,11,True,False,,0,0,0,0,True,,,0,0,0.12059870001394302
+I2,invariance,base20,23,True,False,,0,0,0,0,True,,,0,0,0.12652320001507178
+I2,invariance,base20,47,True,False,,0,0,0,0,True,,,0,0,0.12700850001419894
+I2,invariance,base21,11,True,False,,0,0,0,0,True,,,0,0,0.13981260001310147
+I2,invariance,base21,23,True,False,,0,0,0,0,True,,,0,0,0.12994650000473484
+I2,invariance,base21,47,True,False,,0,0,0,0,True,,,0,0,0.134747400006745
+I2,invariance,base22,11,True,False,,0,0,0,0,True,,,0,0,0.13840759999584407
+I2,invariance,base22,23,True,False,,0,0,0,0,True,,,0,0,0.14133359998231754
+I2,invariance,base22,47,True,False,,0,0,0,0,True,,,0,0,0.14973900001496077
+I2,invariance,base23,11,True,False,,0,0,0,0,True,,,0,0,0.1455026000039652
+I2,invariance,base23,23,True,False,,0,0,0,0,True,,,0,0,0.13707080000313
+I2,invariance,base23,47,True,False,,0,0,0,0,True,,,0,0,0.13447160000214353
+I2,invariance,base24,11,True,False,,0,0,0,0,True,,,0,0,0.10880449999240227
+I2,invariance,base24,23,True,False,,0,0,0,0,True,,,0,0,0.10888880002312362
+I2,invariance,base24,47,True,False,,0,0,0,0,True,,,0,0,0.10529659999883734
+I2,invariance,base25,11,True,False,,0,0,0,0,True,,,0,0,0.11999080001260154
+I2,invariance,base25,23,True,False,,0,0,0,0,True,,,0,0,0.11871540002175607
+I2,invariance,base25,47,True,False,,0,0,0,0,True,,,0,0,0.11687509997864254
+I2,invariance,base26,11,True,False,,0,0,0,0,True,,,0,0,0.12072229999466799
+I2,invariance,base26,23,True,False,,0,0,0,0,True,,,0,0,0.12122159998398274
+I2,invariance,base26,47,True,False,,0,0,0,0,True,,,0,0,0.12620120000792667
+I2,invariance,base27,11,True,False,,0,0,0,0,True,,,0,0,0.20736659999238327
+I2,invariance,base27,23,True,False,,0,0,0,0,True,,,0,0,0.1774174000020139
+I2,invariance,base27,47,True,False,,0,0,0,0,True,,,0,0,0.14915860001929104
+I2,invariance,base28,11,True,False,,0,1,0,1,True,,,1,1,0.15230030001839623
+I2,invariance,base28,23,True,False,,0,1,0,1,True,,,1,1,0.1455405000015162
+I2,invariance,base28,47,True,False,,0,1,0,1,True,,,1,1,0.13646499998867512
+I2,invariance,base29,11,True,False,,0,0,0,0,True,,,0,0,0.12895680000656284
+I2,invariance,base29,23,True,False,,0,0,0,0,True,,,0,0,0.1322797000175342
+I2,invariance,base29,47,True,False,,0,0,0,0,True,,,0,0,0.13510200000018813
+I2,invariance,base30,11,True,False,,0,0,0,0,True,,,0,0,0.1327113999868743
+I2,invariance,base30,23,True,False,,0,0,0,0,True,,,0,0,0.13705379999009892
+I2,invariance,base30,47,True,False,,0,0,0,0,True,,,0,0,0.1451558999833651
+I2,invariance,base31,11,True,False,,0,0,0,0,True,,,0,0,0.13337520000641234
+I2,invariance,base31,23,True,False,,0,0,0,0,True,,,0,0,0.12340189999667928
+I2,invariance,base31,47,True,False,,0,0,0,0,True,,,0,0,0.12749269997584634
+I2,invariance,base32,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.1965972000034526
+I2,invariance,base32,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.20208679998177104
+I2,invariance,base32,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18627060001017526
+I2,invariance,base33,11,True,False,,0,0,0,0,True,,,0,0,0.17554299999028444
+I2,invariance,base33,23,True,False,,0,0,0,0,True,,,0,0,0.13368449997506104
+I2,invariance,base33,47,True,False,,0,0,0,0,True,,,0,0,0.13429440002073534
+I2,invariance,base34,11,True,False,,0,0,0,0,True,,,0,0,0.1468680999823846
+I2,invariance,base34,23,True,False,,0,0,0,0,True,,,0,0,0.15253339998889714
+I2,invariance,base34,47,True,False,,0,0,0,0,True,,,0,0,0.1510503999888897
+I2,invariance,base35,11,True,False,,0,1,0,1,True,,,1,1,0.15258080000057817
+I2,invariance,base35,23,True,False,,0,1,0,1,True,,,1,1,0.16321910000988282
+I2,invariance,base35,47,True,False,,0,1,0,1,True,,,1,1,0.15104329999303445
+I3,invariance,base00,11,True,False,,0,0,0,0,True,,,0,0,0.10379520000424236
+I3,invariance,base00,23,True,False,,0,0,0,0,True,,,0,0,0.09923979997984134
+I3,invariance,base00,47,True,False,,0,0,0,0,True,,,0,0,0.1003801999904681
+I3,invariance,base01,11,True,False,,0,0,0,0,True,,,0,0,0.15940769997541793
+I3,invariance,base01,23,True,False,,0,0,0,0,True,,,0,0,0.16227119998075068
+I3,invariance,base01,47,True,False,,0,0,0,0,True,,,0,0,0.15577469998970628
+I3,invariance,base02,11,True,False,,0,0,0,0,True,,,0,0,0.12394590000621974
+I3,invariance,base02,23,True,False,,0,0,0,0,True,,,0,0,0.1183016000140924
+I3,invariance,base02,47,True,False,,0,0,0,0,True,,,0,0,0.11900199999217875
+I3,invariance,base03,11,True,False,,0,1,0,1,True,,,1,2,0.14733979999436997
+I3,invariance,base03,23,True,False,,0,1,0,1,True,,,1,2,0.15111659999820404
+I3,invariance,base03,47,True,False,,0,1,0,1,True,,,1,2,0.15168819998507388
+I3,invariance,base04,11,True,False,,0,0,0,0,True,,,0,0,0.11759760000859387
+I3,invariance,base04,23,True,False,,0,0,0,0,True,,,0,0,0.15018090000376105
+I3,invariance,base04,47,True,False,,0,0,0,0,True,,,0,0,0.11557309998897836
+I3,invariance,base05,11,True,False,,0,0,0,0,True,,,0,0,0.16452570000546984
+I3,invariance,base05,23,True,False,,0,0,0,0,True,,,0,0,0.17330910000600852
+I3,invariance,base05,47,True,False,,0,0,0,0,True,,,0,0,0.16879379999591038
+I3,invariance,base06,11,True,False,,0,0,0,0,True,,,0,0,0.13453420001314953
+I3,invariance,base06,23,True,False,,0,0,0,0,True,,,0,0,0.138149100006558
+I3,invariance,base06,47,True,False,,0,0,0,0,True,,,0,0,0.13133899998501875
+I3,invariance,base07,11,True,False,,0,0,0,0,True,,,0,0,0.14184659998863935
+I3,invariance,base07,23,True,False,,0,0,0,0,True,,,0,0,0.15245490000233985
+I3,invariance,base07,47,True,False,,0,0,0,0,True,,,0,0,0.1399350999854505
+I3,invariance,base08,11,True,False,,0,0,0,0,True,,,0,0,0.12705979999736883
+I3,invariance,base08,23,True,False,,0,0,0,0,True,,,0,0,0.1251376000000164
+I3,invariance,base08,47,True,False,,0,0,0,0,True,,,0,0,0.12565870000980794
+I3,invariance,base09,11,True,False,,0,0,0,0,True,,,0,0,0.13054919999558479
+I3,invariance,base09,23,True,False,,0,0,0,0,True,,,0,0,0.1254332999815233
+I3,invariance,base09,47,True,False,,0,0,0,0,True,,,0,0,0.12789139998494647
+I3,invariance,base10,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.21719919997849502
+I3,invariance,base10,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.20987029999378137
+I3,invariance,base10,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.21250990001135506
+I3,invariance,base11,11,True,False,,0,0,0,0,True,,,0,0,0.14737890000105835
+I3,invariance,base11,23,True,False,,0,0,0,0,True,,,0,0,0.16212600001017563
+I3,invariance,base11,47,True,False,,0,0,0,0,True,,,0,0,0.17890470000565983
+I3,invariance,base12,11,True,False,,0,1,0,1,True,,,1,2,0.1560594000038691
+I3,invariance,base12,23,True,False,,0,1,0,1,True,,,1,2,0.15337759998510592
+I3,invariance,base12,47,True,False,,0,1,0,1,True,,,1,2,0.16011430000071414
+I3,invariance,base13,11,True,False,,0,0,0,0,True,,,0,0,0.15481899998849258
+I3,invariance,base13,23,True,False,,0,0,0,0,True,,,0,0,0.1500201000017114
+I3,invariance,base13,47,True,False,,0,0,0,0,True,,,0,0,0.15098560001933947
+I3,invariance,base14,11,True,False,,0,0,0,0,True,,,0,0,0.1454449000011664
+I3,invariance,base14,23,True,False,,0,0,0,0,True,,,0,0,0.14824560002307408
+I3,invariance,base14,47,True,False,,0,0,0,0,True,,,0,0,0.16211240002303384
+I3,invariance,base15,11,True,False,,0,0,0,0,True,,,0,0,0.15742579998914152
+I3,invariance,base15,23,True,False,,0,0,0,0,True,,,0,0,0.15194529999280348
+I3,invariance,base15,47,True,False,,0,0,0,0,True,,,0,0,0.16665609998744912
+I3,invariance,base16,11,True,False,,0,0,0,0,True,,,0,0,0.11346730001969263
+I3,invariance,base16,23,True,False,,0,0,0,0,True,,,0,0,0.11086580000119284
+I3,invariance,base16,47,True,False,,0,0,0,0,True,,,0,0,0.11387520001153462
+I3,invariance,base17,11,True,False,,0,0,0,0,True,,,0,0,0.12474500000826083
+I3,invariance,base17,23,True,False,,0,0,0,0,True,,,0,0,0.1186683000123594
+I3,invariance,base17,47,True,False,,0,0,0,0,True,,,0,0,0.11955639999359846
+I3,invariance,base18,11,True,False,,0,0,0,0,True,,,0,0,0.1375844000140205
+I3,invariance,base18,23,True,False,,0,0,0,0,True,,,0,0,0.14084649999858811
+I3,invariance,base18,47,True,False,,0,0,0,0,True,,,0,0,0.13833089999388903
+I3,invariance,base19,11,True,False,,0,1,0,1,True,,,3,6,0.17950759999803267
+I3,invariance,base19,23,True,False,,0,1,0,1,True,,,3,6,0.2153112000087276
+I3,invariance,base19,47,True,False,,0,1,0,1,True,,,3,6,0.17854789999546483
+I3,invariance,base20,11,True,False,,0,0,0,0,True,,,0,0,0.13715809999848716
+I3,invariance,base20,23,True,False,,0,0,0,0,True,,,0,0,0.13675410000723787
+I3,invariance,base20,47,True,False,,0,0,0,0,True,,,0,0,0.1484403999929782
+I3,invariance,base21,11,True,False,,0,0,0,0,True,,,0,0,0.15803930000402033
+I3,invariance,base21,23,True,False,,0,0,0,0,True,,,0,0,0.15907749999314547
+I3,invariance,base21,47,True,False,,0,0,0,0,True,,,0,0,0.1589179000002332
+I3,invariance,base22,11,True,False,,0,0,0,0,True,,,0,0,0.1708443000097759
+I3,invariance,base22,23,True,False,,0,0,0,0,True,,,0,0,0.16657920001307502
+I3,invariance,base22,47,True,False,,0,0,0,0,True,,,0,0,0.1613268999790307
+I3,invariance,base23,11,True,False,,0,0,0,0,True,,,0,0,0.17461059999186546
+I3,invariance,base23,23,True,False,,0,0,0,0,True,,,0,0,0.16523929999675602
+I3,invariance,base23,47,True,False,,0,0,0,0,True,,,0,0,0.16121960000600666
+I3,invariance,base24,11,True,False,,0,0,0,0,True,,,0,0,0.11569559999043122
+I3,invariance,base24,23,True,False,,0,0,0,0,True,,,0,0,0.11380840002675541
+I3,invariance,base24,47,True,False,,0,0,0,0,True,,,0,0,0.12128810002468526
+I3,invariance,base25,11,True,False,,0,0,0,0,True,,,0,0,0.14066070000990294
+I3,invariance,base25,23,True,False,,0,0,0,0,True,,,0,0,0.14040819997899234
+I3,invariance,base25,47,True,False,,0,0,0,0,True,,,0,0,0.1597198999952525
+I3,invariance,base26,11,True,False,,0,0,0,0,True,,,0,0,0.1516350000165403
+I3,invariance,base26,23,True,False,,0,0,0,0,True,,,0,0,0.13796560000628233
+I3,invariance,base26,47,True,False,,0,0,0,0,True,,,0,0,0.17400900000939146
+I3,invariance,base27,11,True,False,,0,0,0,0,True,,,0,0,0.16582160000689328
+I3,invariance,base27,23,True,False,,0,0,0,0,True,,,0,0,0.16920579998986796
+I3,invariance,base27,47,True,False,,0,0,0,0,True,,,0,0,0.17371600001933984
+I3,invariance,base28,11,True,False,,0,1,0,1,True,,,1,2,0.16016379999928176
+I3,invariance,base28,23,True,False,,0,1,0,1,True,,,1,2,0.15058739998494275
+I3,invariance,base28,47,True,False,,0,1,0,1,True,,,1,2,0.14787399998749606
+I3,invariance,base29,11,True,False,,0,0,0,0,True,,,0,0,0.1600036000018008
+I3,invariance,base29,23,True,False,,0,0,0,0,True,,,0,0,0.1723206000169739
+I3,invariance,base29,47,True,False,,0,0,0,0,True,,,0,0,0.1725995999877341
+I3,invariance,base30,11,True,False,,0,0,0,0,True,,,0,0,0.17492359998868778
+I3,invariance,base30,23,True,False,,0,0,0,0,True,,,0,0,0.16820659997756593
+I3,invariance,base30,47,True,False,,0,0,0,0,True,,,0,0,0.15981499999179505
+I3,invariance,base31,11,True,False,,0,0,0,0,True,,,0,0,0.143901499977801
+I3,invariance,base31,23,True,False,,0,0,0,0,True,,,0,0,0.14425240000127815
+I3,invariance,base31,47,True,False,,0,0,0,0,True,,,0,0,0.1301101999997627
+I3,invariance,base32,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.1968413000286091
+I3,invariance,base32,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.20141809998312965
+I3,invariance,base32,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.21440560001065023
+I3,invariance,base33,11,True,False,,0,0,0,0,True,,,0,0,0.1628167000017129
+I3,invariance,base33,23,True,False,,0,0,0,0,True,,,0,0,0.15610609998111613
+I3,invariance,base33,47,True,False,,0,0,0,0,True,,,0,0,0.15536710000014864
+I3,invariance,base34,11,True,False,,0,0,0,0,True,,,0,0,0.212136099988129
+I3,invariance,base34,23,True,False,,0,0,0,0,True,,,0,0,0.21412339998641983
+I3,invariance,base34,47,True,False,,0,0,0,0,True,,,0,0,0.18315419999998994
+I3,invariance,base35,11,True,False,,0,1,0,1,True,,,1,2,0.15868059999775141
+I3,invariance,base35,23,True,False,,0,1,0,1,True,,,1,2,0.16026509998482652
+I3,invariance,base35,47,True,False,,0,1,0,1,True,,,1,2,0.1753665000142064
+I4,invariance,base00,11,True,False,,0,0,0,0,True,,,0,0,0.11309379999875091
+I4,invariance,base00,23,True,False,,0,0,0,0,True,,,0,0,0.11742830000002868
+I4,invariance,base00,47,True,False,,0,0,0,0,True,,,0,0,0.11681050001061521
+I4,invariance,base01,11,True,False,,0,0,0,0,True,,,0,0,0.14755709999008104
+I4,invariance,base01,23,True,False,,0,0,0,0,True,,,0,0,0.17570990000967868
+I4,invariance,base01,47,True,False,,0,0,0,0,True,,,0,0,0.15333909998298623
+I4,invariance,base02,11,True,False,,0,0,0,0,True,,,0,0,0.11620640000910498
+I4,invariance,base02,23,True,False,,0,0,0,0,True,,,0,0,0.1096751999866683
+I4,invariance,base02,47,True,False,,0,0,0,0,True,,,0,0,0.11475310000241734
+I4,invariance,base03,11,True,False,,0,1,0,1,True,,,1,1,0.14452890001120977
+I4,invariance,base03,23,True,False,,0,1,0,1,True,,,1,1,0.1700186000089161
+I4,invariance,base03,47,True,False,,0,1,0,1,True,,,1,1,0.16918209998402745
+I4,invariance,base04,11,True,False,,0,0,0,0,True,,,0,0,0.11008919999585487
+I4,invariance,base04,23,True,False,,0,0,0,0,True,,,0,0,0.11202780000166968
+I4,invariance,base04,47,True,False,,0,0,0,0,True,,,0,0,0.10818099998869002
+I4,invariance,base05,11,True,False,,0,0,0,0,True,,,0,0,0.1476849000027869
+I4,invariance,base05,23,True,False,,0,0,0,0,True,,,0,0,0.15383249998558313
+I4,invariance,base05,47,True,False,,0,0,0,0,True,,,0,0,0.15990249998867512
+I4,invariance,base06,11,True,False,,0,0,0,0,True,,,0,0,0.12640539999119937
+I4,invariance,base06,23,True,False,,0,0,0,0,True,,,0,0,0.12066380001488142
+I4,invariance,base06,47,True,False,,0,0,0,0,True,,,0,0,0.11563360001309775
+I4,invariance,base07,11,True,False,,0,0,0,0,True,,,0,0,0.11962750001111999
+I4,invariance,base07,23,True,False,,0,0,0,0,True,,,0,0,0.11817899998277426
+I4,invariance,base07,47,True,False,,0,0,0,0,True,,,0,0,0.11964299998362549
+I4,invariance,base08,11,True,False,,0,0,0,0,True,,,0,0,0.10943889999180101
+I4,invariance,base08,23,True,False,,0,0,0,0,True,,,0,0,0.10951579999527894
+I4,invariance,base08,47,True,False,,0,0,0,0,True,,,0,0,0.1796154000039678
+I4,invariance,base09,11,True,False,,0,0,0,0,True,,,0,0,0.12080560001777485
+I4,invariance,base09,23,True,False,,0,0,0,0,True,,,0,0,0.11317219998454675
+I4,invariance,base09,47,True,False,,0,0,0,0,True,,,0,0,0.10892910000984557
+I4,invariance,base10,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.17634839998208918
+I4,invariance,base10,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18767129999469034
+I4,invariance,base10,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18759810001938604
+I4,invariance,base11,11,True,False,,0,0,0,0,True,,,0,0,0.1187731999962125
+I4,invariance,base11,23,True,False,,0,0,0,0,True,,,0,0,0.11739040000247769
+I4,invariance,base11,47,True,False,,0,0,0,0,True,,,0,0,0.12463590002153069
+I4,invariance,base12,11,True,False,,0,1,0,1,True,,,1,1,0.15568780002649873
+I4,invariance,base12,23,True,False,,0,1,0,1,True,,,1,1,0.15326080002705567
+I4,invariance,base12,47,True,False,,0,1,0,1,True,,,1,1,0.14645220001693815
+I4,invariance,base13,11,True,False,,0,0,0,0,True,,,0,0,0.11950090000755154
+I4,invariance,base13,23,True,False,,0,0,0,0,True,,,0,0,0.12492499998188578
+I4,invariance,base13,47,True,False,,0,0,0,0,True,,,0,0,0.12442909998935647
+I4,invariance,base14,11,True,False,,0,0,0,0,True,,,0,0,0.13843469999847002
+I4,invariance,base14,23,True,False,,0,0,0,0,True,,,0,0,0.13289919999078847
+I4,invariance,base14,47,True,False,,0,0,0,0,True,,,0,0,0.1256881000008434
+I4,invariance,base15,11,True,False,,0,0,0,0,True,,,0,0,0.12280989999999292
+I4,invariance,base15,23,True,False,,0,0,0,0,True,,,0,0,0.12472849999903701
+I4,invariance,base15,47,True,False,,0,0,0,0,True,,,0,0,0.12660819999291562
+I4,invariance,base16,11,True,False,,0,0,0,0,True,,,0,0,0.1006164999853354
+I4,invariance,base16,23,True,False,,0,0,0,0,True,,,0,0,0.10822410002583638
+I4,invariance,base16,47,True,False,,0,0,0,0,True,,,0,0,0.10981359999277629
+I4,invariance,base17,11,True,False,,0,0,0,0,True,,,0,0,0.11154610000085086
+I4,invariance,base17,23,True,False,,0,0,0,0,True,,,0,0,0.10868830000981688
+I4,invariance,base17,47,True,False,,0,0,0,0,True,,,0,0,0.10504580000997521
+I4,invariance,base18,11,True,False,,0,0,0,0,True,,,0,0,0.11330099997576326
+I4,invariance,base18,23,True,False,,0,0,0,0,True,,,0,0,0.12076750001870096
+I4,invariance,base18,47,True,False,,0,0,0,0,True,,,0,0,0.12481939999270253
+I4,invariance,base19,11,True,False,,0,1,0,1,True,,,3,3,0.20126070000696927
+I4,invariance,base19,23,True,False,,0,1,0,1,True,,,3,3,0.15992529998766258
+I4,invariance,base19,47,True,False,,0,1,0,1,True,,,3,3,0.16166310000699013
+I4,invariance,base20,11,True,False,,0,0,0,0,True,,,0,0,0.11396139999851584
+I4,invariance,base20,23,True,False,,0,0,0,0,True,,,0,0,0.11463460000231862
+I4,invariance,base20,47,True,False,,0,0,0,0,True,,,0,0,0.11603340000147
+I4,invariance,base21,11,True,False,,0,0,0,0,True,,,0,0,0.12451349999173544
+I4,invariance,base21,23,True,False,,0,0,0,0,True,,,0,0,0.12808289998793043
+I4,invariance,base21,47,True,False,,0,0,0,0,True,,,0,0,0.128158200008329
+I4,invariance,base22,11,True,False,,0,0,0,0,True,,,0,0,0.14794749999418855
+I4,invariance,base22,23,True,False,,0,0,0,0,True,,,0,0,0.14264410000760108
+I4,invariance,base22,47,True,False,,0,0,0,0,True,,,0,0,0.13852989999577403
+I4,invariance,base23,11,True,False,,0,0,0,0,True,,,0,0,0.15322850001393817
+I4,invariance,base23,23,True,False,,0,0,0,0,True,,,0,0,0.13895289998617955
+I4,invariance,base23,47,True,False,,0,0,0,0,True,,,0,0,0.14004800000111572
+I4,invariance,base24,11,True,False,,0,0,0,0,True,,,0,0,0.10534010000992566
+I4,invariance,base24,23,True,False,,0,0,0,0,True,,,0,0,0.10197849999531172
+I4,invariance,base24,47,True,False,,0,0,0,0,True,,,0,0,0.10599250000086613
+I4,invariance,base25,11,True,False,,0,0,0,0,True,,,0,0,0.12144730001455173
+I4,invariance,base25,23,True,False,,0,0,0,0,True,,,0,0,0.15377079998143017
+I4,invariance,base25,47,True,False,,0,0,0,0,True,,,0,0,0.12235179997514933
+I4,invariance,base26,11,True,False,,0,0,0,0,True,,,0,0,0.11372760002268478
+I4,invariance,base26,23,True,False,,0,0,0,0,True,,,0,0,0.11018920000060461
+I4,invariance,base26,47,True,False,,0,0,0,0,True,,,0,0,0.11277149998932146
+I4,invariance,base27,11,True,False,,0,0,0,0,True,,,0,0,0.13965939998161048
+I4,invariance,base27,23,True,False,,0,0,0,0,True,,,0,0,0.19151610002154484
+I4,invariance,base27,47,True,False,,0,0,0,0,True,,,0,0,0.18016369998804294
+I4,invariance,base28,11,True,False,,0,1,0,1,True,,,1,1,0.19301950000226498
+I4,invariance,base28,23,True,False,,0,1,0,1,True,,,1,1,0.1785022999974899
+I4,invariance,base28,47,True,False,,0,1,0,1,True,,,1,1,0.2612832000013441
+I4,invariance,base29,11,True,False,,0,0,0,0,True,,,0,0,0.16504300001543015
+I4,invariance,base29,23,True,False,,0,0,0,0,True,,,0,0,0.1562393000058364
+I4,invariance,base29,47,True,False,,0,0,0,0,True,,,0,0,0.1494842000247445
+I4,invariance,base30,11,True,False,,0,0,0,0,True,,,0,0,0.16023549999226816
+I4,invariance,base30,23,True,False,,0,0,0,0,True,,,0,0,0.1553460000141058
+I4,invariance,base30,47,True,False,,0,0,0,0,True,,,0,0,0.14806239999597892
+I4,invariance,base31,11,True,False,,0,0,0,0,True,,,0,0,0.15792249998776242
+I4,invariance,base31,23,True,False,,0,0,0,0,True,,,0,0,0.14202629998908378
+I4,invariance,base31,47,True,False,,0,0,0,0,True,,,0,0,0.1289896999951452
+I4,invariance,base32,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.2121239999833051
+I4,invariance,base32,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.19108039999264292
+I4,invariance,base32,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.1859548999927938
+I4,invariance,base33,11,True,False,,0,0,0,0,True,,,0,0,0.1506490999890957
+I4,invariance,base33,23,True,False,,0,0,0,0,True,,,0,0,0.13735139998607337
+I4,invariance,base33,47,True,False,,0,0,0,0,True,,,0,0,0.14219490002142265
+I4,invariance,base34,11,True,False,,0,0,0,0,True,,,0,0,0.15370609998353757
+I4,invariance,base34,23,True,False,,0,0,0,0,True,,,0,0,0.16901919999509118
+I4,invariance,base34,47,True,False,,0,0,0,0,True,,,0,0,0.1649193000048399
+I4,invariance,base35,11,True,False,,0,1,0,1,True,,,1,1,0.16371839999919757
+I4,invariance,base35,23,True,False,,0,1,0,1,True,,,1,1,0.1681949999765493
+I4,invariance,base35,47,True,False,,0,1,0,1,True,,,1,1,0.15924219999578781
+I5,invariance,base00,11,True,False,,0,0,0,0,True,,,0,0,0.1027816999994684
+I5,invariance,base00,23,True,False,,0,0,0,0,True,,,0,0,0.10294000001158565
+I5,invariance,base00,47,True,False,,0,0,0,0,True,,,0,0,0.09555999998701736
+I5,invariance,base01,11,True,False,,0,0,0,0,True,,,0,0,0.1609875000140164
+I5,invariance,base01,23,True,False,,0,0,0,0,True,,,0,0,0.12372699999832548
+I5,invariance,base01,47,True,False,,0,0,0,0,True,,,0,0,0.12702970000100322
+I5,invariance,base02,11,True,False,,0,0,0,0,True,,,0,0,0.11895639999420382
+I5,invariance,base02,23,True,False,,0,0,0,0,True,,,0,0,0.11545270000351593
+I5,invariance,base02,47,True,False,,0,0,0,0,True,,,0,0,0.12381659998209216
+I5,invariance,base03,11,True,False,,0,1,0,1,True,,,1,1,0.16890230000717565
+I5,invariance,base03,23,True,False,,0,1,0,1,True,,,1,1,0.15726479998556897
+I5,invariance,base03,47,True,False,,0,1,0,1,True,,,1,1,0.17343980001169257
+I5,invariance,base04,11,True,False,,0,0,0,0,True,,,0,0,0.12833180002053268
+I5,invariance,base04,23,True,False,,0,0,0,0,True,,,0,0,0.12102959997719154
+I5,invariance,base04,47,True,False,,0,0,0,0,True,,,0,0,0.12159240001346916
+I5,invariance,base05,11,True,False,,0,0,0,0,True,,,0,0,0.14889189999666996
+I5,invariance,base05,23,True,False,,0,0,0,0,True,,,0,0,0.14088389999233186
+I5,invariance,base05,47,True,False,,0,0,0,0,True,,,0,0,0.13790349999908358
+I5,invariance,base06,11,True,False,,0,0,0,0,True,,,0,0,0.11893549998058006
+I5,invariance,base06,23,True,False,,0,0,0,0,True,,,0,0,0.11591379999299534
+I5,invariance,base06,47,True,False,,0,0,0,0,True,,,0,0,0.12252950001857243
+I5,invariance,base07,11,True,False,,0,0,0,0,True,,,0,0,0.11805459999595769
+I5,invariance,base07,23,True,False,,0,0,0,0,True,,,0,0,0.15272189999814145
+I5,invariance,base07,47,True,False,,0,0,0,0,True,,,0,0,0.11923870001919568
+I5,invariance,base08,11,True,False,,0,0,0,0,True,,,0,0,0.11015130000305362
+I5,invariance,base08,23,True,False,,0,0,0,0,True,,,0,0,0.11060949999955483
+I5,invariance,base08,47,True,False,,0,0,0,0,True,,,0,0,0.10975780000444502
+I5,invariance,base09,11,True,False,,0,0,0,0,True,,,0,0,0.11327289999462664
+I5,invariance,base09,23,True,False,,0,0,0,0,True,,,0,0,0.11696480002137832
+I5,invariance,base09,47,True,False,,0,0,0,0,True,,,0,0,0.12345049998839386
+I5,invariance,base10,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18999519999488257
+I5,invariance,base10,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.20040390000212938
+I5,invariance,base10,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.19929399999091402
+I5,invariance,base11,11,True,False,,0,0,0,0,True,,,0,0,0.1301275000150781
+I5,invariance,base11,23,True,False,,0,0,0,0,True,,,0,0,0.11755389999598265
+I5,invariance,base11,47,True,False,,0,0,0,0,True,,,0,0,0.12435389999882318
+I5,invariance,base12,11,True,False,,0,1,0,1,True,,,1,1,0.15340940002352
+I5,invariance,base12,23,True,False,,0,1,0,1,True,,,1,1,0.15942929999437183
+I5,invariance,base12,47,True,False,,0,1,0,1,True,,,1,1,0.14604180000605993
+I5,invariance,base13,11,True,False,,0,0,0,0,True,,,0,0,0.12445430000661872
+I5,invariance,base13,23,True,False,,0,0,0,0,True,,,0,0,0.12257340000360273
+I5,invariance,base13,47,True,False,,0,0,0,0,True,,,0,0,0.1575730000040494
+I5,invariance,base14,11,True,False,,0,0,0,0,True,,,0,0,0.12105599997448735
+I5,invariance,base14,23,True,False,,0,0,0,0,True,,,0,0,0.13657779997447506
+I5,invariance,base14,47,True,False,,0,0,0,0,True,,,0,0,0.1322617999976501
+I5,invariance,base15,11,True,False,,0,0,0,0,True,,,0,0,0.1346655999950599
+I5,invariance,base15,23,True,False,,0,0,0,0,True,,,0,0,0.1301001000101678
+I5,invariance,base15,47,True,False,,0,0,0,0,True,,,0,0,0.1273982000129763
+I5,invariance,base16,11,True,False,,0,0,0,0,True,,,0,0,0.10289820001344196
+I5,invariance,base16,23,True,False,,0,0,0,0,True,,,0,0,0.1146815000101924
+I5,invariance,base16,47,True,False,,0,0,0,0,True,,,0,0,0.10652540001319721
+I5,invariance,base17,11,True,False,,0,0,0,0,True,,,0,0,0.10910469997907057
+I5,invariance,base17,23,True,False,,0,0,0,0,True,,,0,0,0.10313150001456961
+I5,invariance,base17,47,True,False,,0,0,0,0,True,,,0,0,0.10870080001768656
+I5,invariance,base18,11,True,False,,0,0,0,0,True,,,0,0,0.12255659999209456
+I5,invariance,base18,23,True,False,,0,0,0,0,True,,,0,0,0.12241399998310953
+I5,invariance,base18,47,True,False,,0,0,0,0,True,,,0,0,0.11920819999068044
+I5,invariance,base19,11,True,False,,0,1,0,1,True,,,3,3,0.15574149999883957
+I5,invariance,base19,23,True,False,,0,1,0,1,True,,,3,3,0.16295870000612922
+I5,invariance,base19,47,True,False,,0,1,0,1,True,,,3,3,0.16497810001601465
+I5,invariance,base20,11,True,False,,0,0,0,0,True,,,0,0,0.12894389999564737
+I5,invariance,base20,23,True,False,,0,0,0,0,True,,,0,0,0.16408770001726225
+I5,invariance,base20,47,True,False,,0,0,0,0,True,,,0,0,0.11759919999167323
+I5,invariance,base21,11,True,False,,0,0,0,0,True,,,0,0,0.13067250000312924
+I5,invariance,base21,23,True,False,,0,0,0,0,True,,,0,0,0.1272774999961257
+I5,invariance,base21,47,True,False,,0,0,0,0,True,,,0,0,0.13077320001320913
+I5,invariance,base22,11,True,False,,0,0,0,0,True,,,0,0,0.1397636999899987
+I5,invariance,base22,23,True,False,,0,0,0,0,True,,,0,0,0.14349770001717843
+I5,invariance,base22,47,True,False,,0,0,0,0,True,,,0,0,0.1452143999922555
+I5,invariance,base23,11,True,False,,0,0,0,0,True,,,0,0,0.14072850000229664
+I5,invariance,base23,23,True,False,,0,0,0,0,True,,,0,0,0.14014689999748953
+I5,invariance,base23,47,True,False,,0,0,0,0,True,,,0,0,0.14292610000120476
+I5,invariance,base24,11,True,False,,0,0,0,0,True,,,0,0,0.11966640001628548
+I5,invariance,base24,23,True,False,,0,0,0,0,True,,,0,0,0.11533739999867976
+I5,invariance,base24,47,True,False,,0,0,0,0,True,,,0,0,0.12521779999951832
+I5,invariance,base25,11,True,False,,0,0,0,0,True,,,0,0,0.13151390000712126
+I5,invariance,base25,23,True,False,,0,0,0,0,True,,,0,0,0.13592410000273958
+I5,invariance,base25,47,True,False,,0,0,0,0,True,,,0,0,0.12664499998209067
+I5,invariance,base26,11,True,False,,0,0,0,0,True,,,0,0,0.11864830000558868
+I5,invariance,base26,23,True,False,,0,0,0,0,True,,,0,0,0.11666510000941344
+I5,invariance,base26,47,True,False,,0,0,0,0,True,,,0,0,0.11742470000172034
+I5,invariance,base27,11,True,False,,0,0,0,0,True,,,0,0,0.15128350001759827
+I5,invariance,base27,23,True,False,,0,0,0,0,True,,,0,0,0.14660199999343604
+I5,invariance,base27,47,True,False,,0,0,0,0,True,,,0,0,0.14552620000904426
+I5,invariance,base28,11,True,False,,0,1,0,1,True,,,1,1,0.1420872999879066
+I5,invariance,base28,23,True,False,,0,1,0,1,True,,,1,1,0.13881110001238994
+I5,invariance,base28,47,True,False,,0,1,0,1,True,,,1,1,0.13565720000769943
+I5,invariance,base29,11,True,False,,0,0,0,0,True,,,0,0,0.17440099999657832
+I5,invariance,base29,23,True,False,,0,0,0,0,True,,,0,0,0.13785039997310378
+I5,invariance,base29,47,True,False,,0,0,0,0,True,,,0,0,0.1360763999982737
+I5,invariance,base30,11,True,False,,0,0,0,0,True,,,0,0,0.13978470000438392
+I5,invariance,base30,23,True,False,,0,0,0,0,True,,,0,0,0.1333018000004813
+I5,invariance,base30,47,True,False,,0,0,0,0,True,,,0,0,0.14800020001712255
+I5,invariance,base31,11,True,False,,0,0,0,0,True,,,0,0,0.1259888999920804
+I5,invariance,base31,23,True,False,,0,0,0,0,True,,,0,0,0.11944099998800084
+I5,invariance,base31,47,True,False,,0,0,0,0,True,,,0,0,0.11975769998389296
+I5,invariance,base32,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18374549999134615
+I5,invariance,base32,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18237049999879673
+I5,invariance,base32,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18995460000587627
+I5,invariance,base33,11,True,False,,0,0,0,0,True,,,0,0,0.14215659999172203
+I5,invariance,base33,23,True,False,,0,0,0,0,True,,,0,0,0.13425760000245646
+I5,invariance,base33,47,True,False,,0,0,0,0,True,,,0,0,0.1318885000073351
+I5,invariance,base34,11,True,False,,0,0,0,0,True,,,0,0,0.14660919999005273
+I5,invariance,base34,23,True,False,,0,0,0,0,True,,,0,0,0.1506336000165902
+I5,invariance,base34,47,True,False,,0,0,0,0,True,,,0,0,0.16438619999098592
+I5,invariance,base35,11,True,False,,0,1,0,1,True,,,1,1,0.15398090000962839
+I5,invariance,base35,23,True,False,,0,1,0,1,True,,,1,1,0.14531240001088008
+I5,invariance,base35,47,True,False,,0,1,0,1,True,,,1,1,0.15801439998904243
+M1,monotonic,base00,11,True,False,,0,1,0,1,True,,,15,15,0.1286672999849543
+M1,monotonic,base00,23,True,False,,0,1,0,1,True,,,15,15,0.12943709999672137
+M1,monotonic,base00,47,True,False,,0,1,0,1,True,,,15,15,0.13469350000377744
+M1,monotonic,base01,11,True,False,,0,1,0,1,True,,,57,57,0.19950290000997484
+M1,monotonic,base01,23,True,False,,0,1,0,1,True,,,57,57,0.15870639999047853
+M1,monotonic,base01,47,True,False,,0,1,0,1,True,,,57,57,0.15649470000062138
+M1,monotonic,base02,11,True,False,,0,1,0,1,True,,,16,16,0.12971769997966476
+M1,monotonic,base02,23,True,False,,0,1,0,1,True,,,16,16,0.12794730000314303
+M1,monotonic,base02,47,True,False,,0,1,0,1,True,,,16,16,0.1293522999912966
+M1,monotonic,base03,11,True,False,,0,1,0,1,True,,,15,15,0.13399000000208616
+M1,monotonic,base03,23,True,False,,0,1,0,1,True,,,15,15,0.13721590000204742
+M1,monotonic,base03,47,True,False,,0,1,0,1,True,,,15,15,0.1363040000142064
+M1,monotonic,base04,11,True,False,,0,1,0,1,True,,,5,5,0.12152370001422241
+M1,monotonic,base04,23,True,False,,0,1,0,1,True,,,5,5,0.1245442999934312
+M1,monotonic,base04,47,True,False,,0,1,0,1,True,,,5,5,0.1343306000053417
+M1,monotonic,base05,11,True,False,,0,1,0,1,True,,,42,42,0.16738579998491332
+M1,monotonic,base05,23,True,False,,0,1,0,1,True,,,42,42,0.16617940002470277
+M1,monotonic,base05,47,True,False,,0,1,0,1,True,,,42,42,0.16488239998579957
+M1,monotonic,base06,11,True,False,,0,1,0,1,True,,,23,23,0.1414428999996744
+M1,monotonic,base06,23,True,False,,0,1,0,1,True,,,23,23,0.14178930001799017
+M1,monotonic,base06,47,True,False,,0,1,0,1,True,,,23,23,0.14407750000827946
+M1,monotonic,base07,11,True,False,,0,1,0,1,True,,,22,22,0.14392930001486093
+M1,monotonic,base07,23,True,False,,0,1,0,1,True,,,22,22,0.1458701000083238
+M1,monotonic,base07,47,True,False,,0,1,0,1,True,,,22,22,0.14824399998178706
+M1,monotonic,base08,11,True,False,,0,1,0,1,True,,,18,18,0.1330071999982465
+M1,monotonic,base08,23,True,False,,0,1,0,1,True,,,18,18,0.1320574999845121
+M1,monotonic,base08,47,True,False,,0,1,0,1,True,,,18,18,0.13390430001891218
+M1,monotonic,base09,11,True,False,,0,1,0,1,True,,,23,23,0.13934840000001714
+M1,monotonic,base09,23,True,False,,0,1,0,1,True,,,23,23,0.13781499999458902
+M1,monotonic,base09,47,True,False,,0,1,0,1,True,,,23,23,0.15304579999065027
+M1,monotonic,base10,11,True,False,,0,1,0,1,True,,,17,17,0.1463172000076156
+M1,monotonic,base10,23,True,False,,0,1,0,1,True,,,17,17,0.1756310000200756
+M1,monotonic,base10,47,True,False,,0,1,0,1,True,,,17,17,0.13313329999800771
+M1,monotonic,base11,11,True,False,,0,1,0,1,True,,,18,18,0.13955489997169934
+M1,monotonic,base11,23,True,False,,0,1,0,1,True,,,18,18,0.14104060002136976
+M1,monotonic,base11,47,True,False,,0,1,0,1,True,,,18,18,0.1404620000103023
+M1,monotonic,base12,11,True,False,,0,1,0,1,True,,,13,13,0.15008880000095814
+M1,monotonic,base12,23,True,False,,0,1,0,1,True,,,13,13,0.14630910000414588
+M1,monotonic,base12,47,True,False,,0,1,0,1,True,,,13,13,0.14244789999793284
+M1,monotonic,base13,11,True,False,,0,1,0,1,True,,,48,48,0.17274280000128783
+M1,monotonic,base13,23,True,False,,0,1,0,1,True,,,48,48,0.16957109997747466
+M1,monotonic,base13,47,True,False,,0,1,0,1,True,,,48,48,0.16926519997650757
+M1,monotonic,base14,11,True,False,,0,1,0,1,True,,,26,26,0.1518217000120785
+M1,monotonic,base14,23,True,False,,0,1,0,1,True,,,26,26,0.1581591000140179
+M1,monotonic,base14,47,True,False,,0,1,0,1,True,,,26,26,0.15613200000370853
+M1,monotonic,base15,11,True,False,,0,1,0,1,True,,,46,46,0.16623339999932796
+M1,monotonic,base15,23,True,False,,0,1,0,1,True,,,46,46,0.16572940000332892
+M1,monotonic,base15,47,True,False,,0,1,0,1,True,,,46,46,0.16753890001564287
+M1,monotonic,base16,11,True,False,,0,1,0,1,True,,,8,8,0.1316320000041742
+M1,monotonic,base16,23,True,False,,0,1,0,1,True,,,8,8,0.163307699986035
+M1,monotonic,base16,47,True,False,,0,1,0,1,True,,,8,8,0.13325320000876673
+M1,monotonic,base17,11,True,False,,0,1,0,1,True,,,27,27,0.15287100002751686
+M1,monotonic,base17,23,True,False,,0,1,0,1,True,,,27,27,0.14434269999037497
+M1,monotonic,base17,47,True,False,,0,1,0,1,True,,,27,27,0.14352679997682571
+M1,monotonic,base18,11,True,False,,0,1,0,1,True,,,20,20,0.14613480001571588
+M1,monotonic,base18,23,True,False,,0,1,0,1,True,,,20,20,0.14632470000651665
+M1,monotonic,base18,47,True,False,,0,1,0,1,True,,,20,20,0.1418728000135161
+M1,monotonic,base19,11,True,False,,0,1,0,1,True,,,35,35,0.1729017999896314
+M1,monotonic,base19,23,True,False,,0,1,0,1,True,,,35,35,0.17646960000274703
+M1,monotonic,base19,47,True,False,,0,1,0,1,True,,,35,35,0.17255970000405796
+M1,monotonic,base20,11,True,False,,0,1,0,1,True,,,15,15,0.14998700001160614
+M1,monotonic,base20,23,True,False,,0,1,0,1,True,,,15,15,0.14626490001683123
+M1,monotonic,base20,47,True,False,,0,1,0,1,True,,,15,15,0.14280890001100488
+M1,monotonic,base21,11,True,False,,0,1,0,1,True,,,42,42,0.164793899981305
+M1,monotonic,base21,23,True,False,,0,1,0,1,True,,,42,42,0.16608230001293123
+M1,monotonic,base21,47,True,False,,0,1,0,1,True,,,42,42,0.16826139998738654
+M1,monotonic,base22,11,True,False,,0,1,0,1,True,,,61,61,0.2046721999940928
+M1,monotonic,base22,23,True,False,,0,1,0,1,True,,,61,61,0.17526280001038685
+M1,monotonic,base22,47,True,False,,0,1,0,1,True,,,61,61,0.177995700010797
+M1,monotonic,base23,11,True,False,,0,1,0,1,True,,,54,54,0.17225510001298971
+M1,monotonic,base23,23,True,False,,0,1,0,1,True,,,54,54,0.1812449999852106
+M1,monotonic,base23,47,True,False,,0,1,0,1,True,,,54,54,0.17643419999512844
+M1,monotonic,base24,11,True,False,,0,1,0,1,True,,,9,9,0.13179919999674894
+M1,monotonic,base24,23,True,False,,0,1,0,1,True,,,9,9,0.13395620000665076
+M1,monotonic,base24,47,True,False,,0,1,0,1,True,,,9,9,0.13289229999645613
+M1,monotonic,base25,11,True,False,,0,1,0,1,True,,,33,33,0.16028829998685978
+M1,monotonic,base25,23,True,False,,0,1,0,1,True,,,33,33,0.1639605000091251
+M1,monotonic,base25,47,True,False,,0,1,0,1,True,,,33,33,0.15805500000715256
+M1,monotonic,base26,11,True,False,,0,1,0,1,True,,,25,25,0.15403580002021044
+M1,monotonic,base26,23,True,False,,0,1,0,1,True,,,25,25,0.1520621000090614
+M1,monotonic,base26,47,True,False,,0,1,0,1,True,,,25,25,0.15171070001088083
+M1,monotonic,base27,11,True,False,,0,1,0,1,True,,,41,41,0.18469339999137446
+M1,monotonic,base27,23,True,False,,0,1,0,1,True,,,41,41,0.17693640000652522
+M1,monotonic,base27,47,True,False,,0,1,0,1,True,,,41,41,0.1754975000221748
+M1,monotonic,base28,11,True,False,,0,1,0,1,True,,,13,13,0.18827569999848492
+M1,monotonic,base28,23,True,False,,0,1,0,1,True,,,13,13,0.14540349997696467
+M1,monotonic,base28,47,True,False,,0,1,0,1,True,,,13,13,0.14211450002039783
+M1,monotonic,base29,11,True,False,,0,1,0,1,True,,,50,50,0.1721393000043463
+M1,monotonic,base29,23,True,False,,0,1,0,1,True,,,50,50,0.17611569998553023
+M1,monotonic,base29,47,True,False,,0,1,0,1,True,,,50,50,0.17630220000864938
+M1,monotonic,base30,11,True,False,,0,1,0,1,True,,,69,69,0.1771755000227131
+M1,monotonic,base30,23,True,False,,0,1,0,1,True,,,69,69,0.17763799999374896
+M1,monotonic,base30,47,True,False,,0,1,0,1,True,,,69,69,0.17835460000787862
+M1,monotonic,base31,11,True,False,,0,1,0,1,True,,,20,20,0.1494560000137426
+M1,monotonic,base31,23,True,False,,0,1,0,1,True,,,20,20,0.14906180000980385
+M1,monotonic,base31,47,True,False,,0,1,0,1,True,,,20,20,0.1526906999933999
+M1,monotonic,base32,11,True,False,,0,1,0,1,True,,,9,9,0.14305460001924075
+M1,monotonic,base32,23,True,False,,0,1,0,1,True,,,9,9,0.14364719999139197
+M1,monotonic,base32,47,True,False,,0,1,0,1,True,,,9,9,0.15652829999453388
+M1,monotonic,base33,11,True,False,,0,1,0,1,True,,,36,36,0.18081839999649674
+M1,monotonic,base33,23,True,False,,0,1,0,1,True,,,36,36,0.1748686000064481
+M1,monotonic,base33,47,True,False,,0,1,0,1,True,,,36,36,0.15922599998884834
+M1,monotonic,base34,11,True,False,,0,1,0,1,True,,,52,52,0.18229970001266338
+M1,monotonic,base34,23,True,False,,0,1,0,1,True,,,52,52,0.2150275999738369
+M1,monotonic,base34,47,True,False,,0,1,0,1,True,,,52,52,0.18141520000062883
+M1,monotonic,base35,11,True,False,,0,1,0,1,True,,,37,37,0.17092000000411645
+M1,monotonic,base35,23,True,False,,0,1,0,1,True,,,37,37,0.1718135999981314
+M1,monotonic,base35,47,True,False,,0,1,0,1,True,,,37,37,0.16994510000222363
+M2,monotonic,base00,11,True,False,,0,0,0,0,True,,,0,0,0.09807180002098903
+M2,monotonic,base00,23,True,False,,0,0,0,0,True,,,0,0,0.09219709999160841
+M2,monotonic,base00,47,True,False,,0,0,0,0,True,,,0,0,0.09813270001905039
+M2,monotonic,base01,11,True,False,,0,0,0,0,True,,,0,0,0.13796979998005554
+M2,monotonic,base01,23,True,False,,0,0,0,0,True,,,0,0,0.13371759999427013
+M2,monotonic,base01,47,True,False,,0,0,0,0,True,,,0,0,0.13485439997748472
+M2,monotonic,base02,11,True,False,,0,0,0,0,True,,,0,0,0.1078824000142049
+M2,monotonic,base02,23,True,False,,0,0,0,0,True,,,0,0,0.11285679999855347
+M2,monotonic,base02,47,True,False,,0,0,0,0,True,,,0,0,0.10990429998491891
+M2,monotonic,base03,11,True,False,,0,1,0,0,False,,,1,0,0.12311270000645891
+M2,monotonic,base03,23,True,False,,0,1,0,0,False,,,1,0,0.12246469999081455
+M2,monotonic,base03,47,True,False,,0,1,0,0,False,,,1,0,0.12758070000563748
+M2,monotonic,base04,11,True,False,,0,0,0,0,True,,,0,0,0.10571189998881891
+M2,monotonic,base04,23,True,False,,0,0,0,0,True,,,0,0,0.10652939998544753
+M2,monotonic,base04,47,True,False,,0,0,0,0,True,,,0,0,0.1081924999889452
+M2,monotonic,base05,11,True,False,,0,0,0,0,True,,,0,0,0.14089169999351725
+M2,monotonic,base05,23,True,False,,0,0,0,0,True,,,0,0,0.15106039997772314
+M2,monotonic,base05,47,True,False,,0,0,0,0,True,,,0,0,0.17806480001308955
+M2,monotonic,base06,11,True,False,,0,0,0,0,True,,,0,0,0.11611160001484677
+M2,monotonic,base06,23,True,False,,0,0,0,0,True,,,0,0,0.11119880000478588
+M2,monotonic,base06,47,True,False,,0,0,0,0,True,,,0,0,0.11320079999859445
+M2,monotonic,base07,11,True,False,,0,0,0,0,True,,,0,0,0.13463620000402443
+M2,monotonic,base07,23,True,False,,0,0,0,0,True,,,0,0,0.12261669998406433
+M2,monotonic,base07,47,True,False,,0,0,0,0,True,,,0,0,0.121764700015774
+M2,monotonic,base08,11,True,False,,0,0,0,0,True,,,0,0,0.11071729997638613
+M2,monotonic,base08,23,True,False,,0,0,0,0,True,,,0,0,0.1121149999962654
+M2,monotonic,base08,47,True,False,,0,0,0,0,True,,,0,0,0.11119250001502223
+M2,monotonic,base09,11,True,False,,0,0,0,0,True,,,0,0,0.11018259997945279
+M2,monotonic,base09,23,True,False,,0,0,0,0,True,,,0,0,0.12902770002256148
+M2,monotonic,base09,47,True,False,,0,0,0,0,True,,,0,0,0.12124649999896064
+M2,monotonic,base10,11,True,True,2022-09: widened band gave fewer listings (79 -> 32),1,0,0,0,False,bhk,,0,0,0.14390439999988303
+M2,monotonic,base10,23,True,True,2022-09: widened band gave fewer listings (79 -> 32),1,0,0,0,False,bhk,,0,0,0.1409016999823507
+M2,monotonic,base10,47,True,True,2022-09: widened band gave fewer listings (79 -> 32),1,0,0,0,False,bhk,,0,0,0.14301429997431114
+M2,monotonic,base11,11,True,False,,0,0,0,0,True,,,0,0,0.12012129998765886
+M2,monotonic,base11,23,True,False,,0,0,0,0,True,,,0,0,0.11542720001307316
+M2,monotonic,base11,47,True,False,,0,0,0,0,True,,,0,0,0.11739580001449212
+M2,monotonic,base12,11,True,False,,0,1,0,0,False,,,1,0,0.12767129999701865
+M2,monotonic,base12,23,True,False,,0,1,0,0,False,,,1,0,0.12740249998751096
+M2,monotonic,base12,47,True,False,,0,1,0,0,False,,,1,0,0.14221250000991859
+M2,monotonic,base13,11,True,False,,0,0,0,0,True,,,0,0,0.1374078999797348
+M2,monotonic,base13,23,True,False,,0,0,0,0,True,,,0,0,0.1847297000058461
+M2,monotonic,base13,47,True,False,,0,0,0,0,True,,,0,0,0.13410660001682118
+M2,monotonic,base14,11,True,False,,0,0,0,0,True,,,0,0,0.11836039999616332
+M2,monotonic,base14,23,True,False,,0,0,0,0,True,,,0,0,0.11869130001286976
+M2,monotonic,base14,47,True,False,,0,0,0,0,True,,,0,0,0.12262270000064746
+M2,monotonic,base15,11,True,False,,0,0,0,0,True,,,0,0,0.13230910000856966
+M2,monotonic,base15,23,True,False,,0,0,0,0,True,,,0,0,0.1288148000021465
+M2,monotonic,base15,47,True,False,,0,0,0,0,True,,,0,0,0.13142670001252554
+M2,monotonic,base16,11,True,False,,0,0,0,0,True,,,0,0,0.10414519999176264
+M2,monotonic,base16,23,True,False,,0,0,0,0,True,,,0,0,0.10454860000754707
+M2,monotonic,base16,47,True,False,,0,0,0,0,True,,,0,0,0.10248660002253018
+M2,monotonic,base17,11,True,False,,0,0,0,0,True,,,0,0,0.11311559999012388
+M2,monotonic,base17,23,True,False,,0,0,0,0,True,,,0,0,0.11535870001534931
+M2,monotonic,base17,47,True,False,,0,0,0,0,True,,,0,0,0.1135884000104852
+M2,monotonic,base18,11,True,False,,0,0,0,0,True,,,0,0,0.1688879999855999
+M2,monotonic,base18,23,True,False,,0,0,0,0,True,,,0,0,0.1742921999830287
+M2,monotonic,base18,47,True,False,,0,0,0,0,True,,,0,0,0.1788578999985475
+M2,monotonic,base19,11,True,False,,0,1,0,0,False,,,3,0,0.17351480000070296
+M2,monotonic,base19,23,True,False,,0,1,0,0,False,,,3,0,0.16422140001668595
+M2,monotonic,base19,47,True,False,,0,1,0,0,False,,,3,0,0.15017080001416616
+M2,monotonic,base20,11,True,False,,0,0,0,0,True,,,0,0,0.12764099999913014
+M2,monotonic,base20,23,True,False,,0,0,0,0,True,,,0,0,0.1335689999978058
+M2,monotonic,base20,47,True,False,,0,0,0,0,True,,,0,0,0.12944550000247546
+M2,monotonic,base21,11,True,False,,0,0,0,0,True,,,0,0,0.14183589999447577
+M2,monotonic,base21,23,True,False,,0,0,0,0,True,,,0,0,0.1854250000033062
+M2,monotonic,base21,47,True,False,,0,0,0,0,True,,,0,0,0.14783339999848977
+M2,monotonic,base22,11,True,False,,0,0,0,0,True,,,0,0,0.14373020001221448
+M2,monotonic,base22,23,True,False,,0,0,0,0,True,,,0,0,0.13591559999622405
+M2,monotonic,base22,47,True,False,,0,0,0,0,True,,,0,0,0.13264539997908287
+M2,monotonic,base23,11,True,False,,0,0,0,0,True,,,0,0,0.13471849999041297
+M2,monotonic,base23,23,True,False,,0,0,0,0,True,,,0,0,0.14914299998781644
+M2,monotonic,base23,47,True,False,,0,0,0,0,True,,,0,0,0.14577239999198355
+M2,monotonic,base24,11,True,False,,0,0,0,0,True,,,0,0,0.11001050000777468
+M2,monotonic,base24,23,True,False,,0,0,0,0,True,,,0,0,0.10523769998690113
+M2,monotonic,base24,47,True,False,,0,0,0,0,True,,,0,0,0.10645010002190247
+M2,monotonic,base25,11,True,False,,0,0,0,0,True,,,0,0,0.1224313999991864
+M2,monotonic,base25,23,True,False,,0,0,0,0,True,,,0,0,0.12023569998564199
+M2,monotonic,base25,47,True,False,,0,0,0,0,True,,,0,0,0.1350864999985788
+M2,monotonic,base26,11,True,False,,0,0,0,0,True,,,0,0,0.12302149998140521
+M2,monotonic,base26,23,True,False,,0,0,0,0,True,,,0,0,0.11962969999876805
+M2,monotonic,base26,47,True,False,,0,0,0,0,True,,,0,0,0.11912749998737127
+M2,monotonic,base27,11,True,False,,0,0,0,0,True,,,0,0,0.14034260000335053
+M2,monotonic,base27,23,True,False,,0,0,0,0,True,,,0,0,0.1408098000101745
+M2,monotonic,base27,47,True,False,,0,0,0,0,True,,,0,0,0.15121690000523813
+M2,monotonic,base28,11,True,False,,0,1,0,0,False,,,1,0,0.13251120000495575
+M2,monotonic,base28,23,True,False,,0,1,0,0,False,,,1,0,0.1261485000140965
+M2,monotonic,base28,47,True,False,,0,1,0,0,False,,,1,0,0.12197150001884438
+M2,monotonic,base29,11,True,False,,0,0,0,0,True,,,0,0,0.1834429000155069
+M2,monotonic,base29,23,True,False,,0,0,0,0,True,,,0,0,0.14419829999678768
+M2,monotonic,base29,47,True,False,,0,0,0,0,True,,,0,0,0.151001999998698
+M2,monotonic,base30,11,True,False,,0,0,0,0,True,,,0,0,0.1435306000057608
+M2,monotonic,base30,23,True,False,,0,0,0,0,True,,,0,0,0.13653059999342076
+M2,monotonic,base30,47,True,False,,0,0,0,0,True,,,0,0,0.1326536999840755
+M2,monotonic,base31,11,True,False,,0,0,0,0,True,,,0,0,0.11582690000068396
+M2,monotonic,base31,23,True,False,,0,0,0,0,True,,,0,0,0.12236820001271553
+M2,monotonic,base31,47,True,False,,0,0,0,0,True,,,0,0,0.11911239998880774
+M2,monotonic,base32,11,True,False,,1,0,1,1,False,bhk,bhk,0,2,0.20903870000620373
+M2,monotonic,base32,23,True,False,,1,0,1,1,False,bhk,bhk,0,2,0.2090887000085786
+M2,monotonic,base32,47,True,False,,1,0,1,1,False,bhk,bhk,0,2,0.20924909997847863
+M2,monotonic,base33,11,True,False,,0,0,0,0,True,,,0,0,0.1335708999831695
+M2,monotonic,base33,23,True,False,,0,0,0,0,True,,,0,0,0.14259289999608882
+M2,monotonic,base33,47,True,False,,0,0,0,0,True,,,0,0,0.15821460000006482
+M2,monotonic,base34,11,True,False,,0,0,0,0,True,,,0,0,0.15857299999333918
+M2,monotonic,base34,23,True,False,,0,0,0,0,True,,,0,0,0.1509072000044398
+M2,monotonic,base34,47,True,False,,0,0,0,0,True,,,0,0,0.1493297000124585
+M2,monotonic,base35,11,True,False,,0,1,0,0,False,,,1,0,0.18155199999455363
+M2,monotonic,base35,23,True,False,,0,1,0,0,False,,,1,0,0.13138579999213107
+M2,monotonic,base35,47,True,False,,0,1,0,0,False,,,1,0,0.1383897000050638
+M3,monotonic,base00,11,True,False,,0,0,1,0,False,,price_band,0,0,0.13035900000249967
+M3,monotonic,base00,23,True,False,,0,0,1,0,False,,price_band,0,0,0.12493669998366386
+M3,monotonic,base00,47,True,False,,0,0,1,0,False,,price_band,0,0,0.12179720000131056
+M3,monotonic,base01,11,True,False,,0,0,0,0,True,,,0,0,0.12343740000505932
+M3,monotonic,base01,23,True,False,,0,0,0,0,True,,,0,0,0.12072400000761263
+M3,monotonic,base01,47,True,False,,0,0,0,0,True,,,0,0,0.11985689998255111
+M3,monotonic,base02,11,True,False,,0,0,0,0,True,,,0,0,0.10307209999882616
+M3,monotonic,base02,23,True,False,,0,0,0,0,True,,,0,0,0.10714020000887103
+M3,monotonic,base02,47,True,False,,0,0,0,0,True,,,0,0,0.10491279998677783
+M3,monotonic,base03,11,True,False,,0,1,1,0,False,,bhk,1,0,0.17482939999899827
+M3,monotonic,base03,23,True,False,,0,1,1,0,False,,bhk,1,0,0.1625822999922093
+M3,monotonic,base03,47,True,False,,0,1,1,0,False,,bhk,1,0,0.15605849999701604
+M3,monotonic,base04,11,True,True,2022-10: locality subset gave MORE listings (59 -> 62),0,0,1,0,False,,bhk,0,0,0.14167640000232495
+M3,monotonic,base04,23,True,True,2022-10: locality subset gave MORE listings (59 -> 62),0,0,1,0,False,,bhk,0,0,0.14030769999953918
+M3,monotonic,base04,47,True,True,2022-10: locality subset gave MORE listings (59 -> 62),0,0,1,0,False,,bhk,0,0,0.1450677000102587
+M3,monotonic,base05,11,True,False,,0,0,0,0,True,,,0,0,0.13076059997547418
+M3,monotonic,base05,23,True,False,,0,0,0,0,True,,,0,0,0.12653880001744255
+M3,monotonic,base05,47,True,False,,0,0,0,0,True,,,0,0,0.12683320001815446
+M3,monotonic,base06,11,True,False,,0,0,0,0,True,,,0,0,0.1099331000004895
+M3,monotonic,base06,23,True,False,,0,0,0,0,True,,,0,0,0.10760830002254806
+M3,monotonic,base06,47,True,False,,0,0,0,0,True,,,0,0,0.14227320000645705
+M3,monotonic,base07,11,True,False,,0,0,0,0,True,,,0,0,0.11067150000599213
+M3,monotonic,base07,23,True,False,,0,0,0,0,True,,,0,0,0.11442719999467954
+M3,monotonic,base07,47,True,False,,0,0,0,0,True,,,0,0,0.11750819999724627
+M3,monotonic,base08,11,True,False,,0,0,0,0,True,,,0,0,0.10161680000601336
+M3,monotonic,base08,23,True,False,,0,0,0,0,True,,,0,0,0.10490469998330809
+M3,monotonic,base08,47,True,False,,0,0,0,0,True,,,0,0,0.11669609998352826
+M3,monotonic,base09,11,True,False,,0,0,0,0,True,,,0,0,0.11361099997884594
+M3,monotonic,base09,23,True,False,,0,0,0,0,True,,,0,0,0.11050529999192804
+M3,monotonic,base09,47,True,False,,0,0,0,0,True,,,0,0,0.1083791000128258
+M3,monotonic,base10,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.19214140000985935
+M3,monotonic,base10,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.20348589998320676
+M3,monotonic,base10,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.1918434000108391
+M3,monotonic,base11,11,True,False,,0,0,0,0,True,,,0,0,0.11426649999339134
+M3,monotonic,base11,23,True,False,,0,0,0,0,True,,,0,0,0.11239739999291487
+M3,monotonic,base11,47,True,False,,0,0,0,0,True,,,0,0,0.11077739999745972
+M3,monotonic,base12,11,True,False,,0,1,2,0,False,,bhk>price_band,1,0,0.18966309999814257
+M3,monotonic,base12,23,True,False,,0,1,2,0,False,,bhk>price_band,1,0,0.18962949997512624
+M3,monotonic,base12,47,True,False,,0,1,2,0,False,,bhk>price_band,1,0,0.19229330000234768
+M3,monotonic,base13,11,True,False,,0,0,0,0,True,,,0,0,0.12543990000267513
+M3,monotonic,base13,23,True,False,,0,0,0,0,True,,,0,0,0.16750789998332039
+M3,monotonic,base13,47,True,False,,0,0,0,0,True,,,0,0,0.1341046000015922
+M3,monotonic,base14,11,True,False,,0,0,0,0,True,,,0,0,0.12246589999995194
+M3,monotonic,base14,23,True,False,,0,0,0,0,True,,,0,0,0.12030510001932271
+M3,monotonic,base14,47,True,False,,0,0,0,0,True,,,0,0,0.13838570000370964
+M3,monotonic,base15,11,True,False,,0,0,0,0,True,,,0,0,0.14515310002025217
+M3,monotonic,base15,23,True,False,,0,0,0,0,True,,,0,0,0.12765199999557808
+M3,monotonic,base15,47,True,False,,0,0,0,0,True,,,0,0,0.12645020001218654
+M3,monotonic,base16,11,True,True,2023-01: locality subset gave MORE listings (29 -> 33),0,0,2,0,False,,bhk>price_band,0,0,0.18728529999498278
+M3,monotonic,base16,23,True,True,2023-01: locality subset gave MORE listings (29 -> 33),0,0,2,0,False,,bhk>price_band,0,0,0.18530230000033043
+M3,monotonic,base16,47,True,True,2023-01: locality subset gave MORE listings (29 -> 33),0,0,2,0,False,,bhk>price_band,0,0,0.18819840002106503
+M3,monotonic,base17,11,True,False,,0,0,0,0,True,,,0,0,0.12098449998302385
+M3,monotonic,base17,23,True,False,,0,0,0,0,True,,,0,0,0.11898329999530688
+M3,monotonic,base17,47,True,False,,0,0,0,0,True,,,0,0,0.11080690001836047
+M3,monotonic,base18,11,True,False,,0,0,0,1,False,,,0,1,0.1318411000247579
+M3,monotonic,base18,23,True,False,,0,0,0,1,False,,,0,1,0.1317884000018239
+M3,monotonic,base18,47,True,False,,0,0,0,1,False,,,0,1,0.1462570000148844
+M3,monotonic,base19,11,True,False,,0,1,0,0,False,,,3,0,0.13661499999579974
+M3,monotonic,base19,23,True,False,,0,1,0,0,False,,,3,0,0.13925469998503104
+M3,monotonic,base19,47,True,False,,0,1,0,0,False,,,3,0,0.1371827000111807
+M3,monotonic,base20,11,True,False,,0,0,0,1,False,,,0,1,0.13427559999399818
+M3,monotonic,base20,23,True,False,,0,0,0,1,False,,,0,1,0.12834799999836832
+M3,monotonic,base20,47,True,False,,0,0,0,1,False,,,0,1,0.1611372999905143
+M3,monotonic,base21,11,True,False,,0,0,0,0,True,,,0,0,0.1219693000020925
+M3,monotonic,base21,23,True,False,,0,0,0,0,True,,,0,0,0.12354899998172186
+M3,monotonic,base21,47,True,False,,0,0,0,0,True,,,0,0,0.12306810001609847
+M3,monotonic,base22,11,True,False,,0,0,0,1,False,,,0,1,0.14898609998635948
+M3,monotonic,base22,23,True,False,,0,0,0,1,False,,,0,1,0.14884050001273863
+M3,monotonic,base22,47,True,False,,0,0,0,1,False,,,0,1,0.1459677999955602
+M3,monotonic,base23,11,True,False,,0,0,0,0,True,,,0,0,0.1259575000149198
+M3,monotonic,base23,23,True,False,,0,0,0,0,True,,,0,0,0.12324559999979101
+M3,monotonic,base23,47,True,False,,0,0,0,0,True,,,0,0,0.1253017999988515
+M3,monotonic,base24,11,True,True,2022-09: locality subset gave MORE listings (44 -> 49),0,0,1,1,False,,bhk,0,1,0.18075610001687892
+M3,monotonic,base24,23,True,True,2022-09: locality subset gave MORE listings (44 -> 49),0,0,1,1,False,,bhk,0,1,0.16535830000066198
+M3,monotonic,base24,47,True,True,2022-09: locality subset gave MORE listings (44 -> 49),0,0,1,1,False,,bhk,0,1,0.16448980002314784
+M3,monotonic,base25,11,True,False,,0,0,1,0,False,,bhk,0,0,0.16167319999658503
+M3,monotonic,base25,23,True,False,,0,0,1,0,False,,bhk,0,0,0.1601667999930214
+M3,monotonic,base25,47,True,False,,0,0,1,0,False,,bhk,0,0,0.17416610001237132
+M3,monotonic,base26,11,True,False,,0,0,0,1,False,,,0,1,0.12862149998545647
+M3,monotonic,base26,23,True,False,,0,0,0,1,False,,,0,1,0.12832829999388196
+M3,monotonic,base26,47,True,False,,0,0,0,1,False,,,0,1,0.12916889999178238
+M3,monotonic,base27,11,True,False,,0,0,0,0,True,,,0,0,0.16326969998772256
+M3,monotonic,base27,23,True,False,,0,0,0,0,True,,,0,0,0.13994020002428442
+M3,monotonic,base27,47,True,False,,0,0,0,0,True,,,0,0,0.14341020002029836
+M3,monotonic,base28,11,True,True,2022-09: locality subset gave MORE listings (39 -> 45),0,1,2,1,False,,bhk>price_band,1,1,0.20694169998751022
+M3,monotonic,base28,23,True,True,2022-09: locality subset gave MORE listings (39 -> 45),0,1,2,1,False,,bhk>price_band,1,1,0.2212582000065595
+M3,monotonic,base28,47,True,True,2022-09: locality subset gave MORE listings (39 -> 45),0,1,2,1,False,,bhk>price_band,1,1,0.22792830000980757
+M3,monotonic,base29,11,True,False,,0,0,0,0,True,,,0,0,0.1431352999934461
+M3,monotonic,base29,23,True,False,,0,0,0,0,True,,,0,0,0.1357125000213273
+M3,monotonic,base29,47,True,False,,0,0,0,0,True,,,0,0,0.13503800000762567
+M3,monotonic,base30,11,True,False,,0,0,0,1,False,,,0,1,0.1460485000279732
+M3,monotonic,base30,23,True,False,,0,0,0,1,False,,,0,1,0.14492160000372678
+M3,monotonic,base30,47,True,False,,0,0,0,1,False,,,0,1,0.15075450000585988
+M3,monotonic,base31,11,True,False,,0,0,0,0,True,,,0,0,0.1172192000085488
+M3,monotonic,base31,23,True,False,,0,0,0,0,True,,,0,0,0.12084039999172091
+M3,monotonic,base31,47,True,False,,0,0,0,0,True,,,0,0,0.11534859999665059
+M3,monotonic,base32,11,True,False,,1,0,2,0,False,bhk,bhk>price_band,0,0,0.2046464000013657
+M3,monotonic,base32,23,True,False,,1,0,2,0,False,bhk,bhk>price_band,0,0,0.2489404999942053
+M3,monotonic,base32,47,True,False,,1,0,2,0,False,bhk,bhk>price_band,0,0,0.22110550000797957
+M3,monotonic,base33,11,True,False,,0,0,0,0,True,,,0,0,0.15013639998505823
+M3,monotonic,base33,23,True,False,,0,0,0,0,True,,,0,0,0.1349871999991592
+M3,monotonic,base33,47,True,False,,0,0,0,0,True,,,0,0,0.13135099998908117
+M3,monotonic,base34,11,True,False,,0,0,0,0,True,,,0,0,0.1363151999830734
+M3,monotonic,base34,23,True,False,,0,0,0,0,True,,,0,0,0.13774380000540987
+M3,monotonic,base34,47,True,False,,0,0,0,0,True,,,0,0,0.1378270999994129
+M3,monotonic,base35,11,True,False,,0,1,1,0,False,,bhk,1,0,0.16518419998465106
+M3,monotonic,base35,23,True,False,,0,1,1,0,False,,bhk,1,0,0.17150220001349226
+M3,monotonic,base35,47,True,False,,0,1,1,0,False,,bhk,1,0,0.18016560000251047
+M4,monotonic,base00,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.4999975468963385e-06
+M4,monotonic,base00,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,1.300009898841381e-06
+M4,monotonic,base00,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,5.00003807246685e-07
+M4,monotonic,base01,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,6.00004568696022e-07
+M4,monotonic,base01,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,5.00003807246685e-07
+M4,monotonic,base01,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base02,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.999731805175543e-07
+M4,monotonic,base02,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base02,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base03,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,7.00005330145359e-07
+M4,monotonic,base03,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base03,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base04,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base04,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base04,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base05,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,5.00003807246685e-07
+M4,monotonic,base05,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base05,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base06,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base06,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base06,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base07,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base07,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base07,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base08,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base08,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base08,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base09,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base09,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base09,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base10,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.999747034162283e-07
+M4,monotonic,base10,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base10,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base11,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base11,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base11,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base12,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.700020559132099e-06
+M4,monotonic,base12,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,9.00006853044033e-07
+M4,monotonic,base12,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,6.00004568696022e-07
+M4,monotonic,base13,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,7.00005330145359e-07
+M4,monotonic,base13,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,6.00004568696022e-07
+M4,monotonic,base13,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,8.00006091594696e-07
+M4,monotonic,base14,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,5.00003807246685e-07
+M4,monotonic,base14,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base14,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base15,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,6.00004568696022e-07
+M4,monotonic,base15,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base15,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base16,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base16,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.999739419668913e-07
+M4,monotonic,base16,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base17,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base17,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,6.00004568696022e-07
+M4,monotonic,base17,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base18,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.999739419668913e-07
+M4,monotonic,base18,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base18,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base19,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base19,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base19,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.999739419668913e-07
+M4,monotonic,base20,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base20,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base20,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base21,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base21,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base21,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base22,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base22,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base22,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.999731805175543e-07
+M4,monotonic,base23,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base23,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base23,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base24,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base24,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base24,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base25,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,5.00003807246685e-07
+M4,monotonic,base25,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base25,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base26,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base26,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base26,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base27,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base27,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.999747034162283e-07
+M4,monotonic,base27,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base28,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base28,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base28,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,1.9000144675374031e-06
+M4,monotonic,base29,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,5.00003807246685e-07
+M4,monotonic,base29,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base29,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base30,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.999731805175543e-07
+M4,monotonic,base30,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base30,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base31,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base31,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base31,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base32,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base32,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base32,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base33,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base33,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,4.00003045797348e-07
+M4,monotonic,base33,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base34,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,1.9997241906821728e-07
+M4,monotonic,base34,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base34,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base35,11,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M4,monotonic,base35,23,False,False,outside subdomain,0,0,0,0,True,,,0,0,3.00002284348011e-07
+M4,monotonic,base35,47,False,False,outside subdomain,0,0,0,0,True,,,0,0,2.00001522898674e-07
+M1raw,monotonic,base00,11,True,True,"2022-10: median_listing_price_inr moved -23,639.26, expected 500,000.00",0,0,0,0,True,,,0,0,0.1095404000079725
+M1raw,monotonic,base00,23,True,True,"2022-10: median_listing_price_inr moved -23,639.26, expected 500,000.00",0,0,0,0,True,,,0,0,0.10439069999847561
+M1raw,monotonic,base00,47,True,True,"2022-10: median_listing_price_inr moved -23,639.26, expected 500,000.00",0,0,0,0,True,,,0,0,0.10315490001812577
+M1raw,monotonic,base01,11,True,True,"2022-11: median_listing_price_inr moved 179,279.62, expected 500,000.00",0,0,0,0,True,,,0,0,0.1417850999860093
+M1raw,monotonic,base01,23,True,True,"2022-11: median_listing_price_inr moved 179,279.62, expected 500,000.00",0,0,0,0,True,,,0,0,0.14985290000913665
+M1raw,monotonic,base01,47,True,True,"2022-11: median_listing_price_inr moved 179,279.62, expected 500,000.00",0,0,0,0,True,,,0,0,0.1460067000007257
+M1raw,monotonic,base02,11,True,False,,0,0,0,0,True,,,0,0,0.1298073999932967
+M1raw,monotonic,base02,23,True,False,,0,0,0,0,True,,,0,0,0.12947200000053272
+M1raw,monotonic,base02,47,True,False,,0,0,0,0,True,,,0,0,0.11985780001850799
+M1raw,monotonic,base03,11,True,True,"2022-11: median_listing_price_inr moved 345,010.22, expected 500,000.00",0,1,0,1,True,,,1,1,0.14127009999356233
+M1raw,monotonic,base03,23,True,True,"2022-11: median_listing_price_inr moved 345,010.22, expected 500,000.00",0,1,0,1,True,,,1,1,0.17292139999335632
+M1raw,monotonic,base03,47,True,True,"2022-11: median_listing_price_inr moved 345,010.22, expected 500,000.00",0,1,0,1,True,,,1,1,0.13778849999653175
+M1raw,monotonic,base04,11,True,False,,0,0,0,0,True,,,0,0,0.11084619999746792
+M1raw,monotonic,base04,23,True,False,,0,0,0,0,True,,,0,0,0.11216940000304021
+M1raw,monotonic,base04,47,True,False,,0,0,0,0,True,,,0,0,0.10865599999669939
+M1raw,monotonic,base05,11,True,True,"2022-10: median_listing_price_inr moved 429,136.54, expected 500,000.00",0,0,0,0,True,,,0,0,0.14426349999848753
+M1raw,monotonic,base05,23,True,True,"2022-10: median_listing_price_inr moved 429,136.54, expected 500,000.00",0,0,0,0,True,,,0,0,0.14243160001933575
+M1raw,monotonic,base05,47,True,True,"2022-10: median_listing_price_inr moved 429,136.54, expected 500,000.00",0,0,0,0,True,,,0,0,0.14096200000494719
+M1raw,monotonic,base06,11,True,True,"2022-11: median_listing_price_inr moved 460,958.24, expected 500,000.00",0,0,0,0,True,,,0,0,0.12539319999632426
+M1raw,monotonic,base06,23,True,True,"2022-11: median_listing_price_inr moved 460,958.24, expected 500,000.00",0,0,0,0,True,,,0,0,0.12567959999432787
+M1raw,monotonic,base06,47,True,True,"2022-11: median_listing_price_inr moved 460,958.24, expected 500,000.00",0,0,0,0,True,,,0,0,0.12668409998877905
+M1raw,monotonic,base07,11,True,False,,0,0,0,0,True,,,0,0,0.1285753999836743
+M1raw,monotonic,base07,23,True,False,,0,0,0,0,True,,,0,0,0.12921049998840317
+M1raw,monotonic,base07,47,True,False,,0,0,0,0,True,,,0,0,0.1516113999823574
+M1raw,monotonic,base08,11,True,False,,0,0,0,0,True,,,0,0,0.11802019999595359
+M1raw,monotonic,base08,23,True,False,,0,0,0,0,True,,,0,0,0.11812569998437539
+M1raw,monotonic,base08,47,True,False,,0,0,0,0,True,,,0,0,0.1238110999984201
+M1raw,monotonic,base09,11,True,True,"2022-10: median_listing_price_inr moved 494,475.70, expected 500,000.00",0,0,0,0,True,,,0,0,0.1242332000110764
+M1raw,monotonic,base09,23,True,True,"2022-10: median_listing_price_inr moved 494,475.70, expected 500,000.00",0,0,0,0,True,,,0,0,0.12809910002397373
+M1raw,monotonic,base09,47,True,True,"2022-10: median_listing_price_inr moved 494,475.70, expected 500,000.00",0,0,0,0,True,,,0,0,0.1242107999860309
+M1raw,monotonic,base10,11,True,True,"2023-03: median_listing_price_inr moved 239,775.04, expected 500,000.00",1,0,1,0,True,bhk,bhk,0,0,0.18996689998311922
+M1raw,monotonic,base10,23,True,True,"2023-03: median_listing_price_inr moved 239,775.04, expected 500,000.00",1,0,1,0,True,bhk,bhk,0,0,0.18695129998377524
+M1raw,monotonic,base10,47,True,True,"2023-03: median_listing_price_inr moved 239,775.04, expected 500,000.00",1,0,1,0,True,bhk,bhk,0,0,0.1877366999979131
+M1raw,monotonic,base11,11,True,False,,0,0,0,0,True,,,0,0,0.12782289998722263
+M1raw,monotonic,base11,23,True,False,,0,0,0,0,True,,,0,0,0.12509139999747276
+M1raw,monotonic,base11,47,True,False,,0,0,0,0,True,,,0,0,0.12786960002267733
+M1raw,monotonic,base12,11,True,True,"2022-10: median_listing_price_inr moved 442,348.74, expected 500,000.00",0,1,0,1,True,,,1,1,0.15359130001161247
+M1raw,monotonic,base12,23,True,True,"2022-10: median_listing_price_inr moved 442,348.74, expected 500,000.00",0,1,0,1,True,,,1,1,0.15134340000804514
+M1raw,monotonic,base12,47,True,True,"2022-10: median_listing_price_inr moved 442,348.74, expected 500,000.00",0,1,0,1,True,,,1,1,0.15973529999610037
+M1raw,monotonic,base13,11,True,True,"2023-03: median_listing_price_inr moved 189,384.15, expected 500,000.00",0,0,0,0,True,,,0,0,0.17588619998423383
+M1raw,monotonic,base13,23,True,True,"2023-03: median_listing_price_inr moved 189,384.15, expected 500,000.00",0,0,0,0,True,,,0,0,0.12952029998996295
+M1raw,monotonic,base13,47,True,True,"2023-03: median_listing_price_inr moved 189,384.15, expected 500,000.00",0,0,0,0,True,,,0,0,0.13175329999648966
+M1raw,monotonic,base14,11,True,True,"2022-11: median_listing_price_inr moved 470,943.58, expected 500,000.00",0,0,0,0,True,,,0,0,0.13135690000490285
+M1raw,monotonic,base14,23,True,True,"2022-11: median_listing_price_inr moved 470,943.58, expected 500,000.00",0,0,0,0,True,,,0,0,0.1312478000181727
+M1raw,monotonic,base14,47,True,True,"2022-11: median_listing_price_inr moved 470,943.58, expected 500,000.00",0,0,0,0,True,,,0,0,0.13126650001504458
+M1raw,monotonic,base15,11,True,True,"2022-10: median_listing_price_inr moved 392,421.71, expected 500,000.00",0,0,0,0,True,,,0,0,0.1336758999968879
+M1raw,monotonic,base15,23,True,True,"2022-10: median_listing_price_inr moved 392,421.71, expected 500,000.00",0,0,0,0,True,,,0,0,0.13464840000960976
+M1raw,monotonic,base15,47,True,True,"2022-10: median_listing_price_inr moved 392,421.71, expected 500,000.00",0,0,0,0,True,,,0,0,0.1331406999961473
+M1raw,monotonic,base16,11,True,False,,0,0,0,0,True,,,0,0,0.10509829997317865
+M1raw,monotonic,base16,23,True,False,,0,0,0,0,True,,,0,0,0.10883650000323541
+M1raw,monotonic,base16,47,True,False,,0,0,0,0,True,,,0,0,0.10753229999681935
+M1raw,monotonic,base17,11,True,True,"2023-03: median_listing_price_inr moved 77,220.12, expected 500,000.00",0,0,0,0,True,,,0,0,0.11487999997916631
+M1raw,monotonic,base17,23,True,True,"2023-03: median_listing_price_inr moved 77,220.12, expected 500,000.00",0,0,0,0,True,,,0,0,0.11335209998651408
+M1raw,monotonic,base17,47,True,True,"2023-03: median_listing_price_inr moved 77,220.12, expected 500,000.00",0,0,0,0,True,,,0,0,0.12011809999239631
+M1raw,monotonic,base18,11,True,False,,0,0,0,0,True,,,0,0,0.12950849998742342
+M1raw,monotonic,base18,23,True,False,,0,0,0,0,True,,,0,0,0.13997799999197014
+M1raw,monotonic,base18,47,True,False,,0,0,0,0,True,,,0,0,0.13180459997965954
+M1raw,monotonic,base19,11,True,True,"2022-10: median_listing_price_inr moved 402,626.41, expected 500,000.00",0,1,0,1,True,,,3,3,0.1665620999992825
+M1raw,monotonic,base19,23,True,True,"2022-10: median_listing_price_inr moved 402,626.41, expected 500,000.00",0,1,0,1,True,,,3,3,0.16710550000425428
+M1raw,monotonic,base19,47,True,True,"2022-10: median_listing_price_inr moved 402,626.41, expected 500,000.00",0,1,0,1,True,,,3,3,0.16732859998592176
+M1raw,monotonic,base20,11,True,True,"2023-01: median_listing_price_inr moved 371,145.27, expected 500,000.00",0,0,0,0,True,,,0,0,0.12930270002107136
+M1raw,monotonic,base20,23,True,True,"2023-01: median_listing_price_inr moved 371,145.27, expected 500,000.00",0,0,0,0,True,,,0,0,0.1299740000104066
+M1raw,monotonic,base20,47,True,True,"2023-01: median_listing_price_inr moved 371,145.27, expected 500,000.00",0,0,0,0,True,,,0,0,0.1286279000050854
+M1raw,monotonic,base21,11,True,True,"2022-11: median_listing_price_inr moved 475,528.44, expected 500,000.00",0,0,0,0,True,,,0,0,0.14723840000806376
+M1raw,monotonic,base21,23,True,True,"2022-11: median_listing_price_inr moved 475,528.44, expected 500,000.00",0,0,0,0,True,,,0,0,0.14319900001282804
+M1raw,monotonic,base21,47,True,True,"2022-11: median_listing_price_inr moved 475,528.44, expected 500,000.00",0,0,0,0,True,,,0,0,0.14153590000933036
+M1raw,monotonic,base22,11,True,True,"2022-10: median_listing_price_inr moved 424,039.33, expected 500,000.00",0,0,0,0,True,,,0,0,0.14596250001341105
+M1raw,monotonic,base22,23,True,True,"2022-10: median_listing_price_inr moved 424,039.33, expected 500,000.00",0,0,0,0,True,,,0,0,0.14550109999254346
+M1raw,monotonic,base22,47,True,True,"2022-10: median_listing_price_inr moved 424,039.33, expected 500,000.00",0,0,0,0,True,,,0,0,0.14472209999803454
+M1raw,monotonic,base23,11,True,True,"2023-03: median_listing_price_inr moved 266,532.95, expected 500,000.00",0,0,0,0,True,,,0,0,0.1426662000012584
+M1raw,monotonic,base23,23,True,True,"2023-03: median_listing_price_inr moved 266,532.95, expected 500,000.00",0,0,0,0,True,,,0,0,0.1958339000120759
+M1raw,monotonic,base23,47,True,True,"2023-03: median_listing_price_inr moved 266,532.95, expected 500,000.00",0,0,0,0,True,,,0,0,0.14085669998894446
+M1raw,monotonic,base24,11,True,False,,0,0,0,0,True,,,0,0,0.11446130002150312
+M1raw,monotonic,base24,23,True,False,,0,0,0,0,True,,,0,0,0.11841940000886098
+M1raw,monotonic,base24,47,True,False,,0,0,0,0,True,,,0,0,0.11448359998757951
+M1raw,monotonic,base25,11,True,True,"2022-11: median_listing_price_inr moved 457,822.43, expected 500,000.00",0,0,0,0,True,,,0,0,0.13242360000731423
+M1raw,monotonic,base25,23,True,True,"2022-11: median_listing_price_inr moved 457,822.43, expected 500,000.00",0,0,0,0,True,,,0,0,0.12285469999187626
+M1raw,monotonic,base25,47,True,True,"2022-11: median_listing_price_inr moved 457,822.43, expected 500,000.00",0,0,0,0,True,,,0,0,0.12516880000475794
+M1raw,monotonic,base26,11,True,True,"2022-11: median_listing_price_inr moved 357,333.12, expected 500,000.00",0,0,0,0,True,,,0,0,0.13293849999899976
+M1raw,monotonic,base26,23,True,True,"2022-11: median_listing_price_inr moved 357,333.12, expected 500,000.00",0,0,0,0,True,,,0,0,0.12447109998902306
+M1raw,monotonic,base26,47,True,True,"2022-11: median_listing_price_inr moved 357,333.12, expected 500,000.00",0,0,0,0,True,,,0,0,0.12122460000682622
+M1raw,monotonic,base27,11,True,True,"2023-05: median_listing_price_inr moved 442,525.82, expected 500,000.00",0,0,0,0,True,,,0,0,0.15246840001782402
+M1raw,monotonic,base27,23,True,True,"2023-05: median_listing_price_inr moved 442,525.82, expected 500,000.00",0,0,0,0,True,,,0,0,0.14957010000944138
+M1raw,monotonic,base27,47,True,True,"2023-05: median_listing_price_inr moved 442,525.82, expected 500,000.00",0,0,0,0,True,,,0,0,0.15690910001285374
+M1raw,monotonic,base28,11,True,True,"2022-11: median_listing_price_inr moved 358,967.39, expected 500,000.00",0,1,0,1,True,,,1,1,0.14549389999592677
+M1raw,monotonic,base28,23,True,True,"2022-11: median_listing_price_inr moved 358,967.39, expected 500,000.00",0,1,0,1,True,,,1,1,0.14668609999353066
+M1raw,monotonic,base28,47,True,True,"2022-11: median_listing_price_inr moved 358,967.39, expected 500,000.00",0,1,0,1,True,,,1,1,0.16574820000096224
+M1raw,monotonic,base29,11,True,True,"2022-11: median_listing_price_inr moved 227,767.49, expected 500,000.00",0,0,0,0,True,,,0,0,0.1431047999940347
+M1raw,monotonic,base29,23,True,True,"2022-11: median_listing_price_inr moved 227,767.49, expected 500,000.00",0,0,0,0,True,,,0,0,0.14816339997923933
+M1raw,monotonic,base29,47,True,True,"2022-11: median_listing_price_inr moved 227,767.49, expected 500,000.00",0,0,0,0,True,,,0,0,0.14466210000682622
+M1raw,monotonic,base30,11,True,True,"2023-07: median_listing_price_inr moved 279,617.42, expected 500,000.00",0,0,0,0,True,,,0,0,0.14179270001477562
+M1raw,monotonic,base30,23,True,True,"2023-07: median_listing_price_inr moved 279,617.42, expected 500,000.00",0,0,0,0,True,,,0,0,0.14119769999524578
+M1raw,monotonic,base30,47,True,True,"2023-07: median_listing_price_inr moved 279,617.42, expected 500,000.00",0,0,0,0,True,,,0,0,0.14423899998655543
+M1raw,monotonic,base31,11,True,False,,0,0,0,0,True,,,0,0,0.12960929999826476
+M1raw,monotonic,base31,23,True,False,,0,0,0,0,True,,,0,0,0.12986600000294857
+M1raw,monotonic,base31,47,True,False,,0,0,0,0,True,,,0,0,0.12626540000201203
+M1raw,monotonic,base32,11,True,True,"2022-10: median_listing_price_inr moved 83,066.60, expected 500,000.00",1,0,1,0,True,bhk,bhk,0,0,0.1864466000115499
+M1raw,monotonic,base32,23,True,True,"2022-10: median_listing_price_inr moved 83,066.60, expected 500,000.00",1,0,1,0,True,bhk,bhk,0,0,0.2310995999723673
+M1raw,monotonic,base32,47,True,True,"2022-10: median_listing_price_inr moved 83,066.60, expected 500,000.00",1,0,1,0,True,bhk,bhk,0,0,0.18695499998284504
+M1raw,monotonic,base33,11,True,True,"2022-11: median_listing_price_inr moved 457,997.51, expected 500,000.00",0,0,0,0,True,,,0,0,0.14605589999700896
+M1raw,monotonic,base33,23,True,True,"2022-11: median_listing_price_inr moved 457,997.51, expected 500,000.00",0,0,0,0,True,,,0,0,0.15650780001305975
+M1raw,monotonic,base33,47,True,True,"2022-11: median_listing_price_inr moved 457,997.51, expected 500,000.00",0,0,0,0,True,,,0,0,0.14320089999819174
+M1raw,monotonic,base34,11,True,False,,0,0,0,0,True,,,0,0,0.16161199999623932
+M1raw,monotonic,base34,23,True,False,,0,0,0,0,True,,,0,0,0.16451700002653524
+M1raw,monotonic,base34,47,True,False,,0,0,0,0,True,,,0,0,0.15736079998896457
+M1raw,monotonic,base35,11,True,True,"2022-11: median_listing_price_inr moved 297,984.55, expected 500,000.00",0,1,0,1,True,,,1,1,0.15620170001056977
+M1raw,monotonic,base35,23,True,True,"2022-11: median_listing_price_inr moved 297,984.55, expected 500,000.00",0,1,0,1,True,,,1,1,0.1534451000043191
+M1raw,monotonic,base35,47,True,True,"2022-11: median_listing_price_inr moved 297,984.55, expected 500,000.00",0,1,0,1,True,,,1,1,0.15766899997834116
+D1,directional,base00,11,True,False,,0,0,0,0,True,,,0,0,0.09078529998078011
+D1,directional,base00,23,True,False,,0,0,0,0,True,,,0,0,0.09358379998593591
+D1,directional,base00,47,True,False,,0,0,0,0,True,,,0,0,0.09478089999174699
+D1,directional,base01,11,True,False,,0,0,0,0,True,,,0,0,0.13068190001649782
+D1,directional,base01,23,True,False,,0,0,0,0,True,,,0,0,0.12930440000491217
+D1,directional,base01,47,True,False,,0,0,0,0,True,,,0,0,0.13322779998998158
+D1,directional,base02,11,True,False,,0,0,0,0,True,,,0,0,0.10556399999768473
+D1,directional,base02,23,True,False,,0,0,0,0,True,,,0,0,0.11035480001010001
+D1,directional,base02,47,True,False,,0,0,0,0,True,,,0,0,0.12721579999197274
+D1,directional,base03,11,True,False,,0,1,0,1,True,,,1,2,0.14034620000165887
+D1,directional,base03,23,True,False,,0,1,0,1,True,,,1,2,0.13460389999090694
+D1,directional,base03,47,True,False,,0,1,0,1,True,,,1,2,0.13632449999568053
+D1,directional,base04,11,True,False,,0,0,0,0,True,,,0,0,0.10796819999814034
+D1,directional,base04,23,True,False,,0,0,0,0,True,,,0,0,0.14115519999177195
+D1,directional,base04,47,True,False,,0,0,0,0,True,,,0,0,0.10440849998849444
+D1,directional,base05,11,True,False,,0,0,0,0,True,,,0,0,0.14057339998544194
+D1,directional,base05,23,True,False,,0,0,0,0,True,,,0,0,0.1405570000060834
+D1,directional,base05,47,True,False,,0,0,0,0,True,,,0,0,0.1389317000284791
+D1,directional,base06,11,True,False,,0,0,0,0,True,,,0,0,0.11781580001115799
+D1,directional,base06,23,True,False,,0,0,0,0,True,,,0,0,0.1200329999846872
+D1,directional,base06,47,True,False,,0,0,0,0,True,,,0,0,0.12269770001876168
+D1,directional,base07,11,True,False,,0,0,0,0,True,,,0,0,0.126517500000773
+D1,directional,base07,23,True,False,,0,0,0,0,True,,,0,0,0.12289220001548529
+D1,directional,base07,47,True,False,,0,0,0,0,True,,,0,0,0.1230142000131309
+D1,directional,base08,11,True,False,,0,0,0,0,True,,,0,0,0.11207940001622774
+D1,directional,base08,23,True,False,,0,0,0,0,True,,,0,0,0.12314609999884851
+D1,directional,base08,47,True,False,,0,0,0,0,True,,,0,0,0.11806780000915751
+D1,directional,base09,11,True,False,,0,0,0,0,True,,,0,0,0.12205559998983517
+D1,directional,base09,23,True,False,,0,0,0,0,True,,,0,0,0.12086639998597093
+D1,directional,base09,47,True,False,,0,0,0,0,True,,,0,0,0.11779109999770299
+D1,directional,base10,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.19757399999070913
+D1,directional,base10,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18913440001779236
+D1,directional,base10,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.19294199999421835
+D1,directional,base11,11,True,False,,0,0,0,0,True,,,0,0,0.16491779999341816
+D1,directional,base11,23,True,False,,0,0,0,0,True,,,0,0,0.12077660000068136
+D1,directional,base11,47,True,False,,0,0,0,0,True,,,0,0,0.12139029998797923
+D1,directional,base12,11,True,False,,0,1,0,1,True,,,1,1,0.14375449999351986
+D1,directional,base12,23,True,False,,0,1,0,1,True,,,1,1,0.1430953000090085
+D1,directional,base12,47,True,False,,0,1,0,1,True,,,1,1,0.13968560000648722
+D1,directional,base13,11,True,False,,0,0,0,0,True,,,0,0,0.13050089997705072
+D1,directional,base13,23,True,False,,0,0,0,0,True,,,0,0,0.1456719000125304
+D1,directional,base13,47,True,False,,0,0,0,0,True,,,0,0,0.1372102999885101
+D1,directional,base14,11,True,False,,0,0,0,0,True,,,0,0,0.14295680000213906
+D1,directional,base14,23,True,False,,0,0,0,0,True,,,0,0,0.1608035000099335
+D1,directional,base14,47,True,False,,0,0,0,0,True,,,0,0,0.1399680000031367
+D1,directional,base15,11,True,False,,0,0,0,0,True,,,0,0,0.14214890002040192
+D1,directional,base15,23,True,False,,0,0,0,0,True,,,0,0,0.13717550001456402
+D1,directional,base15,47,True,False,,0,0,0,0,True,,,0,0,0.13979260000633076
+D1,directional,base16,11,True,False,,0,0,0,0,True,,,0,0,0.1061825999931898
+D1,directional,base16,23,True,False,,0,0,0,0,True,,,0,0,0.12369310000212863
+D1,directional,base16,47,True,False,,0,0,0,0,True,,,0,0,0.11396879999665543
+D1,directional,base17,11,True,False,,0,0,0,0,True,,,0,0,0.11122550000436604
+D1,directional,base17,23,True,False,,0,0,0,0,True,,,0,0,0.1073255000228528
+D1,directional,base17,47,True,False,,0,0,0,0,True,,,0,0,0.10551029999624006
+D1,directional,base18,11,True,False,,0,0,0,0,True,,,0,0,0.12048670000513084
+D1,directional,base18,23,True,False,,0,0,0,0,True,,,0,0,0.16203569999197498
+D1,directional,base18,47,True,False,,0,0,0,0,True,,,0,0,0.1196572000044398
+D1,directional,base19,11,True,False,,0,1,0,1,True,,,3,3,0.17252459999872372
+D1,directional,base19,23,True,False,,0,1,0,1,True,,,3,3,0.17080989998066798
+D1,directional,base19,47,True,False,,0,1,0,1,True,,,3,3,0.16326980001758784
+D1,directional,base20,11,True,False,,0,0,0,0,True,,,0,0,0.12195430000429042
+D1,directional,base20,23,True,False,,0,0,0,0,True,,,0,0,0.12665879999985918
+D1,directional,base20,47,True,False,,0,0,0,0,True,,,0,0,0.13605200001620688
+D1,directional,base21,11,True,False,,0,0,0,0,True,,,0,0,0.13951390000875108
+D1,directional,base21,23,True,False,,0,0,0,0,True,,,0,0,0.1340421999921091
+D1,directional,base21,47,True,False,,0,0,0,0,True,,,0,0,0.13267189997714013
+D1,directional,base22,11,True,False,,0,0,0,0,True,,,0,0,0.1415067000198178
+D1,directional,base22,23,True,False,,0,0,0,0,True,,,0,0,0.13885909999953583
+D1,directional,base22,47,True,False,,0,0,0,0,True,,,0,0,0.1377230000216514
+D1,directional,base23,11,True,False,,0,0,0,0,True,,,0,0,0.14014579998911358
+D1,directional,base23,23,True,False,,0,0,0,0,True,,,0,0,0.18150159998913296
+D1,directional,base23,47,True,False,,0,0,0,0,True,,,0,0,0.1497211000241805
+D1,directional,base24,11,True,False,,0,0,0,0,True,,,0,0,0.1448001000098884
+D1,directional,base24,23,True,False,,0,0,0,0,True,,,0,0,0.11781499997596256
+D1,directional,base24,47,True,False,,0,0,0,0,True,,,0,0,0.14645940001355484
+D1,directional,base25,11,True,False,,0,0,0,0,True,,,0,0,0.12677619999158196
+D1,directional,base25,23,True,False,,0,0,0,0,True,,,0,0,0.12302800000179559
+D1,directional,base25,47,True,False,,0,0,0,0,True,,,0,0,0.12775060001877137
+D1,directional,base26,11,True,False,,0,0,0,0,True,,,0,0,0.12280409998493269
+D1,directional,base26,23,True,False,,0,0,0,0,True,,,0,0,0.1262900999863632
+D1,directional,base26,47,True,False,,0,0,0,0,True,,,0,0,0.1417760000040289
+D1,directional,base27,11,True,False,,0,0,0,0,True,,,0,0,0.15141410002252087
+D1,directional,base27,23,True,False,,0,0,0,0,True,,,0,0,0.16093480002018623
+D1,directional,base27,47,True,False,,0,0,0,0,True,,,0,0,0.15227620000950992
+D1,directional,base28,11,True,False,,0,1,0,1,True,,,1,1,0.1405104999721516
+D1,directional,base28,23,True,False,,0,1,0,1,True,,,1,1,0.134716100001242
+D1,directional,base28,47,True,False,,0,1,0,1,True,,,1,1,0.14145619998453185
+D1,directional,base29,11,True,False,,0,0,0,0,True,,,0,0,0.1418590000248514
+D1,directional,base29,23,True,False,,0,0,0,0,True,,,0,0,0.15411020000465214
+D1,directional,base29,47,True,False,,0,0,0,0,True,,,0,0,0.15598869998939335
+D1,directional,base30,11,True,False,,0,0,0,0,True,,,0,0,0.13480430000345223
+D1,directional,base30,23,True,False,,0,0,0,0,True,,,0,0,0.1338040000118781
+D1,directional,base30,47,True,False,,0,0,0,0,True,,,0,0,0.1702291000110563
+D1,directional,base31,11,True,False,,0,0,0,0,True,,,0,0,0.1327383000170812
+D1,directional,base31,23,True,False,,0,0,0,0,True,,,0,0,0.12177610001526773
+D1,directional,base31,47,True,False,,0,0,0,0,True,,,0,0,0.11992229998577386
+D1,directional,base32,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.1726994999917224
+D1,directional,base32,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.17947810000623576
+D1,directional,base32,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.20516129999305122
+D1,directional,base33,11,True,False,,0,0,0,0,True,,,0,0,0.14138920002733357
+D1,directional,base33,23,True,False,,0,0,0,0,True,,,0,0,0.1340667000040412
+D1,directional,base33,47,True,False,,0,0,0,0,True,,,0,0,0.1288230000063777
+D1,directional,base34,11,True,False,,0,0,0,0,True,,,0,0,0.16114040001411922
+D1,directional,base34,23,True,False,,0,0,0,0,True,,,0,0,0.1532504000060726
+D1,directional,base34,47,True,False,,0,0,0,0,True,,,0,0,0.15415529999881983
+D1,directional,base35,11,True,False,,0,1,0,1,True,,,1,4,0.1499611999897752
+D1,directional,base35,23,True,False,,0,1,0,1,True,,,1,4,0.1473593999980949
+D1,directional,base35,47,True,False,,0,1,0,1,True,,,1,4,0.15748140000505373
+D2,directional,base00,11,True,False,,0,0,0,0,True,,,0,0,0.09230519999982789
+D2,directional,base00,23,True,False,,0,0,0,0,True,,,0,0,0.1040414999879431
+D2,directional,base00,47,True,False,,0,0,0,0,True,,,0,0,0.09776129998499528
+D2,directional,base01,11,True,False,,0,0,0,0,True,,,0,0,0.16801459999987856
+D2,directional,base01,23,True,False,,0,0,0,0,True,,,0,0,0.12072489998536184
+D2,directional,base01,47,True,False,,0,0,0,0,True,,,0,0,0.12517740001203492
+D2,directional,base02,11,True,False,,0,0,0,0,True,,,0,0,0.10646439998527057
+D2,directional,base02,23,True,False,,0,0,0,0,True,,,0,0,0.10882969998056069
+D2,directional,base02,47,True,False,,0,0,0,0,True,,,0,0,0.1064067000115756
+D2,directional,base03,11,True,False,,0,1,0,1,True,,,1,1,0.13234969999757595
+D2,directional,base03,23,True,False,,0,1,0,1,True,,,1,1,0.1320492000086233
+D2,directional,base03,47,True,False,,0,1,0,1,True,,,1,1,0.1459972000156995
+D2,directional,base04,11,True,False,,0,0,0,0,True,,,0,0,0.11088689998723567
+D2,directional,base04,23,True,False,,0,0,0,0,True,,,0,0,0.10914250000496395
+D2,directional,base04,47,True,False,,0,0,0,0,True,,,0,0,0.10315650000120513
+D2,directional,base05,11,True,False,,0,0,0,0,True,,,0,0,0.1364946000103373
+D2,directional,base05,23,True,False,,0,0,0,0,True,,,0,0,0.13977529999101534
+D2,directional,base05,47,True,False,,0,0,0,0,True,,,0,0,0.13516490001347847
+D2,directional,base06,11,True,False,,0,0,0,0,True,,,0,0,0.1175103000132367
+D2,directional,base06,23,True,False,,0,0,0,0,True,,,0,0,0.11824870001873933
+D2,directional,base06,47,True,False,,0,0,0,0,True,,,0,0,0.11937480000779033
+D2,directional,base07,11,True,False,,0,0,0,0,True,,,0,0,0.12176729997736402
+D2,directional,base07,23,True,False,,0,0,0,0,True,,,0,0,0.122566599980928
+D2,directional,base07,47,True,False,,0,0,0,0,True,,,0,0,0.12317070001154207
+D2,directional,base08,11,True,False,,0,0,0,0,True,,,0,0,0.10757329998887144
+D2,directional,base08,23,True,False,,0,0,0,0,True,,,0,0,0.1090422999986913
+D2,directional,base08,47,True,False,,0,0,0,0,True,,,0,0,0.10783710001851432
+D2,directional,base09,11,True,False,,0,0,0,0,True,,,0,0,0.1100667999999132
+D2,directional,base09,23,True,False,,0,0,0,0,True,,,0,0,0.11542350001400337
+D2,directional,base09,47,True,False,,0,0,0,0,True,,,0,0,0.12800259998766705
+D2,directional,base10,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.23349660000531003
+D2,directional,base10,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18408669999917038
+D2,directional,base10,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18739300000015646
+D2,directional,base11,11,True,False,,0,0,0,0,True,,,0,0,0.11751519999234006
+D2,directional,base11,23,True,False,,0,0,0,0,True,,,0,0,0.1165795000270009
+D2,directional,base11,47,True,False,,0,0,0,0,True,,,0,0,0.12120609998237342
+D2,directional,base12,11,True,False,,0,1,0,1,True,,,1,1,0.14094690000638366
+D2,directional,base12,23,True,False,,0,1,0,1,True,,,1,1,0.13788229998317547
+D2,directional,base12,47,True,False,,0,1,0,1,True,,,1,1,0.14016790001187474
+D2,directional,base13,11,True,False,,0,0,0,0,True,,,0,0,0.1297717000124976
+D2,directional,base13,23,True,False,,0,0,0,0,True,,,0,0,0.12336750002577901
+D2,directional,base13,47,True,False,,0,0,0,0,True,,,0,0,0.12327100001857616
+D2,directional,base14,11,True,False,,0,0,0,0,True,,,0,0,0.12266209998051636
+D2,directional,base14,23,True,False,,0,0,0,0,True,,,0,0,0.12309690000256523
+D2,directional,base14,47,True,False,,0,0,0,0,True,,,0,0,0.1329537999990862
+D2,directional,base15,11,True,False,,0,0,0,0,True,,,0,0,0.13268280000193045
+D2,directional,base15,23,True,False,,0,0,0,0,True,,,0,0,0.12793390001752414
+D2,directional,base15,47,True,False,,0,0,0,0,True,,,0,0,0.13323980002314784
+D2,directional,base16,11,True,False,,0,0,0,0,True,,,0,0,0.10129730001790449
+D2,directional,base16,23,True,False,,0,0,0,0,True,,,0,0,0.10131019999971613
+D2,directional,base16,47,True,False,,0,0,0,0,True,,,0,0,0.10055380000267178
+D2,directional,base17,11,True,False,,0,0,0,0,True,,,0,0,0.10791650001192465
+D2,directional,base17,23,True,False,,0,0,0,0,True,,,0,0,0.10945659998105839
+D2,directional,base17,47,True,False,,0,0,0,0,True,,,0,0,0.1440983999927994
+D2,directional,base18,11,True,False,,0,0,0,0,True,,,0,0,0.11823369999183342
+D2,directional,base18,23,True,False,,0,0,0,0,True,,,0,0,0.11652570002479479
+D2,directional,base18,47,True,False,,0,0,0,0,True,,,0,0,0.12456389999715611
+D2,directional,base19,11,True,False,,0,1,0,1,True,,,3,3,0.1531472000060603
+D2,directional,base19,23,True,False,,0,1,0,1,True,,,3,3,0.15610359999118373
+D2,directional,base19,47,True,False,,0,1,0,1,True,,,3,3,0.1643579000083264
+D2,directional,base20,11,True,False,,0,0,0,0,True,,,0,0,0.12137629999779165
+D2,directional,base20,23,True,False,,0,0,0,0,True,,,0,0,0.11991829998441972
+D2,directional,base20,47,True,False,,0,0,0,0,True,,,0,0,0.13372019998496398
+D2,directional,base21,11,True,False,,0,0,0,0,True,,,0,0,0.13840279998839833
+D2,directional,base21,23,True,False,,0,0,0,0,True,,,0,0,0.13309640000807121
+D2,directional,base21,47,True,False,,0,0,0,0,True,,,0,0,0.12991789999068715
+D2,directional,base22,11,True,False,,0,0,0,0,True,,,0,0,0.13993699999991804
+D2,directional,base22,23,True,False,,0,0,0,0,True,,,0,0,0.14170010000816546
+D2,directional,base22,47,True,False,,0,0,0,0,True,,,0,0,0.1407177000073716
+D2,directional,base23,11,True,False,,0,0,0,0,True,,,0,0,0.1411913000047207
+D2,directional,base23,23,True,False,,0,0,0,0,True,,,0,0,0.17223259998718277
+D2,directional,base23,47,True,False,,0,0,0,0,True,,,0,0,0.1477123000076972
+D2,directional,base24,11,True,False,,0,0,0,0,True,,,0,0,0.17347229999722913
+D2,directional,base24,23,True,False,,0,0,0,0,True,,,0,0,0.21989149998989888
+D2,directional,base24,47,True,False,,0,0,0,0,True,,,0,0,0.13852440001210198
+D2,directional,base25,11,True,False,,0,0,0,0,True,,,0,0,0.13395599997602403
+D2,directional,base25,23,True,False,,0,0,0,0,True,,,0,0,0.13474750000750646
+D2,directional,base25,47,True,False,,0,0,0,0,True,,,0,0,0.1321800000150688
+D2,directional,base26,11,True,False,,0,0,0,0,True,,,0,0,0.15535370001452975
+D2,directional,base26,23,True,False,,0,0,0,0,True,,,0,0,0.12917249999009073
+D2,directional,base26,47,True,False,,0,0,0,0,True,,,0,0,0.12100670000654645
+D2,directional,base27,11,True,False,,0,0,0,0,True,,,0,0,0.1420757999876514
+D2,directional,base27,23,True,False,,0,0,0,0,True,,,0,0,0.1449525999778416
+D2,directional,base27,47,True,False,,0,0,0,0,True,,,0,0,0.14813809999031946
+D2,directional,base28,11,True,False,,0,1,0,1,True,,,1,1,0.13573559999349527
+D2,directional,base28,23,True,False,,0,1,0,1,True,,,1,1,0.1333732999919448
+D2,directional,base28,47,True,False,,0,1,0,1,True,,,1,1,0.13050670002121478
+D2,directional,base29,11,True,False,,0,0,0,0,True,,,0,0,0.1321246000006795
+D2,directional,base29,23,True,False,,0,0,0,0,True,,,0,0,0.13302370000747032
+D2,directional,base29,47,True,False,,0,0,0,0,True,,,0,0,0.13286179999704473
+D2,directional,base30,11,True,False,,0,0,0,0,True,,,0,0,0.13575810001930222
+D2,directional,base30,23,True,False,,0,0,0,0,True,,,0,0,0.13539410001249053
+D2,directional,base30,47,True,False,,0,0,0,0,True,,,0,0,0.14252549997763708
+D2,directional,base31,11,True,False,,0,0,0,0,True,,,0,0,0.12439679997623898
+D2,directional,base31,23,True,False,,0,0,0,0,True,,,0,0,0.13438379997387528
+D2,directional,base31,47,True,False,,0,0,0,0,True,,,0,0,0.12452529999427497
+D2,directional,base32,11,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.17125600000144914
+D2,directional,base32,23,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.17484190000686795
+D2,directional,base32,47,True,False,,1,0,1,0,True,bhk,bhk,0,0,0.18261099999654107
+D2,directional,base33,11,True,False,,0,0,0,0,True,,,0,0,0.13919820002047345
+D2,directional,base33,23,True,False,,0,0,0,0,True,,,0,0,0.14195140000083484
+D2,directional,base33,47,True,False,,0,0,0,0,True,,,0,0,0.18164709999109618
+D2,directional,base34,11,True,False,,0,0,0,0,True,,,0,0,0.15198110000346787
+D2,directional,base34,23,True,False,,0,0,0,0,True,,,0,0,0.1409890000068117
+D2,directional,base34,47,True,False,,0,0,0,0,True,,,0,0,0.1465989999996964
+D2,directional,base35,11,True,False,,0,1,0,1,True,,,1,1,0.1440596999891568
+D2,directional,base35,23,True,False,,0,1,0,1,True,,,1,1,0.14682590001029894
+D2,directional,base35,47,True,False,,0,1,0,1,True,,,1,1,0.17079510001349263

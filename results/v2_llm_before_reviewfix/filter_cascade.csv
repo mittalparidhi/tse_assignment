@@ -1,0 +1,7 @@
+stage,rows_remaining,rows_dropped
+raw rows,9487,
+sale only (PREFERENCE=S),7927,1560.0
+dwellings only,5085,2842.0
+parseable POSTING_DATE,4975,110.0
+plausibility bounds DEFERRED to Analysis recomputation,4975,0.0
+canonical listings,4975,0.0

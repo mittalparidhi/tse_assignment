@@ -1,0 +1,2161 @@
+{
+ "seed": 7,
+ "agent_mode": "DETERMINISTIC",
+ "snapshot_sha256": "9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a",
+ "scenarios": [
+  {
+   "id": "gachibowli-3bhk",
+   "label": "3 BHK · Gachibowli",
+   "criteria": {
+    "window_end": "2023-08",
+    "bhk": [
+     3
+    ],
+    "localities": [
+     "Gachibowli"
+    ],
+    "currency_unit": "INR",
+    "area_unit": "SQFT",
+    "label": ""
+   },
+   "window_months": [
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "monthly": [
+    {
+     "month": "2022-09",
+     "listing_count": 2,
+     "price_valid_count": 2,
+     "median_price_per_sqft_inr": 7916.4,
+     "median_listing_price_inr": 16006355.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-10",
+     "listing_count": 0,
+     "price_valid_count": 0,
+     "median_price_per_sqft_inr": null,
+     "median_listing_price_inr": null,
+     "coverage_status": "NO_DATA_IN_SNAPSHOT",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-11",
+     "listing_count": 1,
+     "price_valid_count": 1,
+     "median_price_per_sqft_inr": 9000.0,
+     "median_listing_price_inr": 21240000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-12",
+     "listing_count": 2,
+     "price_valid_count": 2,
+     "median_price_per_sqft_inr": 10190.8,
+     "median_listing_price_inr": 26500000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-01",
+     "listing_count": 5,
+     "price_valid_count": 4,
+     "median_price_per_sqft_inr": 10352.8,
+     "median_listing_price_inr": 20810000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-02",
+     "listing_count": 1,
+     "price_valid_count": 1,
+     "median_price_per_sqft_inr": 9490.6,
+     "median_listing_price_inr": 13600000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-03",
+     "listing_count": 8,
+     "price_valid_count": 7,
+     "median_price_per_sqft_inr": 11038.6,
+     "median_listing_price_inr": 20500000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-04",
+     "listing_count": 12,
+     "price_valid_count": 11,
+     "median_price_per_sqft_inr": 10000.0,
+     "median_listing_price_inr": 21000000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-05",
+     "listing_count": 39,
+     "price_valid_count": 34,
+     "median_price_per_sqft_inr": 10495.3,
+     "median_listing_price_inr": 19500000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-06",
+     "listing_count": 59,
+     "price_valid_count": 49,
+     "median_price_per_sqft_inr": 10790.9,
+     "median_listing_price_inr": 18000000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-07",
+     "listing_count": 298,
+     "price_valid_count": 279,
+     "median_price_per_sqft_inr": 10217.4,
+     "median_listing_price_inr": 18520000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-08",
+     "listing_count": 269,
+     "price_valid_count": 242,
+     "median_price_per_sqft_inr": 10145.9,
+     "median_listing_price_inr": 18450000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": true
+    }
+   ],
+   "yoy_median_psf_pct": -0.7,
+   "yoy_span_months": 2,
+   "n_listings_total": 696,
+   "n_price_valid_total": 632,
+   "coverage_score": 0.333,
+   "coverage_verdict": "LIMITED",
+   "review_status": "APPROVED",
+   "n_rejected_outliers": 17,
+   "locality_rankings": [
+    "Nanakramguda",
+    "Gachibowli",
+    "P Janardhan Reddy Nagar",
+    "Kondapur",
+    "Financial District"
+   ],
+   "relaxations": [
+    "localities widened by 15 neighbouring localities",
+    "BHK [3] -> [2, 3, 4]"
+   ],
+   "narrative": "Hyderabad asking-price trend, 2022-09 to 2023-08. 696 listings matched the criteria, 632 of them with a usable price and area. Coverage: 4 of 12 months ADEQUATE, 7 LIMITED, 1 with no data in the snapshot. Median asking price per sqft has fallen 0.7% across the 2 months with at least 50 usable listings (the window spans 12). 2023-08 is a partial month: the snapshot ends on 26 Aug 2023, so it is reported as observed, not extrapolated. Most expensive locality by median: Nanakramguda (10,800 per sqft, n=63). The original query was too narrow to answer and was relaxed: localities widened by 15 neighbouring localities: ['Gayathri Nagar Colony', 'Indira Nagar', 'Nanakramguda', 'Mouryas Ranga Prasad Avenue', 'Gowlidoddy', 'Huda Layout', 'Hyderabad to Zaheerabad Highway', 'East Anand Bagh'] ...; BHK [3] -> [2, 3, 4]. Targeted recomputation rejected 17 suspect listings in 5 flagged months.",
+   "trace": [
+    {
+     "step": 1,
+     "agent": "CriteriaAgent",
+     "detail": "planned: query mode EXACT_LOCALITY",
+     "cycle": null
+    },
+    {
+     "step": 7,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 0: 120 listings",
+     "cycle": null
+    },
+    {
+     "step": 8,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.17 (2 of 7 attainable months) → RETRY: localities widened by 15 neighbouring localities",
+     "cycle": 1
+    },
+    {
+     "step": 14,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 1: 432 listings",
+     "cycle": null
+    },
+    {
+     "step": 15,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.25 (3 of 7 attainable months) → RETRY: BHK [3] -> [2, 3, 4]",
+     "cycle": 1
+    },
+    {
+     "step": 21,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 2: 696 listings",
+     "cycle": null
+    },
+    {
+     "step": 22,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.33 (4 of 7 attainable months) → LIMITED",
+     "cycle": null
+    },
+    {
+     "step": 23,
+     "agent": "AnalysisAgent",
+     "detail": "full: move -4.45%",
+     "cycle": null
+    },
+    {
+     "step": 24,
+     "agent": "CritiqueAgent",
+     "detail": "5 months flagged → REJECTED",
+     "cycle": 2
+    },
+    {
+     "step": 25,
+     "agent": "AnalysisAgent",
+     "detail": "targeted recomputation: move -0.7%, 17 outliers rejected",
+     "cycle": null
+    },
+    {
+     "step": 26,
+     "agent": "CritiqueAgent",
+     "detail": "2 months flagged → APPROVED",
+     "cycle": null
+    },
+    {
+     "step": 27,
+     "agent": "AggregatorAgent",
+     "detail": "report assembled",
+     "cycle": null
+    }
+   ],
+   "before_critique": {
+    "monthly_median_price_per_sqft_inr": [
+     7916.4,
+     null,
+     9000.0,
+     10190.8,
+     11705.7,
+     9490.6,
+     11074.9,
+     10000.0,
+     10495.3,
+     10665.6,
+     10217.4,
+     10190.6
+    ],
+    "monthly_price_valid_count": [
+     2,
+     0,
+     1,
+     2,
+     5,
+     1,
+     8,
+     11,
+     34,
+     54,
+     283,
+     248
+    ],
+    "yoy_median_psf_pct": -4.45,
+    "yoy_span_months": 3
+   }
+  },
+  {
+   "id": "kondapur-2bhk",
+   "label": "2 BHK · Kondapur",
+   "criteria": {
+    "window_end": "2023-08",
+    "bhk": [
+     2
+    ],
+    "localities": [
+     "Kondapur"
+    ],
+    "currency_unit": "INR",
+    "area_unit": "SQFT",
+    "label": ""
+   },
+   "window_months": [
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "monthly": [
+    {
+     "month": "2022-09",
+     "listing_count": 2,
+     "price_valid_count": 2,
+     "median_price_per_sqft_inr": 7916.4,
+     "median_listing_price_inr": 16006355.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-10",
+     "listing_count": 0,
+     "price_valid_count": 0,
+     "median_price_per_sqft_inr": null,
+     "median_listing_price_inr": null,
+     "coverage_status": "NO_DATA_IN_SNAPSHOT",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-11",
+     "listing_count": 0,
+     "price_valid_count": 0,
+     "median_price_per_sqft_inr": null,
+     "median_listing_price_inr": null,
+     "coverage_status": "NO_DATA_IN_SNAPSHOT",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-12",
+     "listing_count": 1,
+     "price_valid_count": 1,
+     "median_price_per_sqft_inr": 9836.1,
+     "median_listing_price_inr": 24000000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-01",
+     "listing_count": 2,
+     "price_valid_count": 2,
+     "median_price_per_sqft_inr": 10136.3,
+     "median_listing_price_inr": 14250000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-02",
+     "listing_count": 1,
+     "price_valid_count": 1,
+     "median_price_per_sqft_inr": 9490.6,
+     "median_listing_price_inr": 13600000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-03",
+     "listing_count": 10,
+     "price_valid_count": 9,
+     "median_price_per_sqft_inr": 10705.0,
+     "median_listing_price_inr": 20500000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-04",
+     "listing_count": 11,
+     "price_valid_count": 10,
+     "median_price_per_sqft_inr": 10048.1,
+     "median_listing_price_inr": 20500000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-05",
+     "listing_count": 30,
+     "price_valid_count": 28,
+     "median_price_per_sqft_inr": 10087.2,
+     "median_listing_price_inr": 18350000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-06",
+     "listing_count": 47,
+     "price_valid_count": 47,
+     "median_price_per_sqft_inr": 10566.0,
+     "median_listing_price_inr": 17000000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-07",
+     "listing_count": 220,
+     "price_valid_count": 211,
+     "median_price_per_sqft_inr": 9891.3,
+     "median_listing_price_inr": 15500000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-08",
+     "listing_count": 208,
+     "price_valid_count": 193,
+     "median_price_per_sqft_inr": 10000.0,
+     "median_listing_price_inr": 16200000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": true
+    }
+   ],
+   "yoy_median_psf_pct": 1.1,
+   "yoy_span_months": 2,
+   "n_listings_total": 532,
+   "n_price_valid_total": 504,
+   "coverage_score": 0.25,
+   "coverage_verdict": "LIMITED",
+   "review_status": "APPROVED",
+   "n_rejected_outliers": 1,
+   "locality_rankings": [
+    "Kothaguda",
+    "Shilpa Hills",
+    "Gachibowli",
+    "P Janardhan Reddy Nagar",
+    "Kondapur"
+   ],
+   "relaxations": [
+    "localities widened by 22 neighbouring localities",
+    "BHK [2] -> [1, 2, 3]"
+   ],
+   "narrative": "Hyderabad asking-price trend, 2022-09 to 2023-08. 532 listings matched the criteria, 504 of them with a usable price and area. Coverage: 3 of 12 months ADEQUATE, 7 LIMITED, 2 with no data in the snapshot. Median asking price per sqft has risen 1.1% across the 2 months with at least 50 usable listings (the window spans 12). 2023-08 is a partial month: the snapshot ends on 26 Aug 2023, so it is reported as observed, not extrapolated. Most expensive locality by median: Kothaguda (10,806 per sqft, n=6). The original query was too narrow to answer and was relaxed: localities widened by 22 neighbouring localities: ['Laxmi Nagar', 'Goutami Enclave', 'Gouthami Enclave', 'Masjid Banda', 'Rajarajeshwari Nagar', 'Konda Nagar', 'Sai Pruthvi Enclave', 'Raghavendra Colony'] ...; BHK [2] -> [1, 2, 3]. Targeted recomputation rejected 1 suspect listings in 1 flagged months.",
+   "trace": [
+    {
+     "step": 1,
+     "agent": "CriteriaAgent",
+     "detail": "planned: query mode EXACT_LOCALITY",
+     "cycle": null
+    },
+    {
+     "step": 7,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 0: 85 listings",
+     "cycle": null
+    },
+    {
+     "step": 8,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.08 (1 of 7 attainable months) → RETRY: localities widened by 22 neighbouring localities",
+     "cycle": 1
+    },
+    {
+     "step": 14,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 1: 155 listings",
+     "cycle": null
+    },
+    {
+     "step": 15,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.17 (2 of 7 attainable months) → RETRY: BHK [2] -> [1, 2, 3]",
+     "cycle": 1
+    },
+    {
+     "step": 21,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 2: 532 listings",
+     "cycle": null
+    },
+    {
+     "step": 22,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.25 (3 of 7 attainable months) → LIMITED",
+     "cycle": null
+    },
+    {
+     "step": 23,
+     "agent": "AnalysisAgent",
+     "detail": "full: move 1.1%",
+     "cycle": null
+    },
+    {
+     "step": 24,
+     "agent": "CritiqueAgent",
+     "detail": "1 month flagged → REJECTED",
+     "cycle": 2
+    },
+    {
+     "step": 25,
+     "agent": "AnalysisAgent",
+     "detail": "targeted recomputation: move 1.1%, 1 outlier rejected",
+     "cycle": null
+    },
+    {
+     "step": 26,
+     "agent": "CritiqueAgent",
+     "detail": "0 months flagged → APPROVED",
+     "cycle": null
+    },
+    {
+     "step": 27,
+     "agent": "AggregatorAgent",
+     "detail": "report assembled",
+     "cycle": null
+    }
+   ],
+   "before_critique": {
+    "monthly_median_price_per_sqft_inr": [
+     7916.4,
+     null,
+     null,
+     9836.1,
+     10136.3,
+     9490.6,
+     10622.1,
+     10048.1,
+     10087.2,
+     10566.0,
+     9891.3,
+     10000.0
+    ],
+    "monthly_price_valid_count": [
+     2,
+     0,
+     0,
+     1,
+     2,
+     1,
+     10,
+     10,
+     28,
+     47,
+     211,
+     193
+    ],
+    "yoy_median_psf_pct": 1.1,
+    "yoy_span_months": 2
+   }
+  },
+  {
+   "id": "kokapet-narsingi-3bhk",
+   "label": "3 BHK · Kokapet + Narsingi · ₹80 L–3 Cr",
+   "criteria": {
+    "window_end": "2023-08",
+    "bhk": [
+     3
+    ],
+    "localities": [
+     "Kokapet",
+     "Narsingi"
+    ],
+    "price_min_inr": 8000000.0,
+    "price_max_inr": 30000000.0,
+    "currency_unit": "INR",
+    "area_unit": "SQFT",
+    "label": ""
+   },
+   "window_months": [
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "monthly": [
+    {
+     "month": "2022-09",
+     "listing_count": 0,
+     "price_valid_count": 0,
+     "median_price_per_sqft_inr": null,
+     "median_listing_price_inr": null,
+     "coverage_status": "NO_DATA_IN_SNAPSHOT",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-10",
+     "listing_count": 1,
+     "price_valid_count": 1,
+     "median_price_per_sqft_inr": 7099.0,
+     "median_listing_price_inr": 13736565.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-11",
+     "listing_count": 2,
+     "price_valid_count": 2,
+     "median_price_per_sqft_inr": 9570.8,
+     "median_listing_price_inr": 21370000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-12",
+     "listing_count": 1,
+     "price_valid_count": 1,
+     "median_price_per_sqft_inr": 10545.5,
+     "median_listing_price_inr": 29000000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-01",
+     "listing_count": 1,
+     "price_valid_count": 1,
+     "median_price_per_sqft_inr": 9000.0,
+     "median_listing_price_inr": 24120000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-02",
+     "listing_count": 2,
+     "price_valid_count": 2,
+     "median_price_per_sqft_inr": 8926.3,
+     "median_listing_price_inr": 18600842.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-03",
+     "listing_count": 4,
+     "price_valid_count": 3,
+     "median_price_per_sqft_inr": 10730.7,
+     "median_listing_price_inr": 21000000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-04",
+     "listing_count": 17,
+     "price_valid_count": 17,
+     "median_price_per_sqft_inr": 8199.0,
+     "median_listing_price_inr": 14200000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-05",
+     "listing_count": 39,
+     "price_valid_count": 39,
+     "median_price_per_sqft_inr": 7828.6,
+     "median_listing_price_inr": 14600000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-06",
+     "listing_count": 70,
+     "price_valid_count": 70,
+     "median_price_per_sqft_inr": 7732.5,
+     "median_listing_price_inr": 14120000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-07",
+     "listing_count": 277,
+     "price_valid_count": 277,
+     "median_price_per_sqft_inr": 8646.6,
+     "median_listing_price_inr": 15000700.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-08",
+     "listing_count": 227,
+     "price_valid_count": 227,
+     "median_price_per_sqft_inr": 7918.6,
+     "median_listing_price_inr": 15502786.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": true
+    }
+   ],
+   "yoy_median_psf_pct": 2.41,
+   "yoy_span_months": 3,
+   "n_listings_total": 641,
+   "n_price_valid_total": 640,
+   "coverage_score": 0.333,
+   "coverage_verdict": "LIMITED",
+   "review_status": "APPROVED",
+   "n_rejected_outliers": 1,
+   "locality_rankings": [
+    "Nanakramguda",
+    "Financial District",
+    "Kokapet",
+    "Khajaguda",
+    "Narsingi"
+   ],
+   "relaxations": [
+    "localities widened by 18 neighbouring localities",
+    "BHK [3] -> [2, 3, 4]"
+   ],
+   "narrative": "Hyderabad asking-price trend, 2022-09 to 2023-08. 641 listings matched the criteria, 640 of them with a usable price and area. Coverage: 4 of 12 months ADEQUATE, 7 LIMITED, 1 with no data in the snapshot. Median asking price per sqft has risen 2.4% across the 3 months with at least 50 usable listings (the window spans 12). 2023-08 is a partial month: the snapshot ends on 26 Aug 2023, so it is reported as observed, not extrapolated. Most expensive locality by median: Nanakramguda (10,827 per sqft, n=58). The original query was too narrow to answer and was relaxed: localities widened by 18 neighbouring localities: ['Financial District', 'financial district Hyderabad', 'Huda Layout', 'Nanakramguda', 'Gandipet', 'Khajaguda', 'Lanco Hills', 'Chaitanya Enclave'] ...; BHK [3] -> [2, 3, 4]. Targeted recomputation rejected 1 suspect listings in 2 flagged months.",
+   "trace": [
+    {
+     "step": 1,
+     "agent": "CriteriaAgent",
+     "detail": "planned: query mode EXACT_LOCALITY",
+     "cycle": null
+    },
+    {
+     "step": 7,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 0: 226 listings",
+     "cycle": null
+    },
+    {
+     "step": 8,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.25 (3 of 7 attainable months) → RETRY: localities widened by 18 neighbouring localities",
+     "cycle": 1
+    },
+    {
+     "step": 14,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 1: 498 listings",
+     "cycle": null
+    },
+    {
+     "step": 15,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.25 (3 of 7 attainable months) → RETRY: BHK [3] -> [2, 3, 4]",
+     "cycle": 1
+    },
+    {
+     "step": 21,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 2: 641 listings",
+     "cycle": null
+    },
+    {
+     "step": 22,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.33 (4 of 7 attainable months) → LIMITED",
+     "cycle": null
+    },
+    {
+     "step": 23,
+     "agent": "AnalysisAgent",
+     "detail": "full: move 2.41%",
+     "cycle": null
+    },
+    {
+     "step": 24,
+     "agent": "CritiqueAgent",
+     "detail": "2 months flagged → REJECTED",
+     "cycle": 2
+    },
+    {
+     "step": 25,
+     "agent": "AnalysisAgent",
+     "detail": "targeted recomputation: move 2.41%, 1 outlier rejected",
+     "cycle": null
+    },
+    {
+     "step": 26,
+     "agent": "CritiqueAgent",
+     "detail": "1 month flagged → APPROVED",
+     "cycle": null
+    },
+    {
+     "step": 27,
+     "agent": "AggregatorAgent",
+     "detail": "report assembled",
+     "cycle": null
+    }
+   ],
+   "before_critique": {
+    "monthly_median_price_per_sqft_inr": [
+     null,
+     7099.0,
+     9570.8,
+     10545.5,
+     9000.0,
+     8926.3,
+     10563.4,
+     8199.0,
+     7828.6,
+     7732.5,
+     8646.6,
+     7918.6
+    ],
+    "monthly_price_valid_count": [
+     0,
+     1,
+     2,
+     1,
+     1,
+     2,
+     4,
+     17,
+     39,
+     70,
+     277,
+     227
+    ],
+    "yoy_median_psf_pct": 2.41,
+    "yoy_span_months": 3
+   }
+  },
+  {
+   "id": "kollur-tellapur-2-3bhk",
+   "label": "2–3 BHK · Kollur + Tellapur · ₹40 L–1.5 Cr",
+   "criteria": {
+    "window_end": "2023-08",
+    "bhk": [
+     2,
+     3
+    ],
+    "localities": [
+     "Kollur",
+     "Tellapur"
+    ],
+    "price_min_inr": 4000000.0,
+    "price_max_inr": 15000000.0,
+    "currency_unit": "INR",
+    "area_unit": "SQFT",
+    "label": ""
+   },
+   "window_months": [
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "monthly": [
+    {
+     "month": "2022-09",
+     "listing_count": 4,
+     "price_valid_count": 4,
+     "median_price_per_sqft_inr": 3737.1,
+     "median_listing_price_inr": 5867750.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-10",
+     "listing_count": 0,
+     "price_valid_count": 0,
+     "median_price_per_sqft_inr": null,
+     "median_listing_price_inr": null,
+     "coverage_status": "NO_DATA_IN_SNAPSHOT",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-11",
+     "listing_count": 0,
+     "price_valid_count": 0,
+     "median_price_per_sqft_inr": null,
+     "median_listing_price_inr": null,
+     "coverage_status": "NO_DATA_IN_SNAPSHOT",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-12",
+     "listing_count": 1,
+     "price_valid_count": 1,
+     "median_price_per_sqft_inr": 5799.0,
+     "median_listing_price_inr": 7451715.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-01",
+     "listing_count": 0,
+     "price_valid_count": 0,
+     "median_price_per_sqft_inr": null,
+     "median_listing_price_inr": null,
+     "coverage_status": "NO_DATA_IN_SNAPSHOT",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-02",
+     "listing_count": 2,
+     "price_valid_count": 2,
+     "median_price_per_sqft_inr": 7058.2,
+     "median_listing_price_inr": 10150000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-03",
+     "listing_count": 5,
+     "price_valid_count": 5,
+     "median_price_per_sqft_inr": 6492.2,
+     "median_listing_price_inr": 10874800.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-04",
+     "listing_count": 21,
+     "price_valid_count": 21,
+     "median_price_per_sqft_inr": 5800.0,
+     "median_listing_price_inr": 8531800.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-05",
+     "listing_count": 23,
+     "price_valid_count": 17,
+     "median_price_per_sqft_inr": 5600.0,
+     "median_listing_price_inr": 9049600.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-06",
+     "listing_count": 18,
+     "price_valid_count": 18,
+     "median_price_per_sqft_inr": 5988.2,
+     "median_listing_price_inr": 8110500.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-07",
+     "listing_count": 99,
+     "price_valid_count": 98,
+     "median_price_per_sqft_inr": 5938.6,
+     "median_listing_price_inr": 9391750.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-08",
+     "listing_count": 122,
+     "price_valid_count": 121,
+     "median_price_per_sqft_inr": 6000.0,
+     "median_listing_price_inr": 9748200.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": true
+    }
+   ],
+   "yoy_median_psf_pct": 1.03,
+   "yoy_span_months": 2,
+   "n_listings_total": 295,
+   "n_price_valid_total": 287,
+   "coverage_score": 0.167,
+   "coverage_verdict": "LIMITED",
+   "review_status": "APPROVED",
+   "n_rejected_outliers": 8,
+   "locality_rankings": [
+    "Gopanpally",
+    "Nallagandla",
+    "Tellpur Osmannagar",
+    "Tellapur",
+    "Osman Nagar"
+   ],
+   "relaxations": [
+    "localities widened by 12 neighbouring localities",
+    "BHK [2, 3] -> [1, 2, 3, 4]"
+   ],
+   "narrative": "Hyderabad asking-price trend, 2022-09 to 2023-08. 295 listings matched the criteria, 287 of them with a usable price and area. Coverage: 2 of 12 months ADEQUATE, 7 LIMITED, 3 with no data in the snapshot. Median asking price per sqft has risen 1.0% across the 2 months with at least 50 usable listings (the window spans 12). 2023-08 is a partial month: the snapshot ends on 26 Aug 2023, so it is reported as observed, not extrapolated. Most expensive locality by median: Gopanpally (8,498 per sqft, n=15). The original query was too narrow to answer and was relaxed: localities widened by 12 neighbouring localities: ['Osman Nagar', 'Tellapur, Gachibowli', 'Shankarpally', 'Rtc Officers Colony', 'Velimela', 'Velimela homes', 'Gopanpally', 'Tellpur Osmannagar'] ...; BHK [2, 3] -> [1, 2, 3, 4]. Targeted recomputation rejected 8 suspect listings in 3 flagged months.",
+   "trace": [
+    {
+     "step": 1,
+     "agent": "CriteriaAgent",
+     "detail": "planned: query mode EXACT_LOCALITY",
+     "cycle": null
+    },
+    {
+     "step": 7,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 0: 127 listings",
+     "cycle": null
+    },
+    {
+     "step": 8,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.17 (2 of 7 attainable months) → RETRY: localities widened by 12 neighbouring localities",
+     "cycle": 1
+    },
+    {
+     "step": 14,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 1: 294 listings",
+     "cycle": null
+    },
+    {
+     "step": 15,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.17 (2 of 7 attainable months) → RETRY: BHK [2, 3] -> [1, 2, 3, 4]",
+     "cycle": 1
+    },
+    {
+     "step": 21,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 2: 295 listings",
+     "cycle": null
+    },
+    {
+     "step": 22,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.17 (2 of 7 attainable months) → LIMITED",
+     "cycle": null
+    },
+    {
+     "step": 23,
+     "agent": "AnalysisAgent",
+     "detail": "full: move 1.66%",
+     "cycle": null
+    },
+    {
+     "step": 24,
+     "agent": "CritiqueAgent",
+     "detail": "3 months flagged → REJECTED",
+     "cycle": 2
+    },
+    {
+     "step": 25,
+     "agent": "AnalysisAgent",
+     "detail": "targeted recomputation: move 1.03%, 8 outliers rejected",
+     "cycle": null
+    },
+    {
+     "step": 26,
+     "agent": "CritiqueAgent",
+     "detail": "1 month flagged → APPROVED",
+     "cycle": null
+    },
+    {
+     "step": 27,
+     "agent": "AggregatorAgent",
+     "detail": "report assembled",
+     "cycle": null
+    }
+   ],
+   "before_critique": {
+    "monthly_median_price_per_sqft_inr": [
+     3737.1,
+     null,
+     null,
+     5799.0,
+     null,
+     7058.2,
+     6492.2,
+     5800.0,
+     5600.0,
+     5988.2,
+     5902.0,
+     6000.0
+    ],
+    "monthly_price_valid_count": [
+     4,
+     0,
+     0,
+     1,
+     0,
+     2,
+     5,
+     21,
+     23,
+     18,
+     99,
+     122
+    ],
+    "yoy_median_psf_pct": 1.66,
+    "yoy_span_months": 2
+   }
+  },
+  {
+   "id": "radius-financial-district-5km",
+   "label": "3 BHK · within 5 km of Financial District",
+   "criteria": {
+    "window_end": "2023-08",
+    "bhk": [
+     3
+    ],
+    "currency_unit": "INR",
+    "area_unit": "SQFT",
+    "query_mode": "RADIUS",
+    "center_lat": 17.4401,
+    "center_lon": 78.3489,
+    "radius_km": 5.0,
+    "label": ""
+   },
+   "window_months": [
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "monthly": [
+    {
+     "month": "2022-09",
+     "listing_count": 14,
+     "price_valid_count": 12,
+     "median_price_per_sqft_inr": 4020.8,
+     "median_listing_price_inr": 5375004.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-10",
+     "listing_count": 6,
+     "price_valid_count": 5,
+     "median_price_per_sqft_inr": 5556.1,
+     "median_listing_price_inr": 7250000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-11",
+     "listing_count": 6,
+     "price_valid_count": 6,
+     "median_price_per_sqft_inr": 6999.8,
+     "median_listing_price_inr": 13119750.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-12",
+     "listing_count": 9,
+     "price_valid_count": 9,
+     "median_price_per_sqft_inr": 9932.9,
+     "median_listing_price_inr": 24000000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-01",
+     "listing_count": 7,
+     "price_valid_count": 7,
+     "median_price_per_sqft_inr": 9000.0,
+     "median_listing_price_inr": 24120000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-02",
+     "listing_count": 10,
+     "price_valid_count": 9,
+     "median_price_per_sqft_inr": 8365.0,
+     "median_listing_price_inr": 12000000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-03",
+     "listing_count": 42,
+     "price_valid_count": 33,
+     "median_price_per_sqft_inr": 9364.5,
+     "median_listing_price_inr": 17500000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-04",
+     "listing_count": 74,
+     "price_valid_count": 66,
+     "median_price_per_sqft_inr": 7899.5,
+     "median_listing_price_inr": 14261000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-05",
+     "listing_count": 160,
+     "price_valid_count": 140,
+     "median_price_per_sqft_inr": 7999.0,
+     "median_listing_price_inr": 14402518.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-06",
+     "listing_count": 294,
+     "price_valid_count": 252,
+     "median_price_per_sqft_inr": 9140.8,
+     "median_listing_price_inr": 14575000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-07",
+     "listing_count": 1010,
+     "price_valid_count": 936,
+     "median_price_per_sqft_inr": 9000.0,
+     "median_listing_price_inr": 15187815.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-08",
+     "listing_count": 902,
+     "price_valid_count": 802,
+     "median_price_per_sqft_inr": 8422.5,
+     "median_listing_price_inr": 15000000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": true
+    }
+   ],
+   "yoy_median_psf_pct": 6.62,
+   "yoy_span_months": 5,
+   "n_listings_total": 2534,
+   "n_price_valid_total": 2277,
+   "coverage_score": 0.5,
+   "coverage_verdict": "ACCEPT",
+   "review_status": "NEEDS_REVIEW",
+   "n_rejected_outliers": 59,
+   "locality_rankings": [
+    "Banjara hills",
+    "Jubilee Hills",
+    "Kollur",
+    "Nanakramguda",
+    "Diamond Hills"
+   ],
+   "relaxations": [
+    "radius 5.0km -> 10.0km",
+    "BHK [3] -> [2, 3, 4]"
+   ],
+   "narrative": "Hyderabad asking-price trend, 2022-09 to 2023-08. 2,534 listings matched the criteria, 2,277 of them with a usable price and area. Coverage: 6 of 12 months ADEQUATE, 6 LIMITED, 0 with no data in the snapshot. Median asking price per sqft has risen 6.6% across the 5 months with at least 50 usable listings (the window spans 12). 2023-08 is a partial month: the snapshot ends on 26 Aug 2023, so it is reported as observed, not extrapolated. Most expensive locality by median: Banjara hills (12,500 per sqft, n=19). The original query was too narrow to answer and was relaxed: radius 5.0km -> 10.0km; BHK [3] -> [2, 3, 4]. Targeted recomputation rejected 59 suspect listings in 9 flagged months. Validation is incomplete: the critique still flagged a month after its last permitted recomputation (NEEDS_REVIEW).",
+   "trace": [
+    {
+     "step": 1,
+     "agent": "CriteriaAgent",
+     "detail": "planned: query mode RADIUS",
+     "cycle": null
+    },
+    {
+     "step": 7,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 0: 690 listings",
+     "cycle": null
+    },
+    {
+     "step": 8,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.33 (4 of 7 attainable months) → RETRY: radius 5.0km -> 10.0km",
+     "cycle": 1
+    },
+    {
+     "step": 14,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 1: 1459 listings",
+     "cycle": null
+    },
+    {
+     "step": 15,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.42 (5 of 7 attainable months) → RETRY: BHK [3] -> [2, 3, 4]",
+     "cycle": 1
+    },
+    {
+     "step": 21,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 2: 2534 listings",
+     "cycle": null
+    },
+    {
+     "step": 22,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.50 (6 of 7 attainable months) → ACCEPT",
+     "cycle": null
+    },
+    {
+     "step": 23,
+     "agent": "AnalysisAgent",
+     "detail": "full: move 3.67%",
+     "cycle": null
+    },
+    {
+     "step": 24,
+     "agent": "CritiqueAgent",
+     "detail": "9 months flagged → REJECTED",
+     "cycle": 2
+    },
+    {
+     "step": 25,
+     "agent": "AnalysisAgent",
+     "detail": "targeted recomputation: move 6.62%, 59 outliers rejected",
+     "cycle": null
+    },
+    {
+     "step": 26,
+     "agent": "CritiqueAgent",
+     "detail": "6 months flagged → NEEDS_REVIEW",
+     "cycle": null
+    },
+    {
+     "step": 27,
+     "agent": "AggregatorAgent",
+     "detail": "report assembled",
+     "cycle": null
+    }
+   ],
+   "before_critique": {
+    "monthly_median_price_per_sqft_inr": [
+     4104.2,
+     6327.6,
+     6999.8,
+     9932.9,
+     9000.0,
+     8365.0,
+     9420.3,
+     8199.0,
+     8125.0,
+     9214.1,
+     9048.8,
+     8500.0
+    ],
+    "monthly_price_valid_count": [
+     14,
+     6,
+     6,
+     9,
+     7,
+     9,
+     35,
+     69,
+     147,
+     257,
+     956,
+     821
+    ],
+    "yoy_median_psf_pct": 3.67,
+    "yoy_span_months": 5
+   }
+  },
+  {
+   "id": "radius-kondapur-3km",
+   "label": "All BHK · within 3 km of Kondapur",
+   "criteria": {
+    "window_end": "2023-08",
+    "currency_unit": "INR",
+    "area_unit": "SQFT",
+    "query_mode": "RADIUS",
+    "center_lat": 17.4609913,
+    "center_lon": 78.3532083,
+    "radius_km": 3.0,
+    "label": ""
+   },
+   "window_months": [
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "monthly": [
+    {
+     "month": "2022-09",
+     "listing_count": 11,
+     "price_valid_count": 10,
+     "median_price_per_sqft_inr": 4104.2,
+     "median_listing_price_inr": 5700000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-10",
+     "listing_count": 4,
+     "price_valid_count": 3,
+     "median_price_per_sqft_inr": 11111.1,
+     "median_listing_price_inr": 100000000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-11",
+     "listing_count": 1,
+     "price_valid_count": 1,
+     "median_price_per_sqft_inr": 9000.0,
+     "median_listing_price_inr": 21240000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-12",
+     "listing_count": 6,
+     "price_valid_count": 4,
+     "median_price_per_sqft_inr": 10239.2,
+     "median_listing_price_inr": 26500000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-01",
+     "listing_count": 4,
+     "price_valid_count": 4,
+     "median_price_per_sqft_inr": 8783.5,
+     "median_listing_price_inr": 17560000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-02",
+     "listing_count": 5,
+     "price_valid_count": 5,
+     "median_price_per_sqft_inr": 8365.0,
+     "median_listing_price_inr": 13600000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-03",
+     "listing_count": 20,
+     "price_valid_count": 19,
+     "median_price_per_sqft_inr": 9420.3,
+     "median_listing_price_inr": 18000000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-04",
+     "listing_count": 34,
+     "price_valid_count": 28,
+     "median_price_per_sqft_inr": 10000.0,
+     "median_listing_price_inr": 26750000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-05",
+     "listing_count": 72,
+     "price_valid_count": 69,
+     "median_price_per_sqft_inr": 9166.7,
+     "median_listing_price_inr": 16000000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-06",
+     "listing_count": 142,
+     "price_valid_count": 114,
+     "median_price_per_sqft_inr": 10032.4,
+     "median_listing_price_inr": 16700000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-07",
+     "listing_count": 566,
+     "price_valid_count": 520,
+     "median_price_per_sqft_inr": 9529.1,
+     "median_listing_price_inr": 15838000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-08",
+     "listing_count": 466,
+     "price_valid_count": 424,
+     "median_price_per_sqft_inr": 9835.2,
+     "median_listing_price_inr": 16900000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": true
+    }
+   ],
+   "yoy_median_psf_pct": 7.29,
+   "yoy_span_months": 4,
+   "n_listings_total": 1331,
+   "n_price_valid_total": 1201,
+   "coverage_score": 0.417,
+   "coverage_verdict": "LIMITED",
+   "review_status": "APPROVED",
+   "n_rejected_outliers": 45,
+   "locality_rankings": [
+    "Nanakramguda",
+    "Kothaguda",
+    "Diamond Hills",
+    "Gachibowli",
+    "Shilpa Hills"
+   ],
+   "relaxations": [
+    "radius 3.0km -> 6.0km"
+   ],
+   "narrative": "Hyderabad asking-price trend, 2022-09 to 2023-08. 1,331 listings matched the criteria, 1,201 of them with a usable price and area. Coverage: 4 of 12 months ADEQUATE, 8 LIMITED, 0 with no data in the snapshot. Median asking price per sqft has risen 7.3% across the 4 months with at least 50 usable listings (the window spans 12). 2023-08 is a partial month: the snapshot ends on 26 Aug 2023, so it is reported as observed, not extrapolated. Most expensive locality by median: Nanakramguda (10,800 per sqft, n=63). The original query was too narrow to answer and was relaxed: radius 3.0km -> 6.0km. Targeted recomputation rejected 45 suspect listings in 9 flagged months.",
+   "trace": [
+    {
+     "step": 1,
+     "agent": "CriteriaAgent",
+     "detail": "planned: query mode RADIUS",
+     "cycle": null
+    },
+    {
+     "step": 7,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 0: 405 listings",
+     "cycle": null
+    },
+    {
+     "step": 8,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.25 (3 of 7 attainable months) → RETRY: radius 3.0km -> 6.0km",
+     "cycle": 1
+    },
+    {
+     "step": 14,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 1: 1331 listings",
+     "cycle": null
+    },
+    {
+     "step": 15,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.42 (5 of 7 attainable months) → LIMITED",
+     "cycle": null
+    },
+    {
+     "step": 16,
+     "agent": "AnalysisAgent",
+     "detail": "full: move 7.83%",
+     "cycle": null
+    },
+    {
+     "step": 17,
+     "agent": "CritiqueAgent",
+     "detail": "9 months flagged → REJECTED",
+     "cycle": 2
+    },
+    {
+     "step": 18,
+     "agent": "AnalysisAgent",
+     "detail": "targeted recomputation: move 7.29%, 45 outliers rejected",
+     "cycle": null
+    },
+    {
+     "step": 19,
+     "agent": "CritiqueAgent",
+     "detail": "4 months flagged → APPROVED",
+     "cycle": null
+    },
+    {
+     "step": 20,
+     "agent": "AggregatorAgent",
+     "detail": "report assembled",
+     "cycle": null
+    }
+   ],
+   "before_critique": {
+    "monthly_median_price_per_sqft_inr": [
+     4166.7,
+     11111.1,
+     9000.0,
+     10239.2,
+     8783.5,
+     8365.0,
+     9710.1,
+     10000.0,
+     9221.2,
+     10001.2,
+     9555.6,
+     9943.3
+    ],
+    "monthly_price_valid_count": [
+     11,
+     4,
+     1,
+     6,
+     4,
+     5,
+     20,
+     33,
+     71,
+     124,
+     531,
+     436
+    ],
+    "yoy_median_psf_pct": 7.83,
+    "yoy_span_months": 4
+   }
+  },
+  {
+   "id": "secunderabad-all",
+   "label": "All BHK · Secunderabad",
+   "criteria": {
+    "window_end": "2023-08",
+    "cities": [
+     "Secunderabad"
+    ],
+    "currency_unit": "INR",
+    "area_unit": "SQFT",
+    "label": ""
+   },
+   "window_months": [
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "monthly": [
+    {
+     "month": "2022-09",
+     "listing_count": 2,
+     "price_valid_count": 2,
+     "median_price_per_sqft_inr": 4957.9,
+     "median_listing_price_inr": 7150000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-10",
+     "listing_count": 0,
+     "price_valid_count": 0,
+     "median_price_per_sqft_inr": null,
+     "median_listing_price_inr": null,
+     "coverage_status": "NO_DATA_IN_SNAPSHOT",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-11",
+     "listing_count": 5,
+     "price_valid_count": 5,
+     "median_price_per_sqft_inr": 8064.5,
+     "median_listing_price_inr": 12500000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-12",
+     "listing_count": 4,
+     "price_valid_count": 3,
+     "median_price_per_sqft_inr": 4113.7,
+     "median_listing_price_inr": 5500000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-01",
+     "listing_count": 6,
+     "price_valid_count": 5,
+     "median_price_per_sqft_inr": 5280.9,
+     "median_listing_price_inr": 12500000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-02",
+     "listing_count": 4,
+     "price_valid_count": 3,
+     "median_price_per_sqft_inr": 6200.0,
+     "median_listing_price_inr": 17409600.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-03",
+     "listing_count": 5,
+     "price_valid_count": 5,
+     "median_price_per_sqft_inr": 6048.4,
+     "median_listing_price_inr": 7500000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-04",
+     "listing_count": 16,
+     "price_valid_count": 11,
+     "median_price_per_sqft_inr": 6500.0,
+     "median_listing_price_inr": 9000000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-05",
+     "listing_count": 22,
+     "price_valid_count": 20,
+     "median_price_per_sqft_inr": 6194.6,
+     "median_listing_price_inr": 12250000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-06",
+     "listing_count": 62,
+     "price_valid_count": 48,
+     "median_price_per_sqft_inr": 6086.5,
+     "median_listing_price_inr": 8815000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-07",
+     "listing_count": 149,
+     "price_valid_count": 121,
+     "median_price_per_sqft_inr": 5905.4,
+     "median_listing_price_inr": 8253000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-08",
+     "listing_count": 159,
+     "price_valid_count": 134,
+     "median_price_per_sqft_inr": 6110.5,
+     "median_listing_price_inr": 10673096.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": true
+    }
+   ],
+   "yoy_median_psf_pct": 3.47,
+   "yoy_span_months": 2,
+   "n_listings_total": 434,
+   "n_price_valid_total": 357,
+   "coverage_score": 0.25,
+   "coverage_verdict": "LIMITED",
+   "review_status": "APPROVED",
+   "n_rejected_outliers": 34,
+   "locality_rankings": [
+    "Alwal",
+    "West Marredpally",
+    "Kowkur",
+    "Cherlapally",
+    "Rampally"
+   ],
+   "relaxations": [],
+   "narrative": "Hyderabad asking-price trend, 2022-09 to 2023-08. 434 listings matched the criteria, 357 of them with a usable price and area. Coverage: 3 of 12 months ADEQUATE, 8 LIMITED, 1 with no data in the snapshot. Median asking price per sqft has risen 3.5% across the 2 months with at least 50 usable listings (the window spans 12). 2023-08 is a partial month: the snapshot ends on 26 Aug 2023, so it is reported as observed, not extrapolated. Most expensive locality by median: Alwal (10,135 per sqft, n=13). Targeted recomputation rejected 34 suspect listings in 7 flagged months.",
+   "trace": [
+    {
+     "step": 1,
+     "agent": "CriteriaAgent",
+     "detail": "planned: query mode EXACT_LOCALITY",
+     "cycle": null
+    },
+    {
+     "step": 7,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 0: 434 listings",
+     "cycle": null
+    },
+    {
+     "step": 8,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.25 (3 of 7 attainable months) → LIMITED",
+     "cycle": null
+    },
+    {
+     "step": 9,
+     "agent": "AnalysisAgent",
+     "detail": "full: move -4.76%",
+     "cycle": null
+    },
+    {
+     "step": 10,
+     "agent": "CritiqueAgent",
+     "detail": "7 months flagged → REJECTED",
+     "cycle": 2
+    },
+    {
+     "step": 11,
+     "agent": "AnalysisAgent",
+     "detail": "targeted recomputation: move 3.47%, 34 outliers rejected",
+     "cycle": null
+    },
+    {
+     "step": 12,
+     "agent": "CritiqueAgent",
+     "detail": "6 months flagged → APPROVED",
+     "cycle": null
+    },
+    {
+     "step": 13,
+     "agent": "AggregatorAgent",
+     "detail": "report assembled",
+     "cycle": null
+    }
+   ],
+   "before_critique": {
+    "monthly_median_price_per_sqft_inr": [
+     4957.9,
+     null,
+     8064.5,
+     4121.4,
+     5540.5,
+     6200.0,
+     6048.4,
+     6555.6,
+     6231.4,
+     6557.4,
+     5999.0,
+     6245.4
+    ],
+    "monthly_price_valid_count": [
+     2,
+     0,
+     5,
+     4,
+     6,
+     3,
+     5,
+     13,
+     22,
+     53,
+     134,
+     144
+    ],
+    "yoy_median_psf_pct": -4.76,
+    "yoy_span_months": 3
+   }
+  },
+  {
+   "id": "metro-all",
+   "label": "All BHK · whole Hyderabad metro",
+   "criteria": {
+    "window_end": "2023-08",
+    "currency_unit": "INR",
+    "area_unit": "SQFT",
+    "label": ""
+   },
+   "window_months": [
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08"
+   ],
+   "monthly": [
+    {
+     "month": "2022-09",
+     "listing_count": 25,
+     "price_valid_count": 24,
+     "median_price_per_sqft_inr": 4104.2,
+     "median_listing_price_inr": 5787500.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-10",
+     "listing_count": 35,
+     "price_valid_count": 34,
+     "median_price_per_sqft_inr": 6369.1,
+     "median_listing_price_inr": 8450000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-11",
+     "listing_count": 27,
+     "price_valid_count": 23,
+     "median_price_per_sqft_inr": 3769.8,
+     "median_listing_price_inr": 4992500.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2022-12",
+     "listing_count": 30,
+     "price_valid_count": 26,
+     "median_price_per_sqft_inr": 4505.0,
+     "median_listing_price_inr": 5300933.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-01",
+     "listing_count": 22,
+     "price_valid_count": 21,
+     "median_price_per_sqft_inr": 8567.0,
+     "median_listing_price_inr": 14500000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-02",
+     "listing_count": 25,
+     "price_valid_count": 21,
+     "median_price_per_sqft_inr": 6307.7,
+     "median_listing_price_inr": 11000000.0,
+     "coverage_status": "LIMITED",
+     "month_is_sufficient": false,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-03",
+     "listing_count": 70,
+     "price_valid_count": 58,
+     "median_price_per_sqft_inr": 8333.3,
+     "median_listing_price_inr": 14877250.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-04",
+     "listing_count": 176,
+     "price_valid_count": 153,
+     "median_price_per_sqft_inr": 7000.0,
+     "median_listing_price_inr": 12500000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-05",
+     "listing_count": 330,
+     "price_valid_count": 302,
+     "median_price_per_sqft_inr": 7260.7,
+     "median_listing_price_inr": 12470000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-06",
+     "listing_count": 617,
+     "price_valid_count": 530,
+     "median_price_per_sqft_inr": 7918.5,
+     "median_listing_price_inr": 13500000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-07",
+     "listing_count": 1834,
+     "price_valid_count": 1666,
+     "median_price_per_sqft_inr": 7263.9,
+     "median_listing_price_inr": 13000000.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": false
+    },
+    {
+     "month": "2023-08",
+     "listing_count": 1743,
+     "price_valid_count": 1543,
+     "median_price_per_sqft_inr": 7688.2,
+     "median_listing_price_inr": 13647500.0,
+     "coverage_status": "ADEQUATE",
+     "month_is_sufficient": true,
+     "is_partial_month": true
+    }
+   ],
+   "yoy_median_psf_pct": -7.74,
+   "yoy_span_months": 6,
+   "n_listings_total": 4934,
+   "n_price_valid_total": 4401,
+   "coverage_score": 0.583,
+   "coverage_verdict": "ACCEPT",
+   "review_status": "APPROVED",
+   "n_rejected_outliers": 132,
+   "locality_rankings": [
+    "Kismathpur",
+    "Gandipet",
+    "Jubilee Hills",
+    "Film Nagar",
+    "Raidurgam"
+   ],
+   "relaxations": [],
+   "narrative": "Hyderabad asking-price trend, 2022-09 to 2023-08. 4,934 listings matched the criteria, 4,401 of them with a usable price and area. Coverage: 7 of 12 months ADEQUATE, 5 LIMITED, 0 with no data in the snapshot. Median asking price per sqft has fallen 7.7% across the 6 months with at least 50 usable listings (the window spans 12). 2023-08 is a partial month: the snapshot ends on 26 Aug 2023, so it is reported as observed, not extrapolated. Most expensive locality by median: Kismathpur (15,502 per sqft, n=8). Targeted recomputation rejected 132 suspect listings in 12 flagged months.",
+   "trace": [
+    {
+     "step": 1,
+     "agent": "CriteriaAgent",
+     "detail": "planned: query mode EXACT_LOCALITY",
+     "cycle": null
+    },
+    {
+     "step": 7,
+     "agent": "RetrievalMerge",
+     "detail": "4 agents, round 0: 4934 listings",
+     "cycle": null
+    },
+    {
+     "step": 8,
+     "agent": "CoverageAgent",
+     "detail": "coverage 0.58 (7 of 7 attainable months) → ACCEPT",
+     "cycle": null
+    },
+    {
+     "step": 9,
+     "agent": "AnalysisAgent",
+     "detail": "full: move -6.41%",
+     "cycle": null
+    },
+    {
+     "step": 10,
+     "agent": "CritiqueAgent",
+     "detail": "12 months flagged → REJECTED",
+     "cycle": 2
+    },
+    {
+     "step": 11,
+     "agent": "AnalysisAgent",
+     "detail": "targeted recomputation: move -7.74%, 132 outliers rejected",
+     "cycle": null
+    },
+    {
+     "step": 12,
+     "agent": "CritiqueAgent",
+     "detail": "8 months flagged → APPROVED",
+     "cycle": null
+    },
+    {
+     "step": 13,
+     "agent": "AggregatorAgent",
+     "detail": "report assembled",
+     "cycle": null
+    }
+   ],
+   "before_critique": {
+    "monthly_median_price_per_sqft_inr": [
+     4166.7,
+     6590.0,
+     4575.2,
+     4505.5,
+     8783.5,
+     7185.6,
+     8333.3,
+     7200.0,
+     7508.7,
+     7999.5,
+     7400.0,
+     7799.0
+    ],
+    "monthly_price_valid_count": [
+     25,
+     35,
+     27,
+     29,
+     22,
+     23,
+     61,
+     159,
+     309,
+     544,
+     1711,
+     1588
+    ],
+    "yoy_median_psf_pct": -6.41,
+    "yoy_span_months": 6
+   }
+  }
+ ]
+}

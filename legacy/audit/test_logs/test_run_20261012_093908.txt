@@ -1,0 +1,44 @@
+﻿Project: C:\Users\parid\Desktop\assignment_tse
+Timestamp: 2026-10-12 09:39:08
+Python: Python 3.12.2
+Test framework: pytest
+
+=== PYTEST_FULL_SUITE ===
+............................................................ [ 77%]
+.................                                                        [100%]
+77 passed, 12 subtests passed in 11.65s
+PYTEST_FULL_SUITE_EXIT_CODE=0
+
+=== RETRIEVAL_EXAMPLES ===
+
+=== exact_locality_filter ===
+{'status': 'ok', 'query_mode': 'EXACT_LOCALITY', 'source_sha256': '9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a', 'raw_row_count': 9487, 'selected_row_count': 24, 'invalid_registration_date_rows': 0, 'malformed_location_rows': 0, 'invalid_coordinate_rows': 0, 'source_period_start': '2022-09', 'source_period_end': '2023-08', 'center_coordinates': None}
+PROP_IDs: ['Q69255364', 'J70257340', 'V70657016', 'Z60331450', 'T65066010', 'L69228804', 'E69995518', 'M70698488', 'X70270432', 'S70312078', 'S70310604', 'L70308592', 'Q70297544', 'C70802468', 'F70780388', 'S70772186', 'I70910350', 'P70832368', 'E70803372', 'I70371884', 'F70100324', 'U70323056', 'O70865844', 'D70085386']
+
+=== exact_locality_id ===
+{'status': 'ok', 'query_mode': 'EXACT_LOCALITY', 'source_sha256': '9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a', 'raw_row_count': 9487, 'selected_row_count': 38, 'invalid_registration_date_rows': 0, 'malformed_location_rows': 0, 'invalid_coordinate_rows': 0, 'source_period_start': '2022-09', 'source_period_end': '2023-08', 'center_coordinates': None}
+PROP_IDs: ['A68489968', 'T68489972', 'Z68232860', 'Y68232854', 'D68855022', 'B68855020', 'T70704020', 'U69981340', 'O70955214', 'Y70013838', 'Z69140466', 'U70375294', 'V70572338', 'T69643692', 'I70940500', 'V70680408', 'L70519896', 'R69287804', 'W71023490', 'Z70985602', 'B70172898', 'H68769676', 'L68769756', 'X70501980', 'Y70697196', 'N70402914', 'L70402960', 'H70402846', 'O70401616', 'B69287968', 'R70401480', 'R70856954', 'L70985482', 'X70727930', 'O70312188', 'I70996428', 'Q70959652', 'F70908248']
+
+=== geo_radius_filter ===
+{'status': 'ok', 'query_mode': 'GEO_RADIUS', 'source_sha256': '9e81698322606c86b4a23e41ace5deecff5e5ed94dc768e9e5e371a2bc48898a', 'raw_row_count': 9487, 'selected_row_count': 112, 'invalid_registration_date_rows': 0, 'malformed_location_rows': 0, 'invalid_coordinate_rows': 0, 'source_period_start': '2022-09', 'source_period_end': '2023-08', 'center_coordinates': {'latitude': 17.4609913, 'longitude': 78.3532083}}
+PROP_IDs: ['Q70722304', 'D70720680', 'X69662134', 'B70020520', 'N68773698', 'L70305484', 'Q69124836', 'X70514064', 'V70327850', 'R69446568', 'C70928140', 'G70874024', 'G70394738', 'I70394616', 'J70443128', 'C70502188', 'O70029086', 'B70255490', 'Y70368436', 'J70233542', 'L69911682', 'Z70313168', 'R69965256', 'D70912648', 'I70255332', 'R70289926', 'N70289330', 'H70105638', 'Z70032102', 'D70361662', 'Q69638494', 'K70964142', 'I70655584', 'Y70794434', 'G70655236', 'C70116466', 'I70106064', 'P70986374', 'M70877974', 'S69960518', 'Q70876568', 'S70876282', 'O70725044', 'S70528292', 'A70525444', 'A70299710', 'P70299548', 'B70119130', 'X70931782', 'Y70686778', 'X70002980', 'P70388382', 'J70197714', 'D68254728', 'F68254740', 'B70119778', 'X70879462', 'O70666594', 'S70067274', 'Q70900406', 'X70899612', 'G70957608', 'Z70832936', 'Q70833012', 'W69391178', 'J68264404', 'M66663120', 'R68878718', 'S70085372', 'M70576466', 'U69146732', 'I71027132', 'F70625094', 'J70182014', 'V70181848', 'X69780142', 'P69064430', 'P70138912', 'H69965164', 'R70804106', 'Z70196628', 'N70085216', 'J70385318', 'I70935160', 'S70929666', 'I70929534', 'C70899978', 'R70824574', 'Z70832124', 'U70831926', 'E70778280', 'D70768204', 'P70767996', 'M70702788', 'A70682664', 'T70400836', 'N70287562', 'H70157658', 'R70157726', 'M70929608', 'M70625658', 'V70890174', 'B70682398', 'E70175226', 'N70881308', 'I70750936', 'K70514122', 'I70441820', 'G70270636', 'K70078254', 'K70069176', 'C70962236']
+RETRIEVAL_EXAMPLES_EXIT_CODE=0
+
+=== RUNTIME_BUILD ===
+Runtime state built successfully through execution graph.
+Raw rows: 9,487; columns: 55
+Valid posting dates: 9,245
+In-window observed rows: 9,162
+In-window sale rows: 7,633
+Valid coherent sale-price ranges: 7,555
+Covered months: 12/12
+Coverage score: 1.000000
+Overall status: ok
+Graph trace events: 7
+Coverage retries: 0
+Critique revisions: 0
+Anomaly flags: 17; diagnostics: 17
+Report: audit\runtime_state.json
+RUNTIME_BUILD_EXIT_CODE=0
+
+FINAL_STATUS=PASS
