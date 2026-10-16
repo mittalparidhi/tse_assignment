@@ -1,0 +1,244 @@
+check run 20261016_170101
+commit 59c7c6d (uncommitted changes)
+python 3.12.2
+
+==============================================================================
+pytest: PASS (exit 0, 41.4s)
+$ python.exe -m pytest -p no:cacheprovider -q
+==============================================================================
+........................................................................ [ 45%]
+........................................................................ [ 91%]
+.............                                                            [100%]
+
+==============================================================================
+verify_claims: PASS (exit 0, 2.4s)
+$ python.exe scripts/verify_claims.py
+==============================================================================
+claim                                            derived            documented
+------------------------------------------------------------------------------
+snapshot sha256 prefix                  9e81698322606c86      9e81698322606c86  
+raw rows                                            9487                  9487  
+raw columns                                           55                    55  
+canonical listings                                  4975                  4975  
+price-valid listings                                4574                  4574  
+int32 sentinel value                          2147483647            2147483647  
+PREFERENCE S/R/P                        (7927, 1467, 93)      (7927, 1467, 93)  
+missing BEDROOM_NUM                                 2814                  2814  
+of which Residential Land                           2806                  2806  
+relations                                             12                    12  
+families 5/5/2                                 (5, 5, 2)             (5, 5, 2)  
+locality base inputs                                  36                    36  
+seeds                                       [11, 23, 47]          [11, 23, 47]  
+sufficiency threshold                                 50                    50  
+runs per LLM sweep (pre-v2)                         1188                  1188  
+determinism probe trials                              20                    20  
+determinism distinct outputs                           1                     1  
+LLM calls (post-fix)                               14209                 14209  
+LLM fallback rate (post-fix)                      0.0874                0.0874  
+model name hash (committed LLM sweep)      d7f5d340f8953384      d7f5d340f8953384  
+coordinate coverage %                               94.7                  94.7  
+median age on site (days)                             36                    36  
+final six months share %                            96.4                  96.4  
+I4 deterministic                                     0.0                   0.0  
+I4 LLM pre-fix                                      0.63                  0.63  
+I4 LLM post-fix                                      0.0                   0.0  
+I3 deterministic                                     0.0                   0.0  
+I3 LLM pre-fix                                     0.417                 0.417  
+I3 LLM post-fix                                    0.176                 0.176  
+I2 deterministic                                     0.0                   0.0  
+I2 LLM pre-fix                                     0.028                 0.028  
+I2 LLM post-fix                                      0.0                   0.0  
+D2 deterministic                                     0.0                   0.0  
+D2 LLM pre-fix                                     0.556                 0.556  
+D2 LLM post-fix                                    0.593                 0.593  
+D1 deterministic                                     0.0                   0.0  
+D1 LLM pre-fix                                     0.222                 0.222  
+D1 LLM post-fix                                    0.667                 0.667  
+M1 deterministic                                   0.139                 0.139  
+M1 LLM pre-fix                                     0.222                 0.222  
+M1 LLM post-fix                                    0.333                 0.333  
+M1raw deterministic                                0.861                 0.861  
+M1raw LLM pre-fix                                  0.852                 0.852  
+M1raw LLM post-fix                                 0.806                 0.806  
+I3 prompt/violation evidence retained                  True                  True  
+I3 cells compared                                    108                   108  
+I3 identical-prompt cells                             51                    51  
+I3 violations when prompt identical                     0                     0  
+I3 differing-prompt cells                             57                    57  
+I3 violations when prompt differs                     19                    19  
+I3 base inputs violating                              11                    11  
+I3 base inputs failing on all 3 seeds['base22', 'base23', 'base30', 'base31']['base22', 'base23', 'base30', 'base31']  
+I3 base inputs failing on 1 of 3 seeds['base11', 'base17', 'base24', 'base27', 'base32', 'base33', 'base35']['base11', 'base17', 'base24', 'base27', 'base32', 'base33', 'base35']  
+headline at n>=50 %                                -6.41                 -6.41  
+sensitivity spread (pp)                             93.6                  93.6  
+sensitivity sign flips                              True                  True  
+headline at n>=75 %                                 7.08                  7.08  
+RESIDEX evidence retained                           True                  True  
+RESIDEX PDF retained                                True                  True  
+RESIDEX Hyderabad figure quoted                     True                  True  
+
+------------------------------------------------------------------------------
+all derivable claims match the documents
+
+Provenance: origin and licence were VERIFIED against the Kaggle
+dataset page (arvanshul/gurgaon-real-estate-99acres-com, titled
+'Indian Real Estate - 99acres.com', covering Gurgaon/Hyderabad/
+Mumbai/Kolkata, CDLA-Sharing-1.0). The slug is misleading; the
+dataset the brief recommends covers Gurgaon only. Not re-checked
+here because it needs network access -- see data/raw/Readme.md.
+
+Figures quoted in source files:
+  app.py                final six months share      '96.4' 'ok'
+  src/mr/relations.py   relation count in words     'Twelve' 'ok'
+  README.md             final six months share      '96.4' 'ok'
+  README.md             relation count in the repro command'12' 'ok'
+  README.md             runs per sweep              '2,592' 'ok'
+
+Stale agent/cycle names in documents:
+  DESIGN.md             0
+  REPORT.md             0
+  README.md             0
+  NOTEBOOK.md           0
+  AI_USE.md             0
+  docs/DIAGNOSIS.md     0
+  app.py                0
+
+==============================================================================
+table_v2_deterministic: PASS (exit 0, 1.6s)
+$ python.exe scripts/headline_table.py --v2 --check
+==============================================================================
+Contract v2 sweep -- rebuilt from results/v2_deterministic/mr_runs.csv
+
+Unit = base input (violated if any seed violates)  | Relaxation-stable subdomain
+MR    family       bases viol   rate            95% CI disagr  |  bases viol   rate            95% CI
+----------------------------------------------------------------------------------------------------------
+I1    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I2    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I3    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I4    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I5    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+M1    monotonic       72   14  0.194     [0.120,0.300]      0  |     72   14  0.194     [0.120,0.300]
+M2    monotonic       72    0  0.000     [0.000,0.051]      0  |     69    0  0.000     [0.000,0.053]
+M3    monotonic       36    0  0.000     [0.000,0.096]      0  |     28    0  0.000     [0.000,0.121]
+M4    monotonic       36    0  0.000     [0.000,0.096]      0  |     34    0  0.000     [0.000,0.102]
+M1raw monotonic       71   51  0.718     [0.605,0.810]      0  |     71   51  0.718     [0.605,0.810]
+D1    directional     72    0  0.000     [0.000,0.051]      0  |     71    0  0.000     [0.000,0.051]
+D2    directional     72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+----------------------------------------------------------------------------------------------------------
+seeds: [11, 23, 47]   total runs: 2592   runs where the C1 relaxation path diverged: 42   disagr = base inputs whose seeds disagreed
+snapshot 9e81698322606c86...  canonical rows 4975  base inputs 72
+
+every v2 rate and interval bound appears in REPORT.md
+
+==============================================================================
+table_v2_llm: PASS (exit 0, 1.9s)
+$ python.exe scripts/headline_table.py --v2 --tag v2_llm --check
+==============================================================================
+Contract v2 sweep -- rebuilt from results/v2_llm/mr_runs.csv
+
+Unit = base input (violated if any seed violates)  | Relaxation-stable subdomain
+MR    family       bases viol   rate            95% CI disagr  |  bases viol   rate            95% CI
+----------------------------------------------------------------------------------------------------------
+I1    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I2    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I3    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I4    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+I5    invariance      72    0  0.000     [0.000,0.051]      0  |     72    0  0.000     [0.000,0.051]
+M1    monotonic       72   27  0.375     [0.272,0.490]      5  |     72   27  0.375     [0.272,0.490]
+M2    monotonic       72    0  0.000     [0.000,0.051]      0  |     69    0  0.000     [0.000,0.053]
+M3    monotonic       36    0  0.000     [0.000,0.096]      0  |     28    0  0.000     [0.000,0.121]
+M4    monotonic       36    0  0.000     [0.000,0.096]      0  |     34    0  0.000     [0.000,0.102]
+M1raw monotonic       71   53  0.746     [0.634,0.833]      1  |     71   53  0.746     [0.634,0.833]
+D1    directional     72    5  0.069     [0.030,0.152]      0  |     71    5  0.070     [0.030,0.154]
+D2    directional     72   19  0.264     [0.176,0.376]      2  |     71   19  0.268     [0.179,0.381]
+----------------------------------------------------------------------------------------------------------
+seeds: [11, 23, 47]   total runs: 2592   runs where the C1 relaxation path diverged: 43   disagr = base inputs whose seeds disagreed
+snapshot 9e81698322606c86...  canonical rows 4975  base inputs 72
+
+every v2 rate and interval bound appears in REPORT.md
+
+==============================================================================
+table_pre_v2: PASS (exit 0, 1.9s)
+$ python.exe scripts/headline_table.py --check
+==============================================================================
+Headline results — rebuilt from the committed per-run records
+
+MR     family         determ.  pre-fix  post-fix    95% CI (post-fix)
+---------------------------------------------------------------------
+I1     invariance       0.000    0.000     0.000       [0.000, 0.034]
+I2     invariance       0.000    0.028     0.000       [0.000, 0.034]
+I3     invariance       0.000    0.417     0.176       [0.116, 0.258]
+I4     invariance       0.000    0.630     0.000       [0.000, 0.034]
+I5     invariance       0.000    0.000     0.000       [0.000, 0.034]
+M1     monotonic        0.139    0.222     0.333       [0.252, 0.427]
+M2     monotonic        0.000    0.111     0.111       [0.065, 0.184]
+M3     monotonic        0.000    0.000     0.000       [0.000, 0.034]
+M1raw  monotonic        0.861    0.852     0.806       [0.721, 0.869]
+D1     directional      0.000    0.222     0.667       [0.573, 0.748]
+D2     directional      0.000    0.556     0.593       [0.498, 0.681]
+---------------------------------------------------------------------
+11 relations x 36 base inputs x 3 seeds [11, 23, 47] = 1188 checks per sweep
+snapshot 9e81698322606c86...  model qwen2.5:3b-instruct-q4_K_M (d7f5d340f8953384)
+LLM fallback rate 0.0874  determinism probe 100% identical
+
+every rebuilt rate appears in docs/DIAGNOSIS.md
+
+==============================================================================
+replay_llm_sweep: PASS (exit 0, 1411.4s)
+$ python.exe scripts/replay_llm_sweep.py
+==============================================================================
+  50/2592 runs  [llm calls=282 cache=332 fallback=0.085]
+  100/2592 runs  [llm calls=684 cache=748 fallback=0.044]
+  150/2592 runs  [llm calls=978 cache=1046 fallback=0.035]
+  200/2592 runs  [llm calls=1338 cache=1442 fallback=0.039]
+  250/2592 runs  [llm calls=1674 cache=1816 fallback=0.042]
+  300/2592 runs  [llm calls=2040 cache=2210 fallback=0.040]
+  350/2592 runs  [llm calls=2362 cache=2534 fallback=0.036]
+  400/2592 runs  [llm calls=2680 cache=2866 fallback=0.034]
+  450/2592 runs  [llm calls=3066 cache=3290 fallback=0.036]
+  500/2592 runs  [llm calls=3373 cache=3647 fallback=0.040]
+  550/2592 runs  [llm calls=3793 cache=4071 fallback=0.036]
+  600/2592 runs  [llm calls=4059 cache=4339 fallback=0.034]
+  650/2592 runs  [llm calls=4511 cache=4829 fallback=0.034]
+  700/2592 runs  [llm calls=4795 cache=5163 fallback=0.037]
+  750/2592 runs  [llm calls=5211 cache=5593 fallback=0.036]
+  800/2592 runs  [llm calls=5493 cache=5879 fallback=0.034]
+  850/2592 runs  [llm calls=5863 cache=6285 fallback=0.035]
+  900/2592 runs  [llm calls=6189 cache=6649 fallback=0.036]
+  950/2592 runs  [llm calls=6551 cache=7039 fallback=0.036]
+  1000/2592 runs  [llm calls=6881 cache=7371 fallback=0.035]
+  1050/2592 runs  [llm calls=7203 cache=7707 fallback=0.034]
+  1100/2592 runs  [llm calls=7629 cache=8160 fallback=0.034]
+  1150/2592 runs  [llm calls=8085 cache=8640 fallback=0.034]
+  1200/2592 runs  [llm calls=8625 cache=9241 fallback=0.036]
+  1250/2592 runs  [llm calls=9071 cache=9760 fallback=0.038]
+  1300/2592 runs  [llm calls=9631 cache=10337 fallback=0.037]
+  1350/2592 runs  [llm calls=9930 cache=10672 fallback=0.037]
+  1400/2592 runs  [llm calls=10381 cache=11133 fallback=0.036]
+  1450/2592 runs  [llm calls=10684 cache=11451 fallback=0.036]
+  1500/2592 runs  [llm calls=11097 cache=11897 fallback=0.036]
+  1550/2592 runs  [llm calls=11397 cache=12240 fallback=0.037]
+  1600/2592 runs  [llm calls=11733 cache=12624 fallback=0.038]
+  1650/2592 runs  [llm calls=11907 cache=12805 fallback=0.038]
+  1700/2592 runs  [llm calls=11907 cache=12805 fallback=0.038]
+  1750/2592 runs  [llm calls=11907 cache=12805 fallback=0.038]
+  1800/2592 runs  [llm calls=11907 cache=12805 fallback=0.038]
+  1850/2592 runs  [llm calls=11956 cache=12854 fallback=0.038]
+  1900/2592 runs  [llm calls=12214 cache=13119 fallback=0.037]
+  1950/2592 runs  [llm calls=12596 cache=13536 fallback=0.037]
+  2000/2592 runs  [llm calls=12860 cache=13838 fallback=0.038]
+  2050/2592 runs  [llm calls=13299 cache=14293 fallback=0.038]
+  2100/2592 runs  [llm calls=13564 cache=14564 fallback=0.037]
+  2150/2592 runs  [llm calls=13943 cache=14979 fallback=0.037]
+  2200/2592 runs  [llm calls=14271 cache=15352 fallback=0.038]
+  2250/2592 runs  [llm calls=14697 cache=15811 fallback=0.038]
+  2300/2592 runs  [llm calls=15047 cache=16173 fallback=0.038]
+  2350/2592 runs  [llm calls=15414 cache=16572 fallback=0.038]
+  2400/2592 runs  [llm calls=15795 cache=16977 fallback=0.038]
+  2450/2592 runs  [llm calls=16127 cache=17360 fallback=0.039]
+  2500/2592 runs  [llm calls=16502 cache=17744 fallback=0.038]
+  2550/2592 runs  [llm calls=16780 cache=18046 fallback=0.038]
+replayed 2592 runs from the cache (18466 replies, 0 model calls); records differing from results/v2_llm: 0
+
+==============================================================================
+OVERALL PASS
