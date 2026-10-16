@@ -2,10 +2,18 @@
 
 A six-agent system that reads a frozen snapshot of Hyderabad residential
 listings and reports how asking prices moved over twelve months — tested with
-**ten metamorphic relations** rather than against known-correct answers.
+**twelve metamorphic relations** rather than against known-correct answers.
 
 TSE assignment. Target market: Hyderabad / Secunderabad (the brief's optional
 Indian-metro route).
+
+**Authors.** Paridhi Mittal and Vidhi Jain. Paridhi froze and audited the
+dataset, wrote the design note, the contracts and a first implementation
+(now in `legacy/`), then integrated, fixed and extended the system and ran the
+final sweeps. Vidhi built the second implementation on that foundation (the
+LangGraph agent graph, the relations and harness, the local-model mode and the
+first diagnosis; commits `736d594`, `957224c`). Her commits were made under a
+placeholder git identity; `.mailmap` maps it to her name.
 
 ---
 
