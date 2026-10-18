@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: city filter, locality IDs, price-band
-# overlap, price-valid medians, adequate_n. Lines by git blame: Vidhi Jain
-# 82%, Paridhi Mittal 18%. Full attribution: CREDITS.md.
 """Canonical listings -> TrendReport.
 
 This module is the deterministic core: given a frame and a criteria set it

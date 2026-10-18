@@ -1,9 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: geography widening that keeps the
-# locality and preserves set inclusion (M3); ACCEPT/RETRY/LIMITED coverage;
-# critique coherence checks and NEEDS_REVIEW; the I3 review-batch fix;
-# per-pass rejection counts. Lines by git blame: Vidhi Jain 78%, Paridhi
-# Mittal 22%. Full attribution: CREDITS.md.
 """The six agents of the design note.
 
 Mapping to the brief's three control-flow requirements:

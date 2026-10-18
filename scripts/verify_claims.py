@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: re-derives every figure for the v2
-# population and twelve relations. Lines by git blame: Vidhi Jain 87%, Paridhi
-# Mittal 13%. Full attribution: CREDITS.md.
 """Check the numeric claims in the documents against code and result files.
 
 Written because two factual errors slipped through earlier: the data README

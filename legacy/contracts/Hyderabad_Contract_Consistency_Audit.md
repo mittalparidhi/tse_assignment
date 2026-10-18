@@ -1,7 +1,5 @@
 # Hyderabad Housing-Trends Contract Suite — Consistency Audit
 
-> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
-
 **Audit target:** Hyderabad contract suite draft v9 preparation  
 **Reference:** the user-provided `c.zip` containing 12 contract files under `c/`  
 **Data:** the frozen `hyderabad.csv` snapshot  

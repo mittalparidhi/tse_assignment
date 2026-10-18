@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: repaired; writes all canonical columns.
-# Lines by git blame: Vidhi Jain 93%, Paridhi Mittal 7%. Full attribution:
-# CREDITS.md.
 """Generate a synthetic Hyderabad-shaped snapshot with a KNOWN ground truth.
 
 Why this exists

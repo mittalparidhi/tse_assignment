@@ -1,4 +1,3 @@
-# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """Export real pipeline results for a web UI built outside this repository.
 
 Runs the deterministic agent pipeline on a fixed set of queries and writes

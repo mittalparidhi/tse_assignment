@@ -1,5 +1,3 @@
-# Credits: Vidhi Jain (second implementation, commits 736d594 and 957224c).
-# Full attribution: CREDITS.md.
 """Exercise the LLM path against a real local model.
 
 Phase A writes the LLM code but cannot prove a real model answers the prompts

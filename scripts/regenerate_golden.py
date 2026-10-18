@@ -1,4 +1,3 @@
-# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """Regenerate the golden vectors for a reviewed contract change.
 
     python scripts/regenerate_golden.py --reason "<why the numbers moved>"

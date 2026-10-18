@@ -1,5 +1,3 @@
-# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
-# attribution: CREDITS.md.
 """Reject filtered requests from the public contract-v1 CLI.
 
 Filtered execution is experimental and is not part of the contract-v1

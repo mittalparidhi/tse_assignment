@@ -1,7 +1,5 @@
 # Issue log — every problem found, how it was caught, how it was resolved
 
-> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
-
 One row per issue, grouped by where the problem was. The detail lives in the
 documents linked from each row; this file is the index.
 
@@ -28,9 +26,9 @@ commits, `736d594` and `957224c`, so earlier fixes cite the notebook stage).
 | D3 | sale, rent and PG listings mixed | `PREFERENCE` counts | NOTEBOOK Stage 1 | sale only |
 | D4 | `BEDROOM_NUM` missing on 29.7% | 2,806 of 2,814 are land | NOTEBOOK Stage 1 | dwellings only |
 | D5 | area-entry errors in the tail (27 sqft "villa") | audit; then cycle 2 had nothing to do | NOTEBOOK Stage 3 | **kept** for cycle 2 to catch; loader filters removed |
-| D6 | "Price on Request" placeholder prices | first implementation's audit | `legacy/`; `contracts/Data.md` | not price-valid (`701154f`) |
-| D7 | months derived in UTC move 18 listings | comparing both implementations | NOTEBOOK Stage 16 | months in `Asia/Kolkata` (`701154f`) |
-| D8 | one `PROP_ID` appears twice | merge audit | `contracts/Data.md` | `listing_id = PROP_ID#row` (`745ec7b`) |
+| D6 | "Price on Request" placeholder prices | first implementation's audit | `legacy/`; `contracts/Data.md` | not price-valid (`4d6d51f`) |
+| D7 | months derived in UTC move 18 listings | comparing both implementations | NOTEBOOK Stage 16 | months in `Asia/Kolkata` (`4d6d51f`) |
+| D8 | one `PROP_ID` appears twice | merge audit | `contracts/Data.md` | `listing_id = PROP_ID#row` (`02cc5ea`) |
 | D9 | the dataset slug says Gurgaon | reading the Kaggle page | `data/SOURCE.md`; AI_USE §3.11 | it is the multi-city archive; citation kept |
 
 ## 2. Agents (deterministic)
@@ -41,9 +39,9 @@ commits, `736d594` and `957224c`, so earlier fixes cite the notebook stage).
 | A2 | one relaxation lever starved the others: BHK won every round and the binding locality filter never widened | coverage stuck at 0.1667 for three rounds | NOTEBOOK Stage 5 | a lever cursor that advances each round (coverage then reached the target) |
 | A3 | outlier threshold computed per *(worker, month)* | **I3, I4 violated on 108/108 runs** | DIAGNOSIS Finding 1; `results/diagnosis/`, `results/v2_diagnosis/` | per-month threshold; result independent of 1, 2, 4, 8 agents |
 | A4 | MAD outlier filter not idempotent: a second round rejects more | **M2** 0.019 | DIAGNOSIS Finding 3 | recomputation capped at one round (a second was measured to cause violations) |
-| A5 | geography widening dropped the locality filter (whole metro) | M3 could not fail; widening fired in every run | NOTEBOOK Stage 17 | widening keeps a locality constraint (`36a2c19`) |
-| A6 | widening around the selection's centre broke set inclusion | **M3 9/36** | DIAGNOSIS Finding 10; `results/v2_before_m3fix/` | per-locality widening that provably preserves inclusion (`fdc7b88`); M3 0/36 |
-| A7 | retrieval merge returned both rows of the repeated `PROP_ID` | merge audit | `contracts/Retrieval.md` §3 | merge by unique `listing_id` (`745ec7b`) |
+| A5 | geography widening dropped the locality filter (whole metro) | M3 could not fail; widening fired in every run | NOTEBOOK Stage 17 | widening keeps a locality constraint (`c78a270`) |
+| A6 | widening around the selection's centre broke set inclusion | **M3 9/36** | DIAGNOSIS Finding 10; `results/v2_before_m3fix/` | per-locality widening that provably preserves inclusion (`8148658`); M3 0/36 |
+| A7 | retrieval merge returned both rows of the repeated `PROP_ID` | merge audit | `contracts/Retrieval.md` §3 | merge by unique `listing_id` (`02cc5ea`) |
 | A8 | the adaptive loop (cycle 1) breaks invariance when counts change | **synthetic control**: M3 85 → 331 listings | DIAGNOSIS Finding 6 | design tension; relations reported over the control-path-stable subdomain |
 
 ## 3. LLM agents (Qwen2.5-3B via Ollama)
@@ -56,11 +54,11 @@ commits, `736d594` and `957224c`, so earlier fixes cite the notebook stage).
 | L4 | review sorted on a subset of displayed fields | prompt-invariance test (I1 passed by luck) | DIAGNOSIS Finding 8; AI_USE §3.8 | total order over displayed fields |
 | L5 | listing counts in the critique prompt | I3 (duplication doubled counts) | DIAGNOSIS Finding 9 | counts withheld; **trade-off**: D1 and M1 got worse |
 | L6 | narrative guard's leak markers broadened to phrases the model could legitimately write (~100% rejection in a 22-call smoke test) | comparing accounting between runs | AI_USE §3.10 | markers narrowed; full-run rejection 35% (pre-v2) |
-| L7 | narrative: model copied the facts block when there was no price change (49/72) | fallback rate ≈ 0.2 → per-agent breakdown | `audit/llm_logs/fallback_breakdown_405a3dc_before_narrative_fix.txt`; NOTEBOOK Stage 21 | no model summary without a change (`07979f5`; a no-trend prompt, `3b3006d`, failed first) |
-| L8 | narrative guard rejected the radius figures it supplied (9/72) | same breakdown | same file | scope figures count as supplied (`3b3006d`) |
-| L9 | review batch cut to 12 rows **before** removing duplicates | **I3 8/72** in the v2 LLM sweep | `results/v2_llm_before_reviewfix/`; DIAGNOSIS Finding 11 | de-duplicate, then cut (`98c741e`); re-run on Kaggle: I3 0/72; closes L3's residual |
-| L10 | "model digest" was a hash of the model name | reproducing the record | AI_USE §5.6 | weights digest from Ollama recorded (`4d25530`): `357c53fb…` |
-| L11 | a dead model server made every call fall back silently | a Kaggle run with no model calls for an hour | AI_USE §6.2 | one real call before starting; stop after 10 errors in a row; replies saved every 50 (`405a3dc`) |
+| L7 | narrative: model copied the facts block when there was no price change (49/72) | fallback rate ≈ 0.2 → per-agent breakdown | `audit/llm_logs/fallback_breakdown_c8e6e85_before_narrative_fix.txt`; NOTEBOOK Stage 21 | no model summary without a change (`2edd7bf`; a no-trend prompt, `45c8d13`, failed first) |
+| L8 | narrative guard rejected the radius figures it supplied (9/72) | same breakdown | same file | scope figures count as supplied (`45c8d13`) |
+| L9 | review batch cut to 12 rows **before** removing duplicates | **I3 8/72** in the v2 LLM sweep | `results/v2_llm_before_reviewfix/`; DIAGNOSIS Finding 11 | de-duplicate, then cut (`90ceaac`); re-run on Kaggle: I3 0/72; closes L3's residual |
+| L10 | "model digest" was a hash of the model name | reproducing the record | AI_USE §5.6 | weights digest from Ollama recorded (`ba15231`): `357c53fb…` |
+| L11 | a dead model server made every call fall back silently | a Kaggle run with no model calls for an hour | AI_USE §6.2 | one real call before starting; stop after 10 errors in a row; replies saved every 50 (`c8e6e85`) |
 
 ## 4. Metamorphic relations
 
@@ -78,8 +76,8 @@ commits, `736d594` and `957224c`, so earlier fixes cite the notebook stage).
 |---|---|---|---|---|
 | H1 | control-path signature compared message text | M3's stable subdomain came out empty | DIAGNOSIS Finding 7 | canonical lever sequence |
 | H2 | the synthetic oracle failed twice for its own reasons: a wrong expected median, then multiple comparisons | oracle mismatches on known data | NOTEBOOK Stage 9 | mixture median solved numerically; Bonferroni bound plus a bias z-test |
-| H3 | confidence intervals over runs overstated precision | 0/108 runs vs 0/36 inputs | REPORT §6 | base input is the unit (`4d25530`) |
-| H4 | too few applicable base inputs (M2 24, M3 27, D1 30) | first sweep's counts | NOTEBOOK Stage 6 | strided sample of the full cross product; then 72 inputs (`6ac6098`) |
+| H3 | confidence intervals over runs overstated precision | 0/108 runs vs 0/36 inputs | REPORT §6 | base input is the unit (`ba15231`) |
+| H4 | too few applicable base inputs (M2 24, M3 27, D1 30) | first sweep's counts | NOTEBOOK Stage 6 | strided sample of the full cross product; then 72 inputs (`1d7670e`) |
 | H5 | `base_inputs.csv` does not record locality names | 9 inputs changed unseen (M1raw 72 → 71 inputs) | AI_USE §6.1; NOTEBOOK Stage 20 | detected by regenerating both input sets; **open**: the file still records only the count |
 | H6 | figures quoted without a generating script | trying to regenerate every number | AI_USE §5.6 | `threshold_sensitivity.py` added; "+6.24%" withdrawn |
 | H7 | quoted tables could drift from the result files | — | — | `headline_table.py --check` and `verify_claims.py` rebuild and compare every figure |
@@ -88,8 +86,8 @@ commits, `736d594` and `957224c`, so earlier fixes cite the notebook stage).
 
 | # | Issue | Caught by | Evidence | Resolution |
 |---|---|---|---|---|
-| P1 | git on Windows rewrote line endings in checksum-pinned files | snapshot checksum failed | AI_USE §5.7 | `.gitattributes` `-text` for data, results, golden, audit (`914ea82`) |
-| P2 | scripts crashed reading "₹" as cp1252; a "≠" header crashed redirected output | running on Windows | AI_USE §5.7 | UTF-8 I/O, ASCII headers (`a0c3e16`) |
+| P1 | git on Windows rewrote line endings in checksum-pinned files | snapshot checksum failed | AI_USE §5.7 | `.gitattributes` `-text` for data, results, golden, audit (`bde303c`) |
+| P2 | scripts crashed reading "₹" as cp1252; a "≠" header crashed redirected output | running on Windows | AI_USE §5.7 | UTF-8 I/O, ASCII headers (`02862e5`) |
 | P3 | no Ollama on the Windows laptop | — | — | LLM sweeps run on Kaggle T4; the reply cache makes them replayable without a GPU (`scripts/replay_llm_sweep.py`) |
 | P4 | cancelling one Kaggle cell stopped the first run; the restart made no model calls | progress checks | AI_USE §6.2 | safeguards L11; server started in its own session |
 | P5 | code files in the Kaggle zip had Windows line endings | a patch cell's assertion | AI_USE §6.3 | `git -c core.autocrlf=false archive` |

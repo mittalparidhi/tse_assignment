@@ -1,4 +1,3 @@
-# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """Smoke tests for the Streamlit dashboard (the brief's visual interface).
 
 The dashboard is run headlessly with Streamlit's AppTest: it must render

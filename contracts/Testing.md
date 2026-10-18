@@ -1,7 +1,5 @@
 # TESTING SUBCONTRACT — Hyderabad Housing-Trends Application
 
-> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
-
 **Parent:** `CONTRACT.md` v2.1.0-draft. This file defines the MR catalogue, base inputs, seeds, the harness, statistics and diagnosis. Shared values come from the parent.
 
 **Status:** Draft; implemented.

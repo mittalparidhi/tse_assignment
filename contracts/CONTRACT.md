@@ -1,7 +1,5 @@
 # GLOBAL CONTRACT — Hyderabad Housing-Trends Application
 
-> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
-
 **Contract ID:** TSE-HYD-MT
 **Version:** 2.1.0-draft
 **Authority:** This file is the single source of truth for shared constants, the output contract, metric definitions, the agent graph, loop policies, failure semantics, and invariants. `Data.md`, the six agent contracts (`Criteria.md`, `Retrieval.md`, `Coverage.md`, `Analysis.md`, `Critique.md`, `Aggregator.md`), `LLM.md`, `Testing.md`, and `Golden.md` are subordinate. They may clarify implementation but must not redefine global rules. If one conflicts with this file, the global contract wins and the subordinate clause must be corrected.

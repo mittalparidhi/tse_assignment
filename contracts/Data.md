@@ -1,7 +1,5 @@
 # DATA SUBCONTRACT — Hyderabad Housing-Trends Application
 
-> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
-
 **Parent:** `CONTRACT.md` v2.1.0-draft
 **Status:** Draft. Source fingerprint and defects D1–D6 are verified and handled; D7 is handled by a unique `listing_id`.
 **Scope:** Source freeze, defects, the canonical population and filter cascade, month derivation, identity, and reproducibility checks. The parent controls the output contract, window and loops. In a conflict, update this file rather than silently changing the parent.

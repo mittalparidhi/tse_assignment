@@ -1,4 +1,3 @@
-# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 
 import pandas as pd
 from pathlib import Path

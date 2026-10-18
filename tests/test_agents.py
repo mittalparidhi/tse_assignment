@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: tests for widening and set inclusion,
-# NEEDS_REVIEW, rejection accounting, stable counts. Lines by git blame: Vidhi
-# Jain 57%, Paridhi Mittal 43%. Full attribution: CREDITS.md.
 """The agent graph: cycles must be real, must fire, and must terminate.
 
 Mapped to the brief's three control-flow requirements:

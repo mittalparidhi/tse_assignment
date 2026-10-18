@@ -1,8 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: city selection, GEO_RADIUS switch,
-# request validation, coverage status, the three live agent views, typography.
-# Lines by git blame: Vidhi Jain 49%, Paridhi Mittal 51%. Full attribution:
-# CREDITS.md.
 """Interactive dashboard for the Hyderabad housing-trends agent system.
 
     streamlit run app.py

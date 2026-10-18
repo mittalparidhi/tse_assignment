@@ -1,7 +1,5 @@
 # AGGREGATOR AGENT SUBCONTRACT — Hyderabad Housing-Trends Application
 
-> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
-
 **Parent:** `CONTRACT.md` v2.1.0-draft. **Related:** `Analysis.md`, `LLM.md`. The parent wins on conflicts.
 
 **Status:** Draft; implemented. Phase 3 adds caveats for the new fields.

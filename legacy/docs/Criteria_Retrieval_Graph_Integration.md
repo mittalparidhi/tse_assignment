@@ -1,7 +1,5 @@
 # Criteria → Retrieval → Aggregator graph integration
 
-> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
-
 ## Purpose
 
 `app/filtered_execution.py` connects the typed Criteria Agent and Retrieval Agent to the existing `app.execution_graph.run_execution_graph` orchestration. The Planner callback invokes `run_criteria_agent`; the Scanner callback passes the resulting `CriteriaResult` to `RetrievalAgent.retrieve`; the Aggregator consumes the returned `RetrievalResult.rows`.

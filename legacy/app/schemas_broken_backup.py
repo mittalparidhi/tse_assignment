@@ -1,5 +1,3 @@
-# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
-# attribution: CREDITS.md.
 """Runtime schemas for the Hyderabad housing-trends application.
 
 This module centralizes shared constants and validates request, month, and

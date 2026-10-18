@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: MIN, MAX and midpoint shifted together;
-# shrink_radius for M4. Lines by git blame: Vidhi Jain 91%, Paridhi Mittal 9%.
-# Full attribution: CREDITS.md.
 """Metamorphic input transformations.
 
 Each transformation takes ``(frame, criteria)`` and returns a transformed

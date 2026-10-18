@@ -1,7 +1,5 @@
 # Hyderabad Contract Suite
 
-> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
-
 ## Authority and reading order
 
 1. `CONTRACT.md` — authoritative shared rules and schemas.

@@ -1,6 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: the 36 radius base inputs. Lines by git
-# blame: Vidhi Jain 68%, Paridhi Mittal 32%. Full attribution: CREDITS.md.
 """Base-input generation.
 
 The brief requires at least 30 *distinct base inputs per MR* -- criteria sets

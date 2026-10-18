@@ -1,4 +1,3 @@
-# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """Run every check and keep a timestamped log of it.
 
 Continues the first implementation's convention (``legacy/audit/test_logs/``):

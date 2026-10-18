@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: tests for the data rules and price
-# validity. Lines by git blame: Vidhi Jain 40%, Paridhi Mittal 60%. Full
-# attribution: CREDITS.md.
 """The loader must handle each documented defect, and say so in the log."""
 
 import pandas as pd

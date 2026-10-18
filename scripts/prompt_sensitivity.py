@@ -1,6 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: fixed line endings. Lines by git blame:
-# Vidhi Jain 99%, Paridhi Mittal 1%. Full attribution: CREDITS.md.
 """Which prompts does each metamorphic transformation change?
 
 This is the evidence behind the LLM-mode diagnoses in REPORT.md §8. It needs no

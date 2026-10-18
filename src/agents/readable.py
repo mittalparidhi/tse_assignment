@@ -1,4 +1,3 @@
-# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """A readable form of the execution trace, for the dashboard and the UI export.
 
 The raw trace (``state["trace"]``) logs every field each agent records. This

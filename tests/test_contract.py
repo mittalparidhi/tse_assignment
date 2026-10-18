@@ -1,6 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: tests for the v2.1 fields. Lines by git
-# blame: Vidhi Jain 85%, Paridhi Mittal 15%. Full attribution: CREDITS.md.
 """The output contract must reject malformed reports.
 
 These are guard tests: the contract is the thing every MR asserts on, so a

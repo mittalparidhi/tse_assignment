@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: tests for the new fields and filters.
-# Lines by git blame: Vidhi Jain 50%, Paridhi Mittal 50%. Full attribution:
-# CREDITS.md.
 """The deterministic core: criteria filtering, window arithmetic, statistics."""
 
 import pandas as pd

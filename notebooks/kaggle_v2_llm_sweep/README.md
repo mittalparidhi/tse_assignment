@@ -1,7 +1,5 @@
 # The Kaggle job that produced `results/v2_llm/`
 
-> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
-
 `run_sweep.py` is the script kernel that ran the final contract-v2 LLM sweep on
 a Kaggle T4 (16 October 2026). It checks the code (`src/agents/nodes.py`) and
 the raw data by checksum, restores the saved model replies, runs the tests,

@@ -1,7 +1,5 @@
 # Metamorphic Testing of a Multi-Agent Housing-Trends Application
 
-> **Credits:** rewritten for the v2 results and cut to 10 pages by Paridhi Mittal, starting from Vidhi Jain's first report (commit 957224c). Lines by git blame: Paridhi Mittal 82%, Vidhi Jain 18%. Full attribution: CREDITS.md.
-
 **TSE Assignment — Final Report**
 Market: Hyderabad / Secunderabad (the brief's optional Indian-metro route)
 

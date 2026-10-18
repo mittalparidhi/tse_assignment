@@ -1,5 +1,3 @@
-# Credits: Paridhi Mittal (first implementation, 11-12 Oct 2026). Full
-# attribution: CREDITS.md.
 """Run and print all example Criteria Agent requests as normalized JSON."""
 from __future__ import annotations
 

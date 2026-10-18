@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: relation M4; checks on the v2.1 fields;
-# explicit M3 check. Lines by git blame: Vidhi Jain 80%, Paridhi Mittal 20%.
-# Full attribution: CREDITS.md.
 """The metamorphic relation catalogue. Twelve relations, three families.
 
 Each relation is a statement about ``TrendReport`` fields and nothing else

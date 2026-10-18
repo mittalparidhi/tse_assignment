@@ -1,7 +1,5 @@
 # RETRIEVAL AGENTS SUBCONTRACT — Hyderabad Housing-Trends Application
 
-> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
-
 **Parent:** `CONTRACT.md` v2.1.0-draft. **Related:** `Criteria.md`, `Coverage.md`, `Data.md`. The parent wins on conflicts.
 
 **Status:** Draft; implemented.

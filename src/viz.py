@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: before-critique overlay,
-# threshold-sensitivity bars, typography. Lines by git blame: Vidhi Jain 72%,
-# Paridhi Mittal 28%. Full attribution: CREDITS.md.
 """Chart builders for the dashboard.
 
 Design rules applied deliberately:

@@ -1,7 +1,5 @@
 # GOLDEN VECTORS AND REGRESSION ORACLES — Hyderabad Housing-Trends Application
 
-> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
-
 **Parent:** `CONTRACT.md` v2.1.0-draft.
 **Purpose:** Frozen expected outputs that detect unintended changes to the statistics and the agent pipeline on the real snapshot.
 **Status:** Draft. The vectors in `tests/golden/deterministic_baseline.json` were regenerated in Phase 3 for contract v2 (IST months, Price-on-Request exclusion, `MAX_PRICE` validity, new fields).

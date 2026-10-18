@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: ignores for scratch results and local
-# folders. Lines by git blame: Vidhi Jain 0%, Paridhi Mittal 100%. Full
-# attribution: CREDITS.md.
 # Environment
 .venv/
 venv/

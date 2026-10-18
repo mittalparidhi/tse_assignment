@@ -1,4 +1,3 @@
-# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """Request validation (contracts/Criteria.md §3-4).
 
 Ported from the first implementation's ``tests/test_criteria_agent.py``:

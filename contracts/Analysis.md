@@ -1,7 +1,5 @@
 # ANALYSIS AGENT SUBCONTRACT — Hyderabad Housing-Trends Application
 
-> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
-
 **Parent:** `CONTRACT.md` v2.1.0-draft. **Related:** `Critique.md`, `Data.md`, `LLM.md`. The parent wins on conflicts.
 
 **Status:** Draft; implemented. New output fields are added in Phase 3; rejection accounting is fixed in Phase 4.

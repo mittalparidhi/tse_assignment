@@ -1,7 +1,5 @@
 # Design Note — Metamorphic Testing of a Multi-Agent Housing-Trends Application
 
-> **Credits:** written by Vidhi Jain (commits 736d594, 957224c), following Paridhi Mittal's original design note; updated for contract v2.1 by Paridhi Mittal. Lines by git blame: Vidhi Jain 79%, Paridhi Mittal 21%. Full attribution: CREDITS.md.
-
 **Target market:** Hyderabad / Secunderabad (the brief's optional Indian-metro route)
 **Deliverable stage:** design note (architecture + data source + MR sketches)
 **Updated for contract v2.1.0-draft** after the two team implementations were

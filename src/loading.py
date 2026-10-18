@@ -1,8 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: months in IST, price-validity flags,
-# Price on Request, midpoint price, locality_id, unique listing_id, fixed line
-# endings. Lines by git blame: Vidhi Jain 73%, Paridhi Mittal 27%. Full
-# attribution: CREDITS.md.
 """Raw 99acres snapshot -> canonical listings frame.
 
 Each filter below is tied to a defect verified in the frozen snapshot. The

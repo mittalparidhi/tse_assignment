@@ -1,7 +1,5 @@
 # TESTING SUBCONTRACT — Hyderabad Housing-Trends Application
 
-> **Credits:** Paridhi Mittal (first implementation, 11-12 Oct 2026). Full attribution: CREDITS.md.
-
 **Parent:** `CONTRACT.md` v1.0.0-draft. This file defines oracle, metamorphic testing, sample eligibility, and reporting. Shared values come from the global contract.
 
 ## 1. Test boundary and oracle

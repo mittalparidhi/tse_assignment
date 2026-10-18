@@ -1,7 +1,3 @@
-# Credits: written by Vidhi Jain (second implementation, commits 736d594 and
-# 957224c); changed by Paridhi Mittal: repaired; writes all canonical columns.
-# Lines by git blame: Vidhi Jain 83%, Paridhi Mittal 17%. Full attribution:
-# CREDITS.md.
 """Root-cause analysis of the three most-violated relations.
 
 The brief requires each top violation to be attributed, with evidence, to one

@@ -1,7 +1,5 @@
 # Root-Cause Analysis — detailed experiment log
 
-> **Credits:** Findings 1-9 by Vidhi Jain (commits 736d594, 957224c); Findings 10-11 and the pre-v2 sections moved from the report by Paridhi Mittal. Lines by git blame: Vidhi Jain 86%, Paridhi Mittal 14%. Full attribution: CREDITS.md.
-
 **Relationship to the report.** §8 of `REPORT.md` is the summary a reader needs;
 this file is the full log, with every controlled experiment's table and the
 order in which hypotheses were raised and discarded. Where the two differ in
@@ -653,7 +651,7 @@ distinct listings in the source run and 8 in the duplicated run. *Cause:*
 then removed duplicates; doubling the rows left fewer distinct listings in the
 cut, and a verdict reached only the twins inside it (2 × 141 + 1). *Fix:*
 de-duplicate, then cut, and apply each verdict to every row with that content
-(`98c741e`). *Re-measured* on Kaggle (`results/v2_llm/`): I3 **0/72**, D2
+(`90ceaac`). *Re-measured* on Kaggle (`results/v2_llm/`): I3 **0/72**, D2
 20 → 19, nothing else changed. This closes the pre-v2 residual (0.176) that
 was pinned as a strict xfail "not fully isolated".
 **Verdict: genuine agent fault.**

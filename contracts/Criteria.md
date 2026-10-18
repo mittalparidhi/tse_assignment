@@ -1,7 +1,5 @@
 # CRITERIA AGENT SUBCONTRACT — Hyderabad Housing-Trends Application
 
-> **Credits:** Paridhi Mittal. Full attribution: CREDITS.md.
-
 **Parent:** `CONTRACT.md` v2.1.0-draft. **Related:** `Data.md`, `LLM.md`, `Retrieval.md`. The parent wins on conflicts.
 
 **Status:** Draft; implemented. Request validation was ported from v1 (`legacy/app/criteria_agent.py`) in Phase 3.

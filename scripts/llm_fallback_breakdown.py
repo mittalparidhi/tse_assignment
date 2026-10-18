@@ -1,4 +1,3 @@
-# Credits: Paridhi Mittal. Full attribution: CREDITS.md.
 """Which LLM agent falls back, and why, on the harness's base inputs.
 
 Replays each base input once (seed 11, the source run every relation starts
